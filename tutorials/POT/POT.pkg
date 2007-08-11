@@ -1,0 +1,65 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>POT</refname>
+        <refpurpose>This is documenation of POT - official toolkit for {@link http://www.otserv-aac.info/ OTServ AAC scripts}.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>
+            Wrzasq
+            <authorblurb>{@link mailto:wrzasq@gmail.com Wrzasq}</authorblurb>
+        </author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id purpose}">
+        <title>PHP OTServ Toolkit</title>
+        <para>
+        There are several purposes why POT was created:
+        </para>
+        <itemizedlist>
+            <listitem>Just because it was needed - OTServ should have had that long time ago.</listitem>
+            <listitem>To unify AAC scripts - there are tons of them, and you never know how to write even a single line of code to them as each of them are created different way.</listitem>
+            <listitem>To provide reliable way of database accessing - most of people who create AAC scripts are (to be honest...) idiots - they don't know what PHP is, how to use it, they just "want to make own AAC script".</listitem>
+            <listitem>To provide easy interface - people who write in PHP want to write in PHP, not using SQL, XML and many other languages. POT provides abstract PHP interface for data stored in database.</listitem>
+        </itemizedlist>
+        <para>
+        POT has been created for latest SVN release, it won't work with old database structure as well as with broken database - it ralies on database foreign key contraints, triggers etc.
+        </para>
+        <refsect2 id="{@id requirements}">
+            <title>System requirements</title>
+            <para>
+            To use POT you need {@link http://www.php.net/ PHP} version at lease 5.0 with {@link http://www.php.net/manual/en/ref.pdo.php PDO extension installed} (so it means you will mostly need PHP 5.1, but it is possible to download PDO as external libraries for PHP 5.0.x).
+            </para>
+        </refsect2>
+        <refsect2 id="{@id what_id}">
+            <title>What POT is</title>
+            <para>
+            POT is a toolkit/library for accessing OTServ database from PHP. It provides PHP classes that represents OTServ database inforation as an objects.
+            </para>
+        </refsect2>
+        <refsect2 id="{@id what_is_not}">
+            <title>What POT is not</title>
+            <itemizedlist>
+                <listitem>It is not AAC script - this is a toolkit for making them, but you can't directly run it as website. It has only programming interface.</listitem>
+                <listitem>It is not application/system framework - you won't create website with only POT. POT has only functionality connected with OTServ database, it doesn't contain for example templates engine. You also won't be able to use it as an ordinary database connection engine - it makes use of {@link http://www.php.net/manual/en/ref.pdo.php PDO} so you can use PDO by itself, POT doesnt provide any additional universal functionality. All it's classes are strictly connected with OTServ database.</listitem>
+            </itemizedlist>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id xml}">
+        <title>What about XML?</title>
+        <para>
+        Sorry to say, XML guys - go out. OTServ will never leave XML - it is good to store some flat parts of database there. But not for main database which requires more advanced relationship between data. However of course maybe someone would want to create DB_XML driver for POT? If you realy are a masochist - you're welcome, we will be glad to contribute with you ;).
+        </para>
+        <para>
+        If you are interested in why XML so sux, and you with it, check out {@link http://otfans.net/showthread.php?t=25188 OTFans thread}.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id use}">
+        <title>How to use</title>
+        <para>
+        This is toolkit - set of classes/methods for OTServ database. It abstracts database mechanisms for you so you can work on "physical" PHP objects. But you must know how to use them. This documentation describes some basic steps and toolkit API, but you must know PHP in order to make use of them - the best place to get some knowledge is {@link http://www.php.net/manual/en/ PHP manual}.
+        </para>
+        <para>
+        Don't copy any of included examples, neither codes provided as examples - they probably won't work. Mainly it's because you have to put your database configuration into them and your script paths. But it's not enought. If you have your own __autoload() mechanism you won't be able to just inlude example codes - you would need to redefine __autoload() function, which PHP doesnt allow to (but you should know that very well). Example codes are examples - write your own (if you want them to work the best way for you).
+        </para>
+    </refsect1>
+</refentry>

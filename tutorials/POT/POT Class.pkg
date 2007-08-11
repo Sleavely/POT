@@ -1,0 +1,37 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>POT class preview</refname>
+        <refpurpose>Here main POT class will be described in more guided way.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>
+            Wrzasq
+            <authorblurb>{@link mailto:wrzasq@gmail.com Wrzasq}</authorblurb>
+        </author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id intro}">
+        <title>What it is</title>
+        <para>
+        {@link POT POT} class is main class of this toolkit. You will access any other classes using this one. It creates for you instances of other classes when you call it's methods and handles class files loading.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id instance}">
+        <title>Creating instance of POT class</title>
+        <para>
+        To get POT object you have to use {@link POT::getInstance() POT::getInstance()} static method. You should never ever create POT class instances directly! POT::getInstance() will save static instance and return it globaly so you won't need to re-create instances of this class. It is important, as object of this class contains another resources like database connection, or classes directory path so after creating new instance it would not contain them from previous one.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id __autoload}">
+        <title>__autoload() and POT classes</title>
+        <para>
+        PHP5 provides nice {@link http://www.php.net/manual/en/language.oop5.autoload.php autoloading mechanism}. You can combine {@link POT::loadClass() POT class loading mechanism} with it. For example: {@example examples/autoload.php}
+        </para>
+    </refsect1>
+    <refsect1 id="{@id dao}">
+        <title>DAO classes</title>
+        <para>
+        Key part of this toolbox are Data Access Objects which provides abstraction layer in PHP for plain database data. You create them via main POT class using {@link POT::createObject() createObject() method}.
+        </para>
+    </refsect1>
+</refentry>
