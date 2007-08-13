@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>connect.php</title>
+	<title>autoload.php</title>
 	<link rel="stylesheet" type="text/css" href="../media/style.css">
 	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
 </head>
@@ -30,8 +30,8 @@
 		<div class="package-title">POT</div>
   <div class="package">
 	<div id="ric">
-					<p><a href="../ric_CHANGELOG.html">CHANGELOG</a></p>
 					<p><a href="../ric_INSTALL.html">INSTALL</a></p>
+					<p><a href="../ric_CHANGELOG.html">CHANGELOG</a></p>
 					<p><a href="../ric_NEWS.html">NEWS</a></p>
 					<p><a href="../ric_README.html">README</a></p>
 			</div>
@@ -46,7 +46,7 @@
     <td>
       <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
 
-<h1 align="center">connect.php</h1>
+<h1 align="center">autoload.php</h1>
 <div class="src-code"><span class="php">
 <ol><li><div class="src-line"><span class="src-php">&lt;?php</span></div></li>
 <li><div class="src-line">&nbsp;</div></li>
@@ -61,27 +61,28 @@
 <li><div class="src-line"><span class="src-comm">//&nbsp;includes&nbsp;POT&nbsp;main&nbsp;file</span></div></li>
 <li><div class="src-line"><span class="src-inc">include</span><span class="src-sym">(</span><span class="src-str">'../classes/OTS.php'</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
 <li><div class="src-line">&nbsp;</div></li>
-<li><div class="src-line"><span class="src-comm">//&nbsp;you&nbsp;can&nbsp;easily&nbsp;store&nbsp;such&nbsp;structure&nbsp;in&nbsp;config.php</span></div></li>
-<li><div class="src-line"><span class="src-var">$config&nbsp;</span>=&nbsp;<span class="src-key">array</span><span class="src-sym">(</span></div></li>
-<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'driver'&nbsp;</span>=&gt;&nbsp;<span class="src-id"><a href="../POT/POT.html">POT</a></span><span class="src-sym">::</span><span class="src-id">DB_MYSQL</span><span class="src-sym">,</span></div></li>
-<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'prefix'&nbsp;</span>=&gt;&nbsp;<span class="src-str">''</span><span class="src-sym">,</span></div></li>
-<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'host'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'localhost'</span><span class="src-sym">,</span></div></li>
-<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'user'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'wrzasq'</span><span class="src-sym">,</span></div></li>
-<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'password'&nbsp;</span>=&gt;&nbsp;<span class="src-str">''</span><span class="src-sym">,</span></div></li>
-<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-str">'database'&nbsp;</span>=&gt;&nbsp;<span class="src-str">'otserv'</span></div></li>
-<li><div class="src-line"><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
-<li><div class="src-line">&nbsp;</div></li>
-<li><div class="src-line"><span class="src-comm">//&nbsp;connects&nbsp;to&nbsp;database</span></div></li>
-<li><div class="src-line"><span class="src-var">$ots&nbsp;</span>=&nbsp;<span class="src-id"><a href="../POT/POT.html">POT</a></span><span class="src-sym">::</span><a href="../POT/POT.html#methodgetInstance">getInstance</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
-<li><div class="src-line"><span class="src-var">$ots</span><span class="src-sym">-&gt;</span><a href="../POT/POT.html#methodconnect">connect</a><span class="src-sym">(</span><span class="src-id">null</span><span class="src-sym">,&nbsp;</span><span class="src-var">$config</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
-<li><div class="src-line"><span class="src-comm">//&nbsp;could&nbsp;be:&nbsp;$ots-&gt;connect(POT::DB_MYSQL,&nbsp;$config);</span></div></li>
+<li><div class="src-line"><span class="src-key">function&nbsp;</span><span class="src-id">__autoload</span><span class="src-sym">(</span><span class="src-var">$class</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line"><span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-comm">//&nbsp;checks&nbsp;if&nbsp;it's&nbsp;POT&nbsp;class</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-key">if</span><span class="src-sym">(&nbsp;</span><a href="http://www.php.net/preg_match">preg_match</a><span class="src-sym">(</span><span class="src-str">'/^I?OTS_/'</span><span class="src-sym">,&nbsp;</span><span class="src-var">$class</span><span class="src-sym">)&nbsp;</span>!=&nbsp;<span class="src-num">0</span><span class="src-sym">)</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">{</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-id"><a href="../POT/POT.html">POT</a></span><span class="src-sym">::</span><a href="../POT/POT.html#methodgetInstance">getInstance</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">-&gt;</span><a href="../POT/POT.html#methodloadClass">loadClass</a><span class="src-sym">(</span><span class="src-var">$class</span><span class="src-sym">)</span><span class="src-sym">;</span></div></li>
+<li><div class="src-line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="src-sym">}</span></div></li>
+<li><div class="src-line"><span class="src-comm">/*</span></div></li>
+<li><div class="src-line"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;possibly&nbsp;call&nbsp;your&nbsp;own&nbsp;__autoload()&nbsp;handler</span></div></li>
+<li><div class="src-line"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;else</span></div></li>
+<li><div class="src-line"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;{</span></div></li>
+<li><div class="src-line"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;here&nbsp;comes&nbsp;your&nbsp;stuff...</span></div></li>
+<li><div class="src-line"><span class="src-comm">&nbsp;&nbsp;&nbsp;&nbsp;}</span></div></li>
+<li><div class="src-line"><span class="src-comm">*/</span></div></li>
+<li><div class="src-line"><span class="src-sym">}</span></div></li>
 <li><div class="src-line">&nbsp;</div></li>
 <li><div class="src-line"><span class="src-php">?&gt;</span></div></li>
 </ol>
 </span></div>
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Sat, 11 Aug 2007 17:40:01 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.2</a>
+		    Documentation generated on Mon, 13 Aug 2007 17:33:01 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.2</a>
 	      </div>
       </td></tr></table>
     </td>

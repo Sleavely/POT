@@ -1,6 +1,7 @@
 all: clean check documentation pdf test
 
 clean:
+	find . -name "*~" -exec rm {} -v \;
 	rm -f documentation.pdf
 	rm -rf documentation
 

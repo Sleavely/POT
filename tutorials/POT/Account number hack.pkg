@@ -1,0 +1,16 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Account number hack</refname>
+        <refpurpose>Example code of how to use prepared account number instead of random.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id startup}">
+        <title>Walkaround</title>
+        <para>
+        POT always generates random account number - {@link http://otfans.net/showthread.php?t=8643 it is the way your script should work}. It is done that way with premeditation. However you can walk aroud it with simple code: {@example examples/hack.php}
+        </para>
+    </refsect1>
+</refentry>

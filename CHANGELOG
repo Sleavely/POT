@@ -1,2 +1,7 @@
+[SVN]
+* Fixed `redskulltime` field name in OTS_Player. <wrzasq>
+* Documentation fixes. <wrzasq>
+* Additional info/example. <wrzasq>
+
 [0.0.1]
 * Initial release. <wrzasq>
