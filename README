@@ -47,11 +47,12 @@ phpunit: PHPUnit testing framework.
 
 Possible targets:
 
-all: default one, runs all other targets (in order: clean, check, documentation, pdf, test).
+all: default one, runs all other targets (in order: clean, check, documentation, pdf, otserv-aac, test).
 clean: deletes documentation.
 check: checks syntax of all PHP files.
 documentation: generates HTML documentation.
 pdf: generates PDF documentation.
+otserv-aac: OTServ-AAC website documentation template used.
 test: runs test suite.
 
 For more readable output of phpUnit test run:
@@ -62,4 +63,3 @@ php test.php
 
 
     * Wrzasq <wrzasq@gmail.com> - project initiator, main developer.
-

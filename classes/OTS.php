@@ -8,6 +8,7 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
+ * @version 0.0.1+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,6 +18,7 @@
  * Main POT class.
  * 
  * @package POT
+ * @version 0.0.1+SVN
  */
 class POT
 {
@@ -75,6 +77,49 @@ class POT
  * West.
  */
     const DIRECTION_WEST = 3;
+
+/**
+ * Fist fighting.
+ * 
+ * @version 0.0.1+SVN
+ */
+    const SKILL_FIST = 0;
+/**
+ * Club fighting.
+ * 
+ * @version 0.0.1+SVN
+ */
+    const SKILL_CLUB = 1;
+/**
+ * Sword fighting.
+ * 
+ * @version 0.0.1+SVN
+ */
+    const SKILL_SWORD = 2;
+/**
+ * Axe fighting.
+ * 
+ * @version 0.0.1+SVN
+ */
+    const SKILL_AXE = 3;
+/**
+ * Distance fighting.
+ * 
+ * @version 0.0.1+SVN
+ */
+    const SKILL_DISTANCE = 4;
+/**
+ * Shielding.
+ * 
+ * @version 0.0.1+SVN
+ */
+    const SKILL_SHIELDING = 5;
+/**
+ * Fishing.
+ * 
+ * @version 0.0.1+SVN
+ */
+    const SKILL_FISHING = 6;
 
 /**
  * Singleton.

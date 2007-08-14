@@ -4,10 +4,7 @@
         <refpurpose>Here main POT class will be described in more guided way.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <author>
-            Wrzasq
-            <authorblurb>{@link mailto:wrzasq@gmail.com Wrzasq}</authorblurb>
-        </author>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
     </refsynopsisdiv>
     {@toc}
     <refsect1 id="{@id intro}">

@@ -6,6 +6,7 @@
 
 /**
  * @package POT
+ * @version 0.0.1+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -15,6 +16,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
+ * @version 0.0.1+SVN
  */
 class OTS_Account implements IOTS_DAO
 {
@@ -113,6 +115,24 @@ class OTS_Account implements IOTS_DAO
     {
         // SELECT query on database
         $this->data = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ', ' . $this->db->fieldName('premdays') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+    }
+
+/**
+ * Loads account by it's e-mail address.
+ * 
+ * @version 0.0.1+SVN
+ * @param string $email Account's e-mail address.
+ */
+    public function find($email)
+    {
+        // finds player's ID
+        $id = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('email') . ' = ' . $this->db->SQLquote($email) )->fetch();
+
+        // if anything was found
+        if( isset($id['id']) )
+        {
+            $this->load($id['id']);
+        }
     }
 
 /**

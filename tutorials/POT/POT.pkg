@@ -4,16 +4,13 @@
         <refpurpose>This is documenation of POT - official toolkit for {@link http://www.otserv-aac.info/ OTServ AAC scripts}.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <author>
-            Wrzasq
-            <authorblurb>{@link mailto:wrzasq@gmail.com Wrzasq}</authorblurb>
-        </author>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
     </refsynopsisdiv>
     {@toc}
     <refsect1 id="{@id purpose}">
         <title>PHP OTServ Toolkit</title>
         <para>
-        There are several purposes why POT was created:
+        There are several reasons why POT was created:
         </para>
         <itemizedlist>
             <listitem>Just because it was needed - OTServ should have had that long time ago.</listitem>
@@ -61,5 +58,20 @@
         <para>
         Don't copy any of included examples, neither codes provided as examples - they probably won't work. Mainly it's because you have to put your database configuration into them and your script paths. But it's not enought. If you have your own __autoload() mechanism you won't be able to just inlude example codes - you would need to redefine __autoload() function, which PHP doesnt allow to (but you should know that very well). Example codes are examples - write your own (if you want them to work the best way for you).
         </para>
+    </refsect1>
+    <refsect1 id="{@id link}">
+        <title>Link</title>
+        <para>
+        If you use POT in your script and want to show that you can put this image on your website:
+        </para>
+        <graphic fileref="http://www.otserv-aac.info/pot.png" format="PNG"/>
+        <para>
+        You can use following code for that:
+        </para>
+        <programlisting role="tutorial">
+&lt;a href="http://www.otserv-aac.info/pot/"&gt;
+    &lt;img alt="This site was smoked" src="http://www.otserv-aac.info/pot.png"/&gt;
+&lt;/a&gt;
+        </programlisting>
     </refsect1>
 </refentry>

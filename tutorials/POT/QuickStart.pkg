@@ -4,10 +4,7 @@
         <refpurpose>Quick start guide.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
-        <author>
-            Wrzasq
-            <authorblurb>{@link mailto:wrzasq@gmail.com Wrzasq}</authorblurb>
-        </author>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
     </refsynopsisdiv>
     {@toc}
     <refsect1 id="{@id startup}">
