@@ -1,15 +1,9 @@
 List of things to be done:
 
-* Load account by e-mail.
-
-* Skills support.
-
+* List objects sorting/criteria-based loading.
 * Nice items management, with containers tree.
-
 * Guilds, guild management.
-
 * Server info request.
-
 * Items list (items.xml + items.otb -> cache).
 * Spawns support (OTBM support -> cache).
 

@@ -39,6 +39,7 @@ class OTS_Player implements IOTS_DAO
  * Player skills.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  * @var array
  */
     private $skills = array();
@@ -77,6 +78,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Loads player by it's name.
  * 
+ * @since 0.0.1+SVN
  * @param string $name Player's name.
  */
     public function find($name)
@@ -1124,6 +1126,7 @@ class OTS_Player implements IOTS_DAO
  * Returns player's skill.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  * @param int $skill Skill ID.
  * @return int Skill value.
  */
@@ -1142,6 +1145,7 @@ class OTS_Player implements IOTS_DAO
  * Sets skill value.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  * @param int $skill Skill ID.
  * @param int $value Skill value.
  */
@@ -1154,6 +1158,7 @@ class OTS_Player implements IOTS_DAO
  * Returns player's skill's tries for next level.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  * @param int $skill Skill ID.
  * @return int Skill tries.
  */
@@ -1172,6 +1177,7 @@ class OTS_Player implements IOTS_DAO
  * Sets skill's tries for next level.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  * @param int $skill Skill ID.
  * @param int $tries Skill tries.
  */

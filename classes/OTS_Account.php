@@ -121,6 +121,7 @@ class OTS_Account implements IOTS_DAO
  * Loads account by it's e-mail address.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  * @param string $email Account's e-mail address.
  */
     public function find($email)

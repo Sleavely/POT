@@ -82,42 +82,49 @@ class POT
  * Fist fighting.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  */
     const SKILL_FIST = 0;
 /**
  * Club fighting.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  */
     const SKILL_CLUB = 1;
 /**
  * Sword fighting.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  */
     const SKILL_SWORD = 2;
 /**
  * Axe fighting.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  */
     const SKILL_AXE = 3;
 /**
  * Distance fighting.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  */
     const SKILL_DISTANCE = 4;
 /**
  * Shielding.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  */
     const SKILL_SHIELDING = 5;
 /**
  * Fishing.
  * 
  * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
  */
     const SKILL_FISHING = 6;
 
@@ -133,7 +140,7 @@ class POT
         // creates new instance
         if( !isset($instance) )
         {
-            $instance = new POT();
+            $instance = new self;
         }
 
         return $instance;

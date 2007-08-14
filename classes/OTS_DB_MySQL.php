@@ -80,7 +80,7 @@ class OTS_DB_MySQL extends PDO implements IOTS_DB
 
         if( isset($params['password']) )
         {
-            $password = 'password=' . $params['password'];
+            $password = $params['password'];
         }
 
         if( isset($params['prefix']) )
