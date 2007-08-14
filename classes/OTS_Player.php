@@ -1129,6 +1129,12 @@ class OTS_Player implements IOTS_DAO
  */
     public function getSkill($skill)
     {
+        if( !isset($this->skills[$skill]) )
+        {
+            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
+            return false;
+        }
+
         return $this->skills[$skill]['value'];
     }
 
@@ -1153,6 +1159,12 @@ class OTS_Player implements IOTS_DAO
  */
     public function getSkillTries($skill)
     {
+        if( !isset($this->skills[$skill]) )
+        {
+            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
+            return false;
+        }
+
         return $this->skills[$skill]['tries'];
     }
 
