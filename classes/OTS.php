@@ -280,8 +280,6 @@ class POT
 /**
  * Creates OTServ DAO class instance.
  * 
- * Currently it means Account, or Player object.
- * 
  * @param string $class Class name.
  * @return IOTS_DAO OTServ database object.
  */
@@ -289,6 +287,59 @@ class POT
     {
         $class = 'OTS_' . $class;
         return new $class($this->db);
+    }
+
+/**
+ * Queries server status.
+ * 
+ * Sends 'info' packet to OTS server and return output.
+ * 
+ * @version 0.0.1+SVN
+ * @since 0.0.1+SVN
+ * @param string $server Server IP/domain.
+ * @param int $port OTServ port.
+ * @return OTS_InfoRespond|bool Respond content document (false when server is offline).
+ * @example examples/info.php
+ */
+    public function serverStatus($server, $port)
+    {
+        // connects to server
+        // gives maximum 5 seconds to connect
+        $socket = fsockopen($server, $port, $error, $message, 5);
+
+        // if connected then checking statistics
+        if($socket)
+        {
+            // sets 5 second timeout for reading and writing
+            stream_set_timeout($socket, 5);
+
+            // sends packet with request
+            // 06 - length of packet, 255, 255 is the comamnd identifier, 'info' is a request
+            fwrite($socket, chr(6).chr(0).chr(255).chr(255).'info');
+
+            // reads respond
+            $data = stream_get_contents($socket);
+
+            // closing connection to current server
+            fclose($socket);
+
+            // sometimes server returns empty info
+            if( empty($data) )
+            {
+                // returns offline state
+                return false;
+            }
+
+            // loads respond XML
+            $info = new OTS_InfoRespond();
+            $info->loadXML($data);
+            return $info;
+        }
+        // returns offline state
+        else
+        {
+            return false;
+        }
     }
 }
 

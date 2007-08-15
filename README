@@ -8,7 +8,7 @@ This toolkit provides a way for PHP programmers that don't know SQL langauge to 
 
 For installation help check INSTALL file.
 
-For usage tutorial/API documentation check documentation/index.html or documentation.pdf files.
+For usage tutorial/API documentation check http://www.otserv-aac.info/pot/ or documentation.pdf file.
 
 
 ===== Contact =====
@@ -21,7 +21,6 @@ In case of any contact needed, please use following e-mail address: wrzasq@gmail
 
 
 classes/ - POT class files.
-documenation/ - phpDocumentor-generater documentation.
 examples/ - example files for learning.
 tutorials/ - phpDocumentor directory.
 BUGS - known bugs.
@@ -33,6 +32,7 @@ README - this readme file.
 RULES - rules to be followed during developing contributed code.
 TODO - list of things to be done.
 Makefile - make input, for documentation generation.
+documentation.pdf - phpDocumentor-generater documentation in PDF format.
 test.php - phpUnit test suite.
 
 
@@ -47,13 +47,14 @@ phpunit: PHPUnit testing framework.
 
 Possible targets:
 
-all: default one, runs all other targets (in order: clean, check, documentation, pdf, otserv-aac, test).
+all: default one, runs all other targets (in order: clean, check, documentation, pdf, online, test, package).
 clean: deletes documentation.
 check: checks syntax of all PHP files.
 documentation: generates HTML documentation.
 pdf: generates PDF documentation.
-otserv-aac: OTServ-AAC website documentation template used.
+online: OTServ-AAC website documentation template used.
 test: runs test suite.
+package: creates pot.zip file for distribution purposes.
 
 For more readable output of phpUnit test run:
 php test.php

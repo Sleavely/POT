@@ -1,0 +1,22 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Server online status</refname>
+        <refpurpose>This tutorial will describe how to test server status with POT.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id example}">
+        <title>Such a simple way</title>
+        <para>
+        {@link POT POT class} contains {@link POT::serverStatus() serverStatus() method} which sends 'info' packet to OTS and handles results. It returns object of class {@link OTS_InfoRespond OTS_InfoRespond} which provides access methods for all OTServ respond info. It will return false if server is offline. Here is a simple example of this method usage: {@example examples/info.php}
+        </para>
+    </refsect1>
+    <refsect1 id="{@id dom}">
+        <title>DOM way</title>
+        <para>
+        In case you would want to use this method for some non-SVN server which contains custom fields in respond packet you can still use it. OTS_InfoRespond class is child of DOMDocument class and doesn't overwrite it's interface neither behaviour in any way. Returned object is standard DOM document so you can work with it in standard DOM-way.
+        </para>
+    </refsect1>
+</refentry>
