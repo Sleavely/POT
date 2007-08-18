@@ -18,12 +18,12 @@
         <para>
         To get POT object you have to use {@link POT::getInstance() POT::getInstance()} static method. You should never ever create POT class instances directly! POT::getInstance() will save static instance and return it globaly so you won't need to re-create instances of this class. It is important, as object of this class contains another resources like database connection, or classes directory path so after creating new instance it would not contain them from previous one.
         </para>
-    </refsect1>
-    <refsect1 id="{@id __autoload}">
-        <title>__autoload() and POT classes</title>
-        <para>
-        PHP5 provides nice {@link http://www.php.net/manual/en/language.oop5.autoload.php autoloading mechanism}. You can combine {@link POT::loadClass() POT class loading mechanism} with it. For example: {@example examples/autoload.php}
-        </para>
+        <refsect2 id="{@id autoload}">
+            <title>__autoload() and POT classes</title>
+            <para>
+            PHP5 provides nice {@link http://www.php.net/manual/en/language.oop5.autoload.php autoloading mechanism}. POT makes use of {@link http://www.php.net/manual/en/function.spl-autoload-register.php spl_autoload_register() function} to bind own mechanism with it automaticly. If you have your own __autoload function defined, after including POT class you have to register your function with spl_autoload_register() aswell.
+            </para>
+        </refsect2>
     </refsect1>
     <refsect1 id="{@id dao}">
         <title>DAO classes</title>

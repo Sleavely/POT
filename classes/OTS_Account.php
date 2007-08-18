@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.1+SVN
+ * @version 0.0.2
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.0.1+SVN
+ * @version 0.0.2
  */
 class OTS_Account implements IOTS_DAO
 {
@@ -120,8 +120,8 @@ class OTS_Account implements IOTS_DAO
 /**
  * Loads account by it's e-mail address.
  * 
- * @version 0.0.1+SVN
- * @since 0.0.1+SVN
+ * @version 0.0.2
+ * @since 0.0.2
  * @param string $email Account's e-mail address.
  */
     public function find($email)

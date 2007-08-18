@@ -8,7 +8,7 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.0.1+SVN
+ * @version 0.0.2
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -18,7 +18,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.0.1+SVN
+ * @version 0.0.2
  */
 class POT
 {
@@ -81,50 +81,50 @@ class POT
 /**
  * Fist fighting.
  * 
- * @version 0.0.1+SVN
- * @since 0.0.1+SVN
+ * @version 0.0.2
+ * @since 0.0.2
  */
     const SKILL_FIST = 0;
 /**
  * Club fighting.
  * 
- * @version 0.0.1+SVN
- * @since 0.0.1+SVN
+ * @version 0.0.2
+ * @since 0.0.2
  */
     const SKILL_CLUB = 1;
 /**
  * Sword fighting.
  * 
- * @version 0.0.1+SVN
- * @since 0.0.1+SVN
+ * @version 0.0.2
+ * @since 0.0.2
  */
     const SKILL_SWORD = 2;
 /**
  * Axe fighting.
  * 
- * @version 0.0.1+SVN
- * @since 0.0.1+SVN
+ * @version 0.0.2
+ * @since 0.0.2
  */
     const SKILL_AXE = 3;
 /**
  * Distance fighting.
  * 
- * @version 0.0.1+SVN
- * @since 0.0.1+SVN
+ * @version 0.0.2
+ * @since 0.0.2
  */
     const SKILL_DISTANCE = 4;
 /**
  * Shielding.
  * 
- * @version 0.0.1+SVN
- * @since 0.0.1+SVN
+ * @version 0.0.2
+ * @since 0.0.2
  */
     const SKILL_SHIELDING = 5;
 /**
  * Fishing.
  * 
- * @version 0.0.1+SVN
- * @since 0.0.1+SVN
+ * @version 0.0.2
+ * @since 0.0.2
  */
     const SKILL_FISHING = 6;
 
@@ -187,6 +187,8 @@ class POT
     {
         // default POT directory
         $this->path = dirname(__FILE__) . '/';
+        // registers POT autoload mechanism
+        spl_autoload_register( array($this, 'loadClass') );
     }
 
 /**
@@ -194,18 +196,18 @@ class POT
  * 
  * Runtime class loading on demand - usefull for __autoload() function.
  * 
+ * Note: Since 0.0.2 version this function is suitable for spl_autoload_register().
+ * 
+ * @version 0.0.2
  * @param string $class Class name.
- * @throws Exception When give class is not POT toolkit class.
  * @example examples/autoload.php autoload.php
  */
     public function loadClass($class)
     {
-        if( preg_match('/^I?OTS_/', $class) == 0)
+        if( preg_match('/^I?OTS_/', $class) > 0)
         {
-            throw new Exception('\'' . $class . '\' is not part of PHP OTS Toolkit.');
+            include_once($this->path . $class . '.php');
         }
-
-        include_once($this->path . $class . '.php');
     }
 
 /**
@@ -294,8 +296,8 @@ class POT
  * 
  * Sends 'info' packet to OTS server and return output.
  * 
- * @version 0.0.1+SVN
- * @since 0.0.1+SVN
+ * @version 0.0.2
+ * @since 0.0.2
  * @param string $server Server IP/domain.
  * @param int $port OTServ port.
  * @return OTS_InfoRespond|bool Respond content document (false when server is offline).

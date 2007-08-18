@@ -10,7 +10,7 @@
     <refsect1 id="{@id startup}">
         <title>Putting this all together</title>
         <para>
-        To set POT up for using you have to create it's instance and connect to database (we also encourage you to bind {@link POT::loadClass() POT classes loading mechanism} to __autoload() function. Here is a startup code example: {@example examples/quickstart.php}
+        To set POT up for using you have to create it's instance and connect to database (it will automaticly bind {@link POT::loadClass() POT classes loading mechanism} to __autoload() function. Here is a startup code example: {@example examples/quickstart.php}
         </para>
     </refsect1>
     <refsect1 id="{@id account}">

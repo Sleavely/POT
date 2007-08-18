@@ -8,25 +8,14 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
+// binds your __autoload code
+if( function_exists('__autoload') )
+{
+    spl_autoload_register('__autoload');
+}
+
 // includes POT main file
 include('../classes/OTS.php');
-
-// for further POT classes
-function __autoload($class)
-{
-    // checks if it's POT class
-    if( preg_match('/^I?OTS_/', $class) != 0)
-    {
-        POT::getInstance()->loadClass($class);
-    }
-/*
-    // possibly call your own __autoload() handler
-    else
-    {
-        here comes your stuff...
-    }
-*/
-}
 
 // database configuration - can be simply moved to external file, eg. config.php
 $config = array(
