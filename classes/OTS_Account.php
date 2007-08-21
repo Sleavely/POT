@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.2
+ * @version 0.0.2+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.0.2
+ * @version 0.0.2+SVN
  */
 class OTS_Account implements IOTS_DAO
 {
@@ -67,7 +67,7 @@ class OTS_Account implements IOTS_DAO
         $exist = array();
 
         // reads already existing accounts
-        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') ) as $account)
+        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') )->fetchAll() as $account)
         {
             $exist[] = $account['id'];
         }
@@ -149,33 +149,32 @@ class OTS_Account implements IOTS_DAO
 /**
  * Updates account in database.
  * 
- * @return bool False if account doesn't have ID assigned.
+ * @version 0.0.2+SVN
+ * @throws E_OTS_NotLoaded False if account doesn't have ID assigned.
  */
     public function save()
     {
         if( !isset($this->data['id']) )
         {
-            trigger_error('Can\'t save account which is not created.', E_USER_WARNING);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         // UPDATE query on database
         $this->db->SQLquery('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName('password') . ' = ' . $this->db->SQLquote($this->data['password']) . ', ' . $this->db->fieldName('email') . ' = ' . $this->db->SQLquote($this->data['email']) . ', ' . $this->db->fieldName('blocked') . ' = ' . (int) $this->data['blocked'] . ', ' . $this->db->fieldName('premdays') . ' = ' . $this->data['premdays'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
-
-        return true;
     }
 
 /**
  * Account number.
  * 
- * @return int|bool Account number (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Account number.
+ * @throws E_OTS_NotLoaded If account is not loaded.
  */
     public function getId()
     {
         if( !isset($this->data['id']) )
         {
-            trigger_error('Tries to get property of not loaded account.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['id'];
@@ -184,14 +183,15 @@ class OTS_Account implements IOTS_DAO
 /**
  * Account's password.
  * 
- * @return string|bool Password (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return string Password.
+ * @throws E_OTS_NotLoaded If account is not loaded.
  */
     public function getPassword()
     {
         if( !isset($this->data['password']) )
         {
-            trigger_error('Tries to get property of not loaded account.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['password'];
@@ -210,14 +210,15 @@ class OTS_Account implements IOTS_DAO
 /**
  * E-mail address.
  * 
- * @return string|bool E-mail (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return string E-mail.
+ * @throws E_OTS_NotLoaded If account is not loaded.
  */
     public function getEMail()
     {
         if( !isset($this->data['email']) )
         {
-            trigger_error('Tries to get property of not loaded account.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['email'];
@@ -236,14 +237,15 @@ class OTS_Account implements IOTS_DAO
 /**
  * Checks if account is blocked.
  * 
- * @return bool|null PACC days (null if not loaded).
+ * @version 0.0.2+SVN
+ * @return bool PACC days.
+ * @throws E_OTS_NotLoaded If account is not loaded.
  */
     public function isBlocked()
     {
         if( !isset($this->data['blocked']) )
         {
-            trigger_error('Tries to get property of not loaded account.', E_USER_NOTICE);
-            return null;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['blocked'];
@@ -268,14 +270,15 @@ class OTS_Account implements IOTS_DAO
 /**
  * PACC days.
  * 
- * @return int|bool PACC days (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int PACC days.
+ * @throws E_OTS_NotLoaded If account is not loaded.
  */
     public function getPACCDays()
     {
         if( !isset($this->data['premdays']) )
         {
-            trigger_error('Tries to get property of not loaded account.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['premdays'];
@@ -292,21 +295,77 @@ class OTS_Account implements IOTS_DAO
     }
 
 /**
+ * Reads custom field.
+ * 
+ * Reads field by it's name. Can read any field of given record that exists in database.
+ * 
+ * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param string $field Field name.
+ * @return string Field value.
+ * @throws E_OTS_NotLoaded If account is not loaded.
+ */
+    public function getCustomField($field)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $value = $this->db->SQLquery('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
+        return $value[$field];
+    }
+
+/**
+ * Writes custom field.
+ * 
+ * Write field by it's name. Can write any field of given record that exists in database.
+ * 
+ * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+ * 
+ * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param string $field Field name.
+ * @param mixed $value Field value.
+ * @throws E_OTS_NotLoaded If account is not loaded.
+ */
+    public function setCustomField($field, $value)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // quotes value for SQL query
+        if(!( is_int($value) || is_float($value) ))
+        {
+            $value = $this->db->SQLquote($value);
+        }
+
+        $this->db->SQLquery('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName($field) . ' = ' . $value . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+    }
+
+/**
  * List of characters on account.
  * 
- * @return array|bool Array of OTS_Player objects from given account (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return array Array of OTS_Player objects from given account.
+ * @throws E_OTS_NotLoaded If account is not loaded.
  */
     public function getPlayers()
     {
         if( !isset($this->data['id']) )
         {
-            trigger_error('Tries to get characters list of not loaded account.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         $players = array();
 
-        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('account_id') . ' = ' . $this->data['id']) as $player)
+        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('account_id') . ' = ' . $this->data['id'])->fetchAll() as $player)
         {
             // creates new object
             $object = POT::getInstance()->createObject('Player');

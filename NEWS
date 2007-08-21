@@ -1,29 +1,21 @@
-What's new in 0.0.2 version?
+What's new in 0.0.2+SVN version?
 
-* Added skills support.
+* Added custom fields support.
 
-    You have now getSkill()/setSkill() methods in OTS_Player class.
+    You can now use POT with non-standard SVN database structure (however it is not as comfortable as with standard SVN fields). You have to save your standard record before saving custom fields.
 
-* Added 'info' request handling.
+* Added items and depots support.
 
-    You have now POT::serverStatus() method which queries server for it's status. It returns special object (which is DOMDocument instance) with methods for easy data retrival. Remember that thismethod operates on sockets I/O so connection problems will results in warning messages. You will probably want to silence it with @ operator.
+    OTS_Item and OTS_Container classes. OTS_Player now has getSlot(), setSlot(), getDepot(), setDepot() methods. You can manage items tables as objects trees.
 
-* Added find() to OTS_Account.
+* Fixed loading skills.
 
-    This method load account by it's e-mail address. You can now check if given e-mail address has already been used.
+    Small typo.
 
-* No more need for __autoload().
+* Replaced E_USER_* with exceptions.
 
-    POT class now automaticly registers own __autoload() handler so it will load all it's clases silently. Just include OTS.php file and use POT freely.
+    No more error messages between text on website, everything is now thrown as exceptions.
 
-* Compatibility library.
+* Uses fetchAll() in loops to prevent MySQL buffering problems.
 
-    For people who use PHP verion from before 5.1.2. Compatibility assurance library ("compat") is in separated compat.php file. You have to include it BEFORE OTS.php inclusion in otder to prevent POT from causing FATAL errors on PHP earlier then 5.1.2.
-
-* Fixed password parameter problem with DB_MYSQL driver.
-
-    It was impossible to log into database with password as it was assigning parameter name to it. Fixed.
-
-* Fixed `redskulltime` filed in OTS_Player.
-
-    Simple typo. Fixed.
+    PDO is really fucked up in some places and MySQL driver queries buffering is one of them. This change should prevent POT from producing some errors in very particular situations.

@@ -1,3 +1,10 @@
+[SVN]
+* Added custom fields support. <wrzasq>
+* Added items and depots support. <wrzasq>
+* Fixed loading skills. <wrzasq>
+* Replaced E_USER_* with exceptions. <wrzasq>
+* Uses fetchAll() in loops to prevent MySQL buffering problems. <wrzasq>
+
 [0.0.2]
 * Added "compat" library for POT. <wrzasq>
 * Added skills support in OTS_Player class. <wrzasq>

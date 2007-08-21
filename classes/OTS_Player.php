@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.2
+ * @version 0.0.2+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.0.2
+ * @version 0.0.2+SVN
  */
 class OTS_Player implements IOTS_DAO
 {
@@ -68,7 +68,7 @@ class OTS_Player implements IOTS_DAO
         // loads skills
         if( $this->isLoaded() )
         {
-            foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('skillid') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('player_skills') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']) as $skill)
+            foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('skillid') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('player_skills') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'])->fetchAll() as $skill)
             {
                 $this->skills[ $skill['skillid'] ] = array('value' => $skill['value'], 'tries' => $skill['count']);
             }
@@ -135,14 +135,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Player ID.
  * 
- * @return int|bool Player ID (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Player ID.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getId()
     {
         if( !isset($this->data['id']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['id'];
@@ -151,14 +152,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Player name.
  * 
- * @return string|bool Player's name (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return string Player's name.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getName()
     {
         if( !isset($this->data['name']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['name'];
@@ -177,14 +179,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Returns account of this player.
  * 
+ * @version 0.0.2+SVN
  * @return OTS_Account Owning account.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getAccount()
     {
         if( !isset($this->data['account_id']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            // we dont do return false; here as it would cause problems in context code when relying on OTS_Account class of results
+            throw new E_OTS_NotLoaded();
         }
 
         $account = POT::getInstance()->createObject('Account');
@@ -205,14 +208,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Returns group of this player.
  * 
+ * @version 0.0.2+SVN
  * @return OTS_Group Group of which current character is member.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getGroup()
     {
         if( !isset($this->data['group_id']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            // we dont do return false; here as it would cause problems in context code when relying on OTS_Group class of results
+            throw new E_OTS_NotLoaded();
         }
 
         $group = POT::getInstance()->createObject('Group');
@@ -233,14 +237,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Player gender.
  * 
- * @return int|bool Player gender (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Player gender.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getSex()
     {
         if( !isset($this->data['sex']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['sex'];
@@ -259,14 +264,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Player proffesion.
  * 
- * @return int|bool Player proffesion (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Player proffesion.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getVocation()
     {
         if( !isset($this->data['vocation']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['vocation'];
@@ -285,14 +291,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Experience points.
  * 
- * @return int|bool Experience points (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Experience points.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getExperience()
     {
         if( !isset($this->data['experience']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['experience'];
@@ -311,14 +318,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Experience level.
  * 
- * @return int|bool Experience level (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Experience level.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLevel()
     {
         if( !isset($this->data['level']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['level'];
@@ -337,14 +345,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Magic level.
  * 
- * @return int|bool Magic level (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Magic level.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getMagLevel()
     {
         if( !isset($this->data['maglevel']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['maglevel'];
@@ -363,14 +372,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Current HP.
  * 
- * @return int|bool Current HP (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Current HP.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getHealth()
     {
         if( !isset($this->data['health']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['health'];
@@ -389,14 +399,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Maximum HP.
  * 
- * @return int|bool Maximum HP (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Maximum HP.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getHealthMax()
     {
         if( !isset($this->data['healthmax']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['healthmax'];
@@ -415,14 +426,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Current mana.
  * 
- * @return int|bool Current mana (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Current mana.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getMana()
     {
         if( !isset($this->data['mana']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['mana'];
@@ -441,14 +453,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Maximum mana.
  * 
- * @return int|bool Maximum mana (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Maximum mana.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getManaMax()
     {
         if( !isset($this->data['manamax']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['manamax'];
@@ -467,14 +480,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Mana spent.
  * 
- * @return int|bool Mana spent (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Mana spent.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getManaSpent()
     {
         if( !isset($this->data['manaspent']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['manaspent'];
@@ -493,14 +507,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Soul points.
  * 
- * @return int|bool Soul points (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Soul points.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getSoul()
     {
         if( !isset($this->data['soul']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['soul'];
@@ -519,14 +534,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Looking direction.
  * 
- * @return int|bool Looking direction (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Looking direction.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getDirection()
     {
         if( !isset($this->data['direction']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['direction'];
@@ -545,14 +561,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Body color.
  * 
- * @return int|bool Body color (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Body color.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLookBody()
     {
         if( !isset($this->data['lookbody']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['lookbody'];
@@ -571,14 +588,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Boots color.
  * 
- * @return int|bool Boots color (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Boots color.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLookFeet()
     {
         if( !isset($this->data['lookfeet']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['lookfeet'];
@@ -597,14 +615,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Hair color.
  * 
- * @return int|bool Hair color (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Hair color.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLookHead()
     {
         if( !isset($this->data['lookhead']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['lookhead'];
@@ -623,14 +642,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Legs color.
  * 
- * @return int|bool Legs color (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Legs color.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLookLegs()
     {
         if( !isset($this->data['looklegs']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['looklegs'];
@@ -649,14 +669,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Outfit.
  * 
- * @return int|bool Outfit (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Outfit.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLookType()
     {
         if( !isset($this->data['looktype']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['looktype'];
@@ -675,14 +696,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Addons.
  * 
- * @return int|bool Addons (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Addons.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLookAddons()
     {
         if( !isset($this->data['lookaddons']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['lookaddons'];
@@ -701,14 +723,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * X map coordinate.
  * 
- * @return int|bool X map coordinate (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int X map coordinate.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getPosX()
     {
         if( !isset($this->data['posx']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['posx'];
@@ -727,14 +750,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Y map coordinate.
  * 
- * @return int|bool Y map coordinate (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Y map coordinate.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getPosY()
     {
         if( !isset($this->data['posy']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['posy'];
@@ -753,14 +777,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Z map coordinate.
  * 
- * @return int|bool Z map coordinate (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Z map coordinate.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getPosZ()
     {
         if( !isset($this->data['posz']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['posz'];
@@ -779,14 +804,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Capacity.
  * 
- * @return int|bool Capacity (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Capacity.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getCap()
     {
         if( !isset($this->data['cap']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['cap'];
@@ -805,14 +831,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Last login timestamp.
  * 
- * @return int|bool Last login timestamp (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Last login timestamp.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLastLogin()
     {
         if( !isset($this->data['lastlogin']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['lastlogin'];
@@ -831,14 +858,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Last login IP.
  * 
- * @return int|bool Last login IP (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Last login IP.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLastIP()
     {
         if( !isset($this->data['lastip']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['lastip'];
@@ -857,14 +885,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Checks if save flag is set.
  * 
- * @return bool|null PACC days (null if not loaded).
+ * @version 0.0.2+SVN
+ * @return bool PACC days.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function isSaveSet()
     {
         if( !isset($this->data['save']) )
         {
-            trigger_error('Tries to get property of not loaded account.', E_USER_NOTICE);
-            return null;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['save'];
@@ -889,14 +918,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Conditions.
  * 
- * @return mixed|bool Conditions (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return mixed Conditions.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getConditions()
     {
         if( !isset($this->data['conditions']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['conditions'];
@@ -915,14 +945,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Red skulled time remained.
  * 
- * @return int|bool Red skulled time remained (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Red skulled time remained.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getRedSkullTime()
     {
         if( !isset($this->data['redskulltime']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['redskulltime'];
@@ -941,14 +972,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Checks if player has red skull.
  * 
- * @return bool|null Red skull state (null if not loaded).
+ * @version 0.0.2+SVN
+ * @return bool Red skull state.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function hasRedSkull()
     {
         if( !isset($this->data['redskull']) )
         {
-            trigger_error('Tries to get property of not loaded account.', E_USER_NOTICE);
-            return null;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['redskull'];
@@ -973,14 +1005,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Guild nick.
  * 
- * @return string|bool Guild title (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return string Guild title.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getGuildNick()
     {
         if( !isset($this->data['guildnick']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['guildnick'];
@@ -999,14 +1032,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Guild rank ID.
  * 
- * @return int|bool Guild rank ID (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Guild rank ID.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getRankId()
     {
         if( !isset($this->data['rank_id']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['rank_id'];
@@ -1024,14 +1058,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Residence town's ID.
  * 
- * @return int|bool Residence town's ID (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Residence town's ID.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getTownId()
     {
         if( !isset($this->data['town_id']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['town_id'];
@@ -1049,14 +1084,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Percentage of experience lost after dead.
  * 
- * @return int|bool Percentage of experience lost after dead (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Percentage of experience lost after dead.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLossExperience()
     {
         if( !isset($this->data['loss_experience']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['loss_experience'];
@@ -1074,14 +1110,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Percentage of used mana lost after dead.
  * 
- * @return int|bool Percentage of used mana lost after dead (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Percentage of used mana lost after dead.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLossMana()
     {
         if( !isset($this->data['loss_mana']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['loss_mana'];
@@ -1099,14 +1136,15 @@ class OTS_Player implements IOTS_DAO
 /**
  * Percentage of skills lost after dead.
  * 
- * @return int|bool Percentage of skills lost after dead (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Percentage of skills lost after dead.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getLossSkills()
     {
         if( !isset($this->data['loss_skills']) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['loss_skills'];
@@ -1123,19 +1161,74 @@ class OTS_Player implements IOTS_DAO
     }
 
 /**
+ * Reads custom field.
+ * 
+ * Reads field by it's name. Can read any field of given record that exists in database.
+ * 
+ * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param string $field Field name.
+ * @return string Field value.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function getCustomField($field)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $value = $this->db->SQLquery('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
+        return $value[$field];
+    }
+
+/**
+ * Writes custom field.
+ * 
+ * Write field by it's name. Can write any field of given record that exists in database.
+ * 
+ * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+ * 
+ * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param string $field Field name.
+ * @param mixed $value Field value.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function setCustomField($field, $value)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // quotes value for SQL query
+        if(!( is_int($value) || is_float($value) ))
+        {
+            $value = $this->db->SQLquote($value);
+        }
+
+        $this->db->SQLquery('UPDATE ' . $this->db->tableName('players') . ' SET ' . $this->db->fieldName($field) . ' = ' . $value . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+    }
+
+/**
  * Returns player's skill.
  * 
  * @version 0.0.2
  * @since 0.0.2
  * @param int $skill Skill ID.
  * @return int Skill value.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getSkill($skill)
     {
         if( !isset($this->skills[$skill]) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->skills[$skill]['value'];
@@ -1161,13 +1254,13 @@ class OTS_Player implements IOTS_DAO
  * @since 0.0.2
  * @param int $skill Skill ID.
  * @return int Skill tries.
+ * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getSkillTries($skill)
     {
         if( !isset($this->skills[$skill]) )
         {
-            trigger_error('Tries to get property of not loaded player.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->skills[$skill]['tries'];
@@ -1184,6 +1277,254 @@ class OTS_Player implements IOTS_DAO
     public function setSkillTries($skill, $tries)
     {
         $this->skills[ (int) $skill]['tries'] = (int) $tries;
+    }
+
+/**
+ * Deletes item with contained items.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param int $sid Item unique player's ID.
+ */
+    private function deleteItem($sid)
+    {
+        // deletes all sub-items
+        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('sid') . ' FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('pid') . ' = ' . $sid)->fetchAll() as $item)
+        {
+            $this->deleteItem($item['sid']);
+        }
+
+        // deletes item
+        $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('sid') . ' = ' . $sid);
+    }
+
+/**
+ * Returns items tree from given slot.
+ * 
+ * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param int $slot Slot to get items.
+ * @return OTS_Item|null Item in given slot (items tree if in given slot there is a container). If there is no item in slot then null value will be returned.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function getSlot($slot)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // checks if there are any items under current one
+        $items = array();
+        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('sid') . ' FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('pid') . ' = ' . $slot)->fetchAll() as $item)
+        {
+            $items[] = $this->getSlot($item['sid']);
+        }
+
+        // loads current item
+        $item = $this->db->SQLquery('SELECT ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ' FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('sid') . ' = ' . $slot)->fetch();
+
+        // checks if current item is a container
+        if( empty($items) )
+        {
+            $slot = new CMS_Container($item['itemtype']);
+
+            // puts items into container
+            foreach($items as $sub)
+            {
+                $slot->addItem($sub);
+            }
+        }
+        else
+        {
+            $slot = new OTS_Item($item['itemtype']);
+        }
+
+        $slot->setCount($item['count']);
+        $slot->setAttribute($item['attributes']);
+
+        return $slot;
+    }
+
+/**
+ * Sets slot content.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param int $slot Slot to save items.
+ * @param OTS_Item $item Item (can be a container with content) for given slot. Leave this parameter blank to clear slot.
+ * @param int $pid For internal use in case of containers.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function setSlot($slot, OTS_Item $item = null, $pid = 0)
+    {
+        static $sid;
+
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // clears current slot
+        $this->deleteItem( (int) $slot);
+
+        // checks if there is any item to insert
+        if( isset($item) )
+        {
+            // inserts given item
+            $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('player_items') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('pid') . ', ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ') VALUES (' . $this->data['id'] . ', ' . $slot . ', ' . $pid . ', ' . $item->getId() . ', ' . $item->getCount() . ', ' . $this->db->SQLquote( $item->getAttributes() ) . ')');
+
+            // checks if this is container
+            if($item instanceof OTS_Container)
+            {
+                // current maximum sid (over slot sids)
+                if( !isset($sid) )
+                {
+                    $sid = $this->db->SQLquery('SELECT MAX(' . $this->db->fieldName('sid') . ') AS `sid` FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'])->fetch();
+                    $sid = $sid['sid'] > POT::SLOT_AMMO ? $sid['sid'] : POT::SLOT_AMMO;
+                }
+
+                $sid++;
+
+                // inserts all contained items
+                foreach($item as $sub)
+                {
+                    $this->setSlot($sid, $sub, $slot);
+                }
+            }
+        }
+
+        // clears $sid for next public call
+        if($pid == 0)
+        {
+            $sid = null;
+        }
+    }
+
+/**
+ * Deletes depot item with contained items.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param int $sid Depot item unique player's ID.
+ */
+    private function deleteDepot($sid)
+    {
+        // deletes all sub-items
+        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('sid') . ' FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('pid') . ' = ' . $sid)->fetchAll() as $item)
+        {
+            $this->deleteItem($item['sid']);
+        }
+
+        // deletes item
+        $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('sid') . ' = ' . $sid);
+    }
+
+/**
+ * Returns items tree from given depot.
+ * 
+ * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param int $depot Depot ID to get items.
+ * @return OTS_Item|null Item in given depot (items tree if in given slot there is a container). If there is no item in slot then null value will be returned.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function getDepot($depot)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // checks if there are any items under current one
+        $items = array();
+        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('sid') . ' FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('pid') . ' = ' . $depot)->fetchAll() as $item)
+        {
+            $items[] = $this->getSlot($item['sid']);
+        }
+
+        // loads current item
+        $item = $this->db->SQLquery('SELECT ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ' FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('sid') . ' = ' . $depot)->fetch();
+
+        // checks if current item is a container
+        if( empty($items) )
+        {
+            $depot = new CMS_Container($item['itemtype']);
+
+            // puts items into container
+            foreach($items as $sub)
+            {
+                $depot->addItem($sub);
+            }
+        }
+        else
+        {
+            $depot = new OTS_Item($item['itemtype']);
+        }
+
+        $depot->setCount($item['count']);
+        $depot->setAttribute($item['attributes']);
+
+        return $depot;
+    }
+
+/**
+ * Sets slot content.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param int $depot Depot ID to save items.
+ * @param OTS_Item $item Item (can be a container with content) for given depot. Leave this parameter blank to clear depot.
+ * @param int $pid For internal recursive insertion.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function setDepot($depot, OTS_Item $item = null, $pid = 0)
+    {
+        static $sid;
+
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // clears current depot
+        $this->deleteDepot( (int) $depot);
+
+        // checks if there is any item to insert
+        if( isset($item) )
+        {
+            // inserts given item
+            $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('player_depotitems') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('pid') . ', ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ') VALUES (' . $this->data['id'] . ', ' . $depot . ', ' . $pid . ', ' . $item->getId() . ', ' . $item->getCount() . ', ' . $this->db->SQLquote( $item->getAttributes() ) . ')');
+
+            // checks if this is container
+            if($item instanceof OTS_Container)
+            {
+                // current maximum sid (over slot sids)
+                if( !isset($sid) )
+                {
+                    $sid = $this->db->SQLquery('SELECT MAX(' . $this->db->fieldName('sid') . ') AS `sid` FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'])->fetch();
+                    $sid = $sid['sid'] > 100 ? $sid['sid'] : 100;
+                }
+
+                $sid++;
+
+                // inserts all contained items
+                foreach($item as $sub)
+                {
+                    $this->setDepot($sid, $sub, $depot);
+                }
+            }
+        }
+
+        // clears $sid for next public call
+        if($pid == 0)
+        {
+            $sid = null;
+        }
     }
 }
 

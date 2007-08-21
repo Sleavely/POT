@@ -1,0 +1,64 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>DAO objects</refname>
+        <refpurpose>Main part of POT are Data Access Objects objects</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id what}">
+        <title>What are DAO objects?</title>
+        <para>
+        DAO stands for Data Access Objects. Those are objects which you use mostly - players, accounts, groups, objects lists. They use database resource to fetch/store data and provides you programming interface to access that data without using additional langauges like SQL, or XML.
+        </para>
+        <refsect2 id="{@id why}">
+            <title>Why this way?</title>
+            <para>
+            PHP is a PHP. When you write a code in PHP each element has a meaning. While using SQL you have to use database queries. In code they are simply a strings which doesn't represent any particular data for programming enviroment. DAO objects wraps database operations in objective aspect, so "dead" string queries becomes a fully functional objects which you can control more strictly, allows you to assign relations and automate some parts.
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id basics}">
+        <title>Basic operations</title>
+        <para>
+        Most basic operations are loading, editing and saving data. To see examples of this, see {@tutorial POT/Quick_start.pkg Quick start quide}.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id lists}">
+        <title>Lists objects</title>
+        <para>
+        For each table there exist single object class and objects list class. List classes implements {@link http://www.php.net/manual/en/language.oop5.iterations.php Iterator interface} so to list their's content you must use {@link http://www.php.net/manual/en/control-structures.foreach.php foreach() loop}. Each element returned for this loop will be instance of single DAO object. You also use lists to delete items.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id customs}">
+        <title>Custom fields</title>
+        <para>
+        POT was created for basic SVN database structure. However you can access custom fields with POT. You do that with getCustomField() and setCustomField() methods of DAO objects (single, not lists).
+        </para>
+        <para>
+        While accessing custom fields you have to remember about using proper PHP types of passed values. POT doesn't know anything about those fields so it uses value type to check the way it should serve it for a query. Don't worry about safety - it doesn't create any hole for SQL injections. But you must remember, that 1 (integer) is not same as '1' (string), or 1.0 (float). POT will quote strings to fit SQL query and to prevent from SQL injections so make sure you {@link http://www.php.net/manual/en/language.types.type-juggling.php cast} your values to type that represents field type to prevent (mainly) from quoting numeric fields.
+        </para>
+        <para>
+        You should use those methods only to access custom fields that are not accessible throught standard POT API. Those methods executes SQL query each time you call them so it would be a huge effectivity loss to access standard fields with getCustomField()/setCustomField().
+        </para>
+        <para>
+        Also it is important that in difference to fields accessible with standard setters you can set custom field value on not loaded/saved object. You must either load object from database, or save standard record before using custom fields as they need record primary key assigned to object for queries. Here is an example: {@example examples/customs.php}
+        </para>
+    </refsect1>
+    <refsect1 id="{@id items}">
+        <title>Player items</title>
+        <para>
+        POT provides also objective way of browsing/editing player items (body slots and depot items with all containers). You have {@link OTS_Item OTS_Item} and {@link OTS_Container OTS_Container} classes for that. OTS_Item represents single item, OTS_Container can contain sub-items (either OTS_Item objects, or next level OTS_Container objects).
+        </para>
+        <para>
+        There is important thing to mention - POT doesn't know anything about item types! Items tree only contains item IDs from database, it doesn't load any information from items.otb, nor items.xml files.
+        </para>
+        <para>
+        Detailed API you will find in documentation of those classes. Here are examples of how you use slot and depot items fetching and saving: {@example examples/items.php}
+        </para>
+        <para>
+        Important thing - OTS_Container class is subclass of OTS_Item. Each container is also an item.
+        </para>
+    </refsect1>
+</refentry>

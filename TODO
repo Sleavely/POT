@@ -1,7 +1,6 @@
 List of things to be done:
 
 * List objects sorting/criteria-based loading.
-* Nice items management, with containers tree.
 * Guilds, guild management.
 * Items list (items.xml + items.otb -> cache).
 * Spawns support (OTBM support -> cache).

@@ -19,7 +19,7 @@
             <listitem>To provide easy interface - people who write in PHP want to write in PHP, not using SQL, XML and many other languages. POT provides abstract PHP interface for data stored in database.</listitem>
         </itemizedlist>
         <para>
-        POT has been created for latest SVN release, it won't work with old database structure as well as with broken database - it ralies on database foreign key contraints, triggers etc.
+        POT has been created for latest SVN release, it will work best with pure SVN servers. However it provides routines to access custom database structure elements. However it won't work with broken database - it ralies on database foreign key contraints, triggers etc.
         </para>
         <refsect2 id="{@id requirements}">
             <title>System requirements</title>

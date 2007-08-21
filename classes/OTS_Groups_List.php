@@ -6,6 +6,7 @@
 
 /**
  * @package POT
+ * @version 0.0.2+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -15,6 +16,7 @@
  * List of groups.
  * 
  * @package POT
+ * @version 0.0.2+SVN
  */
 class OTS_Groups_List implements IOTS_DAO, Iterator, Countable
 {
@@ -93,19 +95,12 @@ class OTS_Groups_List implements IOTS_DAO, Iterator, Countable
 /**
  * Deletes group.
  * 
+ * @version 0.0.2+SVN
  * @param OTS_Group $group Group to be deleted.
- * @return bool False if attempts to delete null group.
  */
     public function deleteGroup(OTS_Group $group)
     {
-        if( !$group->isLoaded() )
-        {
-            trigger_error('Tries to delete not loaded group.', E_USER_NOTICE);
-            return false;
-        }
-
         $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $group->getId() );
-        return true;
     }
 
 /**

@@ -6,6 +6,7 @@
 
 /**
  * @package POT
+ * @version 0.0.2+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -15,6 +16,7 @@
  * List of players.
  * 
  * @package POT
+ * @version 0.0.2+SVN
  */
 class OTS_Players_List implements IOTS_DAO, Iterator, Countable
 {
@@ -93,19 +95,12 @@ class OTS_Players_List implements IOTS_DAO, Iterator, Countable
 /**
  * Deletes player.
  * 
+ * @version 0.0.2+SVN
  * @param OTS_Player $player Player to be deleted.
- * @return bool False if attempts to delete null player.
  */
     public function deletePlayer(OTS_Player $player)
     {
-        if( !$player->isLoaded() )
-        {
-            trigger_error('Tries to delete not loaded player.', E_USER_NOTICE);
-            return false;
-        }
-
         $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $player->getId() );
-        return true;
     }
 
 /**

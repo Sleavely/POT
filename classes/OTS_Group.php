@@ -6,6 +6,7 @@
 
 /**
  * @package POT
+ * @version 0.0.2+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -15,6 +16,7 @@
  * OTServ user group abstraction.
  * 
  * @package POT
+ * @version 0.0.2+SVN
  */
 class OTS_Group implements IOTS_DAO
 {
@@ -87,14 +89,15 @@ class OTS_Group implements IOTS_DAO
 /**
  * Group ID.
  * 
- * @return int|bool Group ID (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Group ID.
+ * @throws E_OTS_NotLoaded If group is not loaded.
  */
     public function getId()
     {
         if( !isset($this->data['id']) )
         {
-            trigger_error('Tries to get property of not loaded group.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['id'];
@@ -103,14 +106,15 @@ class OTS_Group implements IOTS_DAO
 /**
  * Group name.
  * 
- * @return string|bool Name (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return string Name.
+ * @throws E_OTS_NotLoaded If group is not loaded.
  */
     public function getName()
     {
         if( !isset($this->data['name']) )
         {
-            trigger_error('Tries to get property of not loaded group.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['name'];
@@ -129,14 +133,15 @@ class OTS_Group implements IOTS_DAO
 /**
  * Rights flags.
  * 
- * @return int|bool Flags (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Flags.
+ * @throws E_OTS_NotLoaded If group is not loaded.
  */
     public function getFlags()
     {
         if( !isset($this->data['flags']) )
         {
-            trigger_error('Tries to get property of not loaded group.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['flags'];
@@ -155,14 +160,15 @@ class OTS_Group implements IOTS_DAO
 /**
  * Access level.
  * 
- * @return int|bool Access level (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Access level.
+ * @throws E_OTS_NotLoaded If group is not loaded.
  */
     public function getAccess()
     {
         if( !isset($this->data['access']) )
         {
-            trigger_error('Tries to get property of not loaded group.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['access'];
@@ -181,14 +187,15 @@ class OTS_Group implements IOTS_DAO
 /**
  * Maximum count of items in depot.
  * 
- * @return int|bool Maximum value (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Maximum value.
+ * @throws E_OTS_NotLoaded If group is not loaded.
  */
     public function getMaxDepotItems()
     {
         if( !isset($this->data['maxdepotitems']) )
         {
-            trigger_error('Tries to get property of not loaded group.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['maxdepotitems'];
@@ -207,14 +214,15 @@ class OTS_Group implements IOTS_DAO
 /**
  * Maximum count of players in VIP list.
  * 
- * @return int|bool Maximum value (false if not loaded).
+ * @version 0.0.2+SVN
+ * @return int Maximum value.
+ * @throws E_OTS_NotLoaded If group is not loaded.
  */
     public function getMaxVIPList()
     {
         if( !isset($this->data['maxviplist']) )
         {
-            trigger_error('Tries to get property of not loaded group.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         return $this->data['maxviplist'];
@@ -231,21 +239,77 @@ class OTS_Group implements IOTS_DAO
     }
 
 /**
+ * Reads custom field.
+ * 
+ * Reads field by it's name. Can read any field of given record that exists in database.
+ * 
+ * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param string $field Field name.
+ * @return string Field value.
+ * @throws E_OTS_NotLoaded If group is not loaded.
+ */
+    public function getCustomField($field)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $value = $this->db->SQLquery('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
+        return $value[$field];
+    }
+
+/**
+ * Writes custom field.
+ * 
+ * Write field by it's name. Can write any field of given record that exists in database.
+ * 
+ * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+ * 
+ * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
+ * 
+ * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
+ * @param string $field Field name.
+ * @param mixed $value Field value.
+ * @throws E_OTS_NotLoaded If group is not loaded.
+ */
+    public function setCustomField($field, $value)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // quotes value for SQL query
+        if(!( is_int($value) || is_float($value) ))
+        {
+            $value = $this->db->SQLquote($value);
+        }
+
+        $this->db->SQLquery('UPDATE ' . $this->db->tableName('groups') . ' SET ' . $this->db->fieldName($field) . ' = ' . $value . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+    }
+
+/**
  * List of characters in given group.
  * 
+ * @version 0.0.2+SVN
  * @return array|bool Array of OTS_Player objects from given group (false if not loaded).
+ * @throws E_OTS_NotLoaded If group is not loaded.
  */
     public function getPlayers()
     {
         if( !isset($this->data['id']) )
         {
-            trigger_error('Tries to get characters list of not loaded group.', E_USER_NOTICE);
-            return false;
+            throw new E_OTS_NotLoaded();
         }
 
         $players = array();
 
-        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('group_id') . ' = ' . $this->data['id']) as $player)
+        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('group_id') . ' = ' . $this->data['id'])->fetchAll() as $player)
         {
             // creates new object
             $object = POT::getInstance()->createObject('Player');

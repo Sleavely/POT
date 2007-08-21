@@ -33,6 +33,7 @@ RULES - rules to be followed during developing contributed code.
 TODO - list of things to be done.
 Makefile - make input, for documentation generation.
 documentation.pdf - phpDocumentor-generater documentation in PDF format.
+compat.php - Compatibility assurance library.
 test.php - phpUnit test suite.
 
 

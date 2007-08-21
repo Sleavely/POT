@@ -6,6 +6,7 @@
 
 /**
  * @package POT
+ * @version 0.0.2+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -15,6 +16,7 @@
  * List of accounts.
  * 
  * @package POT
+ * @version 0.0.2+SVN
  */
 class OTS_Accounts_List implements IOTS_DAO, Iterator, Countable
 {
@@ -93,19 +95,12 @@ class OTS_Accounts_List implements IOTS_DAO, Iterator, Countable
 /**
  * Deletes account.
  * 
+ * @version 0.0.2+SVN
  * @param OTS_Account $account Account to be deleted.
- * @return bool False if attempts to delete null account.
  */
     public function deleteAccount(OTS_Account $account)
     {
-        if( !$account->isLoaded() )
-        {
-            trigger_error('Tries to delete not loaded account.', E_USER_NOTICE);
-            return false;
-        }
-
         $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('account') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $account->getId() );
-        return true;
     }
 
 /**
