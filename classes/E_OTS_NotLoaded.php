@@ -2,6 +2,7 @@
 
 /**#@+
  * @version 0.0.2+SVN
+ * @since 0.0.2+SVN
  */
 
 /**

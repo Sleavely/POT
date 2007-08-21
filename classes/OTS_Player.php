@@ -1326,6 +1326,11 @@ class OTS_Player implements IOTS_DAO
         // loads current item
         $item = $this->db->SQLquery('SELECT ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ' FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('sid') . ' = ' . $slot)->fetch();
 
+        if( empty($item) )
+        {
+            return null;
+        }
+
         // checks if current item is a container
         if( empty($items) )
         {
@@ -1449,6 +1454,11 @@ class OTS_Player implements IOTS_DAO
 
         // loads current item
         $item = $this->db->SQLquery('SELECT ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ' FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('sid') . ' = ' . $depot)->fetch();
+
+        if( empty($item) )
+        {
+            return null;
+        }
 
         // checks if current item is a container
         if( empty($items) )
