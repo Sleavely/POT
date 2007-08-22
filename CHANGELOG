@@ -4,6 +4,7 @@
 * Fixed loading skills. <wrzasq>
 * Replaced E_USER_* with exceptions. <wrzasq>
 * Uses fetchAll() in loops to prevent MySQL buffering problems. <wrzasq>
+* Restricted access to POT class constructor to make sure it won't be instanced directly. <wrzasq>
 
 [0.0.2]
 * Added "compat" library for POT. <wrzasq>

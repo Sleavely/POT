@@ -251,10 +251,11 @@ class POT
  * 
  * Never create instance of this class by yourself! Use POT::getInstance()!
  * 
- * @see POT::getInstance();
+ * @version 0.0.2+SVN
+ * @see POT::getInstance()
  * @internal
  */
-    public function __construct()
+    private function __construct()
     {
         // default POT directory
         $this->path = dirname(__FILE__) . '/';
