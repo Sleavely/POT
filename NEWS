@@ -1,4 +1,4 @@
-What's new in 0.0.2+SVN version?
+What's new in 0.0.3 version?
 
 * Added custom fields support.
 
@@ -7,6 +7,10 @@ What's new in 0.0.2+SVN version?
 * Added items and depots support.
 
     OTS_Item and OTS_Container classes. OTS_Player now has getSlot(), setSlot(), getDepot(), setDepot() methods. You can manage items tables as objects trees.
+
+* Added support for players PACC timestamps.
+
+    In current OTServ SVN premium time is not stored in accounts table, but in players table also not as days, but as ending moment timestamp. Account PACC methods are now obsolete.
 
 * Fixed loading skills.
 

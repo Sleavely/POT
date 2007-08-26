@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * List of groups.
  * 
  * @package POT
- * @version 0.0.2+SVN
+ * @version 0.0.3
  */
 class OTS_Groups_List implements IOTS_DAO, Iterator, Countable
 {
@@ -95,7 +95,7 @@ class OTS_Groups_List implements IOTS_DAO, Iterator, Countable
 /**
  * Deletes group.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @param OTS_Group $group Group to be deleted.
  */
     public function deleteGroup(OTS_Group $group)

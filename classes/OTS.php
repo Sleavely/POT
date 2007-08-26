@@ -8,7 +8,7 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -18,7 +18,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.0.2+SVN
+ * @version 0.0.3
  */
 class POT
 {
@@ -131,71 +131,71 @@ class POT
 /**
  * Head slot.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  */
     const SLOT_HEAD = 1;
 /**
  * Necklace slot.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  */
     const SLOT_NECKLACE = 2;
 /**
  * Backpack slot.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  */
     const SLOT_BACKPACK = 3;
 /**
  * Armor slot.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  */
     const SLOT_ARMOR = 4;
 /**
  * Right hand slot.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  */
     const SLOT_RIGHT = 5;
 /**
  * Left hand slot.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  */
     const SLOT_LEFT = 6;
 /**
  * Legs slot.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  */
     const SLOT_LEGS = 7;
 /**
  * Boots slot.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  */
     const SLOT_FEET = 8;
 /**
  * Ring slot.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  */
     const SLOT_RING = 9;
 /**
  * Ammunition slot.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  */
     const SLOT_AMMO = 10;
 
@@ -251,7 +251,7 @@ class POT
  * 
  * Never create instance of this class by yourself! Use POT::getInstance()!
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @see POT::getInstance()
  * @internal
  */
@@ -270,9 +270,9 @@ class POT
  * 
  * Note: Since 0.0.2 version this function is suitable for spl_autoload_register().
  * 
- * Note: Since 0.0.2+SVN version this function handles also exceptions.
+ * Note: Since 0.0.3 version this function handles also exceptions.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @param string $class Class name.
  * @example examples/autoload.php autoload.php
  */

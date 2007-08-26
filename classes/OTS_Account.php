@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.0.2+SVN
+ * @version 0.0.3
  */
 class OTS_Account implements IOTS_DAO
 {
@@ -32,7 +32,7 @@ class OTS_Account implements IOTS_DAO
  * 
  * @var array
  */
-    private $data = array('email' => '', 'blocked' => false, 'premdays' => 0);
+    private $data = array('email' => '', 'blocked' => false);
 
 /**
  * Sets database connection handler.
@@ -101,7 +101,7 @@ class OTS_Account implements IOTS_DAO
         $this->data['id'] = $number;
         $this->data['blocked'] = true;
 
-        $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('accounts') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ', ' . $this->db->fieldName('premdays') . ') VALUES (' . $number . ', \'\', \'\', 1, 0)');
+        $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('accounts') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ') VALUES (' . $number . ', \'\', \'\', 1)');
 
         return $number;
     }
@@ -114,7 +114,7 @@ class OTS_Account implements IOTS_DAO
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ', ' . $this->db->fieldName('premdays') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
     }
 
 /**
@@ -149,7 +149,7 @@ class OTS_Account implements IOTS_DAO
 /**
  * Updates account in database.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @throws E_OTS_NotLoaded False if account doesn't have ID assigned.
  */
     public function save()
@@ -160,13 +160,13 @@ class OTS_Account implements IOTS_DAO
         }
 
         // UPDATE query on database
-        $this->db->SQLquery('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName('password') . ' = ' . $this->db->SQLquote($this->data['password']) . ', ' . $this->db->fieldName('email') . ' = ' . $this->db->SQLquote($this->data['email']) . ', ' . $this->db->fieldName('blocked') . ' = ' . (int) $this->data['blocked'] . ', ' . $this->db->fieldName('premdays') . ' = ' . $this->data['premdays'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+        $this->db->SQLquery('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName('password') . ' = ' . $this->db->SQLquote($this->data['password']) . ', ' . $this->db->fieldName('email') . ' = ' . $this->db->SQLquote($this->data['email']) . ', ' . $this->db->fieldName('blocked') . ' = ' . (int) $this->data['blocked'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
     }
 
 /**
  * Account number.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Account number.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */
@@ -183,7 +183,7 @@ class OTS_Account implements IOTS_DAO
 /**
  * Account's password.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return string Password.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */
@@ -210,7 +210,7 @@ class OTS_Account implements IOTS_DAO
 /**
  * E-mail address.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return string E-mail.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */
@@ -237,7 +237,7 @@ class OTS_Account implements IOTS_DAO
 /**
  * Checks if account is blocked.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return bool PACC days.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */
@@ -270,9 +270,10 @@ class OTS_Account implements IOTS_DAO
 /**
  * PACC days.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int PACC days.
  * @throws E_OTS_NotLoaded If account is not loaded.
+ * @deprecated 0.0.3 There is no more premdays field in accounts table.
  */
     public function getPACCDays()
     {
@@ -281,17 +282,18 @@ class OTS_Account implements IOTS_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        return $this->data['premdays'];
+        return 0;
     }
 
 /**
  * Sets PACC days count.
  * 
  * @param int $pacc PACC days.
+ * @deprecated 0.0.3 There is no more premdays field in accounts table.
  */
     public function setPACCDays($premdays)
     {
-        $this->data['premdays'] = (int) $premdays;
+        return;
     }
 
 /**
@@ -301,8 +303,8 @@ class OTS_Account implements IOTS_DAO
  * 
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param string $field Field name.
  * @return string Field value.
  * @throws E_OTS_NotLoaded If account is not loaded.
@@ -327,8 +329,8 @@ class OTS_Account implements IOTS_DAO
  * 
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param string $field Field name.
  * @param mixed $value Field value.
  * @throws E_OTS_NotLoaded If account is not loaded.
@@ -352,7 +354,7 @@ class OTS_Account implements IOTS_DAO
 /**
  * List of characters on account.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return array Array of OTS_Player objects from given account.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */

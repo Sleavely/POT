@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ user group abstraction.
  * 
  * @package POT
- * @version 0.0.2+SVN
+ * @version 0.0.3
  */
 class OTS_Group implements IOTS_DAO
 {
@@ -89,7 +89,7 @@ class OTS_Group implements IOTS_DAO
 /**
  * Group ID.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Group ID.
  * @throws E_OTS_NotLoaded If group is not loaded.
  */
@@ -106,7 +106,7 @@ class OTS_Group implements IOTS_DAO
 /**
  * Group name.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return string Name.
  * @throws E_OTS_NotLoaded If group is not loaded.
  */
@@ -133,7 +133,7 @@ class OTS_Group implements IOTS_DAO
 /**
  * Rights flags.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Flags.
  * @throws E_OTS_NotLoaded If group is not loaded.
  */
@@ -160,7 +160,7 @@ class OTS_Group implements IOTS_DAO
 /**
  * Access level.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Access level.
  * @throws E_OTS_NotLoaded If group is not loaded.
  */
@@ -187,7 +187,7 @@ class OTS_Group implements IOTS_DAO
 /**
  * Maximum count of items in depot.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Maximum value.
  * @throws E_OTS_NotLoaded If group is not loaded.
  */
@@ -214,7 +214,7 @@ class OTS_Group implements IOTS_DAO
 /**
  * Maximum count of players in VIP list.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Maximum value.
  * @throws E_OTS_NotLoaded If group is not loaded.
  */
@@ -245,8 +245,8 @@ class OTS_Group implements IOTS_DAO
  * 
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param string $field Field name.
  * @return string Field value.
  * @throws E_OTS_NotLoaded If group is not loaded.
@@ -271,8 +271,8 @@ class OTS_Group implements IOTS_DAO
  * 
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param string $field Field name.
  * @param mixed $value Field value.
  * @throws E_OTS_NotLoaded If group is not loaded.
@@ -296,7 +296,7 @@ class OTS_Group implements IOTS_DAO
 /**
  * List of characters in given group.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return array|bool Array of OTS_Player objects from given group (false if not loaded).
  * @throws E_OTS_NotLoaded If group is not loaded.
  */

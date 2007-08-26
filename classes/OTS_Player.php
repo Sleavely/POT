@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.0.2+SVN
+ * @version 0.0.3
  */
 class OTS_Player implements IOTS_DAO
 {
@@ -33,7 +33,7 @@ class OTS_Player implements IOTS_DAO
  * @version 0.0.2
  * @var array
  */
-    private $data = array('premdays' => 0, 'sex' => POT::SEX_FEMALE, 'vocation' => POT::VOCATION_NONE, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'maxhealth' => 100, 'mana' => 100, 'manamax' => 100, 'manasent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastip' => 0, 'save' => true, 'redskulltime' => 0, 'redskull' => false, 'guildnick' => '', 'loss_experience' => 10, 'loss_mana' => 10, 'loss_skills' => 10);
+    private $data = array('premend' => 0, 'sex' => POT::SEX_FEMALE, 'vocation' => POT::VOCATION_NONE, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'maxhealth' => 100, 'mana' => 100, 'manamax' => 100, 'manasent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastip' => 0, 'save' => true, 'redskulltime' => 0, 'redskull' => false, 'guildnick' => '', 'loss_experience' => 10, 'loss_mana' => 10, 'loss_skills' => 10);
 
 /**
  * Player skills.
@@ -63,7 +63,7 @@ class OTS_Player implements IOTS_DAO
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('premdays') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('redskulltime') . ', ' . $this->db->fieldName('redskull') . ', ' . $this->db->fieldName('guildnick') . ', ' . $this->db->fieldName('rank_id') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('premend') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('redskulltime') . ', ' . $this->db->fieldName('redskull') . ', ' . $this->db->fieldName('guildnick') . ', ' . $this->db->fieldName('rank_id') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
 
         // loads skills
         if( $this->isLoaded() )
@@ -114,13 +114,13 @@ class OTS_Player implements IOTS_DAO
         if( isset($this->data['id']) )
         {
             // UPDATE query on database
-            $this->db->SQLquery('UPDATE ' . $this->db->tableName('players') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->SQLquote($this->data['name']) . ', ' . $this->db->fieldName('account_id') . ' = ' . $this->data['account_id'] . ', ' . $this->db->fieldName('group_id') . ' = ' . $this->data['group_id'] . ', ' . $this->db->fieldName('premdays') . ' = ' . $this->data['premdays'] . ' ' . $this->db->fieldName('sex') . ' = ' . $this->data['sex'] . ', ' . $this->db->fieldName('vocation') . ' = ' . $this->data['vocation'] . ', ' . $this->db->fieldName('experience') . ' = ' . $this->data['experience'] . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ', ' . $this->db->fieldName('maglevel') . ' = ' . $this->data['maglevel'] . ', ' . $this->db->fieldName('health') . ' = ' . $this->data['health'] . ', ' . $this->db->fieldName('healthmax') . ' = ' . $this->data['healthmax'] . ', ' . $this->db->fieldName('mana') . ' = ' . $this->data['mana'] . ', ' . $this->db->fieldName('manamax') . ' = ' . $this->data['manamax'] . ', ' . $this->db->fieldName('manaspent') . ' = ' . $this->data['manaspent'] . ', ' . $this->db->fieldName('soul') . ' = ' . $this->data['soul'] . ', ' . $this->db->fieldName('direction') . ' = ' . $this->data['direction'] . ', ' . $this->db->fieldName('lookbody') . ' = ' . $this->data['lookbody'] . ', ' . $this->db->fieldName('lookfeet') . ' = ' . $this->data['lookfeet'] . ', ' . $this->db->fieldName('lookhead') . ' = ' . $this->data['lookhead'] . ', ' . $this->db->fieldName('looklegs') . ' = ' . $this->data['looklegs'] . ', ' . $this->db->fieldName('looktype') . ' = ' . $this->data['looktype'] . ', ' . $this->db->fieldName('lookaddons') . ' = ' . $this->data['lookaddons'] . ', ' . $this->db->fieldName('posx') . ' = ' . $this->data['posx'] . ', ' . $this->db->fieldName('posy') . ' = ' . $this->data['posy'] . ', ' . $this->db->fieldName('posz') . ' = ' . $this->data['posz'] . ', ' . $this->db->fieldName('cap') . ' = ' . $this->data['cap'] . ', ' . $this->db->fieldName('lastlogin') . ' = ' . $this->data['lastlogin'] . ', ' . $this->db->fieldName('lastip') . ' = ' . $this->data['lastip'] . ', ' . $this->db->fieldName('save') . ' = ' . (int) $this->data['save'] . ', ' . $this->db->fieldName('conditions') . ' = ' . $this->db->SQLquote($this->data['conditions']) . ', ' . $this->db->fieldName('redskulltime') . ' = ' . $this->data['redskulltime'] . ', ' . $this->db->fieldName('redskull') . ' = ' . (int) $this->data['redskull'] . ', ' . $this->db->fieldName('guildnick') . ' = ' . $this->db->SQLquote($this->data['guildnick']) . ', ' . $this->db->fieldName('rank_id') . ' = ' . $this->data['rank_id'] . ', ' . $this->db->fieldName('town_id') . ' = ' . $this->data['town_id'] . ', ' . $this->db->fieldName('loss_experience') . ' = ' . $this->data['loss_experience'] . ', ' . $this->db->fieldName('loss_mana') . ' = ' . $this->data['loss_mana'] . ', ' . $this->db->fieldName('loss_skills') . ' = ' . $this->data['loss_skills'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+            $this->db->SQLquery('UPDATE ' . $this->db->tableName('players') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->SQLquote($this->data['name']) . ', ' . $this->db->fieldName('account_id') . ' = ' . $this->data['account_id'] . ', ' . $this->db->fieldName('group_id') . ' = ' . $this->data['group_id'] . ', ' . $this->db->fieldName('premend') . ' = ' . $this->data['premend'] . ' ' . $this->db->fieldName('sex') . ' = ' . $this->data['sex'] . ', ' . $this->db->fieldName('vocation') . ' = ' . $this->data['vocation'] . ', ' . $this->db->fieldName('experience') . ' = ' . $this->data['experience'] . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ', ' . $this->db->fieldName('maglevel') . ' = ' . $this->data['maglevel'] . ', ' . $this->db->fieldName('health') . ' = ' . $this->data['health'] . ', ' . $this->db->fieldName('healthmax') . ' = ' . $this->data['healthmax'] . ', ' . $this->db->fieldName('mana') . ' = ' . $this->data['mana'] . ', ' . $this->db->fieldName('manamax') . ' = ' . $this->data['manamax'] . ', ' . $this->db->fieldName('manaspent') . ' = ' . $this->data['manaspent'] . ', ' . $this->db->fieldName('soul') . ' = ' . $this->data['soul'] . ', ' . $this->db->fieldName('direction') . ' = ' . $this->data['direction'] . ', ' . $this->db->fieldName('lookbody') . ' = ' . $this->data['lookbody'] . ', ' . $this->db->fieldName('lookfeet') . ' = ' . $this->data['lookfeet'] . ', ' . $this->db->fieldName('lookhead') . ' = ' . $this->data['lookhead'] . ', ' . $this->db->fieldName('looklegs') . ' = ' . $this->data['looklegs'] . ', ' . $this->db->fieldName('looktype') . ' = ' . $this->data['looktype'] . ', ' . $this->db->fieldName('lookaddons') . ' = ' . $this->data['lookaddons'] . ', ' . $this->db->fieldName('posx') . ' = ' . $this->data['posx'] . ', ' . $this->db->fieldName('posy') . ' = ' . $this->data['posy'] . ', ' . $this->db->fieldName('posz') . ' = ' . $this->data['posz'] . ', ' . $this->db->fieldName('cap') . ' = ' . $this->data['cap'] . ', ' . $this->db->fieldName('lastlogin') . ' = ' . $this->data['lastlogin'] . ', ' . $this->db->fieldName('lastip') . ' = ' . $this->data['lastip'] . ', ' . $this->db->fieldName('save') . ' = ' . (int) $this->data['save'] . ', ' . $this->db->fieldName('conditions') . ' = ' . $this->db->SQLquote($this->data['conditions']) . ', ' . $this->db->fieldName('redskulltime') . ' = ' . $this->data['redskulltime'] . ', ' . $this->db->fieldName('redskull') . ' = ' . (int) $this->data['redskull'] . ', ' . $this->db->fieldName('guildnick') . ' = ' . $this->db->SQLquote($this->data['guildnick']) . ', ' . $this->db->fieldName('rank_id') . ' = ' . $this->data['rank_id'] . ', ' . $this->db->fieldName('town_id') . ' = ' . $this->data['town_id'] . ', ' . $this->db->fieldName('loss_experience') . ' = ' . $this->data['loss_experience'] . ', ' . $this->db->fieldName('loss_mana') . ' = ' . $this->data['loss_mana'] . ', ' . $this->db->fieldName('loss_skills') . ' = ' . $this->data['loss_skills'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
         }
         // creates new group
         else
         {
             // INSERT query on database
-            $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('players') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('premdays') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('redskulltime') . ', ' . $this->db->fieldName('redskull') . ', ' . $this->db->fieldName('guildnick') . ', ' . $this->db->fieldName('rank_id') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ') VALUES (' . $this->db->SQLquote($this->data['name']) . ', ' . $this->data['account_id'] . ', ' . $this->data['group_id'] . ', ' . $this->data['premdays'] . ', ' . $this->data['sex'] . ', ' . $this->data['vocation'] . ', ' . $this->data['experience'] . ', ' . $this->data['level'] . ', ' . $this->data['maglevel'] . ', ' . $this->data['health'] . ', ' . $this->data['healthmax'] . ', ' . $this->data['mana'] . ', ' . $this->data['manamax'] . ', ' . $this->data['manaspent'] . ', ' . $this->data['soul'] . ', ' . $this->data['direction'] . ', ' . $this->data['lookbody'] . ', ' . $this->data['lookfeet'] . ', ' . $this->data['lookhead'] . ', ' . $this->data['looklegs'] . ', ' . $this->data['looktype'] . ', ' . $this->data['lookaddons'] . ', ' . $this->data['posx'] . ', ' . $this->data['posy'] . ', ' . $this->data['posz'] . ', ' . $this->data['cap'] . ', ' . $this->data['lastlogin'] . ', ' . $this->data['lastip'] . ', ' . (int) $this->data['save'] . ', ' . $this->db->SQLquote($this->data['conditions']) . ', ' . $this->data['redskulltime'] . ', ' . (int) $this->data['redskull'] . ', ' . $this->db->SQLquote($this->data['guildnick']) . ', ' . $this->data['rank_id'] . ', ' . $this->data['town_id'] . ', ' . $this->data['loss_experience'] . ', ' . $this->data['loss_mana'] . ', ' . $this->data['loss_skills'] . ')');
+            $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('players') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('premend') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('redskulltime') . ', ' . $this->db->fieldName('redskull') . ', ' . $this->db->fieldName('guildnick') . ', ' . $this->db->fieldName('rank_id') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ') VALUES (' . $this->db->SQLquote($this->data['name']) . ', ' . $this->data['account_id'] . ', ' . $this->data['group_id'] . ', ' . $this->data['premend'] . ', ' . $this->data['sex'] . ', ' . $this->data['vocation'] . ', ' . $this->data['experience'] . ', ' . $this->data['level'] . ', ' . $this->data['maglevel'] . ', ' . $this->data['health'] . ', ' . $this->data['healthmax'] . ', ' . $this->data['mana'] . ', ' . $this->data['manamax'] . ', ' . $this->data['manaspent'] . ', ' . $this->data['soul'] . ', ' . $this->data['direction'] . ', ' . $this->data['lookbody'] . ', ' . $this->data['lookfeet'] . ', ' . $this->data['lookhead'] . ', ' . $this->data['looklegs'] . ', ' . $this->data['looktype'] . ', ' . $this->data['lookaddons'] . ', ' . $this->data['posx'] . ', ' . $this->data['posy'] . ', ' . $this->data['posz'] . ', ' . $this->data['cap'] . ', ' . $this->data['lastlogin'] . ', ' . $this->data['lastip'] . ', ' . (int) $this->data['save'] . ', ' . $this->db->SQLquote($this->data['conditions']) . ', ' . $this->data['redskulltime'] . ', ' . (int) $this->data['redskull'] . ', ' . $this->db->SQLquote($this->data['guildnick']) . ', ' . $this->data['rank_id'] . ', ' . $this->data['town_id'] . ', ' . $this->data['loss_experience'] . ', ' . $this->data['loss_mana'] . ', ' . $this->data['loss_skills'] . ')');
             // ID of new group
             $this->data['id'] = $this->db->lastInsertId();
         }
@@ -135,7 +135,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Player ID.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Player ID.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -152,7 +152,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Player name.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return string Player's name.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -179,7 +179,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Returns account of this player.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return OTS_Account Owning account.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -208,7 +208,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Returns group of this player.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return OTS_Group Group of which current character is member.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -235,39 +235,39 @@ class OTS_Player implements IOTS_DAO
     }
 
 /**
- * Player's Premium Account days.
+ * Player's Premium Account expiration timestamp.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
- * @return int Player gender.
+ * @version 0.0.3
+ * @since 0.0.3
+ * @return int Player PACC expiration timestamp.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
-    public function getPACCDays()
+    public function getPremiumEnd()
     {
-        if( !isset($this->data['premdays']) )
+        if( !isset($this->data['premend']) )
         {
             throw new E_OTS_NotLoaded();
         }
 
-        return $this->data['premdays'];
+        return $this->data['premend'];
     }
 
 /**
- * Sets player's Premium Account days.
+ * Sets player's Premium Account expiration timestamp.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
- * @param int $premdays PACC days.
+ * @version 0.0.3
+ * @since 0.0.3
+ * @param int $premend PACC expiration timestamp.
  */
-    public function setPACCDays($premdays)
+    public function setPremiumEnd($premend)
     {
-        $this->data['premdays'] = (int) $premdays;
+        $this->data['premend'] = (int) $premend;
     }
 
 /**
  * Player gender.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Player gender.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -294,7 +294,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Player proffesion.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Player proffesion.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -321,7 +321,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Experience points.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Experience points.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -348,7 +348,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Experience level.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Experience level.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -375,7 +375,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Magic level.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Magic level.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -402,7 +402,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Current HP.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Current HP.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -429,7 +429,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Maximum HP.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Maximum HP.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -456,7 +456,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Current mana.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Current mana.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -483,7 +483,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Maximum mana.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Maximum mana.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -510,7 +510,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Mana spent.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Mana spent.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -537,7 +537,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Soul points.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Soul points.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -564,7 +564,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Looking direction.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Looking direction.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -591,7 +591,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Body color.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Body color.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -618,7 +618,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Boots color.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Boots color.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -645,7 +645,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Hair color.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Hair color.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -672,7 +672,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Legs color.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Legs color.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -699,7 +699,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Outfit.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Outfit.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -726,7 +726,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Addons.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Addons.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -753,7 +753,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * X map coordinate.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int X map coordinate.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -780,7 +780,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Y map coordinate.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Y map coordinate.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -807,7 +807,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Z map coordinate.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Z map coordinate.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -834,7 +834,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Capacity.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Capacity.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -861,7 +861,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Last login timestamp.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Last login timestamp.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -888,7 +888,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Last login IP.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Last login IP.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -915,7 +915,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Checks if save flag is set.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return bool PACC days.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -948,7 +948,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Conditions.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return mixed Conditions.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -975,7 +975,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Red skulled time remained.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Red skulled time remained.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1002,7 +1002,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Checks if player has red skull.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return bool Red skull state.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1035,7 +1035,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Guild nick.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return string Guild title.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1062,7 +1062,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Guild rank ID.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Guild rank ID.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1088,7 +1088,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Residence town's ID.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Residence town's ID.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1114,7 +1114,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Percentage of experience lost after dead.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Percentage of experience lost after dead.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1140,7 +1140,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Percentage of used mana lost after dead.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Percentage of used mana lost after dead.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1166,7 +1166,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Percentage of skills lost after dead.
  * 
- * @version 0.0.2+SVN
+ * @version 0.0.3
  * @return int Percentage of skills lost after dead.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1197,8 +1197,8 @@ class OTS_Player implements IOTS_DAO
  * 
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param string $field Field name.
  * @return string Field value.
  * @throws E_OTS_NotLoaded If player is not loaded.
@@ -1223,8 +1223,8 @@ class OTS_Player implements IOTS_DAO
  * 
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param string $field Field name.
  * @param mixed $value Field value.
  * @throws E_OTS_NotLoaded If player is not loaded.
@@ -1312,8 +1312,8 @@ class OTS_Player implements IOTS_DAO
 /**
  * Deletes item with contained items.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param int $sid Item unique player's ID.
  */
     private function deleteItem($sid)
@@ -1333,8 +1333,8 @@ class OTS_Player implements IOTS_DAO
  * 
  * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param int $slot Slot to get items.
  * @return OTS_Item|null Item in given slot (items tree if in given slot there is a container). If there is no item in slot then null value will be returned.
  * @throws E_OTS_NotLoaded If player is not loaded.
@@ -1386,8 +1386,8 @@ class OTS_Player implements IOTS_DAO
 /**
  * Sets slot content.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param int $slot Slot to save items.
  * @param OTS_Item $item Item (can be a container with content) for given slot. Leave this parameter blank to clear slot.
  * @param int $pid For internal use in case of containers.
@@ -1441,8 +1441,8 @@ class OTS_Player implements IOTS_DAO
 /**
  * Deletes depot item with contained items.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param int $sid Depot item unique player's ID.
  */
     private function deleteDepot($sid)
@@ -1462,8 +1462,8 @@ class OTS_Player implements IOTS_DAO
  * 
  * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param int $depot Depot ID to get items.
  * @return OTS_Item|null Item in given depot (items tree if in given slot there is a container). If there is no item in slot then null value will be returned.
  * @throws E_OTS_NotLoaded If player is not loaded.
@@ -1515,8 +1515,8 @@ class OTS_Player implements IOTS_DAO
 /**
  * Sets slot content.
  * 
- * @version 0.0.2+SVN
- * @since 0.0.2+SVN
+ * @version 0.0.3
+ * @since 0.0.3
  * @param int $depot Depot ID to save items.
  * @param OTS_Item $item Item (can be a container with content) for given depot. Leave this parameter blank to clear depot.
  * @param int $pid For internal recursive insertion.
