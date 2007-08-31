@@ -58,7 +58,7 @@ class OTS_Container extends OTS_Item implements Iterator
 /**
  * Number of items inside container.
  * 
- * OTS_Container implementation of Countable interface differs from OTS_Item implemention. {@link CMS_Item::count() OTS_Item::count()} returns count of given item, OTS_Container::count() returns number of items inside container. If somehow it would be possible to make container items with more then 1 in one place, you can use {@link CMS_Item::getCount() CMS_Item::getCount()} and {@link CMS_Item::setCount() CMS_Item::setCount()} in code where you are not sure if working with regular item, or container.
+ * OTS_Container implementation of Countable interface differs from OTS_Item implemention. {@link OTS_Item::count() OTS_Item::count()} returns count of given item, OTS_Container::count() returns number of items inside container. If somehow it would be possible to make container items with more then 1 in one place, you can use {@link OTS_Item::getCount() OTS_Item::getCount()} and {@link OTS_Item::setCount() OTS_Item::setCount()} in code where you are not sure if working with regular item, or container.
  * 
  * @return int Number of items.
  */
