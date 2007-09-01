@@ -1378,7 +1378,7 @@ class OTS_Player implements IOTS_DAO
         }
 
         $slot->setCount($item['count']);
-        $slot->setAttribute($item['attributes']);
+        $slot->setAttributes($item['attributes']);
 
         return $slot;
     }
@@ -1507,7 +1507,7 @@ class OTS_Player implements IOTS_DAO
         }
 
         $depot->setCount($item['count']);
-        $depot->setAttribute($item['attributes']);
+        $depot->setAttributes($item['attributes']);
 
         return $depot;
     }
