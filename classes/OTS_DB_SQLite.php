@@ -6,6 +6,7 @@
 
 /**
  * @package POT
+ * @version 0.0.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -15,6 +16,7 @@
  * SQLite connection interface.
  * 
  * @package POT
+ * @version 0.0.3+SVN
  */
 class OTS_DB_SQLite extends PDO implements IOTS_DB
 {
@@ -51,8 +53,6 @@ class OTS_DB_SQLite extends PDO implements IOTS_DB
 
         // this class will drop quotes from field names
         $this->setAttribute(PDO::ATTR_STATEMENT_CLASS, array('OTS_SQLite_Results') );
-        // function to handle REGEXP operator
-        $this->sqliteCreateFunction('regexp', array($this, 'regexp') );
     }
 
 /**
@@ -75,19 +75,6 @@ class OTS_DB_SQLite extends PDO implements IOTS_DB
     public function tableName($name)
     {
         return $this->fieldName($this->prefix . $name);
-    }
-
-/**
- * REGEXP operator for SQLite
- * 
- * @internal For SQLite REGEXP driver.
- * @param string $name Regular expression to test.
- * @param string $content String to test.
- * @return bool Test results.
- */
-    public function regexp($name, $content)
-    {
-        return preg_match('#' . str_replace('#', '\\#', $name) . '#', $content) != 0;
     }
 
 /**
