@@ -1520,11 +1520,18 @@ class OTS_Player implements IOTS_DAO
  * @param int $depot Depot ID to save items.
  * @param OTS_Item $item Item (can be a container with content) for given depot. Leave this parameter blank to clear depot.
  * @param int $pid For internal recursive insertion.
+ * @param int $depot_id Internal, for further use.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
-    public function setDepot($depot, OTS_Item $item = null, $pid = 0)
+    public function setDepot($depot, OTS_Item $item = null, $pid = 0, $depot_id = 0)
     {
         static $sid;
+
+        // if no depot_id is specified then it is same as depot slot
+        if($depot_id == 0)
+        {
+            $depot_id = $depot;
+        }
 
         if( !isset($this->data['id']) )
         {
@@ -1538,7 +1545,7 @@ class OTS_Player implements IOTS_DAO
         if( isset($item) )
         {
             // inserts given item
-            $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('player_depotitems') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('pid') . ', ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ') VALUES (' . $this->data['id'] . ', ' . $depot . ', ' . $pid . ', ' . $item->getId() . ', ' . $item->getCount() . ', ' . $this->db->SQLquote( $item->getAttributes() ) . ')');
+            $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('player_depotitems') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('depot_id') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('pid') . ', ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ') VALUES (' . $depot_id . ', ' . $this->data['id'] . ', ' . $depot . ', ' . $pid . ', ' . $item->getId() . ', ' . $item->getCount() . ', ' . $this->db->SQLquote( $item->getAttributes() ) . ')');
 
             // checks if this is container
             if($item instanceof OTS_Container)
@@ -1555,7 +1562,7 @@ class OTS_Player implements IOTS_DAO
                 // inserts all contained items
                 foreach($item as $sub)
                 {
-                    $this->setDepot($sid, $sub, $depot);
+                    $this->setDepot($sid, $sub, $depot, $depot_id);
                 }
             }
         }

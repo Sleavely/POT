@@ -1,4 +1,6 @@
 [0.0.3+SVN]
+* Added account group support. <wrzasq>
+* Added support for depot_id field (it is reserverd in OTServ for futher use). <wrzasq>
 * Fixed typos. <wrzasq>
 
 [0.0.3]

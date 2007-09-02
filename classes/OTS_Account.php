@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.3
+ * @version 0.0.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.0.3
+ * @version 0.0.3+SVN
  */
 class OTS_Account implements IOTS_DAO
 {
@@ -101,7 +101,7 @@ class OTS_Account implements IOTS_DAO
         $this->data['id'] = $number;
         $this->data['blocked'] = true;
 
-        $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('accounts') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ') VALUES (' . $number . ', \'\', \'\', 1)');
+        $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('accounts') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ') VALUES (' . $number . ', \'\', \'\', 1)');
 
         return $number;
     }
@@ -149,7 +149,7 @@ class OTS_Account implements IOTS_DAO
 /**
  * Updates account in database.
  * 
- * @version 0.0.3
+ * @version 0.0.3+SVN
  * @throws E_OTS_NotLoaded False if account doesn't have ID assigned.
  */
     public function save()
@@ -160,7 +160,7 @@ class OTS_Account implements IOTS_DAO
         }
 
         // UPDATE query on database
-        $this->db->SQLquery('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName('password') . ' = ' . $this->db->SQLquote($this->data['password']) . ', ' . $this->db->fieldName('email') . ' = ' . $this->db->SQLquote($this->data['email']) . ', ' . $this->db->fieldName('blocked') . ' = ' . (int) $this->data['blocked'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+        $this->db->SQLquery('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName('group_id') . ' = ' . $this->data['group_id'] . ', ' . $this->db->fieldName('password') . ' = ' . $this->db->SQLquote($this->data['password']) . ', ' . $this->db->fieldName('email') . ' = ' . $this->db->SQLquote($this->data['email']) . ', ' . $this->db->fieldName('blocked') . ' = ' . (int) $this->data['blocked'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
     }
 
 /**
@@ -178,6 +178,36 @@ class OTS_Account implements IOTS_DAO
         }
 
         return $this->data['id'];
+    }
+
+/**
+ * Returns group of this account.
+ * 
+ * @version 0.0.3+SVN
+ * @since 0.0.3+SVN
+ * @return OTS_Group Group of which current account is member.
+ * @throws E_OTS_NotLoaded If account is not loaded.
+ */
+    public function getGroup()
+    {
+        if( !isset($this->data['group_id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $group = POT::getInstance()->createObject('Group');
+        $group->load($this->data['group_id']);
+        return $group;
+    }
+
+/**
+ * Assigns account to group.
+ * 
+ * @param OTS_Group $group Group to be a member.
+ */
+    public function setGroup(OTS_Group $group)
+    {
+        $this->data['group_id'] = $group->getId();
     }
 
 /**
