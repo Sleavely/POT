@@ -67,7 +67,7 @@ class OTS_Account implements IOTS_DAO
     public function create($min = 1, $max = 9999999)
     {
         // loads default group
-        $groups = OTS::getInstance()->createObject('Groups_List');
+        $groups = POT::getInstance()->createObject('Groups_List');
         return $this->createEx( $group->current(), $min, $max);
     }
 
