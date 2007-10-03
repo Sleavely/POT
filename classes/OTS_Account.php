@@ -68,7 +68,8 @@ class OTS_Account implements IOTS_DAO
     {
         // loads default group
         $groups = POT::getInstance()->createObject('Groups_List');
-        return $this->createEx( $group->current(), $min, $max);
+        $groups->rewind();
+        return $this->createEx( $groups->current(), $min, $max);
     }
 
 /**
