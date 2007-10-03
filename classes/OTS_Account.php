@@ -130,9 +130,10 @@ class OTS_Account implements IOTS_DAO
 
         // saves blank account info
         $this->data['id'] = $number;
+        $this->data['group_id'] = $group->getId();
         $this->data['blocked'] = true;
 
-        $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('accounts') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ') VALUES (' . $number . ', ' . $group->getId() . ', \'\', \'\', 1)');
+        $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('accounts') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ') VALUES (' . $number . ', ' . $this->data['group_id'] . ', \'\', \'\', 1)');
 
         return $number;
     }
