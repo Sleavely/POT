@@ -30,10 +30,10 @@ class OTS_Player implements IOTS_DAO
 /**
  * Player data.
  * 
- * @version 0.0.2
+ * @version 0.0.3+SVN
  * @var array
  */
-    private $data = array('premend' => 0, 'sex' => POT::SEX_FEMALE, 'vocation' => POT::VOCATION_NONE, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'maxhealth' => 100, 'mana' => 100, 'manamax' => 100, 'manasent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastip' => 0, 'save' => true, 'redskulltime' => 0, 'redskull' => false, 'guildnick' => '', 'loss_experience' => 10, 'loss_mana' => 10, 'loss_skills' => 10);
+    private $data = array('premend' => 0, 'sex' => POT::SEX_FEMALE, 'vocation' => POT::VOCATION_NONE, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'maxhealth' => 100, 'mana' => 100, 'manamax' => 100, 'manaspent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastip' => 0, 'save' => true, 'redskulltime' => 0, 'redskull' => false, 'guildnick' => '', 'loss_experience' => 10, 'loss_mana' => 10, 'loss_skills' => 10);
 
 /**
  * Player skills.
@@ -104,19 +104,19 @@ class OTS_Player implements IOTS_DAO
     }
 
 /**
- * Saves account in database.
+ * Saves player in database.
  * 
  * @version 0.0.2
  */
     public function save()
     {
-        // updates existing group
+        // updates existing player
         if( isset($this->data['id']) )
         {
             // UPDATE query on database
-            $this->db->SQLquery('UPDATE ' . $this->db->tableName('players') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->SQLquote($this->data['name']) . ', ' . $this->db->fieldName('account_id') . ' = ' . $this->data['account_id'] . ', ' . $this->db->fieldName('group_id') . ' = ' . $this->data['group_id'] . ', ' . $this->db->fieldName('premend') . ' = ' . $this->data['premend'] . ' ' . $this->db->fieldName('sex') . ' = ' . $this->data['sex'] . ', ' . $this->db->fieldName('vocation') . ' = ' . $this->data['vocation'] . ', ' . $this->db->fieldName('experience') . ' = ' . $this->data['experience'] . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ', ' . $this->db->fieldName('maglevel') . ' = ' . $this->data['maglevel'] . ', ' . $this->db->fieldName('health') . ' = ' . $this->data['health'] . ', ' . $this->db->fieldName('healthmax') . ' = ' . $this->data['healthmax'] . ', ' . $this->db->fieldName('mana') . ' = ' . $this->data['mana'] . ', ' . $this->db->fieldName('manamax') . ' = ' . $this->data['manamax'] . ', ' . $this->db->fieldName('manaspent') . ' = ' . $this->data['manaspent'] . ', ' . $this->db->fieldName('soul') . ' = ' . $this->data['soul'] . ', ' . $this->db->fieldName('direction') . ' = ' . $this->data['direction'] . ', ' . $this->db->fieldName('lookbody') . ' = ' . $this->data['lookbody'] . ', ' . $this->db->fieldName('lookfeet') . ' = ' . $this->data['lookfeet'] . ', ' . $this->db->fieldName('lookhead') . ' = ' . $this->data['lookhead'] . ', ' . $this->db->fieldName('looklegs') . ' = ' . $this->data['looklegs'] . ', ' . $this->db->fieldName('looktype') . ' = ' . $this->data['looktype'] . ', ' . $this->db->fieldName('lookaddons') . ' = ' . $this->data['lookaddons'] . ', ' . $this->db->fieldName('posx') . ' = ' . $this->data['posx'] . ', ' . $this->db->fieldName('posy') . ' = ' . $this->data['posy'] . ', ' . $this->db->fieldName('posz') . ' = ' . $this->data['posz'] . ', ' . $this->db->fieldName('cap') . ' = ' . $this->data['cap'] . ', ' . $this->db->fieldName('lastlogin') . ' = ' . $this->data['lastlogin'] . ', ' . $this->db->fieldName('lastip') . ' = ' . $this->data['lastip'] . ', ' . $this->db->fieldName('save') . ' = ' . (int) $this->data['save'] . ', ' . $this->db->fieldName('conditions') . ' = ' . $this->db->SQLquote($this->data['conditions']) . ', ' . $this->db->fieldName('redskulltime') . ' = ' . $this->data['redskulltime'] . ', ' . $this->db->fieldName('redskull') . ' = ' . (int) $this->data['redskull'] . ', ' . $this->db->fieldName('guildnick') . ' = ' . $this->db->SQLquote($this->data['guildnick']) . ', ' . $this->db->fieldName('rank_id') . ' = ' . $this->data['rank_id'] . ', ' . $this->db->fieldName('town_id') . ' = ' . $this->data['town_id'] . ', ' . $this->db->fieldName('loss_experience') . ' = ' . $this->data['loss_experience'] . ', ' . $this->db->fieldName('loss_mana') . ' = ' . $this->data['loss_mana'] . ', ' . $this->db->fieldName('loss_skills') . ' = ' . $this->data['loss_skills'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+            $this->db->SQLquery('UPDATE ' . $this->db->tableName('players') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->SQLquote($this->data['name']) . ', ' . $this->db->fieldName('account_id') . ' = ' . $this->data['account_id'] . ', ' . $this->db->fieldName('group_id') . ' = ' . $this->data['group_id'] . ', ' . $this->db->fieldName('premend') . ' = ' . $this->data['premend'] . ', ' . $this->db->fieldName('sex') . ' = ' . $this->data['sex'] . ', ' . $this->db->fieldName('vocation') . ' = ' . $this->data['vocation'] . ', ' . $this->db->fieldName('experience') . ' = ' . $this->data['experience'] . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ', ' . $this->db->fieldName('maglevel') . ' = ' . $this->data['maglevel'] . ', ' . $this->db->fieldName('health') . ' = ' . $this->data['health'] . ', ' . $this->db->fieldName('healthmax') . ' = ' . $this->data['healthmax'] . ', ' . $this->db->fieldName('mana') . ' = ' . $this->data['mana'] . ', ' . $this->db->fieldName('manamax') . ' = ' . $this->data['manamax'] . ', ' . $this->db->fieldName('manaspent') . ' = ' . $this->data['manaspent'] . ', ' . $this->db->fieldName('soul') . ' = ' . $this->data['soul'] . ', ' . $this->db->fieldName('direction') . ' = ' . $this->data['direction'] . ', ' . $this->db->fieldName('lookbody') . ' = ' . $this->data['lookbody'] . ', ' . $this->db->fieldName('lookfeet') . ' = ' . $this->data['lookfeet'] . ', ' . $this->db->fieldName('lookhead') . ' = ' . $this->data['lookhead'] . ', ' . $this->db->fieldName('looklegs') . ' = ' . $this->data['looklegs'] . ', ' . $this->db->fieldName('looktype') . ' = ' . $this->data['looktype'] . ', ' . $this->db->fieldName('lookaddons') . ' = ' . $this->data['lookaddons'] . ', ' . $this->db->fieldName('posx') . ' = ' . $this->data['posx'] . ', ' . $this->db->fieldName('posy') . ' = ' . $this->data['posy'] . ', ' . $this->db->fieldName('posz') . ' = ' . $this->data['posz'] . ', ' . $this->db->fieldName('cap') . ' = ' . $this->data['cap'] . ', ' . $this->db->fieldName('lastlogin') . ' = ' . $this->data['lastlogin'] . ', ' . $this->db->fieldName('lastip') . ' = ' . $this->data['lastip'] . ', ' . $this->db->fieldName('save') . ' = ' . (int) $this->data['save'] . ', ' . $this->db->fieldName('conditions') . ' = ' . $this->db->SQLquote($this->data['conditions']) . ', ' . $this->db->fieldName('redskulltime') . ' = ' . $this->data['redskulltime'] . ', ' . $this->db->fieldName('redskull') . ' = ' . (int) $this->data['redskull'] . ', ' . $this->db->fieldName('guildnick') . ' = ' . $this->db->SQLquote($this->data['guildnick']) . ', ' . $this->db->fieldName('rank_id') . ' = ' . $this->data['rank_id'] . ', ' . $this->db->fieldName('town_id') . ' = ' . $this->data['town_id'] . ', ' . $this->db->fieldName('loss_experience') . ' = ' . $this->data['loss_experience'] . ', ' . $this->db->fieldName('loss_mana') . ' = ' . $this->data['loss_mana'] . ', ' . $this->db->fieldName('loss_skills') . ' = ' . $this->data['loss_skills'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
         }
-        // creates new group
+        // creates new player
         else
         {
             // INSERT query on database
@@ -1065,6 +1065,7 @@ class OTS_Player implements IOTS_DAO
  * @version 0.0.3
  * @return int Guild rank ID.
  * @throws E_OTS_NotLoaded If player is not loaded.
+ * @deprecated 0.0.3+SVN Use getRank().
  */
     public function getRankId()
     {
@@ -1077,14 +1078,56 @@ class OTS_Player implements IOTS_DAO
     }
 
 /**
+ * Assigned guild rank.
+ * 
+ * @return OTS_GuildRank|null Guild rank (null if not member of any).
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function getRank()
+    {
+        if( !isset($this->data['rank_id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        if($this->data['rank_id'] == 0)
+        {
+            return null;
+        }
+
+        $guildRank = POT::getInstance()->createObject('GuildRank');
+        $guildRank->load($this->data['rank_id']);
+        return $guildRank;
+    }
+
+/**
  * Sets guild rank ID.
  * 
  * @param int $rank_id Guild rank ID.
+ * @deprecated 0.0.3+SVN Use setRank().
  */
     public function setRankId($rank_id)
     {
         $this->data['rank_id'] = (int) $rank_id;
     }
+
+/**
+ * Assigns guild rank.
+ * 
+ * @param OTS_GuildRank|null Guild rank (null to clear assign).
+ */
+    public function setRank(OTS_GuildRank $guildRank = null)
+    {
+        if( isset($guildRank) )
+        {
+            $this->data['rank_id'] = $guildRank->getId();
+        }
+        else
+        {
+            $this->data['rank_id'] = 0;
+        }
+    }
+
 /**
  * Residence town's ID.
  * 
@@ -1111,6 +1154,7 @@ class OTS_Player implements IOTS_DAO
     {
         $this->data['town_id'] = (int) $town_id;
     }
+
 /**
  * Percentage of experience lost after dead.
  * 
@@ -1137,6 +1181,7 @@ class OTS_Player implements IOTS_DAO
     {
         $this->data['loss_experience'] = (int) $loss_experience;
     }
+
 /**
  * Percentage of used mana lost after dead.
  * 
@@ -1163,6 +1208,7 @@ class OTS_Player implements IOTS_DAO
     {
         $this->data['loss_mana'] = (int) $loss_mana;
     }
+
 /**
  * Percentage of skills lost after dead.
  * 
@@ -1221,7 +1267,7 @@ class OTS_Player implements IOTS_DAO
  * 
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * 
- * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
+ * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field value. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
  * 
  * @version 0.0.3
  * @since 0.0.3

@@ -1,6 +1,10 @@
 [0.0.3+SVN]
+* Added guild system support (guilds, ranks, invitations and requests drivers mechanisms). <wrzasq>
 * Added account group support. <wrzasq>
 * Added support for depot_id field (it is reserverd in OTServ for futher use). <wrzasq>
+* Added PostgreSQL and ODBC drivers. <wrzasq>
+* Updated players table structure. <wrzasq>
+* Dropped REGEXP operator bindings - not used anywhere. <wrzasq>
 * Fixed typos. <wrzasq>
 
 [0.0.3]

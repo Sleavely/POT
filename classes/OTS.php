@@ -8,7 +8,7 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.0.3
+ * @version 0.0.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -18,7 +18,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.0.3
+ * @version 0.0.3+SVN
  */
 class POT
 {
@@ -30,6 +30,20 @@ class POT
  * SQLite driver.
  */
     const DB_SQLITE = 2;
+/**
+ * PostgreSQL driver.
+ * 
+ * @version 0.0.3+SVN
+ * @since 0.0.3+SVN
+ */
+    const DB_PGSQL = 3;
+/**
+ * ODBC driver.
+ * 
+ * @version 0.0.3+SVN
+ * @since 0.0.3+SVN
+ */
+    const DB_ODBC = 4;
 
 /**
  * Female gender.

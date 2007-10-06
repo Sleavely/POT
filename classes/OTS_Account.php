@@ -301,7 +301,7 @@ class OTS_Account implements IOTS_DAO
  * Checks if account is blocked.
  * 
  * @version 0.0.3
- * @return bool PACC days.
+ * @return bool Blocked state.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */
     public function isBlocked()
@@ -333,14 +333,14 @@ class OTS_Account implements IOTS_DAO
 /**
  * PACC days.
  * 
- * @version 0.0.3
+ * @version 0.0.3+SVN
  * @return int PACC days.
  * @throws E_OTS_NotLoaded If account is not loaded.
  * @deprecated 0.0.3 There is no more premdays field in accounts table.
  */
     public function getPACCDays()
     {
-        if( !isset($this->data['premdays']) )
+        if( !isset($this->data['id']) )
         {
             throw new E_OTS_NotLoaded();
         }
@@ -351,12 +351,12 @@ class OTS_Account implements IOTS_DAO
 /**
  * Sets PACC days count.
  * 
+ * @version 0.0.3+SVN
  * @param int $pacc PACC days.
  * @deprecated 0.0.3 There is no more premdays field in accounts table.
  */
     public function setPACCDays($premdays)
     {
-        return;
     }
 
 /**

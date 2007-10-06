@@ -297,7 +297,7 @@ class OTS_Group implements IOTS_DAO
  * List of characters in given group.
  * 
  * @version 0.0.3
- * @return array|bool Array of OTS_Player objects from given group (false if not loaded).
+ * @return array Array of OTS_Player objects from given group.
  * @throws E_OTS_NotLoaded If group is not loaded.
  */
     public function getPlayers()
