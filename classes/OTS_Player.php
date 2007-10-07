@@ -1241,7 +1241,9 @@ class OTS_Player implements IOTS_DAO
  * 
  * Reads field by it's name. Can read any field of given record that exists in database.
  * 
+ * <p>
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+ * </p>
  * 
  * @version 0.0.3
  * @since 0.0.3
@@ -1265,9 +1267,13 @@ class OTS_Player implements IOTS_DAO
  * 
  * Write field by it's name. Can write any field of given record that exists in database.
  * 
+ * <p>
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+ * </p>
  * 
+ * <p>
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field value. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
+ * </p>
  * 
  * @version 0.0.3
  * @since 0.0.3

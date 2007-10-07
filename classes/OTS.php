@@ -282,9 +282,13 @@ class POT
  * 
  * Runtime class loading on demand - usefull for __autoload() function.
  * 
+ * <p>
  * Note: Since 0.0.2 version this function is suitable for spl_autoload_register().
+ * </p>
  * 
+ * <p>
  * Note: Since 0.0.3 version this function handles also exceptions.
+ * </p>
  * 
  * @version 0.0.3
  * @param string $class Class name.
@@ -313,7 +317,7 @@ class POT
  * Creates OTServ database connection object.
  * 
  * <p>
- * First parameter is one of database driver constants values. Currently MySQL and SQLite drivers are supported. XML is not planned.<br />
+ * First parameter is one of database driver constants values. Currently MySQL, SQLite, PostgreSQL and ODBC drivers are supported.<br />
  * This parameter can be null, then you have to specify <var>'driver'</var> parameter.<br />
  * Such way is comfortable to store entire database configuration in one array and possibly runtime evaluation and/or configuration file saving.<br />
  * </p>
@@ -325,6 +329,7 @@ class POT
  * - <var>driver</var> - optional, specifies driver, aplies when <var>$driver</var> method parameter is <i>null</i>
  * - <var>prefix</var> - optional, prefix for database tables, use if you have more then one OTServ installed on one database.
  * 
+ * @version 0.0.3+SVN
  * @param int|null $driver Database driver type.
  * @param array $params Connection info.
  * @throws Exception When driver is not supported.
@@ -341,16 +346,10 @@ class POT
             }
             else
             {
-                throw new Exception('You must specify datbase driver to connect with.');
+                throw new Exception('You must specify database driver to connect with.');
             }
         }
         unset($params['driver']);
-
-        // checks driver support
-        if($driver != self::DB_MYSQL && $driver != self::DB_SQLITE)
-        {
-            throw new Exception('Driver \'' . $driver . '\' is not supported.');
-        }
 
         // switch() structure provides us further flexibility
         switch($driver)
@@ -364,6 +363,20 @@ class POT
             case self::DB_SQLITE:
                 $this->db = new OTS_DB_SQLite($params);
                 break;
+
+            // SQLite database
+            case self::DB_PGSQL:
+                $this->db = new OTS_DB_PostgreSQL($params);
+                break;
+
+            // SQLite database
+            case self::DB_ODBC:
+                $this->db = new OTS_DB_ODBC($params);
+                break;
+
+            // unsupported driver
+            default:
+                throw new Exception('Driver \'' . $driver . '\' is not supported.');
         }
     }
 
