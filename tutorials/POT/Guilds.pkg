@@ -1,0 +1,22 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Guilds</refname>
+        <refpurpose>Guilds system basics.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id basics}">
+        <title>Baiscs</title>
+        <para>
+        Like for most other data types, for guilds and ranks there are two kinds of classes - single object class and list class. For guilds those are {@link OTS_Guild OTS_Guild} and {@link OTS_Guilds_List OTS_Guilds_List}, for ranks - {@link OTS_GuildRank OTS_GuildRank} and {@link OTS_GuildRanks_List OTS_GuildRanks_List}.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id guilds}">
+        <title>Guild management</title>
+        <para>
+        Listing guilds is simple so there is no need to explain it more. More complex is listing guild members. Guild membership is not assigned directly - it is done throught guild ranks. To list guild members you first need to list it's ranks. Here is an example solution to list members in oryginal Tibia-like way: {@example examples/guild.php}
+        </para>
+    </refsect1>
+</refentry>
