@@ -5,6 +5,7 @@
 * Added PostgreSQL and ODBC drivers. <wrzasq>
 * Updated players table structure. <wrzasq>
 * Dropped REGEXP operator bindings - not used anywhere. <wrzasq>
+* Fixed items loading and saving. <wrzasq>
 * Fixed typos. <wrzasq>
 
 [0.0.3]

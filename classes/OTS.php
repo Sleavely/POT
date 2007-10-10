@@ -214,6 +214,14 @@ class POT
     const SLOT_AMMO = 10;
 
 /**
+ * First depot item sid.
+ * 
+ * @version 0.0.3+SVN
+ * @since 0.0.3+SVN
+ */
+    const DEPOT_SID_FIRST = 100;
+
+/**
  * Singleton.
  * 
  * @return POT Global POD class instance.

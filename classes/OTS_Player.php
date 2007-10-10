@@ -1398,23 +1398,27 @@ class OTS_Player implements IOTS_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        // checks if there are any items under current one
-        $items = array();
-        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('sid') . ' FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('pid') . ' = ' . $slot)->fetchAll() as $item)
-        {
-            $items[] = $this->getSlot($item['sid']);
-        }
-
         // loads current item
-        $item = $this->db->SQLquery('SELECT ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ' FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('sid') . ' = ' . $slot)->fetch();
+        $item = $this->db->SQLquery('SELECT ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ' FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName($slot > POT::SLOT_AMMO ? 'sid' : 'pid') . ' = ' . $slot)->fetch();
 
         if( empty($item) )
         {
             return null;
         }
 
+        // checks if there are any items under current one
+        $items = array();
+        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('sid') . ' FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('pid') . ' = ' . $item['sid'])->fetchAll() as $sub)
+        {
+            $items[] = $this->getSlot($sub['sid']);
+        }
+
         // checks if current item is a container
         if( empty($items) )
+        {
+            $slot = new OTS_Item($item['itemtype']);
+        }
+        else
         {
             $slot = new OTS_Container($item['itemtype']);
 
@@ -1423,10 +1427,6 @@ class OTS_Player implements IOTS_DAO
             {
                 $slot->addItem($sub);
             }
-        }
-        else
-        {
-            $slot = new OTS_Item($item['itemtype']);
         }
 
         $slot->setCount($item['count']);
@@ -1438,11 +1438,11 @@ class OTS_Player implements IOTS_DAO
 /**
  * Sets slot content.
  * 
- * @version 0.0.3
+ * @version 0.0.3+SVN
  * @since 0.0.3
  * @param int $slot Slot to save items.
  * @param OTS_Item $item Item (can be a container with content) for given slot. Leave this parameter blank to clear slot.
- * @param int $pid For internal use in case of containers.
+ * @param int $pid Deprecated, not used anymore.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function setSlot($slot, OTS_Item $item = null, $pid = 0)
@@ -1455,36 +1455,42 @@ class OTS_Player implements IOTS_DAO
         }
 
         // clears current slot
-        $this->deleteItem( (int) $slot);
+        if($slot <= POT::SLOT_AMMO)
+        {
+            $id = $this->db->SQLquery('SELECT ' . $this->db->fieldName('sid') . ' FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('pid') . ' = ' . $slot)->fetch();
+            $this->deleteItem( (int) $id['sid']);
+        }
 
         // checks if there is any item to insert
         if( isset($item) )
         {
+            // current maximum sid (over slot sids)
+            if( !isset($sid) )
+            {
+                $sid = $this->db->SQLquery('SELECT MAX(' . $this->db->fieldName('sid') . ') AS `sid` FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'])->fetch();
+                $sid = $sid['sid'] > POT::SLOT_AMMO ? $sid['sid'] : POT::SLOT_AMMO;
+            }
+
+            $sid++;
+
             // inserts given item
-            $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('player_items') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('pid') . ', ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ') VALUES (' . $this->data['id'] . ', ' . $slot . ', ' . $pid . ', ' . $item->getId() . ', ' . $item->getCount() . ', ' . $this->db->SQLquote( $item->getAttributes() ) . ')');
+            $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('player_items') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('pid') . ', ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ') VALUES (' . $this->data['id'] . ', ' . $sid . ', ' . $slot . ', ' . $item->getId() . ', ' . $item->getCount() . ', ' . $this->db->SQLquote( $item->getAttributes() ) . ')');
 
             // checks if this is container
             if($item instanceof OTS_Container)
             {
-                // current maximum sid (over slot sids)
-                if( !isset($sid) )
-                {
-                    $sid = $this->db->SQLquery('SELECT MAX(' . $this->db->fieldName('sid') . ') AS `sid` FROM ' . $this->db->tableName('player_items') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'])->fetch();
-                    $sid = $sid['sid'] > POT::SLOT_AMMO ? $sid['sid'] : POT::SLOT_AMMO;
-                }
-
-                $sid++;
+                $pid = $sid;
 
                 // inserts all contained items
                 foreach($item as $sub)
                 {
-                    $this->setSlot($sid, $sub, $slot);
+                    $this->setSlot($pid, $sub);
                 }
             }
         }
 
         // clears $sid for next public call
-        if($pid == 0)
+        if($slot <= POT::SLOT_AMMO)
         {
             $sid = null;
         }
@@ -1493,7 +1499,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Deletes depot item with contained items.
  * 
- * @version 0.0.3
+ * @version 0.0.3+SVN
  * @since 0.0.3
  * @param int $sid Depot item unique player's ID.
  */
@@ -1502,7 +1508,7 @@ class OTS_Player implements IOTS_DAO
         // deletes all sub-items
         foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('sid') . ' FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('pid') . ' = ' . $sid)->fetchAll() as $item)
         {
-            $this->deleteItem($item['sid']);
+            $this->deleteDepot($item['sid']);
         }
 
         // deletes item
@@ -1514,10 +1520,10 @@ class OTS_Player implements IOTS_DAO
  * 
  * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
  * 
- * @version 0.0.3
+ * @version 0.0.3+SVN
  * @since 0.0.3
  * @param int $depot Depot ID to get items.
- * @return OTS_Item|null Item in given depot (items tree if in given slot there is a container). If there is no item in slot then null value will be returned.
+ * @return OTS_Item|null Item in given depot (items tree if in given depot there is a container). If there is no item in depot then null value will be returned.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getDepot($depot)
@@ -1527,23 +1533,27 @@ class OTS_Player implements IOTS_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        // checks if there are any items under current one
-        $items = array();
-        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('sid') . ' FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('pid') . ' = ' . $depot)->fetchAll() as $item)
-        {
-            $items[] = $this->getSlot($item['sid']);
-        }
-
         // loads current item
-        $item = $this->db->SQLquery('SELECT ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ' FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('sid') . ' = ' . $depot)->fetch();
+        $item = $this->db->SQLquery('SELECT ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ' FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName($depot > POT::DEPOT_SID_FIRST ? 'sid' : 'pid') . ' = ' . $depot)->fetch();
 
         if( empty($item) )
         {
             return null;
         }
 
+        // checks if there are any items under current one
+        $items = array();
+        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('sid') . ' FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('pid') . ' = ' . $item['sid'])->fetchAll() as $sub)
+        {
+            $items[] = $this->getDepot($sub['sid']);
+        }
+
         // checks if current item is a container
         if( empty($items) )
+        {
+            $depot = new OTS_Item($item['itemtype']);
+        }
+        else
         {
             $depot = new OTS_Container($item['itemtype']);
 
@@ -1553,10 +1563,6 @@ class OTS_Player implements IOTS_DAO
                 $depot->addItem($sub);
             }
         }
-        else
-        {
-            $depot = new OTS_Item($item['itemtype']);
-        }
 
         $depot->setCount($item['count']);
         $depot->setAttributes($item['attributes']);
@@ -1565,13 +1571,13 @@ class OTS_Player implements IOTS_DAO
     }
 
 /**
- * Sets slot content.
+ * Sets depot content.
  * 
- * @version 0.0.3
+ * @version 0.0.3+SVN
  * @since 0.0.3
  * @param int $depot Depot ID to save items.
  * @param OTS_Item $item Item (can be a container with content) for given depot. Leave this parameter blank to clear depot.
- * @param int $pid For internal recursive insertion.
+ * @param int $pid Deprecated, not used anymore.
  * @param int $depot_id Internal, for further use.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1591,36 +1597,42 @@ class OTS_Player implements IOTS_DAO
         }
 
         // clears current depot
-        $this->deleteDepot( (int) $depot);
+        if($depot <= POT::DEPOT_SID_FIRST)
+        {
+            $id = $this->db->SQLquery('SELECT ' . $this->db->fieldName('sid') . ' FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('pid') . ' = ' . $depot)->fetch();
+            $this->deleteDepot( (int) $id['sid']);
+        }
 
         // checks if there is any item to insert
         if( isset($item) )
         {
+            // current maximum sid (over depot sids)
+            if( !isset($sid) )
+            {
+                $sid = $this->db->SQLquery('SELECT MAX(' . $this->db->fieldName('sid') . ') AS `sid` FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'])->fetch();
+                $sid = $sid['sid'] > POT::DEPOT_SID_FIRST ? $sid['sid'] : POT::DEPOT_SID_FIRST;
+            }
+
+            $sid++;
+
             // inserts given item
-            $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('player_depotitems') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('depot_id') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('pid') . ', ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ') VALUES (' . $depot_id . ', ' . $this->data['id'] . ', ' . $depot . ', ' . $pid . ', ' . $item->getId() . ', ' . $item->getCount() . ', ' . $this->db->SQLquote( $item->getAttributes() ) . ')');
+            $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('player_depotitems') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('depot_id') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('pid') . ', ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ') VALUES (' . $this->data['id'] . ', ' . $depot_id . ', ' . $sid . ', ' . $depot . ', ' . $item->getId() . ', ' . $item->getCount() . ', ' . $this->db->SQLquote( $item->getAttributes() ) . ')');
 
             // checks if this is container
             if($item instanceof OTS_Container)
             {
-                // current maximum sid (over slot sids)
-                if( !isset($sid) )
-                {
-                    $sid = $this->db->SQLquery('SELECT MAX(' . $this->db->fieldName('sid') . ') AS `sid` FROM ' . $this->db->tableName('player_depotitems') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'])->fetch();
-                    $sid = $sid['sid'] > 100 ? $sid['sid'] : 100;
-                }
-
-                $sid++;
+                $pid = $sid;
 
                 // inserts all contained items
                 foreach($item as $sub)
                 {
-                    $this->setDepot($sid, $sub, $depot, $depot_id);
+                    $this->setDepot($pid, $sub, 0, $depot_id);
                 }
             }
         }
 
         // clears $sid for next public call
-        if($pid == 0)
+        if($depot <= POT::DEPOT_SID_FIRST)
         {
             $sid = null;
         }

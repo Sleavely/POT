@@ -15,6 +15,9 @@ include('quickstart.php');
     POT guilds invites driver.
 */
 
+/**
+ * @ignore
+ */
 class InvitesDriver implements IOTS_GuildAction
 {
     // assigned guild

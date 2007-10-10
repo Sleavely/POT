@@ -19,7 +19,7 @@
     <refsect1 id="{@id driver}">
         <title>Driver structure</title>
         <para>
-        Both invites and requests drivers are similar - they must implement {@link IOTS_GuildAction IOTS_GuildAction interface}. When the driver is assigned to guild object, each time a method of {@list OTS_Guild OTS_Guild} object is called, it will forward this to action driver.
+        Both invites and requests drivers are similar - they must implement {@link IOTS_GuildAction IOTS_GuildAction interface}. When the driver is assigned to guild object, each time a method of {@link OTS_Guild OTS_Guild} object is called, it will forward this to action driver.
         </para>
     </refsect1>
     <refsect1 id="{@id sample}">
