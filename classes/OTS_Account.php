@@ -45,6 +45,43 @@ class OTS_Account implements IOTS_DAO
     }
 
 /**
+ * Magic PHP5 method.
+ * 
+ * Allows object serialisation.
+ * 
+ * @return array List of properties that should be saved.
+ * @internal Magic PHP5 method.
+ */
+    public function __sleep()
+    {
+        return array('data');
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object unserialisation.
+ * 
+ * @internal Magic PHP5 method.
+ */
+    public function __wakeup()
+    {
+        $this->db = POT::getInstance()->getDBHandle();
+    }
+
+/**
+ * Creates clone of object.
+ * 
+ * Copy of object needs to have different ID.
+ * 
+ * @internal magic PHP5 method.
+ */
+    public function __clone()
+    {
+        unset($this->data['id']);
+    }
+
+/**
  * Creates new account.
  * 
  * Create new account in given range (1 - 9999999 by default).

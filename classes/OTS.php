@@ -452,6 +452,27 @@ class POT
             return false;
         }
     }
+
+/**
+ * Returns database connection handle.
+ * 
+ * <p>
+ * At all you shouldn't use this method and work with database using POT classes, but it may be sometime necessary to use direct database access (mainly until POT won't provide many important features).
+ * </p>
+ * 
+ * <p>
+ * It is also important as serialised objects after unserialisation needs to be re-initialised with database connection.
+ * </p>
+ * 
+ * @version 0.0.3+SVN
+ * @since 0.0.3+SVN
+ * @return IOTS_DB Database connection handle.
+ * @internal You should not call this function in your external code without real need.
+ */
+    public function getDBHandle()
+    {
+        return $this->db;
+    }
 }
 
 /**#@-*/

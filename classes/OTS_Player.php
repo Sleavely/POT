@@ -55,6 +55,43 @@ class OTS_Player implements IOTS_DAO
     }
 
 /**
+ * Magic PHP5 method.
+ * 
+ * Allows object serialisation.
+ * 
+ * @return array List of properties that should be saved.
+ * @internal Magic PHP5 method.
+ */
+    public function __sleep()
+    {
+        return array('data', 'skills');
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object unserialisation.
+ * 
+ * @internal Magic PHP5 method.
+ */
+    public function __wakeup()
+    {
+        $this->db = POT::getInstance()->getDBHandle();
+    }
+
+/**
+ * Creates clone of object.
+ * 
+ * Copy of object needs to have different ID.
+ * 
+ * @internal magic PHP5 method.
+ */
+    public function __clone()
+    {
+        unset($this->data['id']);
+    }
+
+/**
  * Loads player with given id.
  * 
  * @version 0.0.2

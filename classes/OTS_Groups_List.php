@@ -59,6 +59,31 @@ class OTS_Groups_List implements IOTS_DAO, Iterator, Countable
     }
 
 /**
+ * Magic PHP5 method.
+ * 
+ * Allows object serialisation.
+ * 
+ * @return array List of properties that should be saved.
+ * @internal Magic PHP5 method.
+ */
+    public function __sleep()
+    {
+        return array('limit', 'offset');
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object unserialisation.
+ * 
+ * @internal Magic PHP5 method.
+ */
+    public function __wakeup()
+    {
+        $this->db = POT::getInstance()->getDBHandle();
+    }
+
+/**
  * Sets LIMIT.
  * 
  * @param int|bool Limit for SELECT (false to reset).

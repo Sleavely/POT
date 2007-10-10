@@ -15,9 +15,17 @@
 /**
  * Guild action interface.
  * 
+ * <p>
  * This insterface indicates that class can handle OTServ guild action.
+ * </p>
  * 
+ * <p>
  * You can use it for example to handle invites or membership requests.
+ * </p>
+ * 
+ * <p>
+ * If you want to serialise (for example save in session) your guild obejcts with assigned drivers you need to implement also __sleep() and __wakeup() methods in your drivers, as assigned drivers are also serialised.
+ * </p>
  * 
  * @package POT
  */
