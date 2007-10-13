@@ -3,6 +3,8 @@
 * Added account group support. <wrzasq>
 * Added support for depot_id field (it is reserverd in OTServ for futher use). <wrzasq>
 * Added PostgreSQL and ODBC drivers. <wrzasq>
+* Added __sleep() and __wakeup() methods to allow POT objects to be stored in sessions. <wrzasq>
+* Added __clone() methods to allow save ID-losing cloning of POT objects. <wrzasq>
 * Updated players table structure. <wrzasq>
 * Dropped REGEXP operator bindings - not used anywhere. <wrzasq>
 * Fixed items loading and saving. <wrzasq>
