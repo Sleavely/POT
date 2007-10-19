@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.3
+ * @version 0.0.4
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ user group abstraction.
  * 
  * @package POT
- * @version 0.0.3
+ * @version 0.0.4
  */
 class OTS_Group implements IOTS_DAO
 {
@@ -51,6 +51,8 @@ class OTS_Group implements IOTS_DAO
  * 
  * @return array List of properties that should be saved.
  * @internal Magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
  */
     public function __sleep()
     {
@@ -63,6 +65,8 @@ class OTS_Group implements IOTS_DAO
  * Allows object unserialisation.
  * 
  * @internal Magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
  */
     public function __wakeup()
     {
@@ -75,10 +79,42 @@ class OTS_Group implements IOTS_DAO
  * Copy of object needs to have different ID.
  * 
  * @internal magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
  */
     public function __clone()
     {
         unset($this->data['id']);
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @internal Magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
+ * @param array $properties List of object properties.
+ */
+    public static function __set_state(array $properties)
+    {
+        // deletes database handle
+        if( isset($properties['db']) )
+        {
+            unset($properties['db']);
+        }
+
+        // initializes new object with current database connection
+        $object = new self( POT::getInstance()->getDBHandle() );
+
+        // loads properties
+        foreach($properties as $name => $value)
+        {
+            $object->$name = $value;
+        }
+
+        return $object;
     }
 
 /**

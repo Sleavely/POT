@@ -1,8 +1,8 @@
 <?php
 
 /**#@+
- * @version 0.0.3+SVN
- * @since 0.0.3+SVN
+ * @version 0.0.4
+ * @since 0.0.4
  */
 
 /**
@@ -80,6 +80,34 @@ class OTS_Guilds_List implements IOTS_DAO, Iterator, Countable
     public function __wakeup()
     {
         $this->db = POT::getInstance()->getDBHandle();
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @internal Magic PHP5 method.
+ * @param array $properties List of object properties.
+ */
+    public static function __set_state(array $properties)
+    {
+        // deletes database handle
+        if( isset($properties['db']) )
+        {
+            unset($properties['db']);
+        }
+
+        // initializes new object with current database connection
+        $object = new self( POT::getInstance()->getDBHandle() );
+
+        // loads properties
+        foreach($properties as $name => $value)
+        {
+            $object->$name = $value;
+        }
+
+        return $object;
     }
 
 /**

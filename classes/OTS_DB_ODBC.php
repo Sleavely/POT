@@ -1,8 +1,8 @@
 <?php
 
 /**#@+
- * @version 0.0.3+SVN
- * @since 0.0.3+SVN
+ * @version 0.0.4
+ * @since 0.0.4
  */
 
 /**

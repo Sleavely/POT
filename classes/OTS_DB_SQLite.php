@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * SQLite connection interface.
  * 
  * @package POT
- * @version 0.0.3+SVN
+ * @version 0.0.4
  */
 class OTS_DB_SQLite extends PDO implements IOTS_DB
 {

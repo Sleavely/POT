@@ -1,25 +1,45 @@
-What's new in 0.0.3 version?
+What's new in 0.0.4 version?
 
-* Added custom fields support.
+* Added guild system support (guilds, ranks, invitations and requests drivers mechanisms).
 
-    You can now use POT with non-standard SVN database structure (however it is not as comfortable as with standard SVN fields). You have to save your standard record before saving custom fields.
+    Main feature of new update - includes full support for guilds system.
 
-* Added items and depots support.
+* Added account group support.
 
-    OTS_Item and OTS_Container classes. OTS_Player now has getSlot(), setSlot(), getDepot(), setDepot() methods. You can manage items tables as objects trees.
+    Support for new accounts table structure.
 
-* Added support for players PACC timestamps.
+* Added support for depot_id field (it is reserverd in OTServ for futher use).
 
-    In current OTServ SVN premium time is not stored in accounts table, but in players table also not as days, but as ending moment timestamp. Account PACC methods are now obsolete.
+    Even thought depot_id field in OTServ database is not used, it was moved back as it is reserved for further use. POT also supports it.
 
-* Fixed loading skills.
+* Added PostgreSQL and ODBC drivers.
 
-    Small typo.
+    POT supports new revdbsys database drivers.
 
-* Replaced E_USER_* with exceptions.
+* Added __sleep() and __wakeup() methods to allow POT objects to be stored in sessions.
 
-    No more error messages between text on website, everything is now thrown as exceptions.
+    Allows you to store POT objects in sessions.
 
-* Uses fetchAll() in loops to prevent MySQL buffering problems.
+* Added __clone() methods to allow save ID-losing cloning of POT objects.
 
-    PDO is really fucked up in some places and MySQL driver queries buffering is one of them. This change should prevent POT from producing some errors in very particular situations.
+    Allows you cloning of POT objects while deleting their's IDs for re-inserting.
+
+* Added __set_state() methods.
+
+    Magic PHP5 method - you can read more in PHP Manual.
+
+* Updated players table structure.
+
+    As always POT keeps your scripts up-to-date with support for latest structure of database.
+
+* Dropped REGEXP operator bindings - not used anywhere.
+
+    This internal feature wasn't used anywhere so it would be a waste to keep it out there.
+
+* Fixed items loading and saving.
+
+    Items saving (both body slots and depot items) in previous versions was coded wrong way. Fixed now.
+
+* Fixed typos.
+
+    Like always there were some bugs which of course were fixed.

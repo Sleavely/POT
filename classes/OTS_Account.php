@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.0.3+SVN
+ * @version 0.0.4
  */
 class OTS_Account implements IOTS_DAO
 {
@@ -51,6 +51,8 @@ class OTS_Account implements IOTS_DAO
  * 
  * @return array List of properties that should be saved.
  * @internal Magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
  */
     public function __sleep()
     {
@@ -63,6 +65,8 @@ class OTS_Account implements IOTS_DAO
  * Allows object unserialisation.
  * 
  * @internal Magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
  */
     public function __wakeup()
     {
@@ -75,10 +79,42 @@ class OTS_Account implements IOTS_DAO
  * Copy of object needs to have different ID.
  * 
  * @internal magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
  */
     public function __clone()
     {
         unset($this->data['id']);
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @internal Magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
+ * @param array $properties List of object properties.
+ */
+    public static function __set_state(array $properties)
+    {
+        // deletes database handle
+        if( isset($properties['db']) )
+        {
+            unset($properties['db']);
+        }
+
+        // initializes new object with current database connection
+        $object = new self( POT::getInstance()->getDBHandle() );
+
+        // loads properties
+        foreach($properties as $name => $value)
+        {
+            $object->$name = $value;
+        }
+
+        return $object;
     }
 
 /**
@@ -91,10 +127,10 @@ class OTS_Account implements IOTS_DAO
  * </p>
  * 
  * <p>
- * IMPORTANT: Since 0.0.3+SVN there is group_id field which this method does not support. Account's group_id is set to first one found in database. You should use {@link OTS_Account::createEx() createEx()} method if you want to set group_id field during creation.
+ * IMPORTANT: Since 0.0.4 there is group_id field which this method does not support. Account's group_id is set to first one found in database. You should use {@link OTS_Account::createEx() createEx()} method if you want to set group_id field during creation.
  * </p>
  * 
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @param int $min Minimum number.
  * @param int $max Maximum number.
  * @return int Created account number.
@@ -118,8 +154,8 @@ class OTS_Account implements IOTS_DAO
  * Remember! This method sets blocked flag to true after account creation!
  * </p>
  * 
- * @version 0.0.3+SVN
- * @since 0.0.3+SVN
+ * @version 0.0.4
+ * @since 0.0.4
  * @param OTS_Group $group Group to be assigned to account.
  * @param int $min Minimum number.
  * @param int $max Maximum number.
@@ -178,7 +214,7 @@ class OTS_Account implements IOTS_DAO
 /**
  * Loads account with given number.
  * 
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @param int $id Account number.
  */
     public function load($id)
@@ -219,7 +255,7 @@ class OTS_Account implements IOTS_DAO
 /**
  * Updates account in database.
  * 
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @throws E_OTS_NotLoaded False if account doesn't have ID assigned.
  */
     public function save()
@@ -253,8 +289,8 @@ class OTS_Account implements IOTS_DAO
 /**
  * Returns group of this account.
  * 
- * @version 0.0.3+SVN
- * @since 0.0.3+SVN
+ * @version 0.0.4
+ * @since 0.0.4
  * @return OTS_Group Group of which current account is member.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */
@@ -370,7 +406,7 @@ class OTS_Account implements IOTS_DAO
 /**
  * PACC days.
  * 
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @return int PACC days.
  * @throws E_OTS_NotLoaded If account is not loaded.
  * @deprecated 0.0.3 There is no more premdays field in accounts table.
@@ -388,7 +424,7 @@ class OTS_Account implements IOTS_DAO
 /**
  * Sets PACC days count.
  * 
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @param int $pacc PACC days.
  * @deprecated 0.0.3 There is no more premdays field in accounts table.
  */

@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.0.3+SVN
+ * @version 0.0.4
  */
 class OTS_Player implements IOTS_DAO
 {
@@ -30,7 +30,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Player data.
  * 
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @var array
  */
     private $data = array('premend' => 0, 'sex' => POT::SEX_FEMALE, 'vocation' => POT::VOCATION_NONE, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'healthmax' => 100, 'mana' => 100, 'manamax' => 100, 'manaspent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastip' => 0, 'save' => true, 'redskulltime' => 0, 'redskull' => false, 'guildnick' => '', 'loss_experience' => 10, 'loss_mana' => 10, 'loss_skills' => 10);
@@ -61,6 +61,8 @@ class OTS_Player implements IOTS_DAO
  * 
  * @return array List of properties that should be saved.
  * @internal Magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
  */
     public function __sleep()
     {
@@ -73,6 +75,8 @@ class OTS_Player implements IOTS_DAO
  * Allows object unserialisation.
  * 
  * @internal Magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
  */
     public function __wakeup()
     {
@@ -85,10 +89,42 @@ class OTS_Player implements IOTS_DAO
  * Copy of object needs to have different ID.
  * 
  * @internal magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
  */
     public function __clone()
     {
         unset($this->data['id']);
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @internal Magic PHP5 method.
+ * @version 0.0.4
+ * @since 0.0.4
+ * @param array $properties List of object properties.
+ */
+    public static function __set_state(array $properties)
+    {
+        // deletes database handle
+        if( isset($properties['db']) )
+        {
+            unset($properties['db']);
+        }
+
+        // initializes new object with current database connection
+        $object = new self( POT::getInstance()->getDBHandle() );
+
+        // loads properties
+        foreach($properties as $name => $value)
+        {
+            $object->$name = $value;
+        }
+
+        return $object;
     }
 
 /**
@@ -1102,7 +1138,7 @@ class OTS_Player implements IOTS_DAO
  * @version 0.0.3
  * @return int Guild rank ID.
  * @throws E_OTS_NotLoaded If player is not loaded.
- * @deprecated 0.0.3+SVN Use getRank().
+ * @deprecated 0.0.4 Use getRank().
  */
     public function getRankId()
     {
@@ -1141,7 +1177,7 @@ class OTS_Player implements IOTS_DAO
  * Sets guild rank ID.
  * 
  * @param int $rank_id Guild rank ID.
- * @deprecated 0.0.3+SVN Use setRank().
+ * @deprecated 0.0.4 Use setRank().
  */
     public function setRankId($rank_id)
     {
@@ -1422,7 +1458,7 @@ class OTS_Player implements IOTS_DAO
  * 
  * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
  * 
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @since 0.0.3
  * @param int $slot Slot to get items.
  * @return OTS_Item|null Item in given slot (items tree if in given slot there is a container). If there is no item in slot then null value will be returned.
@@ -1475,7 +1511,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Sets slot content.
  * 
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @since 0.0.3
  * @param int $slot Slot to save items.
  * @param OTS_Item $item Item (can be a container with content) for given slot. Leave this parameter blank to clear slot.
@@ -1536,7 +1572,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Deletes depot item with contained items.
  * 
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @since 0.0.3
  * @param int $sid Depot item unique player's ID.
  */
@@ -1557,7 +1593,7 @@ class OTS_Player implements IOTS_DAO
  * 
  * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
  * 
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @since 0.0.3
  * @param int $depot Depot ID to get items.
  * @return OTS_Item|null Item in given depot (items tree if in given depot there is a container). If there is no item in depot then null value will be returned.
@@ -1610,7 +1646,7 @@ class OTS_Player implements IOTS_DAO
 /**
  * Sets depot content.
  * 
- * @version 0.0.3+SVN
+ * @version 0.0.4
  * @since 0.0.3
  * @param int $depot Depot ID to save items.
  * @param OTS_Item $item Item (can be a container with content) for given depot. Leave this parameter blank to clear depot.

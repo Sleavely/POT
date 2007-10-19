@@ -36,6 +36,12 @@
                 </para>
             </refsect3>
         </refsect2>
+        <refsect2 id="{@id hints}">
+            <title>Type hinting</title>
+            <para>
+            In PHP5 new feature was introduced - {@link http://www.php.net/manual/en/language.oop5.typehinting.php type hinting}. In PHP 5.0 only class names are supported, array type is supported since PHP 5.1. So if you want to use POT with PHP 5.0 you must remove all array hinted types in classes methods.
+            </para>
+        </refsect2>
     </refsect1>
     <refsect1 id="{@id older}">
         <title>What about older PHP versions?</title>

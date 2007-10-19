@@ -5,6 +5,6 @@ List of things to be done:
 * Items list (items.xml + items.otb -> cache).
 * Spawns support (OTBM support -> cache).
 * More detailed documentation, better examples, more detailed phpUnit tests.
-* Implement __get()/__set()/__call()/__toString()/__set_state(); Iterator, ArrayAccess, Countable interfaces.
+* Implement __get()/__set()/__call()/__toString(); Iterator, ArrayAccess, Countable interfaces.
 
 a lot more :P
