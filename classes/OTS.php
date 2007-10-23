@@ -8,17 +8,23 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.0.4
+ * @version 0.0.4+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
+ * @todo List objects sorting/criteria-based loading.
+ * @todo Bans support.
+ * @todo Items list (items.xml + items.otb -> cache).
+ * @todo Spawns support (OTBM support -> cache).
+ * @todo More detailed documentation, better examples, more detailed phpUnit tests.
+ * @todo Implement __get()/__set()/__call()/__toString(); Iterator, ArrayAccess, Countable interfaces.
  */
 
 /**
  * Main POT class.
  * 
  * @package POT
- * @version 0.0.4
+ * @version 0.0.4+SVN
  */
 class POT
 {
@@ -56,22 +62,32 @@ class POT
 
 /**
  * None vocation.
+ * 
+ * @deprecated 0.0.4+SVN Vocations are now loaded dynamicly from vocations.xml file.
  */
     const VOCATION_NONE = 0;
 /**
  * Sorcerer.
+ * 
+ * @deprecated 0.0.4+SVN Vocations are now loaded dynamicly from vocations.xml file.
  */
     const VOCATION_SORCERER = 1;
 /**
  * Druid.
+ * 
+ * @deprecated 0.0.4+SVN Vocations are now loaded dynamicly from vocations.xml file.
  */
     const VOCATION_DRUID = 2;
 /**
  * Paladin.
+ * 
+ * @deprecated 0.0.4+SVN Vocations are now loaded dynamicly from vocations.xml file.
  */
     const VOCATION_PALADIN = 3;
 /**
  * Knight.
+ * 
+ * @deprecated 0.0.4+SVN Vocations are now loaded dynamicly from vocations.xml file.
  */
     const VOCATION_KNIGHT = 4;
 
@@ -472,6 +488,82 @@ class POT
     public function getDBHandle()
     {
         return $this->db;
+    }
+
+/**
+ * List of vocations.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @var array
+ */
+    private $vocations = array();
+
+/**
+ * Loads vocations list.
+ * 
+ * Loads vocations list from given file.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @param string $file vocations.xml file location.
+ */
+    public function loadVocations($file)
+    {
+        // loads DOM document
+        $vocations = new DOMDocument();
+        $vocations->load($file);
+
+        // loads vocations
+        foreach( $vocations->getElementsByTagName('vocation') as $vocation)
+        {
+            $this->vocations[ (int) $vocation->getAttribute('id') ] = $vocation->getAttribute('name');
+        }
+    }
+
+/**
+ * Returns vocation's ID.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @param string $name Vocation.
+ * @return int|bool ID (false if not found).
+ */
+    public function getVocationID($name)
+    {
+        return array_search($name, $this->vocations);
+    }
+
+/**
+ * Returns name of given vocation's ID.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @param int $name Vocation ID.
+ * @return string|bool Name (false if not found).
+ */
+    public function getVocationName($id)
+    {
+        if( isset($this->vocations[$id]) )
+        {
+            return $this->vocations[$id];
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+/**
+ * Returns list (id => name) of loaded vocations.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @return array List of vocations.
+ */
+    public function getVocationsList()
+    {
+        return $this->vocations;
     }
 }
 

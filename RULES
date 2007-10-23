@@ -51,6 +51,10 @@ I. Coding rules to be followed:
 
     It is the most reliable and standard way for starting PHP code.
 
+[10] Use isset(array[offset]) instead of array_key_exists().
+
+    It saves alot of resources (relatively).
+
 II. Versioning:
 
     * Major - Major toolkit milestone.

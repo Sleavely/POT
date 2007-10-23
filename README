@@ -23,14 +23,12 @@ In case of any contact needed, please use following e-mail address: wrzasq@gmail
 classes/ - POT class files.
 examples/ - example files for learning.
 tutorials/ - phpDocumentor directory.
-BUGS - known bugs.
 CHANGELOG - changes history.
 INSTALL - installation tutorial.
 LICENSE - POT license (GNU LGPL v3), if you don't accept it - don't use any of those scripts.
 NEWS - changes in current release.
 README - this readme file.
 RULES - rules to be followed during developing contributed code.
-TODO - list of things to be done.
 Makefile - make input, for documentation generation.
 documentation.pdf - phpDocumentor-generater documentation in PDF format.
 compat.php - Compatibility assurance library.
