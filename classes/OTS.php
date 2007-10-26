@@ -13,7 +13,6 @@
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  * @todo List objects sorting/criteria-based loading.
- * @todo Bans support.
  * @todo Items list (items.xml + items.otb -> cache).
  * @todo Spawns support (OTBM support -> cache).
  * @todo More detailed documentation, better examples, more detailed phpUnit tests.
@@ -238,6 +237,30 @@ class POT
     const DEPOT_SID_FIRST = 100;
 
 /**
+ * IP ban.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ */
+    const BAN_IP = 1;
+
+/**
+ * Player ban.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ */
+    const BAN_PLAYER = 2;
+
+/**
+ * Account ban.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ */
+    const BAN_ACCOUNT = 3;
+
+/**
  * Singleton.
  * 
  * @return POT Global POD class instance.
@@ -316,7 +339,6 @@ class POT
  * 
  * @version 0.0.3
  * @param string $class Class name.
- * @example examples/autoload.php autoload.php
  */
     public function loadClass($class)
     {
@@ -442,7 +464,7 @@ class POT
 
             // sends packet with request
             // 06 - length of packet, 255, 255 is the comamnd identifier, 'info' is a request
-            fwrite($socket, chr(6).chr(0).chr(255).chr(255).'info');
+            fwrite($socket, chr(6) . chr(0) . chr(255) . chr(255) . 'info');
 
             // reads respond
             $data = stream_get_contents($socket);
@@ -539,7 +561,7 @@ class POT
  * 
  * @version 0.0.4+SVN
  * @since 0.0.4+SVN
- * @param int $name Vocation ID.
+ * @param int $id Vocation ID.
  * @return string|bool Name (false if not found).
  */
     public function getVocationName($id)
@@ -564,6 +586,102 @@ class POT
     public function getVocationsList()
     {
         return $this->vocations;
+    }
+
+/**
+ * Bans given IP number.
+ * 
+ * Adds IP/mask ban. You can call this function with only one parameter to ban only given IP address without expiration.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @param string $ip IP to ban.
+ * @param string $mask Mask for ban (by default bans only given IP).
+ * @param int $time Time for time until expires (0 - forever).
+ */
+    public function banIP($ip, $mask = '255.255.255.255', $time = 0)
+    {
+        // long2ip( ip2long('255.255.255.255') ) != '255.255.255.255' -.-'
+        // it's because that PP integer types are signed
+        if($ip == '255.255.255.255')
+        {
+            $ip = 4294967295;
+        }
+        else
+        {
+            $ip = sprintf('%u', ip2long($ip) );
+        }
+
+        if($mask == '255.255.255.255')
+        {
+            $mask = 4294967295;
+        }
+        else
+        {
+            $mask = sprintf('%u', ip2long($mask) );
+        }
+
+        $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('bans') . ' (' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('ip') . ', ' . $this->db->fieldName('mask') . ', ' . $this->db->fieldName('time') . ') VALUES (' . self::BAN_IP . ', ' . $ip . ', ' . $mask . ', ' . (int) $time . ')');
+    }
+
+/**
+ * Deletes ban from given IP number.
+ * 
+ * Removes given IP/mask ban.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @param string $ip IP to ban.
+ * @param string $mask Mask for ban (by default 255.255.255.255).
+ */
+    public function unbanIP($ip, $mask = '255.255.255.255')
+    {
+        // long2ip( ip2long('255.255.255.255') ) != '255.255.255.255' -.-'
+        // it's because that PP integer types are signed
+        if($ip == '255.255.255.255')
+        {
+            $ip = 4294967295;
+        }
+        else
+        {
+            $ip = sprintf('%u', ip2long($ip) );
+        }
+
+        if($mask == '255.255.255.255')
+        {
+            $mask = 4294967295;
+        }
+        else
+        {
+            $mask = sprintf('%u', ip2long($mask) );
+        }
+
+        $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP . ' AND ' . $this->db->fieldName('ip') . ' = ' . $ip . ' AND ' . $this->db->fieldName('mask') . ' = ' . $mask);
+    }
+
+/**
+ * Checks if given IP is banned.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @param string $ip IP to ban.
+ * @return bool True if IP number is banned, false otherwise.
+ */
+    public function isIPBanned($ip)
+    {
+        // long2ip( ip2long('255.255.255.255') ) != '255.255.255.255' -.-'
+        // it's because that PP integer types are signed
+        if($ip == '255.255.255.255')
+        {
+            $ip = 4294967295;
+        }
+        else
+        {
+            $ip = sprintf('%u', ip2long($ip) );
+        }
+
+        $ban = $this->db->SQLquery('SELECT COUNT(' . $this->db->fieldName('type') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('ip') . ' & ' . $this->db->fieldName('mask') . ' = ' . $ip . ' & ' . $this->db->fieldName('mask') . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP)->fetch();
+        return $ban['count'] > 0;
     }
 }
 

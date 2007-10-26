@@ -513,6 +513,60 @@ class OTS_Account implements IOTS_DAO
 
         return $players;
     }
+
+/**
+ * Bans current account.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @param int $time Time for time until expires (0 - forever).
+ */
+    public function ban($time = 0)
+    {
+        // can't ban nothing
+        if( !$this->isLoaded() )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('bans') . ' (' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('account') . ', ' . $this->db->fieldName('time') . ') VALUES (' . POT::BAN_ACCOUNT . ', ' . $this->data['id'] . ', ' . $time . ')');
+    }
+
+/**
+ * Deletes ban from current account.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ */
+    public function unban()
+    {
+        // can't unban nothing
+        if( !$this->isLoaded() )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('type') . ' = ' . POT::BAN_ACCOUNT . ' AND ' . $this->db->fieldName('account') . ' = ' . $this->data['id']);
+    }
+
+/**
+ * Checks if account is banned.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @return bool True if account is banned, false otherwise.
+ */
+    public function isBanned()
+    {
+        // nothing can't be banned
+        if( !$this->isLoaded() )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $ban = $this->db->SQLquery('SELECT COUNT(' . $this->db->fieldName('type') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('account') . ' = ' . $this->data['id'] . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . POT::BAN_ACCOUNT)->fetch();
+        return $ban['count'] > 0;
+    }
 }
 
 /**#@-*/

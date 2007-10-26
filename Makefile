@@ -6,7 +6,7 @@ clean:
 	rm -rf documentation
 	rm -rf online
 	rm -rf pot
-	rm -f pot.zip
+	rm -f pot.tar.gz
 
 check:
 	find . -name "*.php" -exec php -l {} \;
@@ -25,18 +25,17 @@ online:
 test:
 	phpunit POTTest test.php
 
-package: pot.zip
+package: pot.tar.gz
 
-pot.zip:
+pot.tar.gz: documentation.pdf
 	mkdir pot
-	cp BUGS pot
 	cp CHANGELOG pot
 	cp INSTALL pot
 	cp LICENSE pot
 	cp NEWS pot
 	cp README pot
 	cp RULES pot
-	cp TODO pot
+	cp compat.php pot
+	cp documentation.pdf pot
 	cp -r classes pot
-	cp -r examples pot
-	zip -r pot.zip pot
+	tar -zcf pot.tar.gz pot/*
