@@ -148,6 +148,7 @@ class OTS_GuildRanks_List implements IOTS_DAO, Iterator, Countable
  * Deletes guild rank.
  * 
  * @param OTS_GuildRank $guildRank Rank to be deleted.
+ * @deprecated 0.0.4+SVN Use OTS_GuildRank->delete().
  */
     public function deleteGuildRank(OTS_GuildRank $guildRank)
     {
@@ -197,21 +198,166 @@ class OTS_GuildRanks_List implements IOTS_DAO, Iterator, Countable
     }
 
 /**
+ * WHERE clause filter.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @var OTS_SQLFilter
+ */
+    private $filter = null;
+
+/**
+ * Sets filter on list.
+ * 
+ * Call without argument to reset filter.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @param OTS_SQLFilter|null $filter Filter for list.
+ */
+    public function setFilter(OTS_SQLFilter $filter = null)
+    {
+        $this->filter = $filter;
+    }
+
+/**
+ * List of sorting criteriums.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @var array
+ */
+    private $orderBy = array();
+
+/**
+ * Clears ORDER BY clause.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ */
+    public function resetOrder()
+    {
+        $this->orderBy = array();
+    }
+
+/**
+ * Appends sorting rule.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @param string $field Field name.
+ * @param int $order Sorting order (ascending by default).
+ */
+    public function orderBy($filed, $order = POT::ORDER_ASC)
+    {
+        $this->orderBy[] = array('field' => $this->db->fieldName($field), 'order' => $order);
+    }
+
+/**
  * Select ranks from database.
+ * 
+ * @version 0.0.4+SVN
  */
     public function rewind()
     {
-        $this->rows = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('guild_ranks') . $this->db->limit($this->limit, $this->offset) )->fetchAll();
+        $tables = array();
+
+        // generates tables list for current qeury
+        if( isset($this->filter) )
+        {
+            $tables = $this->filter->getTables();
+        }
+
+        // adds default table
+        if( !in_array('guild_ranks', $tables) )
+        {
+            $tables[] = 'guild_ranks';
+        }
+
+        // prepares tables names
+        foreach($tables as &$table)
+        {
+            $table = $this->db->tableName($table);
+        }
+
+        // WHERE clause
+        if( isset($this->filter) )
+        {
+            $where = ' WHERE ' . $this->filter->__toString();
+        }
+        else
+        {
+            $where = '';
+        }
+
+        // ORDER BY clause
+        if( empty($this->orderBy) )
+        {
+            $orderBy = '';
+        }
+        else
+        {
+            $orderBy = array();
+
+            foreach($this->orderBy as $criterium)
+            {
+                switch($criterium['order'])
+                {
+                    case POT::ORDER_ASC:
+                        $orderBy[] = $criterium['field'] . ' ASC';
+                        break;
+
+                    case POT::ORDER_DESC:
+                        $orderBy[] = $criterium['field'] . ' DESC';
+                        break;
+                }
+            }
+
+            $orderBy = ' ORDER BY ' . implode(', ', $orderBy);
+        }
+
+        $this->rows = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . implode(', ', $tables) . $where . $orderBy . $this->db->limit($this->limit, $this->offset) )->fetchAll();
     }
 
 /**
  * Returns number of ranks on list in current criterium.
  * 
+ * @version 0.0.4+SVN
  * @return int Number of accounts.
  */
     public function count()
     {
-        $count = $this->db->SQLquery('SELECT COUNT(' . $this->db->fieldName('id') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('guild_ranks') . $this->db->limit($this->limit, $this->offset) )->fetch();
+        $tables = array();
+
+        // generates tables list for current qeury
+        if( isset($this->filter) )
+        {
+            $tables = $this->filter->getTables();
+        }
+
+        // adds default table
+        if( !in_array('guild_ranks', $tables) )
+        {
+            $tables[] = 'guild_ranks';
+        }
+
+        // prepares tables names
+        foreach($tables as &$table)
+        {
+            $table = $this->db->tableName($table);
+        }
+
+        // WHERE clause
+        if( isset($this->filter) )
+        {
+            $where = ' WHERE ' . $this->filter->__toString();
+        }
+        else
+        {
+            $where = '';
+        }
+
+        $count = $this->db->SQLquery('SELECT COUNT(' . $this->db->fieldName('id') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . implode(', ', $tables) . $where . $this->db->limit($this->limit, $this->offset) )->fetch();
         return $count['count'];
     }
 }

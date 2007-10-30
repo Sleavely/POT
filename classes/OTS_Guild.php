@@ -7,6 +7,7 @@
 
 /**
  * @package POT
+ * @version 0.0.4+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,6 +17,7 @@
  * OTServ guild abstraction.
  * 
  * @package POT
+ * @version 0.0.4+SVN
  */
 class OTS_Guild implements IOTS_DAO
 {
@@ -359,6 +361,7 @@ class OTS_Guild implements IOTS_DAO
  * 
  * @return array List of ranks.
  * @throws E_OTS_NotLoaded If guild is not loaded.
+ * @deprecated 0.0.4+SVN Use getGuildRanksList().
  */
     public function getGuildRanks()
     {
@@ -378,6 +381,36 @@ class OTS_Guild implements IOTS_DAO
         }
 
         return $guildRanks;
+    }
+
+/**
+ * List of ranks in guild.
+ * 
+ * In difference to {@link OTS_Guild::getGuildRanks() getGuildRanks() method} this method returns filtered {@link OTS_GuildRanks_List OTS_GuildRanks_List} object instead of array of {@link OTS_GuildRank OTS_GuildRank} objects. It is more effective since OTS_GuildRanks_List doesn't perform all rows loading at once.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @return OTS_GuildRanks_List List of ranks from current guild.
+ * @throws E_OTS_NotLoaded If guild is not loaded.
+ */
+    public function getGuildRanksList()
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $ots = POT::getInstance();
+
+        // creates filter
+        $filter = $ots->createFilter();
+        $filter->compareField('guild_id', (int) $this->data['id']);
+
+        // creates list object
+        $list = $ots->createObject('GuildRanks_List');
+        $list->setFilter($filter);
+
+        return $list;
     }
 
 /**
@@ -562,6 +595,27 @@ class OTS_Guild implements IOTS_DAO
 
         // driven action
         return $this->requests->submitRequest($player);
+    }
+
+/**
+ * Deletes guild.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @throws E_OTS_NotLoaded If guild is not loaded.
+ */
+    public function delete()
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // deletes row from database
+        $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('guilds') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+
+        // resets object handle
+        unset($this->data['id']);
     }
 }
 

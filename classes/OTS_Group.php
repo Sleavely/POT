@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.0.4
+ * @version 0.0.4+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ user group abstraction.
  * 
  * @package POT
- * @version 0.0.4
+ * @version 0.0.4+SVN
  */
 class OTS_Group implements IOTS_DAO
 {
@@ -372,6 +372,7 @@ class OTS_Group implements IOTS_DAO
  * @version 0.0.3
  * @return array Array of OTS_Player objects from given group.
  * @throws E_OTS_NotLoaded If group is not loaded.
+ * @deprecated 0.0.4+SVN Use getPlayersList().
  */
     public function getPlayers()
     {
@@ -391,6 +392,57 @@ class OTS_Group implements IOTS_DAO
         }
 
         return $players;
+    }
+
+/**
+ * List of characters in group.
+ * 
+ * In difference to {@link OTS_Group::getPlayers() getPlayers() method} this method returns filtered {@link OTS_Players_List OTS_Players_List} object instead of array of {@link OTS_Player OTS_Player} objects. It is more effective since OTS_Player_List doesn't perform all rows loading at once.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @return OTS_Players_List List of players from current group.
+ * @throws E_OTS_NotLoaded If group is not loaded.
+ */
+    public function getPlayersList()
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $ots = POT::getInstance();
+
+        // creates filter
+        $filter = $ots->createFilter();
+        $filter->compareField('group_id', (int) $this->data['id']);
+
+        // creates list object
+        $list = $ots->createObject('Players_List');
+        $list->setFilter($filter);
+
+        return $list;
+    }
+
+/**
+ * Deletes group.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @throws E_OTS_NotLoaded If group is not loaded.
+ */
+    public function delete()
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // deletes row from database
+        $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+
+        // resets object handle
+        unset($this->data['id']);
     }
 }
 

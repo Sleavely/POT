@@ -1,6 +1,8 @@
 [0.0.4+SVN]
 * Added support for vocations.xml file. <wrzasq>
 * Added support for bans. <wrzasq>
+* Added sorting and filtering for lists. <wrzasq>
+* Fixed typos. <wrzasq>
 
 [0.0.4]
 * Added guild system support (guilds, ranks, invitations and requests drivers mechanisms). <wrzasq>

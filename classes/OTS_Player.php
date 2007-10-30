@@ -1764,6 +1764,27 @@ class OTS_Player implements IOTS_DAO
         $ban = $this->db->SQLquery('SELECT COUNT(' . $this->db->fieldName('type') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('player') . ' = ' . $this->data['id'] . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . POT::BAN_PLAYER)->fetch();
         return $ban['count'] > 0;
     }
+
+/**
+ * Deletes player.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function delete()
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // deletes row from database
+        $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+
+        // resets object handle
+        unset($this->data['id']);
+    }
 }
 
 /**#@-*/

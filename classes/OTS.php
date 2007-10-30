@@ -12,11 +12,12 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo List objects sorting/criteria-based loading.
  * @todo Items list (items.xml + items.otb -> cache).
  * @todo Spawns support (OTBM support -> cache).
  * @todo More detailed documentation, better examples, more detailed phpUnit tests.
  * @todo Implement __get()/__set()/__call()/__toString(); Iterator, ArrayAccess, Countable interfaces.
+ * @todo Group code in base classes.
+ * @todo Get rid of POT::getInstance()->create*() calls - use POT::getInstance()->getDBHandle() in constructors.
  */
 
 /**
@@ -243,7 +244,6 @@ class POT
  * @since 0.0.4+SVN
  */
     const BAN_IP = 1;
-
 /**
  * Player ban.
  * 
@@ -251,7 +251,6 @@ class POT
  * @since 0.0.4+SVN
  */
     const BAN_PLAYER = 2;
-
 /**
  * Account ban.
  * 
@@ -261,9 +260,24 @@ class POT
     const BAN_ACCOUNT = 3;
 
 /**
+ * Ascencind sorting order.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ */
+    const ORDER_ASC = 1;
+/**
+ * Descending sorting order.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ */
+    const ORDER_DESC = 2;
+
+/**
  * Singleton.
  * 
- * @return POT Global POD class instance.
+ * @return POT Global POT class instance.
  */
     public static function getInstance()
     {
@@ -602,7 +616,7 @@ class POT
     public function banIP($ip, $mask = '255.255.255.255', $time = 0)
     {
         // long2ip( ip2long('255.255.255.255') ) != '255.255.255.255' -.-'
-        // it's because that PP integer types are signed
+        // it's because that PHP integer types are signed
         if($ip == '255.255.255.255')
         {
             $ip = 4294967295;
@@ -637,7 +651,7 @@ class POT
     public function unbanIP($ip, $mask = '255.255.255.255')
     {
         // long2ip( ip2long('255.255.255.255') ) != '255.255.255.255' -.-'
-        // it's because that PP integer types are signed
+        // it's because that PHP integer types are signed
         if($ip == '255.255.255.255')
         {
             $ip = 4294967295;
@@ -670,7 +684,7 @@ class POT
     public function isIPBanned($ip)
     {
         // long2ip( ip2long('255.255.255.255') ) != '255.255.255.255' -.-'
-        // it's because that PP integer types are signed
+        // it's because that PHP integer types are signed
         if($ip == '255.255.255.255')
         {
             $ip = 4294967295;
@@ -682,6 +696,18 @@ class POT
 
         $ban = $this->db->SQLquery('SELECT COUNT(' . $this->db->fieldName('type') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('ip') . ' & ' . $this->db->fieldName('mask') . ' = ' . $ip . ' & ' . $this->db->fieldName('mask') . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP)->fetch();
         return $ban['count'] > 0;
+    }
+
+/**
+ * Creates lists filter.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @return OTS_SQLFilter Filter object.
+ */
+    public function createFilter()
+    {
+        return new OTS_SQLFilter($this->db);
     }
 }
 
