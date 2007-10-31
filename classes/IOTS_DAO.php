@@ -1,7 +1,8 @@
 <?php
 
 /**#@+
- * @version 0.0.1
+ * @version 0.0.4+SVN
+ * @since 0.0.1
  */
 
 /**
@@ -23,9 +24,10 @@ interface IOTS_DAO
 /**
  * DAO objects must be initialized with a database.
  * 
- * @param IOTS_DB $db Database connection object.
+ * @param PDO $db Database connection object.
+ * @deprecated 0.0.4+SVN This constructor convention won't be part of interface in future.
  */
-    public function __construct(IOTS_DB $db);
+    public function __construct(PDO $db);
 }
 
 /**#@-*/

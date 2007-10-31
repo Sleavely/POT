@@ -2,6 +2,8 @@
 * Added support for vocations.xml file. <wrzasq>
 * Added support for bans. <wrzasq>
 * Added sorting and filtering for lists. <wrzasq>
+* Code grouped into base classes. <wrzasq>
+* Some code optimalisation. <wrzasq>
 * Fixed typos. <wrzasq>
 
 [0.0.4]

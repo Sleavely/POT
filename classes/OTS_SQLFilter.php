@@ -17,7 +17,7 @@
  * 
  * @package POT
  */
-class OTS_SQLFilter
+class OTS_SQLFilter extends OTS_Base_DAO
 {
 /**
  * Equal operator.
@@ -62,28 +62,11 @@ class OTS_SQLFilter
     const CRITERIUM_OR = 2;
 
 /**
- * Database connection.
- * 
- * @var IOTS_DB
- */
-    private $db;
-
-/**
  * List of criteriums.
  * 
  * @var array
  */
     private $criteriums = array();
-
-/**
- * Sets database connection handler.
- * 
- * @param IOTS_DB $db Database connection object.
- */
-    public function __construct(IOTS_DB $db)
-    {
-        $this->db = $db;
-    }
 
 /**
  * Magic PHP5 method.
@@ -96,46 +79,6 @@ class OTS_SQLFilter
     public function __sleep()
     {
         return array('criteriums');
-    }
-
-/**
- * Magic PHP5 method.
- * 
- * Allows object unserialisation.
- * 
- * @internal Magic PHP5 method.
- */
-    public function __wakeup()
-    {
-        $this->db = POT::getInstance()->getDBHandle();
-    }
-
-/**
- * Magic PHP5 method.
- * 
- * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
- * 
- * @internal Magic PHP5 method.
- * @param array $properties List of object properties.
- */
-    public static function __set_state(array $properties)
-    {
-        // deletes database handle
-        if( isset($properties['db']) )
-        {
-            unset($properties['db']);
-        }
-
-        // initializes new object with current database connection
-        $object = new self( POT::getInstance()->getDBHandle() );
-
-        // loads properties
-        foreach($properties as $name => $value)
-        {
-            $object->$name = $value;
-        }
-
-        return $object;
     }
 
 /**
@@ -205,7 +148,7 @@ class OTS_SQLFilter
                     // quotes string
                     else
                     {
-                        $where .= $this->db->SQLquote($criterium['left']);
+                        $where .= $this->db->quote($criterium['left']);
                     }
                 }
 
@@ -267,7 +210,7 @@ class OTS_SQLFilter
                     // quotes string
                     else
                     {
-                        $where .= $this->db->SQLquote($criterium['right']);
+                        $where .= $this->db->quote($criterium['right']);
                     }
                 }
             }

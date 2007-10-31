@@ -2,6 +2,7 @@
 
 /**#@+
  * @version 0.0.1
+ * @since 0.0.1
  */
 
 /**
@@ -12,12 +13,12 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo Items list (items.xml + items.otb -> cache).
- * @todo Spawns support (OTBM support -> cache).
- * @todo More detailed documentation, better examples, more detailed phpUnit tests.
- * @todo Implement __get()/__set()/__call()/__toString(); Iterator, ArrayAccess, Countable interfaces.
- * @todo Group code in base classes.
- * @todo Get rid of POT::getInstance()->create*() calls - use POT::getInstance()->getDBHandle() in constructors.
+ * @todo 0.0.6: Spawns support (OTBM support -> cache).
+ * @todo 0.1.0: Items list (items.xml + items.otb -> cache).
+ * @todo 0.1.0: Get rid of POT::getInstance()->create*() calls - use POT::getInstance()->getDBHandle() in constructors.
+ * @todo 0.1.0: Implement __get()/__set()/__call()/__toString(); ArrayAccess interface.
+ * @todo 1.0.0: Complete phpUnit test.
+ * @todo 1.0.0: More detailed documentation.
  */
 
 /**
@@ -367,7 +368,7 @@ class POT
  * 
  * OTServ database connection object.
  * 
- * @var IOTS_DB
+ * @var PDO
  */
     private $db;
 
@@ -518,7 +519,7 @@ class POT
  * 
  * @version 0.0.4
  * @since 0.0.4
- * @return IOTS_DB Database connection handle.
+ * @return PDO Database connection handle.
  * @internal You should not call this function in your external code without real need.
  */
     public function getDBHandle()
@@ -635,7 +636,7 @@ class POT
             $mask = sprintf('%u', ip2long($mask) );
         }
 
-        $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('bans') . ' (' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('ip') . ', ' . $this->db->fieldName('mask') . ', ' . $this->db->fieldName('time') . ') VALUES (' . self::BAN_IP . ', ' . $ip . ', ' . $mask . ', ' . (int) $time . ')');
+        $this->db->query('INSERT INTO ' . $this->db->tableName('bans') . ' (' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('ip') . ', ' . $this->db->fieldName('mask') . ', ' . $this->db->fieldName('time') . ') VALUES (' . self::BAN_IP . ', ' . $ip . ', ' . $mask . ', ' . (int) $time . ')');
     }
 
 /**
@@ -670,7 +671,7 @@ class POT
             $mask = sprintf('%u', ip2long($mask) );
         }
 
-        $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP . ' AND ' . $this->db->fieldName('ip') . ' = ' . $ip . ' AND ' . $this->db->fieldName('mask') . ' = ' . $mask);
+        $this->db->query('DELETE FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP . ' AND ' . $this->db->fieldName('ip') . ' = ' . $ip . ' AND ' . $this->db->fieldName('mask') . ' = ' . $mask);
     }
 
 /**
@@ -694,7 +695,7 @@ class POT
             $ip = sprintf('%u', ip2long($ip) );
         }
 
-        $ban = $this->db->SQLquery('SELECT COUNT(' . $this->db->fieldName('type') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('ip') . ' & ' . $this->db->fieldName('mask') . ' = ' . $ip . ' & ' . $this->db->fieldName('mask') . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP)->fetch();
+        $ban = $this->db->query('SELECT COUNT(' . $this->db->fieldName('type') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('ip') . ' & ' . $this->db->fieldName('mask') . ' = ' . $ip . ' & ' . $this->db->fieldName('mask') . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP)->fetch();
         return $ban['count'] > 0;
     }
 

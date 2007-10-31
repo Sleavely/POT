@@ -2,6 +2,7 @@
 
 /**#@+
  * @version 0.0.1
+ * @since 0.0.1
  */
 
 /**
@@ -18,104 +19,14 @@
  * @package POT
  * @version 0.0.4+SVN
  */
-class OTS_Account implements IOTS_DAO
+class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
-/**
- * Database connection.
- * 
- * @var IOTS_DB
- */
-    private $db;
-
 /**
  * Account data.
  * 
  * @var array
  */
     private $data = array('email' => '', 'blocked' => false);
-
-/**
- * Sets database connection handler.
- * 
- * @param IOTS_DB $db Database connection object.
- */
-    public function __construct(IOTS_DB $db)
-    {
-        $this->db = $db;
-    }
-
-/**
- * Magic PHP5 method.
- * 
- * Allows object serialisation.
- * 
- * @return array List of properties that should be saved.
- * @internal Magic PHP5 method.
- * @version 0.0.4
- * @since 0.0.4
- */
-    public function __sleep()
-    {
-        return array('data');
-    }
-
-/**
- * Magic PHP5 method.
- * 
- * Allows object unserialisation.
- * 
- * @internal Magic PHP5 method.
- * @version 0.0.4
- * @since 0.0.4
- */
-    public function __wakeup()
-    {
-        $this->db = POT::getInstance()->getDBHandle();
-    }
-
-/**
- * Creates clone of object.
- * 
- * Copy of object needs to have different ID.
- * 
- * @internal magic PHP5 method.
- * @version 0.0.4
- * @since 0.0.4
- */
-    public function __clone()
-    {
-        unset($this->data['id']);
-    }
-
-/**
- * Magic PHP5 method.
- * 
- * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
- * 
- * @internal Magic PHP5 method.
- * @version 0.0.4
- * @since 0.0.4
- * @param array $properties List of object properties.
- */
-    public static function __set_state(array $properties)
-    {
-        // deletes database handle
-        if( isset($properties['db']) )
-        {
-            unset($properties['db']);
-        }
-
-        // initializes new object with current database connection
-        $object = new self( POT::getInstance()->getDBHandle() );
-
-        // loads properties
-        foreach($properties as $name => $value)
-        {
-            $object->$name = $value;
-        }
-
-        return $object;
-    }
 
 /**
  * Creates new account.
@@ -154,7 +65,7 @@ class OTS_Account implements IOTS_DAO
  * Remember! This method sets blocked flag to true after account creation!
  * </p>
  * 
- * @version 0.0.4
+ * @version 0.0.4+SVN
  * @since 0.0.4
  * @param OTS_Group $group Group to be assigned to account.
  * @param int $min Minimum number.
@@ -171,7 +82,7 @@ class OTS_Account implements IOTS_DAO
         $exist = array();
 
         // reads already existing accounts
-        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') )->fetchAll() as $account)
+        foreach( $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') )->fetchAll() as $account)
         {
             $exist[] = $account['id'];
         }
@@ -206,7 +117,7 @@ class OTS_Account implements IOTS_DAO
         $this->data['group_id'] = $group->getId();
         $this->data['blocked'] = true;
 
-        $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('accounts') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ') VALUES (' . $number . ', ' . $this->data['group_id'] . ', \'\', \'\', 1)');
+        $this->db->query('INSERT INTO ' . $this->db->tableName('accounts') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ') VALUES (' . $number . ', ' . $this->data['group_id'] . ', \'\', \'\', 1)');
 
         return $number;
     }
@@ -214,26 +125,26 @@ class OTS_Account implements IOTS_DAO
 /**
  * Loads account with given number.
  * 
- * @version 0.0.4
+ * @version 0.0.4+SVN
  * @param int $id Account number.
  */
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('blocked') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
     }
 
 /**
  * Loads account by it's e-mail address.
  * 
- * @version 0.0.2
+ * @version 0.0.4+SVN
  * @since 0.0.2
  * @param string $email Account's e-mail address.
  */
     public function find($email)
     {
         // finds player's ID
-        $id = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('email') . ' = ' . $this->db->SQLquote($email) )->fetch();
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('email') . ' = ' . $this->db->quote($email) )->fetch();
 
         // if anything was found
         if( isset($id['id']) )
@@ -255,7 +166,7 @@ class OTS_Account implements IOTS_DAO
 /**
  * Updates account in database.
  * 
- * @version 0.0.4
+ * @version 0.0.4+SVN
  * @throws E_OTS_NotLoaded False if account doesn't have ID assigned.
  */
     public function save()
@@ -266,7 +177,7 @@ class OTS_Account implements IOTS_DAO
         }
 
         // UPDATE query on database
-        $this->db->SQLquery('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName('group_id') . ' = ' . $this->data['group_id'] . ', ' . $this->db->fieldName('password') . ' = ' . $this->db->SQLquote($this->data['password']) . ', ' . $this->db->fieldName('email') . ' = ' . $this->db->SQLquote($this->data['email']) . ', ' . $this->db->fieldName('blocked') . ' = ' . (int) $this->data['blocked'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+        $this->db->query('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName('group_id') . ' = ' . $this->data['group_id'] . ', ' . $this->db->fieldName('password') . ' = ' . $this->db->quote($this->data['password']) . ', ' . $this->db->fieldName('email') . ' = ' . $this->db->quote($this->data['email']) . ', ' . $this->db->fieldName('blocked') . ' = ' . (int) $this->data['blocked'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
     }
 
 /**
@@ -439,7 +350,7 @@ class OTS_Account implements IOTS_DAO
  * 
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * 
- * @version 0.0.3
+ * @version 0.0.4+SVN
  * @since 0.0.3
  * @param string $field Field name.
  * @return string Field value.
@@ -452,7 +363,7 @@ class OTS_Account implements IOTS_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $value = $this->db->SQLquery('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
+        $value = $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
         return $value[$field];
     }
 
@@ -465,7 +376,7 @@ class OTS_Account implements IOTS_DAO
  * 
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
  * 
- * @version 0.0.3
+ * @version 0.0.4+SVN
  * @since 0.0.3
  * @param string $field Field name.
  * @param mixed $value Field value.
@@ -481,16 +392,16 @@ class OTS_Account implements IOTS_DAO
         // quotes value for SQL query
         if(!( is_int($value) || is_float($value) ))
         {
-            $value = $this->db->SQLquote($value);
+            $value = $this->db->quote($value);
         }
 
-        $this->db->SQLquery('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName($field) . ' = ' . $value . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+        $this->db->query('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName($field) . ' = ' . $value . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
     }
 
 /**
  * List of characters on account.
  * 
- * @version 0.0.3
+ * @version 0.0.4+SVN
  * @return array Array of OTS_Player objects from given account.
  * @throws E_OTS_NotLoaded If account is not loaded.
  * @deprecated 0.0.4+SVN Use getPlayersList().
@@ -504,7 +415,7 @@ class OTS_Account implements IOTS_DAO
 
         $players = array();
 
-        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('account_id') . ' = ' . $this->data['id'])->fetchAll() as $player)
+        foreach( $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('account_id') . ' = ' . $this->data['id'])->fetchAll() as $player)
         {
             // creates new object
             $object = POT::getInstance()->createObject('Player');
@@ -560,7 +471,7 @@ class OTS_Account implements IOTS_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('bans') . ' (' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('account') . ', ' . $this->db->fieldName('time') . ') VALUES (' . POT::BAN_ACCOUNT . ', ' . $this->data['id'] . ', ' . $time . ')');
+        $this->db->query('INSERT INTO ' . $this->db->tableName('bans') . ' (' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('account') . ', ' . $this->db->fieldName('time') . ') VALUES (' . POT::BAN_ACCOUNT . ', ' . $this->data['id'] . ', ' . $time . ')');
     }
 
 /**
@@ -577,7 +488,7 @@ class OTS_Account implements IOTS_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('type') . ' = ' . POT::BAN_ACCOUNT . ' AND ' . $this->db->fieldName('account') . ' = ' . $this->data['id']);
+        $this->db->query('DELETE FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('type') . ' = ' . POT::BAN_ACCOUNT . ' AND ' . $this->db->fieldName('account') . ' = ' . $this->data['id']);
     }
 
 /**
@@ -595,7 +506,7 @@ class OTS_Account implements IOTS_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $ban = $this->db->SQLquery('SELECT COUNT(' . $this->db->fieldName('type') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('account') . ' = ' . $this->data['id'] . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . POT::BAN_ACCOUNT)->fetch();
+        $ban = $this->db->query('SELECT COUNT(' . $this->db->fieldName('type') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('account') . ' = ' . $this->data['id'] . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . POT::BAN_ACCOUNT)->fetch();
         return $ban['count'] > 0;
     }
 
@@ -614,10 +525,39 @@ class OTS_Account implements IOTS_DAO
         }
 
         // deletes row from database
-        $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+        $this->db->query('DELETE FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
 
         // resets object handle
         unset($this->data['id']);
+    }
+
+/**
+ * Returns players iterator.
+ * 
+ * There is no need to implement entire Iterator interface since we have {@link OTS_Players_List players list class} for it.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @throws E_OTS_NotLoaded If account is not loaded.
+ * @return Iterator List of players.
+ */
+    public function getIterator()
+    {
+        return $this->getPlayersList();
+    }
+
+/**
+ * Returns number of player within.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @throws E_OTS_NotLoaded If account is not loaded.
+ * @return int Count of players.
+ */
+    public function count()
+    {
+        // count( $this->getPlayersList() ); will be slower
+        return $this->getPlayersList()->count();
     }
 }
 

@@ -19,15 +19,8 @@
  * @package POT
  * @version 0.0.4+SVN
  */
-class OTS_GuildRank implements IOTS_DAO
+class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
-/**
- * Database connection.
- * 
- * @var IOTS_DB
- */
-    private $db;
-
 /**
  * Rank data.
  * 
@@ -36,89 +29,15 @@ class OTS_GuildRank implements IOTS_DAO
     private $data = array();
 
 /**
- * Sets database connection handler.
- * 
- * @param IOTS_DB $db Database connection object.
- */
-    public function __construct(IOTS_DB $db)
-    {
-        $this->db = $db;
-    }
-
-/**
- * Magic PHP5 method.
- * 
- * Allows object serialisation.
- * 
- * @return array List of properties that should be saved.
- * @internal Magic PHP5 method.
- */
-    public function __sleep()
-    {
-        return array('data');
-    }
-
-/**
- * Magic PHP5 method.
- * 
- * Allows object unserialisation.
- * 
- * @internal Magic PHP5 method.
- */
-    public function __wakeup()
-    {
-        $this->db = POT::getInstance()->getDBHandle();
-    }
-
-/**
- * Creates clone of object.
- * 
- * Copy of object needs to have different ID.
- * 
- * @internal magic PHP5 method.
- */
-    public function __clone()
-    {
-        unset($this->data['id']);
-    }
-
-/**
- * Magic PHP5 method.
- * 
- * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
- * 
- * @internal Magic PHP5 method.
- * @param array $properties List of object properties.
- */
-    public static function __set_state(array $properties)
-    {
-        // deletes database handle
-        if( isset($properties['db']) )
-        {
-            unset($properties['db']);
-        }
-
-        // initializes new object with current database connection
-        $object = new self( POT::getInstance()->getDBHandle() );
-
-        // loads properties
-        foreach($properties as $name => $value)
-        {
-            $object->$name = $value;
-        }
-
-        return $object;
-    }
-
-/**
  * Loads rank with given id.
  * 
+ * @version 0.0.4+SVN
  * @param int $id Rank's ID.
  */
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('guild_id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('level') . ' FROM ' . $this->db->tableName('guild_ranks') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('guild_id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('level') . ' FROM ' . $this->db->tableName('guild_ranks') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
     }
 
 /**
@@ -126,6 +45,7 @@ class OTS_GuildRank implements IOTS_DAO
  * 
  * As there can be several ranks with same name in different guilds you can pass optional second parameter to specify in which guild script should look for rank.
  * 
+ * @version 0.0.4+SVN
  * @param string $name Rank's name.
  * @param OTS_Guild $guild Guild in which rank should be found.
  */
@@ -140,7 +60,7 @@ class OTS_GuildRank implements IOTS_DAO
         }
 
         // finds player's ID
-        $id = $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('guilds') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->SQLquote($name) . $where)->fetch();
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('guilds') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) . $where)->fetch();
 
         // if anything was found
         if( isset($id['id']) )
@@ -161,6 +81,8 @@ class OTS_GuildRank implements IOTS_DAO
 
 /**
  * Saves rank in database.
+ * 
+ * @version 0.0.4+SVN
  */
     public function save()
     {
@@ -168,13 +90,13 @@ class OTS_GuildRank implements IOTS_DAO
         if( isset($this->data['id']) )
         {
             // UPDATE query on database
-            $this->db->SQLquery('UPDATE ' . $this->db->tableName('guild_ranks') . ' SET ' . $this->db->fieldName('guild_id') . ' = ' . $this->db->SQLquote($this->data['guild_id']) . ', ' . $this->db->fieldName('name') . ' = ' . $this->data['name'] . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+            $this->db->query('UPDATE ' . $this->db->tableName('guild_ranks') . ' SET ' . $this->db->fieldName('guild_id') . ' = ' . $this->db->quote($this->data['guild_id']) . ', ' . $this->db->fieldName('name') . ' = ' . $this->data['name'] . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
         }
         // creates new rank
         else
         {
             // INSERT query on database
-            $this->db->SQLquery('INSERT INTO ' . $this->db->tableName('guild_ranks') . ' (' . $this->db->fieldName('guild_id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('level') . ') VALUES (' . $this->data['guild_id'] . ', ' . $this->db->SQLquote($this->data['name']) . ', ' . $this->data['level'] . ')');
+            $this->db->query('INSERT INTO ' . $this->db->tableName('guild_ranks') . ' (' . $this->db->fieldName('guild_id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('level') . ') VALUES (' . $this->data['guild_id'] . ', ' . $this->db->quote($this->data['name']) . ', ' . $this->data['level'] . ')');
             // ID of new rank
             $this->data['id'] = $this->db->lastInsertId();
         }
@@ -283,6 +205,7 @@ class OTS_GuildRank implements IOTS_DAO
  * 
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * 
+ * @version 0.0.4+SVN
  * @param string $field Field name.
  * @return string Field value.
  * @throws E_OTS_NotLoaded If rank is not loaded.
@@ -294,7 +217,7 @@ class OTS_GuildRank implements IOTS_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $value = $this->db->SQLquery('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('guild_ranks') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
+        $value = $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('guild_ranks') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
         return $value[$field];
     }
 
@@ -307,6 +230,7 @@ class OTS_GuildRank implements IOTS_DAO
  * 
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field value. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
  * 
+ * @version 0.0.4+SVN
  * @param string $field Field name.
  * @param mixed $value Field value.
  * @throws E_OTS_NotLoaded If rank is not loaded.
@@ -321,15 +245,16 @@ class OTS_GuildRank implements IOTS_DAO
         // quotes value for SQL query
         if(!( is_int($value) || is_float($value) ))
         {
-            $value = $this->db->SQLquote($value);
+            $value = $this->db->quote($value);
         }
 
-        $this->db->SQLquery('UPDATE ' . $this->db->tableName('guild_ranks') . ' SET ' . $this->db->fieldName($field) . ' = ' . $value . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+        $this->db->query('UPDATE ' . $this->db->tableName('guild_ranks') . ' SET ' . $this->db->fieldName($field) . ' = ' . $value . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
     }
 
 /**
  * Reads all players who has this rank set.
  * 
+ * @version 0.0.4+SVN
  * @return array List of members.
  * @throws E_OTS_NotLoaded If rank is not loaded.
  * @deprecated 0.0.4+SVN Use getPlayersList().
@@ -343,7 +268,7 @@ class OTS_GuildRank implements IOTS_DAO
 
         $players = array();
 
-        foreach( $this->db->SQLquery('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('rank_id') . ' = ' . $this->data['id'])->fetchAll() as $player)
+        foreach( $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('rank_id') . ' = ' . $this->data['id'])->fetchAll() as $player)
         {
             // creates new object
             $object = POT::getInstance()->createObject('Player');
@@ -399,10 +324,39 @@ class OTS_GuildRank implements IOTS_DAO
         }
 
         // deletes row from database
-        $this->db->SQLquery('DELETE FROM ' . $this->db->tableName('guild_ranks') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+        $this->db->query('DELETE FROM ' . $this->db->tableName('guild_ranks') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
 
         // resets object handle
         unset($this->data['id']);
+    }
+
+/**
+ * Returns players iterator.
+ * 
+ * There is no need to implement entire Iterator interface since we have {@link OTS_Players_List players list class} for it.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @throws E_OTS_NotLoaded If rank is not loaded.
+ * @return Iterator List of players.
+ */
+    public function getIterator()
+    {
+        return $this->getPlayersList();
+    }
+
+/**
+ * Returns number of player within.
+ * 
+ * @version 0.0.4+SVN
+ * @since 0.0.4+SVN
+ * @throws E_OTS_NotLoaded If rank is not loaded.
+ * @return int Count of players.
+ */
+    public function count()
+    {
+        // count( $this->getPlayersList() ); will be slower
+        return $this->getPlayersList()->count();
     }
 }
 

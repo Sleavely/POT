@@ -2,10 +2,12 @@
 
 /**#@+
  * @version 0.0.1
+ * @since 0.0.1
  */
 
 /**
  * @package POT
+ * @version 0.0.4+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,6 +19,8 @@
  * This interface specifies routines requires by DAO classes.
  * 
  * @package POT
+ * @version 0.0.4+SVN
+ * @deprecated 0.0.4+SVN Don't rely on this interface - it is for backward compatibility only. Check POT instance instead.
  */
 interface IOTS_DB
 {

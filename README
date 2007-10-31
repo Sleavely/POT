@@ -53,7 +53,7 @@ documentation: generates HTML documentation.
 pdf: generates PDF documentation.
 online: OTServ-AAC website documentation template used.
 test: runs test suite.
-package: creates pot.zip file for distribution purposes.
+package: creates pot.tar.gz file for distribution purposes.
 
 For more readable output of phpUnit test run:
 php test.php

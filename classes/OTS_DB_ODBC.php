@@ -7,6 +7,7 @@
 
 /**
  * @package POT
+ * @version 0.0.4+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,6 +17,7 @@
  * ODBC connection interface.
  * 
  * @package POT
+ * @version 0.0.4+SVN
  */
 class OTS_DB_ODBC extends PDO implements IOTS_DB
 {
@@ -116,6 +118,7 @@ class OTS_DB_ODBC extends PDO implements IOTS_DB
  * @param stirng $string String to be quoted.
  * @return string Quoted string.
  * @internal bridge over ISQL_DB and PDO.
+ * @deprecated 0.0.4+SVN Use PDO::quote().
  */
     public function SQLquote($string)
     {
@@ -130,6 +133,7 @@ class OTS_DB_ODBC extends PDO implements IOTS_DB
  * @param string $query SQL query.
  * @return PDOStatement|bool Query results.
  * @internal bridge over ISQL_DB and PDO.
+ * @deprecated 0.0.4+SVN Use PDO::query().
  */
     public function SQLquery($query)
     {
