@@ -66,14 +66,14 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * 
  * @var string
  */
-    private $table;
+    protected $table;
 
 /**
  * Class of generated objects.
  * 
  * @var string
  */
-    private $class;
+    protected $class;
 
 /**
  * Sets database connection handler.
