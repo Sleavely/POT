@@ -1,8 +1,8 @@
 <?php
 
 /**#@+
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  */
 
 /**
@@ -231,7 +231,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Returns number of accounts on list in current criterium.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @return int Number of accounts.
  */
     public function count()

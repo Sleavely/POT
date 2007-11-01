@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ guild rank abstraction.
  * 
  * @package POT
- * @version 0.0.4+SVN
+ * @version 0.0.5
  */
 class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -31,7 +31,7 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Loads rank with given id.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @param int $id Rank's ID.
  */
     public function load($id)
@@ -45,7 +45,7 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * As there can be several ranks with same name in different guilds you can pass optional second parameter to specify in which guild script should look for rank.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @param string $name Rank's name.
  * @param OTS_Guild $guild Guild in which rank should be found.
  */
@@ -82,7 +82,7 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Saves rank in database.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  */
     public function save()
     {
@@ -205,7 +205,7 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @param string $field Field name.
  * @return string Field value.
  * @throws E_OTS_NotLoaded If rank is not loaded.
@@ -230,7 +230,7 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field value. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @param string $field Field name.
  * @param mixed $value Field value.
  * @throws E_OTS_NotLoaded If rank is not loaded.
@@ -254,10 +254,10 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Reads all players who has this rank set.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @return array List of members.
  * @throws E_OTS_NotLoaded If rank is not loaded.
- * @deprecated 0.0.4+SVN Use getPlayersList().
+ * @deprecated 0.0.5 Use getPlayersList().
  */
     public function getPlayers()
     {
@@ -284,8 +284,8 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * In difference to {@link OTS_GuildRank::getPlayers() getPlayers() method} this method returns filtered {@link OTS_Players_List OTS_Players_List} object instead of array of {@link OTS_Player OTS_Player} objects. It is more effective since OTS_Player_List doesn't perform all rows loading at once.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @return OTS_Players_List List of players with current rank.
  * @throws E_OTS_NotLoaded If rank is not loaded.
  */
@@ -312,8 +312,8 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Deletes guild rank.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @throws E_OTS_NotLoaded If guild rank is not loaded.
  */
     public function delete()
@@ -335,8 +335,8 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * There is no need to implement entire Iterator interface since we have {@link OTS_Players_List players list class} for it.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @throws E_OTS_NotLoaded If rank is not loaded.
  * @return Iterator List of players.
  */
@@ -348,8 +348,8 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Returns number of player within.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @throws E_OTS_NotLoaded If rank is not loaded.
  * @return int Count of players.
  */

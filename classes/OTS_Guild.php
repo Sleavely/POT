@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ guild abstraction.
  * 
  * @package POT
- * @version 0.0.4+SVN
+ * @version 0.0.5
  */
 class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -96,7 +96,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Loads guild with given id.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @param int $id Guild's ID.
  */
     public function load($id)
@@ -108,7 +108,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Loads guild by it's name.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @param string $name Guild's name.
  */
     public function find($name)
@@ -136,7 +136,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Saves guild in database.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  */
     public function save()
     {
@@ -259,7 +259,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @param string $field Field name.
  * @return string Field value.
  * @throws E_OTS_NotLoaded If guild is not loaded.
@@ -284,7 +284,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field value. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @param string $field Field name.
  * @param mixed $value Field value.
  * @throws E_OTS_NotLoaded If guild is not loaded.
@@ -308,10 +308,10 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Reads all ranks that are in this guild.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @return array List of ranks.
  * @throws E_OTS_NotLoaded If guild is not loaded.
- * @deprecated 0.0.4+SVN Use getGuildRanksList().
+ * @deprecated 0.0.5 Use getGuildRanksList().
  */
     public function getGuildRanks()
     {
@@ -338,8 +338,8 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * In difference to {@link OTS_Guild::getGuildRanks() getGuildRanks() method} this method returns filtered {@link OTS_GuildRanks_List OTS_GuildRanks_List} object instead of array of {@link OTS_GuildRank OTS_GuildRank} objects. It is more effective since OTS_GuildRanks_List doesn't perform all rows loading at once.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @return OTS_GuildRanks_List List of ranks from current guild.
  * @throws E_OTS_NotLoaded If guild is not loaded.
  */
@@ -550,8 +550,8 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Deletes guild.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @throws E_OTS_NotLoaded If guild is not loaded.
  */
     public function delete()
@@ -573,8 +573,8 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * There is no need to implement entire Iterator interface since we have {@link OTS_GuildRanks_List ranks list class} for it.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @throws E_OTS_NotLoaded If guild is not loaded.
  * @return Iterator List of ranks.
  */
@@ -586,8 +586,8 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Returns number of ranks within.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @throws E_OTS_NotLoaded If guild is not loaded.
  * @return int Count of ranks.
  */

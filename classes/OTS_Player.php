@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,14 +17,14 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.0.4+SVN
+ * @version 0.0.5
  */
 class OTS_Player extends OTS_Base_DAO
 {
 /**
  * Player data.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @var array
  */
     private $data = array('premend' => 0, 'sex' => POT::SEX_FEMALE, 'vocation' => 0, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'healthmax' => 100, 'mana' => 100, 'manamax' => 100, 'manaspent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastip' => 0, 'save' => true, 'redskulltime' => 0, 'redskull' => false, 'guildnick' => '', 'loss_experience' => 10, 'loss_mana' => 10, 'loss_skills' => 10);
@@ -56,7 +56,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Loads player with given id.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @param int $id Player's ID.
  */
     public function load($id)
@@ -77,7 +77,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Loads player by it's name.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @since 0.0.2
  * @param string $name Player's name.
  */
@@ -106,7 +106,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Saves player in database.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  */
     public function save()
     {
@@ -1245,7 +1245,7 @@ class OTS_Player extends OTS_Base_DAO
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * </p>
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @since 0.0.3
  * @param string $field Field name.
  * @return string Field value.
@@ -1275,7 +1275,7 @@ class OTS_Player extends OTS_Base_DAO
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field value. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
  * </p>
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @since 0.0.3
  * @param string $field Field name.
  * @param mixed $value Field value.
@@ -1364,7 +1364,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Deletes item with contained items.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @since 0.0.3
  * @param int $sid Item unique player's ID.
  */
@@ -1385,7 +1385,7 @@ class OTS_Player extends OTS_Base_DAO
  * 
  * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @since 0.0.3
  * @param int $slot Slot to get items.
  * @return OTS_Item|null Item in given slot (items tree if in given slot there is a container). If there is no item in slot then null value will be returned.
@@ -1438,7 +1438,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Sets slot content.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @since 0.0.3
  * @param int $slot Slot to save items.
  * @param OTS_Item $item Item (can be a container with content) for given slot. Leave this parameter blank to clear slot.
@@ -1499,7 +1499,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Deletes depot item with contained items.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @since 0.0.3
  * @param int $sid Depot item unique player's ID.
  */
@@ -1520,7 +1520,7 @@ class OTS_Player extends OTS_Base_DAO
  * 
  * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @since 0.0.3
  * @param int $depot Depot ID to get items.
  * @return OTS_Item|null Item in given depot (items tree if in given depot there is a container). If there is no item in depot then null value will be returned.
@@ -1573,7 +1573,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Sets depot content.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @since 0.0.3
  * @param int $depot Depot ID to save items.
  * @param OTS_Item $item Item (can be a container with content) for given depot. Leave this parameter blank to clear depot.
@@ -1641,8 +1641,8 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Bans current player.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @param int $time Time for time until expires (0 - forever).
  */
     public function ban($time = 0)
@@ -1659,8 +1659,8 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Deletes ban from current player.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  */
     public function unban()
     {
@@ -1676,8 +1676,8 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Checks if player is banned.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @return bool True if player is banned, false otherwise.
  */
     public function isBanned()
@@ -1695,8 +1695,8 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Deletes player.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function delete()

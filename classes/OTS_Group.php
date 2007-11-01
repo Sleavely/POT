@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ user group abstraction.
  * 
  * @package POT
- * @version 0.0.4+SVN
+ * @version 0.0.5
  */
 class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -31,7 +31,7 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Loads group with given id.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @param int $id Group number.
  */
     public function load($id)
@@ -53,7 +53,7 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Saves account in database.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  */
     public function save()
     {
@@ -232,7 +232,7 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @since 0.0.3
  * @param string $field Field name.
  * @return string Field value.
@@ -258,7 +258,7 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @since 0.0.3
  * @param string $field Field name.
  * @param mixed $value Field value.
@@ -283,10 +283,10 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * List of characters in given group.
  * 
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @return array Array of OTS_Player objects from given group.
  * @throws E_OTS_NotLoaded If group is not loaded.
- * @deprecated 0.0.4+SVN Use getPlayersList().
+ * @deprecated 0.0.5 Use getPlayersList().
  */
     public function getPlayers()
     {
@@ -313,8 +313,8 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * In difference to {@link OTS_Group::getPlayers() getPlayers() method} this method returns filtered {@link OTS_Players_List OTS_Players_List} object instead of array of {@link OTS_Player OTS_Player} objects. It is more effective since OTS_Player_List doesn't perform all rows loading at once.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @return OTS_Players_List List of players from current group.
  * @throws E_OTS_NotLoaded If group is not loaded.
  */
@@ -341,8 +341,8 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Deletes group.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @throws E_OTS_NotLoaded If group is not loaded.
  */
     public function delete()
@@ -364,8 +364,8 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * There is no need to implement entire Iterator interface since we have {@link OTS_Players_List players list class} for it.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @throws E_OTS_NotLoaded If group is not loaded.
  * @return Iterator List of players.
  */
@@ -377,8 +377,8 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Returns number of player within.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @throws E_OTS_NotLoaded If group is not loaded.
  * @return int Count of players.
  */

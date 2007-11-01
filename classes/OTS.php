@@ -9,7 +9,7 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.0.4+SVN
+ * @version 0.0.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -25,7 +25,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.0.4+SVN
+ * @version 0.0.5
  */
 class POT
 {
@@ -64,31 +64,31 @@ class POT
 /**
  * None vocation.
  * 
- * @deprecated 0.0.4+SVN Vocations are now loaded dynamicly from vocations.xml file.
+ * @deprecated 0.0.5 Vocations are now loaded dynamicly from vocations.xml file.
  */
     const VOCATION_NONE = 0;
 /**
  * Sorcerer.
  * 
- * @deprecated 0.0.4+SVN Vocations are now loaded dynamicly from vocations.xml file.
+ * @deprecated 0.0.5 Vocations are now loaded dynamicly from vocations.xml file.
  */
     const VOCATION_SORCERER = 1;
 /**
  * Druid.
  * 
- * @deprecated 0.0.4+SVN Vocations are now loaded dynamicly from vocations.xml file.
+ * @deprecated 0.0.5 Vocations are now loaded dynamicly from vocations.xml file.
  */
     const VOCATION_DRUID = 2;
 /**
  * Paladin.
  * 
- * @deprecated 0.0.4+SVN Vocations are now loaded dynamicly from vocations.xml file.
+ * @deprecated 0.0.5 Vocations are now loaded dynamicly from vocations.xml file.
  */
     const VOCATION_PALADIN = 3;
 /**
  * Knight.
  * 
- * @deprecated 0.0.4+SVN Vocations are now loaded dynamicly from vocations.xml file.
+ * @deprecated 0.0.5 Vocations are now loaded dynamicly from vocations.xml file.
  */
     const VOCATION_KNIGHT = 4;
 
@@ -241,37 +241,37 @@ class POT
 /**
  * IP ban.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  */
     const BAN_IP = 1;
 /**
  * Player ban.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  */
     const BAN_PLAYER = 2;
 /**
  * Account ban.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  */
     const BAN_ACCOUNT = 3;
 
 /**
  * Ascencind sorting order.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  */
     const ORDER_ASC = 1;
 /**
  * Descending sorting order.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  */
     const ORDER_DESC = 2;
 
@@ -530,8 +530,8 @@ class POT
 /**
  * List of vocations.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @var array
  */
     private $vocations = array();
@@ -541,8 +541,8 @@ class POT
  * 
  * Loads vocations list from given file.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @param string $file vocations.xml file location.
  */
     public function loadVocations($file)
@@ -561,8 +561,8 @@ class POT
 /**
  * Returns vocation's ID.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @param string $name Vocation.
  * @return int|bool ID (false if not found).
  */
@@ -574,8 +574,8 @@ class POT
 /**
  * Returns name of given vocation's ID.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @param int $id Vocation ID.
  * @return string|bool Name (false if not found).
  */
@@ -594,8 +594,8 @@ class POT
 /**
  * Returns list (id => name) of loaded vocations.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @return array List of vocations.
  */
     public function getVocationsList()
@@ -608,8 +608,8 @@ class POT
  * 
  * Adds IP/mask ban. You can call this function with only one parameter to ban only given IP address without expiration.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @param string $ip IP to ban.
  * @param string $mask Mask for ban (by default bans only given IP).
  * @param int $time Time for time until expires (0 - forever).
@@ -644,8 +644,8 @@ class POT
  * 
  * Removes given IP/mask ban.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @param string $ip IP to ban.
  * @param string $mask Mask for ban (by default 255.255.255.255).
  */
@@ -677,8 +677,8 @@ class POT
 /**
  * Checks if given IP is banned.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @param string $ip IP to ban.
  * @return bool True if IP number is banned, false otherwise.
  */
@@ -702,8 +702,8 @@ class POT
 /**
  * Creates lists filter.
  * 
- * @version 0.0.4+SVN
- * @since 0.0.4+SVN
+ * @version 0.0.5
+ * @since 0.0.5
  * @return OTS_SQLFilter Filter object.
  */
     public function createFilter()
