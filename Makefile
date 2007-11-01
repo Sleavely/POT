@@ -37,5 +37,6 @@ pot.tar.gz: documentation.pdf
 	cp RULES pot
 	cp compat.php pot
 	cp documentation.pdf pot
-	cp -r classes pot
+	cp -r classes pot/pot
+	rm -rf pot/pot/.svn
 	tar -zcf pot.tar.gz pot/*

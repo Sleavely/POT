@@ -1,4 +1,4 @@
-[0.0.4+SVN]
+[0.0.5]
 * Added support for vocations.xml file. <wrzasq>
 * Added support for bans. <wrzasq>
 * Added sorting and filtering for lists. <wrzasq>

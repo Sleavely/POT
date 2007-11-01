@@ -1,44 +1,24 @@
-What's new in 0.0.4 version?
+What's new in 0.0.5 version?
 
-* Added guild system support (guilds, ranks, invitations and requests drivers mechanisms).
+* Added support for vocations.xml file.
 
-    Main feature of new update - includes full support for guilds system.
+    Vocations are now loaded from vocations.xml file. You can get list of all vocations on server, not only default ones.
 
-* Added account group support.
+* Added support for bans.
 
-    Support for new accounts table structure.
+    Can ban, unban and check if ip, account or player is banned.
 
-* Added support for depot_id field (it is reserverd in OTServ for futher use).
+* Added sorting and filtering for lists.
 
-    Even thought depot_id field in OTServ database is not used, it was moved back as it is reserved for further use. POT also supports it.
+    All lists can now be sorted and/or filtered. It will be more described in further documentation.
 
-* Added PostgreSQL and ODBC drivers.
+* Code grouped into base classes.
 
-    POT supports new revdbsys database drivers.
+    There are some generic classes that implements common routines to minimise the code and allows simple automatic subclassing.
 
-* Added __sleep() and __wakeup() methods to allow POT objects to be stored in sessions.
+* Some code optimalisation.
 
-    Allows you to store POT objects in sessions.
-
-* Added __clone() methods to allow save ID-losing cloning of POT objects.
-
-    Allows you cloning of POT objects while deleting their's IDs for re-inserting.
-
-* Added __set_state() methods.
-
-    Magic PHP5 method - you can read more in PHP Manual.
-
-* Updated players table structure.
-
-    As always POT keeps your scripts up-to-date with support for latest structure of database.
-
-* Dropped REGEXP operator bindings - not used anywhere.
-
-    This internal feature wasn't used anywhere so it would be a waste to keep it out there.
-
-* Fixed items loading and saving.
-
-    Items saving (both body slots and depot items) in previous versions was coded wrong way. Fixed now.
+    Changed some code to use more effective ways of solving same problems.
 
 * Fixed typos.
 
