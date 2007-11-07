@@ -31,4 +31,6 @@ class E_OTS_OTBMError extends E_OTS_ErrorCode
     const LOADMAPERROR_UNKNOWNNODETYPE = 8;
 }
 
+/**#@-*/
+
 ?>

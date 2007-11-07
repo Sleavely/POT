@@ -87,4 +87,6 @@ class OTS_MapCoords
     }
 }
 
+/**#@-*/
+
 ?>

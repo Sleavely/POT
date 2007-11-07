@@ -34,7 +34,7 @@ class E_OTS_FileLoaderError extends E_OTS_ErrorCode
  */
     const ERROR_EOF = 4;
 /**
- * {@link http://www.php.net/manual/en/function.fseek.php fseek()} operation failed.
+ * Failed to seek in given position in file.
  */
     const ERROR_SEEK_ERROR = 5;
 /**
@@ -46,9 +46,11 @@ class E_OTS_FileLoaderError extends E_OTS_ErrorCode
  */
     const ERROR_INVALID_FORMAT = 8;
 /**
- * {@link http://www.php.net/manual/en/function.ftell.php ftell()} operation failed.
+ * Failed to read position in file.
  */
     const ERROR_TELL_ERROR = 9;
 }
+
+/**#@-*/
 
 ?>

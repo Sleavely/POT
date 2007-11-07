@@ -367,4 +367,6 @@ class OTS_OTBMFile extends OTS_FileLoader
     }
 }
 
+/**#@-*/
+
 ?>

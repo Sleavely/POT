@@ -262,4 +262,6 @@ class OTS_FileLoader
     }
 }
 
+/**#@-*/
+
 ?>

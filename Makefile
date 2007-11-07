@@ -12,15 +12,15 @@ check:
 	find . -name "*.php" -exec php -l {} \;
 
 documentation:
-	phpdoc -j on -t documentation -o HTML:Smarty:HandS -ti 'PHP OTServ Toolkit' -d . -i test.php
+	phpdoc -j on -t documentation -o HTML:Smarty:HandS -ti 'PHP OTServ Toolkit' -d . -i test.php -ric CHANGELOG,INSTALL,LICENSE,NEWS,README,RULES
 
 pdf: documentation.pdf
 
 documentation.pdf:
-	phpdoc -j on -t . -o PDF:default:default -ti 'PHP OTServ Toolkit' -d . -i test.php
+	phpdoc -j on -t . -o PDF:default:default -ti 'PHP OTServ Toolkit' -d . -i test.php -ric CHANGELOG,INSTALL,LICENSE,NEWS,README,RULES
 
 online:
-	phpdoc -j on -t online -o HTML:Smarty:OTServAAC -ti 'PHP OTServ Toolkit' -d . -i test.php
+	phpdoc -j on -t online -o HTML:Smarty:OTServAAC -ti 'PHP OTServ Toolkit' -d . -i test.php -ric CHANGELOG,INSTALL,LICENSE,NEWS,README,RULES
 
 test:
 	phpunit POTTest test.php

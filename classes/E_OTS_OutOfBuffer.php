@@ -23,4 +23,6 @@ class E_OTS_OutOfBuffer extends Exception
 {
 }
 
+/**#@-*/
+
 ?>

@@ -23,16 +23,18 @@ interface IOTS_FileCache
  * Returns cache.
  * 
  * @param string $md5 MD5 hash of file.
- * @return OTS_NodeStruct|null Root node (null if file cache is not valid).
+ * @return OTS_FileNode|null Root node (null if file cache is not valid).
  */
     public function readCache($md5);
 /**
  * Writes node cache.
  * 
  * @param string $md5 MD5 checksum of current file.
- * @param OTS_NodeStruct $root Root node of file which should be cached.
+ * @param OTS_FileNode $root Root node of file which should be cached.
  */
-    public function writeCache($md5, OTS_NodeStruct $root);
+    public function writeCache($md5, OTS_FileNode $root);
 }
+
+/**#@-*/
 
 ?>

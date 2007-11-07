@@ -239,4 +239,6 @@ class OTS_FileNode
     }
 }
 
+/**#@-*/
+
 ?>
