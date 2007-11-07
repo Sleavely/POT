@@ -1,3 +1,8 @@
+[0.0.6+SVN]
+* Increased PHP 5.0 compatibility. <wrzasq>
+* Added generic binary formats reader with cache drivers. <wrzasq>
+* Added OTBM files basic support. <wrzasq>
+
 [0.0.5]
 * Added support for vocations.xml file. <wrzasq>
 * Added support for bans. <wrzasq>

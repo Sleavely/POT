@@ -29,6 +29,7 @@ package: pot.tar.gz
 
 pot.tar.gz: documentation.pdf
 	mkdir pot
+	cp ../../otserv/trunk/AUTHORS pot
 	cp CHANGELOG pot
 	cp INSTALL pot
 	cp LICENSE pot

@@ -1,7 +1,7 @@
 <refentry id="{@id}">
     <refnamediv>
         <refname>POT</refname>
-        <refpurpose>This is documenation of POT - official toolkit for {@link http://www.otserv-aac.info/ OTServ AAC scripts}.</refpurpose>
+        <refpurpose>This is documenation of POT - official toolkit for OTServ AAC scripts.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
@@ -27,7 +27,7 @@
             To use POT you need {@link http://www.php.net/ PHP} version at least 5.0 with {@link http://www.php.net/manual/en/ref.pdo.php PDO extension installed} (so it means you will mostly need PHP 5.1, but it is possible to download PDO as external libraries for PHP 5.0.x).
             </para>
         </refsect2>
-        <refsect2 id="{@id what_id}">
+        <refsect2 id="{@id what_is}">
             <title>What POT is</title>
             <para>
             POT is a toolkit/library for accessing OTServ database from PHP. It provides PHP classes that represents OTServ database inforation as an objects.
@@ -40,15 +40,6 @@
                 <listitem>It is not application/system framework - you won't create website with only POT. POT has only functionality connected with OTServ database, it doesn't contain for example templates engine. You also won't be able to use it as an ordinary database connection engine - it makes use of {@link http://www.php.net/manual/en/ref.pdo.php PDO} so you can use PDO by itself, POT doesnt provide any additional universal functionality. All it's classes are strictly connected with OTServ database.</listitem>
             </itemizedlist>
         </refsect2>
-    </refsect1>
-    <refsect1 id="{@id xml}">
-        <title>What about XML?</title>
-        <para>
-        Sorry to say, XML guys - go out. OTServ will never leave XML - it is good to store some flat parts of database there. But not for main database which requires more advanced relationship between data. However of course maybe someone would want to create DB_XML driver for POT? If you realy are a masochist - you're welcome, we will be glad to contribute with you ;).
-        </para>
-        <para>
-        If you are interested in why XML so sux, and you with it, check out {@link http://otfans.net/showthread.php?t=25188 OTFans thread}.
-        </para>
     </refsect1>
     <refsect1 id="{@id use}">
         <title>How to use</title>
@@ -64,13 +55,13 @@
         <para>
         If you use POT in your script and want to show that you can put this image on your website:
         </para>
-        <graphic fileref="http://www.otserv-aac.info/pot.png" format="PNG"/>
+        <graphic fileref="http://otserv-aac.info/pot.png" format="PNG"/>
         <para>
         You can use following code for that:
         </para>
         <programlisting role="tutorial">
-&lt;a href="http://www.otserv-aac.info/pot/"&gt;
-    &lt;img alt="This site was smoked" src="http://www.otserv-aac.info/pot.png"/&gt;
+&lt;a href="http://otserv-aac.info/"&gt;
+    &lt;img alt="This site was smoked" src="http://otserv-aac.info/pot.png"/&gt;
 &lt;/a&gt;
         </programlisting>
     </refsect1>

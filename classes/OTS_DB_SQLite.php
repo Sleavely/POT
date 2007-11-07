@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.5
+ * @version 0.0.6+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * SQLite connection interface.
  * 
  * @package POT
- * @version 0.0.5
+ * @version 0.0.6+SVN
  */
 class OTS_DB_SQLite extends PDO implements IOTS_DB
 {
@@ -39,10 +39,11 @@ class OTS_DB_SQLite extends PDO implements IOTS_DB
  * 
  * - <var>database</var> - database name.
  * 
+ * @version 0.0.6+SVN
  * @param array $params Connection parameters.
  * @see POT::connect()
  */
-    public function __construct(array $params)
+    public function __construct($params)
     {
         if( isset($params['prefix']) )
         {

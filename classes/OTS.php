@@ -13,12 +13,13 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.0.6: Spawns support (OTBM support -> cache).
+ * @todo 0.1.0: Monsters.
+ * @todo 0.1.0: Spells.
  * @todo 0.1.0: Items list (items.xml + items.otb -> cache).
  * @todo 0.1.0: Get rid of POT::getInstance()->create*() calls - use POT::getInstance()->getDBHandle() in constructors.
  * @todo 0.1.0: Implement __get()/__set()/__call()/__toString(); ArrayAccess interface.
  * @todo 1.0.0: Complete phpUnit test.
- * @todo 1.0.0: More detailed documentation.
+ * @todo 1.0.0: More detailed documentation and tutorials, also update examples and tutorials.
  */
 
 /**
