@@ -1,0 +1,105 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>About OTServ AAC scripts</refname>
+        <refpurpose>This small article describes general info about OTServ AAC scripts.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id basics}">
+        <title>Basics</title>
+        <para>
+        Welcome! On this website you will find info about OTServ accmakers. This website is dedicated both for people who dont know anything about that and authors of such scripts. Beginners will find here basics and clues about how to use such scripts, as well as ready solutions for their's AAC. AAC creators should follow instructions on this site in order to make those scripts well.
+        </para>
+        <para>
+        Many people want to start using AAC scripts without knowledge. They spam forums, IRC channels and people IMs. If you dont know anything about AAC scripts, then this site is perfect for you. Before you will ask any question, read this website. If you will still dont know the answer, think before ask.
+        </para>
+        <para>
+        Mainly last times there went out planty new AAC scripts. Too bad they are very poor and people who make them dont know anything about their's job. People started to think that if they made "own AAC" (which usualy means to copy other script and sign with own nickname) they are cool - sorry guys - you only show how stupid your codes are. This website provides information about how to make good scripts and promotes ready solutions for safe and stable websites. We hope this website will change the situation and people who are creating accmakers will correct their's works or leave publishing bad scripts.
+        </para>
+        <refsect2 id="{@id what_aac_is}">
+            <title>What is AAC?</title>
+            <para>
+            AAC stands for Automatic Account Creator also called accmaker. Most generaly it is a program (application, or script) that autmates account creation process. However for a long time already simple accmakers aren't enought - nowadays avarage AAC should have additional options like account management, statistics and character lookup.
+            </para>
+        </refsect2>
+        <refsect2 id="{@id types}">
+            <title>Types of AAC</title>
+            <para>
+            Basicly there two types of accmakers: websites and in-game. In-game AACs are NPCs that ask user for account and character information. To use such AAC person must log into special account (usualy 1/1). Website AACs provides much more features - you can browse web from every place and from many devices. You can access it globaly. Also those accmakers aren't restricted by Tibia client and can be extended in many ways. Usualy website accmakers are PHP scripts and works on various HTTP servers.
+            </para>
+        </refsect2>
+        <refsect2 id="{@id not_ingame}">
+            <title>Why not ingame</title>
+            <para>
+            First when people of OTS world weren't familiar with PHP, HTTP servers they were just addeding some code to server and account used to be craeted after logging in on special password where was NPC to complete the process. As OTS community were extending and new ideas came out, there appeared first website scripts - they provided at least so much functionality as NPC accmaker. With time website AACs was extending and now they usualy contains many features that NPC would never have. Website AAC is accessable from every device where you have the Internet and browser so it means nearly every computer all over the world in this days. But those are all advantages of website AAC - there is one more reason which simply disqualifies in-game AACs: they are in fact impossible. Why? It is possible to create such AAC only if you add your server to many lists and links. To use in-game AAC people need to know your IP to connect and have Tibia client to use AAC. Normaly they wouldn't know that and Tibia client is not a stadard application that is installed in every computer. The only way to provide accessibility for users is a website.
+            </para>
+        </refsect2>
+        <refsect2 id="{@id website}">
+            <title>Website AAC HOWTO</title>
+            <para>
+            Website AAC is most commonly used type of accmaker. People who want to use it first time find it hard to install and mainternace. In fact it can be - you really need to know what you are doing with it and how does it work. Usualy this type of AAC is a PHP script so we won't discuss other cases. To run PHP script you need a HTTP server - program which will provide website for people from outside, with installed PHP - interpreter of PHP scripts that executes them. It is quite easy to install <a href="http://httpd.apache.org/">Apache</a> and <a href="http://www.php.net/">PHP</a> manualy, but it is described all over the net, so we won't descire it here.
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id main}">
+        <title>Main features</title>
+        <para>
+        Of course basic AAC script feature, as the name says, must be account creation. But from the time when the first website accmaker was made (about 2004) scripts of that kind were extended and now "just AAC" is never enought. Empty site with only form for account creation shows that server is poor, that administrator doesn't care about it (and users) and he is probably a noob that just wanted to have "my own masta OTS". Currently even simple accmaker must provide some basic features.
+        </para>
+        <para>Account creation is of course the most basic AAC feature. But this is also the point which is made wrong in nearly every scirpt. Account number has to be random and generated during account creation, not during entering website by user. That's most important critertium which we used fro our recommended scripts. This is for safety reasons, but not only. It is simply only possible way of correct implementation - people who make it other way simply don't know what they are doing as this is very unstable realisation.
+        </para>
+        <para>
+        On the beginning first accmaker was just a website form for creating account and character. But someone who made script was just lazy and finished work in that point. First more extended script was OTSCMS which was first that introduced login mechanism and allowed users to manage account form website. It means that they could create many characters on one account, or for example change password. Currently accmakers with only account creation form are not even worth to downloading (except PVP servers) and account managers are now standard.
+        </para>
+        <para>
+        Other important features of website AAC scripts are ideas based on {@link http://www.tibia.com/ oryginal Tibia} website. Many script contains statistics page where are listed players with highest scores, character view page where it is possible to check information about given player. Also lastly guilds system is very popular. Very important is, to merge website with OTServ world and create some kind of community, it means that on wbesite player should be affected, or at least connected with character in game.
+        </para>
+        <para>
+        Also very important is, to provide easy way of changing website behaviors and/or layout without editing script engine. Some scripts contains template engines, multilanguge support and modular structure. All those things give user ability to make website to look just like he wants. Everyone wants to have oryginal website which will impress visitor.
+        </para>
+        <refsect2 id="{@id dont_touch}">
+            <title>Don't touch!</title>
+            <para>
+            Before using, every AAC needs to be installed. It requires to put information about OTServ as it needs to work on it's database. Many dumb people create scripts and just put configuration file there so people will edit it. Too bad they don't even know about how to distribute PHP scripts, so how avarge user should know it? Script is a code - user mustn't touch the code. Code is a hermetic enviroment - when user will edit it and type something wrong it will crush. Every PHP script that needs to be edited in any way, includes installer, or just configuration editor. With such script user fills settings on website and installer checks and validates them and then creates configuration file with saved settings.
+            </para>
+        </refsect2>
+        <refsect2 id="{@id notes}">
+            <title>Important notes</title>
+            <para>
+            This website presents some ways of AAC script developement that should be followed. It is not just our wish, but we presents clever and considered ideas. Those are just real points of view.
+            </para>
+            <para>
+            We want to promote "good scripts". If you have a script that fits our requirements you can contact us - we will add it to list of our recommended scripts.
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id scripts}">
+        <title>Ready scripts</title>
+        <para>
+        Here are links to some major AAC scripts:
+        </para>
+        <itemizedlist>
+            <listitem>{@link http://www.sourceforge.net/projects/otscms/ OTSCMS} - uses POT.</listitem>
+            <listitem>{@link http://sourceforge.net/project/showfiles.php?group_id=157979 SmartAss}.</listitem>
+            <listitem>{@link http://nicaw.net/ Nicaw CMS}.</listitem>
+            <listitem>{@link http://tauaccmaker.ovh.org/ TauAccmaker}.</listitem>
+        </itemizedlist>
+    </refsect1>
+    <refsect1 id="{@id link}">
+        <title>Link</title>
+        <para>
+        If you want to help us you can put following image on your website:
+        </para>
+        <graphic fileref="http://otserv-aac.info/aac.png" format="PNG"/>
+        <para>
+        You can use following code for that:
+        </para>
+        <programlisting role="tutorial">
+&lt;a href="http://otserv-aac.info/"&gt;
+    &lt;img alt="OTServ AAC" src="http://otserv-aac.info/aac.png"/&gt;
+&lt;/a&gt;
+        </programlisting>
+    </refsect1>
+</refentry>
