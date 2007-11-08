@@ -27,7 +27,7 @@ class OTS_Player extends OTS_Base_DAO
  * @version 0.0.5
  * @var array
  */
-    private $data = array('premend' => 0, 'sex' => POT::SEX_FEMALE, 'vocation' => 0, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'healthmax' => 100, 'mana' => 100, 'manamax' => 100, 'manaspent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastip' => 0, 'save' => true, 'redskulltime' => 0, 'redskull' => false, 'guildnick' => '', 'loss_experience' => 10, 'loss_mana' => 10, 'loss_skills' => 10);
+    private $data = array('premend' => 0, 'sex' => POT::SEX_FEMALE, 'vocation' => 0, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'healthmax' => 100, 'mana' => 100, 'manamax' => 100, 'manaspent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastip' => 0, 'save' => 1, 'redskulltime' => 0, 'redskull' => false, 'guildnick' => '', 'loss_experience' => 10, 'loss_mana' => 10, 'loss_skills' => 10);
 
 /**
  * Player skills.
@@ -918,8 +918,49 @@ class OTS_Player extends OTS_Base_DAO
  * @version 0.0.3
  * @return bool PACC days.
  * @throws E_OTS_NotLoaded If player is not loaded.
+ * @deprecated 0.0.6+SVN In database save field is now integer.
  */
     public function isSaveSet()
+    {
+        if( !isset($this->data['save']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        return (bool) $this->data['save'];
+    }
+
+/**
+ * Unsets save flag.
+ * 
+ * @version 0.0.6+SVN
+ * @deprecated 0.0.6+SVN In database save field is now integer.
+ */
+    public function unsetSave()
+    {
+        $this->data['save'] = 0;
+    }
+
+/**
+ * Sets save flag.
+ * 
+ * @version 0.0.6+SVN
+ * @deprecated 0.0.6+SVN In database save field is now integer.
+ */
+    public function setSave()
+    {
+        $this->data['save'] = 1;
+    }
+
+/**
+ * Save counter.
+ * 
+ * @version 0.0.6+SVN
+ * @since 0.0.6+SVN
+ * @return int Save counter.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function getSave()
     {
         if( !isset($this->data['save']) )
         {
@@ -930,19 +971,15 @@ class OTS_Player extends OTS_Base_DAO
     }
 
 /**
- * Unsets save flag.
+ * Sets save counter.
+ * 
+ * @version 0.0.6+SVN
+ * @since 0.0.6+SVN
+ * @param int $save Save counter.
  */
-    public function unsetSave()
+    public function setSave($save)
     {
-        $this->data['save'] = false;
-    }
-
-/**
- * Sets save flag.
- */
-    public function setSave()
-    {
-        $this->data['save'] = true;
+        $this->data['save'] = (int) $save;
     }
 
 /**

@@ -1,4 +1,5 @@
 [0.0.6+SVN]
+* Updated for last database changes. <wrzasq>
 * Increased PHP 5.0 compatibility. <wrzasq>
 * Added generic binary formats reader with cache drivers. <wrzasq>
 * Added OTBM files basic support. <wrzasq>
