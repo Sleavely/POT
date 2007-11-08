@@ -13,13 +13,13 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.0.7: Monsters.
- * @todo 0.0.8: Spells.
+ * @todo 0.0.7: Spells.
  * @todo 0.1.0: Items list (items.xml + items.otb -> cache).
  * @todo 0.1.0: Get rid of POT::getInstance()->create*() calls - use POT::getInstance()->getDBHandle() in constructors.
  * @todo 0.1.0: Implement __get()/__set()/__call()/__toString(); ArrayAccess interface.
  * @todo 1.0.0: Complete phpUnit test.
  * @todo 1.0.0: More detailed documentation and tutorials, also update examples and tutorials.
+ * @todo 1.0.0: Main POT class as database instance.
  */
 
 /**
@@ -710,6 +710,80 @@ class POT
     public function createFilter()
     {
         return new OTS_SQLFilter($this->db);
+    }
+
+/**
+ * Monsters directory.
+ * 
+ * @version 0.0.6+SVN
+ * @since 0.0.6+SVN
+ * @var string
+ */
+    private $monstersPath;
+
+/**
+ * List of loaded monsters.
+ * 
+ * @version 0.0.6+SVN
+ * @since 0.0.6+SVN
+ * @var array
+ */
+    private $monsters = array();
+
+/**
+ * Loads monsters mapping file.
+ * 
+ * @version 0.0.6+SVN
+ * @since 0.0.6+SVN
+ * @param string $path Monsters directory.
+ */
+    public function loadMonsters($path)
+    {
+        $this->monstersPath = $path;
+
+        // makes sure it has directory separator at the end
+        $last = substr($this->monstersPath, -1);
+        if($last != '/' && $last != '\\')
+        {
+            $this->monstersPath .= '/';
+        }
+
+        // loads monsters mapping file
+        $monsters = new DOMDocument();
+        $monsters->load($this->monstersPath . 'monsters.xml');
+
+        foreach( $monsters->getElementsByTagName('monster') as $monster)
+        {
+            $this->monsters[ $monster->getAttribute('name') ] = $monster->getAttribute('file');
+        }
+    }
+
+/**
+ * Returns list of laoded monsters.
+ * 
+ * @version 0.0.6+SVN
+ * @since 0.0.6+SVN
+ * @return array List of monster names.
+ */
+    public function getMonstersList()
+    {
+        return array_keys($this->monsters);
+    }
+
+/**
+ * Returns loaded data of given monster.
+ * 
+ * @version 0.0.6+SVN
+ * @since 0.0.6+SVN
+ * @param string $name Monster name.
+ * @return OTS_Monster Monster data.
+ */
+    public function getMonster($name)
+    {
+        // loads file
+        $monster = new OTS_Monster();
+        $monster->load($this->monstersPath . $this->monsters[$name]);
+        return $monster;
     }
 }
 
