@@ -86,7 +86,7 @@ class OTS_Monster extends DOMDocument
  */
     public function getHealth()
     {
-        return (int) $this->documentElement->getElementsByTagName('helath')->item(0)->getAttribute('max');
+        return (int) $this->documentElement->getElementsByTagName('health')->item(0)->getAttribute('max');
     }
 
 /**
