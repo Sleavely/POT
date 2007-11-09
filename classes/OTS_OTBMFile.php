@@ -1,8 +1,8 @@
 <?php
 
 /**#@+
- * @version 0.0.6+SVN
- * @since 0.0.6+SVN
+ * @version 0.0.6
+ * @since 0.0.6
  */
 
 /**
@@ -174,6 +174,40 @@ class OTS_OTBMFile extends OTS_FileLoader
     private $temples = array();
 
 /**
+ * Magic PHP5 method.
+ * 
+ * Allows object unserialisation.
+ * 
+ * @internal Magic PHP5 method.
+ */
+    public function __wakeup()
+    {
+        // loads map info from recovered root node
+        $this->parse();
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @internal Magic PHP5 method.
+ * @param array $properties List of object properties.
+ */
+    public static function __set_state($properties)
+    {
+        $object = new self();
+
+        // loads properties
+        foreach($properties as $name => $value)
+        {
+            $object->$name = $value;
+        }
+
+        return $object;
+    }
+
+/**
  * Loads OTBM file content.
  * 
  * @param string $file Filename.
@@ -183,6 +217,15 @@ class OTS_OTBMFile extends OTS_FileLoader
         // loads file structure
         parent::loadFile($file);
 
+        // parses loaded file
+        $this->parse();
+    }
+
+/**
+ * Parses loaded file.
+ */
+    private function parse()
+    {
         // root node header
         $version = $this->root->getLong();
         $this->width = $this->root->getShort();

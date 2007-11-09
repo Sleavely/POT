@@ -918,7 +918,7 @@ class OTS_Player extends OTS_Base_DAO
  * @version 0.0.3
  * @return bool PACC days.
  * @throws E_OTS_NotLoaded If player is not loaded.
- * @deprecated 0.0.6+SVN In database save field is now integer.
+ * @deprecated 0.0.6 In database save field is now integer.
  */
     public function isSaveSet()
     {
@@ -927,14 +927,14 @@ class OTS_Player extends OTS_Base_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        return (bool) $this->data['save'];
+        return $this->data['save'] != 0;
     }
 
 /**
  * Unsets save flag.
  * 
- * @version 0.0.6+SVN
- * @deprecated 0.0.6+SVN In database save field is now integer.
+ * @version 0.0.6
+ * @deprecated 0.0.6 In database save field is now integer.
  */
     public function unsetSave()
     {
@@ -942,21 +942,10 @@ class OTS_Player extends OTS_Base_DAO
     }
 
 /**
- * Sets save flag.
- * 
- * @version 0.0.6+SVN
- * @deprecated 0.0.6+SVN In database save field is now integer.
- */
-    public function setSave()
-    {
-        $this->data['save'] = 1;
-    }
-
-/**
  * Save counter.
  * 
- * @version 0.0.6+SVN
- * @since 0.0.6+SVN
+ * @version 0.0.6
+ * @since 0.0.6
  * @return int Save counter.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -973,11 +962,10 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Sets save counter.
  * 
- * @version 0.0.6+SVN
- * @since 0.0.6+SVN
- * @param int $save Save counter.
+ * @version 0.0.6
+ * @param int $save Save counter (this parameter is optional for backward compatibility when save was just a flag).
  */
-    public function setSave($save)
+    public function setSave($save = 1)
     {
         $this->data['save'] = (int) $save;
     }
@@ -1748,6 +1736,24 @@ class OTS_Player extends OTS_Base_DAO
 
         // resets object handle
         unset($this->data['id']);
+    }
+
+/**
+ * Player proffesion name.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
+ * @return string|bool Player proffesion name.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function getVocationName()
+    {
+        if( !isset($this->data['vocation']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        return POT::getInstance()->getVocationName($this->data['vocation']);
     }
 }
 

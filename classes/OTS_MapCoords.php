@@ -1,8 +1,8 @@
 <?php
 
 /**#@+
- * @version 0.0.6+SVN
- * @since 0.0.6+SVN
+ * @version 0.0.6
+ * @since 0.0.6
  */
 
 /**
@@ -54,6 +54,19 @@ class OTS_MapCoords
         $this->x = $x;
         $this->y = $y;
         $this->z = $z;
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @internal Magic PHP5 method.
+ * @param array $properties List of object properties.
+ */
+    public static function __set_state($properties)
+    {
+        return new self($properties['x'], $properties['y'], $properties['z']);
     }
 
 /**

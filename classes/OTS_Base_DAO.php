@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.6+SVN
+ * @version 0.0.6
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Basic data access object routines.
  * 
  * @package POT
- * @version 0.0.6+SVN
+ * @version 0.0.6
  */
 abstract class OTS_Base_DAO implements IOTS_DAO
 {
@@ -80,7 +80,7 @@ abstract class OTS_Base_DAO implements IOTS_DAO
  * 
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * 
- * @version 0.0.6+SVN
+ * @version 0.0.6
  * @internal Magic PHP5 method.
  * @param array $properties List of object properties.
  */

@@ -1,8 +1,8 @@
 <?php
 
 /**#@+
- * @version 0.0.6+SVN
- * @since 0.0.6+SVN
+ * @version 0.0.6
+ * @since 0.0.6
  */
 
 /**
@@ -51,6 +51,48 @@ class OTS_FileNode
  * @var int
  */
     private $type;
+
+/**
+ * Creates clone of object.
+ * 
+ * Copy of object needs to have different ID.
+ * 
+ * @internal magic PHP5 method.
+ */
+    public function __clone()
+    {
+        // clones conencted nodes
+        if( isset($this->child) )
+        {
+            $this->child = clone $this->child;
+        }
+
+        if( isset($this->next) )
+        {
+            $this->next = clone $this->next;
+        }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @internal Magic PHP5 method.
+ * @param array $properties List of object properties.
+ */
+    public static function __set_state($properties)
+    {
+        $object = new self();
+
+        // loads properties
+        foreach($properties as $name => $value)
+        {
+            $object->$name = $value;
+        }
+
+        return $object;
+    }
 
 /**
  * Returs properties stream.

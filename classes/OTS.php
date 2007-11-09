@@ -715,8 +715,8 @@ class POT
 /**
  * Monsters directory.
  * 
- * @version 0.0.6+SVN
- * @since 0.0.6+SVN
+ * @version 0.0.6
+ * @since 0.0.6
  * @var string
  */
     private $monstersPath;
@@ -724,8 +724,8 @@ class POT
 /**
  * List of loaded monsters.
  * 
- * @version 0.0.6+SVN
- * @since 0.0.6+SVN
+ * @version 0.0.6
+ * @since 0.0.6
  * @var array
  */
     private $monsters = array();
@@ -733,8 +733,8 @@ class POT
 /**
  * Loads monsters mapping file.
  * 
- * @version 0.0.6+SVN
- * @since 0.0.6+SVN
+ * @version 0.0.6
+ * @since 0.0.6
  * @param string $path Monsters directory.
  */
     public function loadMonsters($path)
@@ -761,8 +761,8 @@ class POT
 /**
  * Returns list of laoded monsters.
  * 
- * @version 0.0.6+SVN
- * @since 0.0.6+SVN
+ * @version 0.0.6
+ * @since 0.0.6
  * @return array List of monster names.
  */
     public function getMonstersList()
@@ -773,8 +773,8 @@ class POT
 /**
  * Returns loaded data of given monster.
  * 
- * @version 0.0.6+SVN
- * @since 0.0.6+SVN
+ * @version 0.0.6
+ * @since 0.0.6
  * @param string $name Monster name.
  * @return OTS_Monster Monster data.
  */

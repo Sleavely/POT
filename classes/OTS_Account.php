@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.6+SVN
+ * @version 0.0.6
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.0.6+SVN
+ * @version 0.0.6
  */
 class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -37,7 +37,7 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
  * Remember! This method sets blocked flag to true after account creation!
  * </p>
  * 
- * @version 0.0.6+SVN
+ * @version 0.0.6
  * @param int $min Minimum number.
  * @param int $max Maximum number.
  * @return int Created account number.
@@ -101,7 +101,7 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
  * </p>
  * 
  * <p>
- * IMPORTANT: Since 0.0.6+SVN there isn't group_id field which this method was created for. You should use {@link OTS_Account::create() create()} method.
+ * IMPORTANT: Since 0.0.6 there isn't group_id field which this method was created for. You should use {@link OTS_Account::create() create()} method.
  * </p>
  * 
  * @version 0.0.6_SVN
@@ -110,7 +110,7 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
  * @param int $min Minimum number.
  * @param int $max Maximum number.
  * @return int Created account number.
- * @deprecated 0.0.6+SVN There is no more group_id field in database, use create().
+ * @deprecated 0.0.6 There is no more group_id field in database, use create().
  */
     public function createEx(OTS_Group $group, $min = 1, $max = 9999999)
     {
@@ -120,7 +120,7 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Loads account with given number.
  * 
- * @version 0.0.6+SVN
+ * @version 0.0.6
  * @param int $id Account number.
  */
     public function load($id)
@@ -161,7 +161,7 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Updates account in database.
  * 
- * @version 0.0.6+SVN
+ * @version 0.0.6
  * @throws E_OTS_NotLoaded False if account doesn't have ID assigned.
  */
     public function save()
@@ -195,11 +195,11 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Returns group of this account.
  * 
- * @version 0.0.6+SVN
+ * @version 0.0.6
  * @since 0.0.4
  * @return OTS_Group Group of which current account is member (currently random group).
  * @throws E_OTS_NotLoaded If account is not loaded.
- * @deprecated 0.0.6+SVN There is no more group_id field in database.
+ * @deprecated 0.0.6 There is no more group_id field in database.
  */
     public function getGroup()
     {
@@ -217,9 +217,9 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Assigns account to group.
  * 
- * @version 0.0.6+SVN
+ * @version 0.0.6
  * @param OTS_Group $group Group to be a member.
- * @deprecated 0.0.6+SVN There is no more group_id field in database.
+ * @deprecated 0.0.6 There is no more group_id field in database.
  */
     public function setGroup(OTS_Group $group)
     {

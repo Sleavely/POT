@@ -1,25 +1,25 @@
-What's new in 0.0.5 version?
+What's new in 0.0.6 version?
 
-* Added support for vocations.xml file.
+* Updated for last database changes.
 
-    Vocations are now loaded from vocations.xml file. You can get list of all vocations on server, not only default ones.
+    There were minor database changes like save counter which this POT version of course supports.
 
-* Added support for bans.
+* Increased PHP 5.0 compatibility.
 
-    Can ban, unban and check if ip, account or player is banned.
+    Dropper array type hints. POT should now run on PHP 5.0 easily.
 
-* Added sorting and filtering for lists.
+* Added generic binary formats reader with cache drivers.
 
-    All lists can now be sorted and/or filtered. It will be more described in further documentation.
+    Universal class for reading OTServ binary file formats (OTB-based).
 
-* Code grouped into base classes.
+* Added OTBM files basic support.
 
-    There are some generic classes that implements common routines to minimise the code and allows simple automatic subclassing.
+    Support for OTBM map files. Currently it saves only spawns points, but as it contains entire map info you can easily add map tiles reading for example. It also supports cache mechanism, so you it won't slow down your scripts if you have big OTBM files.
 
-* Some code optimalisation.
+* Added monsters support.
 
-    Changed some code to use more effective ways of solving same problems.
+    You can now load list of monsters and easily get info about particular monsters using OTS_Monster wrapper for DOMDocument.
 
-* Fixed typos.
+* Added OTS_Player::getVocationName() method.
 
-    Like always there were some bugs which of course were fixed.
+    Wrapper for POT::getVocationName() with current player vocation ID.

@@ -1,9 +1,10 @@
-[0.0.6+SVN]
+[0.0.6]
 * Updated for last database changes. <wrzasq>
 * Increased PHP 5.0 compatibility. <wrzasq>
 * Added generic binary formats reader with cache drivers. <wrzasq>
 * Added OTBM files basic support. <wrzasq>
 * Added monsters support. <wrzasq>
+* Added OTS_Player::getVocationName() method. <wrzasq>
 
 [0.0.5]
 * Added support for vocations.xml file. <wrzasq>

@@ -1,8 +1,8 @@
 <?php
 
 /**#@+
- * @version 0.0.6+SVN
- * @since 0.0.6+SVN
+ * @version 0.0.6
+ * @since 0.0.6
  */
 
 /**
@@ -54,6 +54,59 @@ class OTS_FileLoader
  * @var IOTS_FileCache
  */
     private $cache;
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object serialisation.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
+ * @return array List of properties that should be saved.
+ * @internal Magic PHP5 method.
+ */
+    public function __sleep()
+    {
+        return array('root', 'cache');
+    }
+
+/**
+ * Creates clone of object.
+ * 
+ * Copy of object needs to have different ID.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
+ * @internal magic PHP5 method.
+ */
+    public function __clone()
+    {
+        // clones node tree
+        $this->root = clone $this->root;
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
+ * @internal Magic PHP5 method.
+ * @param array $properties List of object properties.
+ */
+    public static function __set_state($properties)
+    {
+        $object = new self();
+
+        // loads properties
+        foreach($properties as $name => $value)
+        {
+            $object->$name = $value;
+        }
+
+        return $object;
+    }
 
 /**
  * Sets cache handler.
