@@ -1,3 +1,6 @@
+[0.0.7+SVN]
+* Fixed typos. <wrzasq>
+
 [0.0.6]
 * Updated for last database changes. <wrzasq>
 * Increased PHP 5.0 compatibility. <wrzasq>

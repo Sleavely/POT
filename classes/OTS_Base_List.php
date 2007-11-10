@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.6
+ * @version 0.0.7+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Basic list class routines.
  * 
  * @package POT
- * @version 0.0.6
+ * @version 0.0.7+SVN
  */
 abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 {
@@ -266,10 +266,11 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Appends sorting rule.
  * 
+ * @version 0.0.7+SVN
  * @param string $field Field name.
  * @param int $order Sorting order (ascending by default).
  */
-    public function orderBy($filed, $order = POT::ORDER_ASC)
+    public function orderBy($field, $order = POT::ORDER_ASC)
     {
         $this->orderBy[] = array('field' => $this->db->fieldName($field), 'order' => $order);
     }
