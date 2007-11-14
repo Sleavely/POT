@@ -1,4 +1,6 @@
 [0.0.7+SVN]
+* Updated for last database changes. <wrzasq>
+* Added possibility to sort lists by custom fields, not only selected. <wrzasq>
 * Fixed typos. <wrzasq>
 
 [0.0.6]

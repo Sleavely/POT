@@ -267,12 +267,31 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Appends sorting rule.
  * 
  * @version 0.0.7+SVN
- * @param string $field Field name.
+ * @param OTS_SQLField|string $field Field name.
  * @param int $order Sorting order (ascending by default).
  */
     public function orderBy($field, $order = POT::ORDER_ASC)
     {
-        $this->orderBy[] = array('field' => $this->db->fieldName($field), 'order' => $order);
+        // constructs field name filter
+        if($field instanceof OTS_SQLField)
+        {
+            $table = $field->getTable();
+
+            // full table name
+            if( !empty($table) )
+            {
+                $table = $this->db->tableName($table) . '.';
+            }
+
+            $field = $table . $this->db->fieldName( $field->getName() );
+        }
+        // literal name
+        else
+        {
+            $field = $this->db->fieldName($field);
+        }
+
+        $this->orderBy[] = array('field' => $field, 'order' => $order);
     }
 
 /**
