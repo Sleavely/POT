@@ -26,6 +26,12 @@
             <para>
             To use POT you need {@link http://www.php.net/ PHP} version at least 5.0 with {@link http://www.php.net/manual/en/ref.pdo.php PDO extension installed} (so it means you will mostly need PHP 5.1, but it is possible to download PDO as external libraries for PHP 5.0.x).
             </para>
+            <refsect3 id="{@id domxml}">
+                <title>DOM XML</title>
+                <para>
+                POT uses {@link http://www.php.net/manual/en/ref.dom.php DOM PHP extension} which is available in core PHP5. However some people still have enabled outdated {@link http://www.php.net/manual/en/ref.domxml.php DOMXML extension} which was created for PHP4, but is still possible to compile it for PHP5. If you use any code that uses PHP DOM extension (which POT does) make sure you have DOMXML extension disabled in your php.ini file.
+                </para>
+            </refsect3>
         </refsect2>
         <refsect2 id="{@id what_is}">
             <title>What POT is</title>

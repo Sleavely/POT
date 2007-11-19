@@ -9,11 +9,10 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.0.5
+ * @version 0.0.7+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.0.7: Spells.
  * @todo 0.0.8: Items list (items.xml + items.otb -> cache).
  * @todo 0.0.9: Houses support.
  * @todo 0.1.0: Get rid of POT::getInstance()->create*() calls - use POT::getInstance()->getDBHandle() in constructors.
@@ -27,7 +26,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.0.5
+ * @version 0.0.7+SVN
  */
 class POT
 {
@@ -276,6 +275,28 @@ class POT
  * @since 0.0.5
  */
     const ORDER_DESC = 2;
+
+/**
+ * Rune spell.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ */
+    const SPELL_RUNE = 0;
+/**
+ * Instant spell.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ */
+    const SPELL_INSTANT = 1;
+/**
+ * Conjure spell.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ */
+    const SPELL_CONJURE = 2;
 
 /**
  * Singleton.
@@ -774,17 +795,180 @@ class POT
 /**
  * Returns loaded data of given monster.
  * 
- * @version 0.0.6
+ * @version 0.0.7+SVN
  * @since 0.0.6
  * @param string $name Monster name.
- * @return OTS_Monster Monster data.
+ * @return OTS_Monster|null Monster data (null if not exists).
  */
     public function getMonster($name)
     {
-        // loads file
-        $monster = new OTS_Monster();
-        $monster->load($this->monstersPath . $this->monsters[$name]);
-        return $monster;
+        // checks if monster exists
+        if( isset($this->monsters[$name]) )
+        {
+            // loads file
+            $monster = new OTS_Monster();
+            $monster->load($this->monstersPath . $this->monsters[$name]);
+            return $monster;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+/**
+ * Rune spells.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ * @var array
+ */
+    private $runes = array();
+
+/**
+ * Instant spells.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ * @var array
+ */
+    private $instants = array();
+
+/**
+ * Conjure spells.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ * @var array
+ */
+    private $conjures = array();
+
+/**
+ * Loads spells list.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ * @param string $file Spells file name.
+ */
+    public function loadSpells($file)
+    {
+        // loads DOM document
+        $spells = new DOMDocument();
+        $spells->load($file);
+
+        // loads runes
+        foreach( $spells->getElementsByTagName('rune') as $rune)
+        {
+            $this->runes[ $rune->getAttribute('name') ] = new OTS_Spell(self::SPELL_RUNE, $rune);
+        }
+
+        // loads instants
+        foreach( $spells->getElementsByTagName('instant') as $instant)
+        {
+            $this->instants[ $instant->getAttribute('name') ] = new OTS_Spell(self::SPELL_INSTANT, $instant);
+        }
+
+        // loads conjures
+        foreach( $spells->getElementsByTagName('conjure') as $conjure)
+        {
+            $this->conjures[ $conjure->getAttribute('name') ] = new OTS_Spell(self::SPELL_CONJURE, $conjure);
+        }
+    }
+
+/**
+ * Returns list of runes.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ * @return array List of rune names.
+ */
+    public function getRunesList()
+    {
+        return array_keys($this->runes);
+    }
+
+/**
+ * Returns given rune spell.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ * @param string $name Rune name.
+ * @return OTS_Spell|null Rune spell wrapper (null if rune does not exist).
+ */
+    public function getRune($name)
+    {
+        if( isset($this->runes[$name]) )
+        {
+            return $this->runes[$name];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+/**
+ * Returns list of instants.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ * @return array List of instant spells names.
+ */
+    public function getInstantsList()
+    {
+        return array_keys($this->instants);
+    }
+
+/**
+ * Returns given instant spell.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ * @param string $name Spell name.
+ * @return OTS_Spell|null Instant spell wrapper (null if rune does not exist).
+ */
+    public function getInstant($name)
+    {
+        if( isset($this->instants[$name]) )
+        {
+            return $this->instants[$name];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+/**
+ * Returns list of conjure spells.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ * @return array List of conjure spells names.
+ */
+    public function getConjuresList()
+    {
+        return array_keys($this->conjures);
+    }
+
+/**
+ * Returns given conjure spell.
+ * 
+ * @version 0.0.7+SVN
+ * @since 0.0.7+SVN
+ * @param string $name Spell name.
+ * @return OTS_Spell|null Conjure spell wrapper (null if rune does not exist).
+ */
+    public function getConjure($name)
+    {
+        if( isset($this->conjures[$name]) )
+        {
+            return $this->conjures[$name];
+        }
+        else
+        {
+            return null;
+        }
     }
 }
 

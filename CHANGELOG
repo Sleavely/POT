@@ -1,5 +1,6 @@
 [0.0.7+SVN]
 * Updated for last database changes. <wrzasq>
+* Added spells support. <wrzasq>
 * Added possibility to sort lists by custom fields, not only selected. <wrzasq>
 * Fixed typos. <wrzasq>
 
