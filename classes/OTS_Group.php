@@ -218,7 +218,7 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Sets maximum count of players in VIP list.
  * 
- * @param int $maxdepotitems Maximum value.
+ * @param int $maxviplist Maximum value.
  */
     public function setMaxVIPList($maxviplist)
     {

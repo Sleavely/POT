@@ -1,5 +1,6 @@
-[0.0.7+SVN]
+[0.0.7]
 * Updated for last database changes. <wrzasq>
+* Even more PHP 5.0 compatibility. <wrzasq>
 * Added spells support. <wrzasq>
 * Added possibility to sort lists by custom fields, not only selected. <wrzasq>
 * Fixed typos. <wrzasq>

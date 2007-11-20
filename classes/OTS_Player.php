@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.7+SVN
+ * @version 0.0.7
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,14 +17,14 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.0.7+SVN
+ * @version 0.0.7
  */
 class OTS_Player extends OTS_Base_DAO
 {
 /**
  * Player data.
  * 
- * @version 0.0.7+SVN
+ * @version 0.0.7
  * @var array
  */
     private $data = array('premend' => 0, 'sex' => POT::SEX_FEMALE, 'vocation' => 0, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'healthmax' => 100, 'mana' => 100, 'manamax' => 100, 'manaspent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastip' => 0, 'save' => true, 'redskulltime' => 0, 'redskull' => false, 'guildnick' => '', 'loss_experience' => 10, 'loss_mana' => 10, 'loss_skills' => 10);
@@ -915,7 +915,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Checks if save flag is set.
  * 
- * @version 0.0.7+SVN
+ * @version 0.0.7
  * @return bool PACC days.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -932,7 +932,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Unsets save flag.
  * 
- * @version 0.0.7+SVN
+ * @version 0.0.7
  */
     public function unsetSave()
     {
@@ -942,11 +942,11 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Save counter.
  * 
- * @version 0.0.7+SVN
+ * @version 0.0.7
  * @since 0.0.6
  * @return int Save counter.
  * @throws E_OTS_NotLoaded If player is not loaded.
- * @deprecated 0.0.7+SVN Save field is back as flag not a counter.
+ * @deprecated 0.0.7 Save field is back as flag not a counter.
  */
     public function getSave()
     {
@@ -961,7 +961,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Sets save flag.
  * 
- * @version 0.0.7+SVN
+ * @version 0.0.7
  * @param int $save Deprecated, unused, optional.
  */
     public function setSave($save = 1)

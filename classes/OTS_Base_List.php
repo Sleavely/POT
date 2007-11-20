@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.7+SVN
+ * @version 0.0.7
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Basic list class routines.
  * 
  * @package POT
- * @version 0.0.7+SVN
+ * @version 0.0.7
  */
 abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 {
@@ -266,7 +266,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Appends sorting rule.
  * 
- * @version 0.0.7+SVN
+ * @version 0.0.7
  * @param OTS_SQLField|string $field Field name.
  * @param int $order Sorting order (ascending by default).
  */

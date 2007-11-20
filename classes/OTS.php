@@ -9,7 +9,7 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.0.7+SVN
+ * @version 0.0.7
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -26,7 +26,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.0.7+SVN
+ * @version 0.0.7
  */
 class POT
 {
@@ -279,22 +279,22 @@ class POT
 /**
  * Rune spell.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  */
     const SPELL_RUNE = 0;
 /**
  * Instant spell.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  */
     const SPELL_INSTANT = 1;
 /**
  * Conjure spell.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  */
     const SPELL_CONJURE = 2;
 
@@ -795,7 +795,7 @@ class POT
 /**
  * Returns loaded data of given monster.
  * 
- * @version 0.0.7+SVN
+ * @version 0.0.7
  * @since 0.0.6
  * @param string $name Monster name.
  * @return OTS_Monster|null Monster data (null if not exists).
@@ -819,8 +819,8 @@ class POT
 /**
  * Rune spells.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  * @var array
  */
     private $runes = array();
@@ -828,8 +828,8 @@ class POT
 /**
  * Instant spells.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  * @var array
  */
     private $instants = array();
@@ -837,8 +837,8 @@ class POT
 /**
  * Conjure spells.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  * @var array
  */
     private $conjures = array();
@@ -846,8 +846,8 @@ class POT
 /**
  * Loads spells list.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  * @param string $file Spells file name.
  */
     public function loadSpells($file)
@@ -878,8 +878,8 @@ class POT
 /**
  * Returns list of runes.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  * @return array List of rune names.
  */
     public function getRunesList()
@@ -890,8 +890,8 @@ class POT
 /**
  * Returns given rune spell.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  * @param string $name Rune name.
  * @return OTS_Spell|null Rune spell wrapper (null if rune does not exist).
  */
@@ -910,8 +910,8 @@ class POT
 /**
  * Returns list of instants.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  * @return array List of instant spells names.
  */
     public function getInstantsList()
@@ -922,8 +922,8 @@ class POT
 /**
  * Returns given instant spell.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  * @param string $name Spell name.
  * @return OTS_Spell|null Instant spell wrapper (null if rune does not exist).
  */
@@ -942,8 +942,8 @@ class POT
 /**
  * Returns list of conjure spells.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  * @return array List of conjure spells names.
  */
     public function getConjuresList()
@@ -954,8 +954,8 @@ class POT
 /**
  * Returns given conjure spell.
  * 
- * @version 0.0.7+SVN
- * @since 0.0.7+SVN
+ * @version 0.0.7
+ * @since 0.0.7
  * @param string $name Spell name.
  * @return OTS_Spell|null Conjure spell wrapper (null if rune does not exist).
  */
@@ -970,6 +970,36 @@ class POT
             return null;
         }
     }
+}
+
+/*
+ * This part is for PHP 5.0 compatibility.
+ */
+
+if( !defined('PDO_PARAM_STR') )
+{
+/**
+ * Defines outdated PHP 5.0 constant on PHP 5.1 and newer versions so we can use it all over the POT.
+ * 
+ * @ignore
+ * @version 0.0.7
+ * @since 0.0.7
+ * @deprecated Will be dropped after dropping IOTS_DB::SQLquote() since only this deprecated method uses it.
+ */
+    define('PDO_PARAM_STR', PDO::PARAM_STR);
+}
+
+if( !defined('PDO_ATTR_STATEMENT_CLASS') )
+{
+/**
+ * Defines outdated PHP 5.0 constant on PHP 5.1 and newer versions so we can use it all over the POT.
+ * 
+ * @ignore
+ * @version 0.0.7
+ * @since 0.0.7
+ * @deprecated Use PDO::ATTR_STATEMENT_CLASS, this is for PHP 5.0 compatibility.
+ */
+    define('PDO_ATTR_STATEMENT_CLASS', PDO::ATTR_STATEMENT_CLASS);
 }
 
 /**#@-*/

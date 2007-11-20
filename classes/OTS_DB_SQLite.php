@@ -39,7 +39,7 @@ class OTS_DB_SQLite extends PDO implements IOTS_DB
  * 
  * - <var>database</var> - database name.
  * 
- * @version 0.0.6
+ * @version 0.0.7
  * @param array $params Connection parameters.
  * @see POT::connect()
  */
@@ -54,7 +54,8 @@ class OTS_DB_SQLite extends PDO implements IOTS_DB
         parent::__construct('sqlite:' . $params['database']);
 
         // this class will drop quotes from field names
-        $this->setAttribute(PDO::ATTR_STATEMENT_CLASS, array('OTS_SQLite_Results') );
+        $this->setAttribute(PDO_ATTR_STATEMENT_CLASS, array('OTS_SQLite_Results') );
+//        $this->setAttribute(PDO::ATTR_STATEMENT_CLASS, array('OTS_SQLite_Results') );
     }
 
 /**
@@ -88,10 +89,11 @@ class OTS_DB_SQLite extends PDO implements IOTS_DB
  * @return string Quoted string.
  * @internal bridge over ISQL_DB and PDO.
  * @deprecated 0.0.5 Use PDO::quote().
+ * @version 0.0.7
  */
     public function SQLquote($string)
     {
-        return parent::quote($string, PDO::PARAM_STR);
+        return parent::quote($string, PDO_PARAM_STR);
     }
 
 /**

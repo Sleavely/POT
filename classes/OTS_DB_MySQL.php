@@ -127,10 +127,11 @@ class OTS_DB_MySQL extends PDO implements IOTS_DB
  * @return string Quoted string.
  * @internal bridge over ISQL_DB and PDO.
  * @deprecated 0.0.5 Use PDO::quote().
+ * @version 0.0.7
  */
     public function SQLquote($string)
     {
-        return parent::quote($string, PDO::PARAM_STR);
+        return parent::quote($string, PDO_PARAM_STR);
     }
 
 /**
