@@ -20,6 +20,7 @@
  * @todo 1.0.0: Complete phpUnit test.
  * @todo 1.0.0: More detailed documentation and tutorials, also update examples and tutorials.
  * @todo 1.0.0: Main POT class as database instance.
+ * @todo 1.0.0: SOAP interface for remote controll.
  */
 
 /**
