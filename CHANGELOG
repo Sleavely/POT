@@ -1,3 +1,6 @@
+[0.0.8+SVN]
+* Fixed quoting guild rank name while updating. <wrzasq>
+
 [0.0.7]
 * Updated for last database changes. <wrzasq>
 * Even more PHP 5.0 compatibility. <wrzasq>

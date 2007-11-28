@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.5
+ * @version 0.0.8+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ guild rank abstraction.
  * 
  * @package POT
- * @version 0.0.5
+ * @version 0.0.8+SVN
  */
 class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -82,7 +82,7 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Saves rank in database.
  * 
- * @version 0.0.5
+ * @version 0.0.8+SVN
  */
     public function save()
     {
@@ -90,7 +90,7 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
         if( isset($this->data['id']) )
         {
             // UPDATE query on database
-            $this->db->query('UPDATE ' . $this->db->tableName('guild_ranks') . ' SET ' . $this->db->fieldName('guild_id') . ' = ' . $this->db->quote($this->data['guild_id']) . ', ' . $this->db->fieldName('name') . ' = ' . $this->data['name'] . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+            $this->db->query('UPDATE ' . $this->db->tableName('guild_ranks') . ' SET ' . $this->db->fieldName('guild_id') . ' = ' . $this->db->quote($this->data['guild_id']) . ', ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($this->data['name']) . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
         }
         // creates new rank
         else
