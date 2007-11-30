@@ -1,5 +1,6 @@
 [0.0.8+SVN]
 * Fixed quoting guild rank name while updating. <wrzasq>
+* Fixed custom fields reading in OTS_Guild class. <wrzasq>
 
 [0.0.7]
 * Updated for last database changes. <wrzasq>
