@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.8+SVN
+ * @version 0.0.8
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ guild abstraction.
  * 
  * @package POT
- * @version 0.0.8+SVN
+ * @version 0.0.8
  */
 class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -259,7 +259,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * 
- * @version 0.0.8+SVN
+ * @version 0.0.8
  * @param string $field Field name.
  * @return string Field value.
  * @throws E_OTS_NotLoaded If guild is not loaded.

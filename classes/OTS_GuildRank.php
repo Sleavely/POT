@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.8+SVN
+ * @version 0.0.8
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ guild rank abstraction.
  * 
  * @package POT
- * @version 0.0.8+SVN
+ * @version 0.0.8
  */
 class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -82,7 +82,7 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Saves rank in database.
  * 
- * @version 0.0.8+SVN
+ * @version 0.0.8
  */
     public function save()
     {

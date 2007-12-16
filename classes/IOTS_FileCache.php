@@ -13,7 +13,7 @@
  */
 
 /**
- * This interface describe binary files cache control drivers.
+ * This interface describes binary files cache control drivers.
  * 
  * @package POT
  */

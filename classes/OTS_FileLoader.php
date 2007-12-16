@@ -53,7 +53,7 @@ class OTS_FileLoader
  * 
  * @var IOTS_FileCache
  */
-    private $cache;
+    protected $cache;
 
 /**
  * Magic PHP5 method.

@@ -1,4 +1,6 @@
-[0.0.8+SVN]
+[0.0.8]
+* Added items.xml and items.otb files support. <wrzasq>
+* Added Iterator and Countable interfaces implementation in OTS_OTBMFile class. <wrzasq>
 * Fixed quoting guild rank name while updating. <wrzasq>
 * Fixed custom fields reading in OTS_Guild class. <wrzasq>
 

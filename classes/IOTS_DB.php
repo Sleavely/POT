@@ -20,7 +20,7 @@
  * 
  * @package POT
  * @version 0.0.6
- * @deprecated 0.0.5 Don't rely on this interface - it is for backward compatibility only. Check POT instance instead.
+ * @deprecated 0.0.5 Don't rely on this interface - it is for backward compatibility only. Check PDO instance instead.
  */
 interface IOTS_DB
 {
