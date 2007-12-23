@@ -55,15 +55,7 @@ I. Coding rules to be followed:
 
     It saves alot of resources (relatively).
 
-II. Versioning:
-
-    * Major - Major toolkit milestone.
-    * Minor - Toolkit noticeable step.
-    * Release - Independent package version.
-
-Package version shouldn't be increased if package itself wasn't changed - but it can't increase it's major/minor numbers over current toolkit release.
-
-III. File naming:
+II. File naming:
 
 [1] Use lowercase names for directories.
 

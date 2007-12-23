@@ -1,25 +1,5 @@
-What's new in 0.0.6 version?
+What's new in 0.1.0 version?
 
-* Updated for last database changes.
+* Houses support.
 
-    There were minor database changes like save counter which this POT version of course supports.
-
-* Increased PHP 5.0 compatibility.
-
-    Dropper array type hints. POT should now run on PHP 5.0 easily.
-
-* Added generic binary formats reader with cache drivers.
-
-    Universal class for reading OTServ binary file formats (OTB-based).
-
-* Added OTBM files basic support.
-
-    Support for OTBM map files. Currently it saves only spawns points, but as it contains entire map info you can easily add map tiles reading for example. It also supports cache mechanism, so you it won't slow down your scripts if you have big OTBM files.
-
-* Added monsters support.
-
-    You can now load list of monsters and easily get info about particular monsters using OTS_Monster wrapper for DOMDocument.
-
-* Added OTS_Player::getVocationName() method.
-
-    Wrapper for POT::getVocationName() with current player vocation ID.
+    It was mentioned to be in 0.0.9 release but as houses use buth data/ directory resources and SQL database we wanted to avoid making big mess with reconstructing it later..
