@@ -1,7 +1,7 @@
 <?php
 
 /**#@+
- * @version 0.0.5
+ * @version 0.1.0+SVN
  * @since 0.0.1
  */
 
@@ -18,16 +18,10 @@
  * This insterface indicates that class is a OTServ DAO class.
  * 
  * @package POT
+ * @deprecated 0.1.0+SVN This interface is not used anymore.
  */
 interface IOTS_DAO
 {
-/**
- * DAO objects must be initialized with a database.
- * 
- * @param PDO $db Database connection object.
- * @deprecated 0.0.5 This constructor convention won't be part of interface in future.
- */
-    public function __construct(PDO $db);
 }
 
 /**#@-*/

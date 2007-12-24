@@ -9,6 +9,7 @@
  * Code in this file bases on oryginal OTServ OTBM format loading C++ code (iomapotbm.h, iomapotbm.cpp).
  * 
  * @package POT
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -21,7 +22,7 @@
  * OTBM format reader.
  * 
  * @package POT
- * @version 0.0.8
+ * @version 0.1.0+SVN
  */
 class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
 {
@@ -386,6 +387,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
  * Returns list (id => name) of loaded towns.
  * 
  * @return array List of towns.
+ * @deprecated 0.1.0+SVN Use this class object as array for iterations, counting and methods for field fetching.
  */
     public function getTownsList()
     {

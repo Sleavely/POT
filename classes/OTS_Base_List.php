@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.7
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Basic list class routines.
  * 
  * @package POT
- * @version 0.0.7
+ * @version 0.1.0+SVN
  */
 abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 {
@@ -184,13 +184,15 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Returns current row.
  * 
+ * @version 0.1.0+SVN
  * @return IOTS_DAO Current row.
  */
     public function current()
     {
         $id = current($this->rows);
 
-        $object = POT::getInstance()->createObject($this->class);
+        $class = 'OTS_' . $this->class;
+        $object = new $class();
         $object->load($id['id']);
         return $object;
     }

@@ -9,29 +9,28 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.0.7
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.0: Get rid of POT::getInstance()->create*() calls - use POT::getInstance()->getDBHandle() in constructors.
- * @todo 0.1.0: Provide suite for automatic items, spells, monsters and other data/ directory info loading.
- * @todo 0.1.0: Separate vocations, monsters and spells too, add default instances in POT methods.
- * @todo 0.1.0: Implement Iterator/IteratorAggregate and Countable for houses, items, spells, monsters and vocations.
- * @todo 0.1.0: Handle instances of loaded data/ directory resources to allow exchange data between classes and objects.
+ * @todo 0.1.0: Link data between default instances with object references.
  * @todo 0.1.0: Implement __get()/__set()/__call()/__toString(); ArrayAccess interface.
+ * @todo 0.1.1: Support for call constructurs with ID/name parameter for automatic pre-load for data.
+ * @todo 1.0.0: Deprecations cleanup.
  * @todo 1.0.0: Complete phpUnit test.
  * @todo 1.0.0: More detailed documentation and tutorials, also update examples and tutorials.
  * @todo 1.0.0: Main POT class as database instance.
  * @todo 1.0.0: SOAP interface for remote controll.
  * @todo 1.0.0: OTAdmin protocol.
  * @todo 1.0.0: PHAR and PHK packages.
+ * @todo 2.0.0: Code as C++ extension (as an alternative to pure PHP library which of course would still be available).
  */
 
 /**
  * Main POT class.
  * 
  * @package POT
- * @version 0.0.7
+ * @version 0.1.0+SVN
  */
 class POT
 {
@@ -286,6 +285,7 @@ class POT
  * 
  * @version 0.0.7
  * @since 0.0.7
+ * @deprecated 0.1.0+SVN Use OTS_SpellsList::SPELL_RUNE.
  */
     const SPELL_RUNE = 0;
 /**
@@ -293,6 +293,7 @@ class POT
  * 
  * @version 0.0.7
  * @since 0.0.7
+ * @deprecated 0.1.0+SVN Use OTS_SpellsList::SPELL_INSTANT.
  */
     const SPELL_INSTANT = 1;
 /**
@@ -300,6 +301,7 @@ class POT
  * 
  * @version 0.0.7
  * @since 0.0.7
+ * @deprecated 0.1.0+SVN Use OTS_SpellsList::SPELL_CONJURE.
  */
     const SPELL_CONJURE = 2;
 
@@ -472,13 +474,15 @@ class POT
 /**
  * Creates OTServ DAO class instance.
  * 
+ * @version 0.1.0+SVN
  * @param string $class Class name.
  * @return IOTS_DAO OTServ database object.
+ * @deprecated 0.1.0+SVN Create objects directly from now.
  */
     public function createObject($class)
     {
         $class = 'OTS_' . $class;
-        return new $class($this->db);
+        return new $class();
     }
 
 /**
@@ -553,82 +557,6 @@ class POT
     public function getDBHandle()
     {
         return $this->db;
-    }
-
-/**
- * List of vocations.
- * 
- * @version 0.0.5
- * @since 0.0.5
- * @var array
- */
-    private $vocations = array();
-
-/**
- * Loads vocations list.
- * 
- * Loads vocations list from given file.
- * 
- * @version 0.0.5
- * @since 0.0.5
- * @param string $file vocations.xml file location.
- */
-    public function loadVocations($file)
-    {
-        // loads DOM document
-        $vocations = new DOMDocument();
-        $vocations->load($file);
-
-        // loads vocations
-        foreach( $vocations->getElementsByTagName('vocation') as $vocation)
-        {
-            $this->vocations[ (int) $vocation->getAttribute('id') ] = $vocation->getAttribute('name');
-        }
-    }
-
-/**
- * Returns vocation's ID.
- * 
- * @version 0.0.5
- * @since 0.0.5
- * @param string $name Vocation.
- * @return int|bool ID (false if not found).
- */
-    public function getVocationID($name)
-    {
-        return array_search($name, $this->vocations);
-    }
-
-/**
- * Returns name of given vocation's ID.
- * 
- * @version 0.0.5
- * @since 0.0.5
- * @param int $id Vocation ID.
- * @return string|bool Name (false if not found).
- */
-    public function getVocationName($id)
-    {
-        if( isset($this->vocations[$id]) )
-        {
-            return $this->vocations[$id];
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-/**
- * Returns list (id => name) of loaded vocations.
- * 
- * @version 0.0.5
- * @since 0.0.5
- * @return array List of vocations.
- */
-    public function getVocationsList()
-    {
-        return $this->vocations;
     }
 
 /**
@@ -730,249 +658,647 @@ class POT
 /**
  * Creates lists filter.
  * 
- * @version 0.0.5
+ * @version 0.1.0+SVN
  * @since 0.0.5
  * @return OTS_SQLFilter Filter object.
+ * @deprecated 0.1.0+SVN Create objects directly from now.
  */
     public function createFilter()
     {
-        return new OTS_SQLFilter($this->db);
+        return new OTS_SQLFilter();
     }
 
 /**
- * Monsters directory.
+ * List of vocations.
  * 
- * @version 0.0.6
- * @since 0.0.6
- * @var string
+ * @version 0.1.0+SVN
+ * @since 0.0.5
+ * @var OTS_VocationsList
  */
-    private $monstersPath;
+    private $vocations;
+
+/**
+ * Loads vocations list.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.0.5
+ * @param string $file vocations.xml file location.
+ */
+    public function loadVocations($file)
+    {
+        // loads DOM document
+        $this->vocations = new OTS_VocationsList($file);
+    }
+
+/**
+ * Checks if vocations are loaded.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return bool True if vocations are loaded.
+ */
+    public function areVocationsLoaded()
+    {
+        return isset($this->vocations);
+    }
+
+/**
+ * Unloads vocations list.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ */
+    public function unloadVocations()
+    {
+        unset($this->vocations);
+    }
+
+/**
+ * Returns vocation's ID.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.0.5
+ * @param string $name Vocation.
+ * @return int|bool ID (false if not found).
+ * @throws E_OTS_NotLoaded If vocations list is not loaded.
+ * @deprecated 0.1.0+SVN Use POT::getVocationsList()->getVocationId().
+ */
+    public function getVocationId($name)
+    {
+        if( isset($this->vocations) )
+        {
+            return $this->vocations->getVocationId($name)
+        }
+        else
+        {
+            throw new E_OTS_NotLoaded();
+        }
+    }
+
+/**
+ * Returns name of given vocation's ID.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.0.5
+ * @param int $id Vocation ID.
+ * @return string|bool Name (false if not found).
+ * @throws E_OTS_NotLoaded If vocations list is not loaded.
+ * @deprecated 0.1.0+SVN Use POT::getVocationsList()->getVocationName().
+ */
+    public function getVocationName($id)
+    {
+        if( isset($this->vocations) )
+        {
+            return $this->vocations->getVocationName($id);
+        }
+        else
+        {
+            throw new E_OTS_NotLoaded();
+        }
+    }
+
+/**
+ * Returns vocations list object.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.0.5
+ * @return OTS_VocationsList List of vocations.
+ * @throws E_OTS_NotLoaded If vocations list is not loaded.
+ */
+    public function getVocationsList()
+    {
+        if( isset($this->vocations) )
+        {
+            return $this->vocations;
+        }
+        else
+        {
+            throw new E_OTS_NotLoaded();
+        }
+    }
 
 /**
  * List of loaded monsters.
  * 
- * @version 0.0.6
+ * @version 0.1.0+SVN
  * @since 0.0.6
- * @var array
+ * @var OTS_MonstersList
  */
-    private $monsters = array();
+    private $monsters;
 
 /**
  * Loads monsters mapping file.
  * 
- * @version 0.0.6
+ * @version 0.1.0+SVN
  * @since 0.0.6
  * @param string $path Monsters directory.
  */
     public function loadMonsters($path)
     {
-        $this->monstersPath = $path;
+        $this->monsters = new OTS_MonstersList($path);
+    }
 
-        // makes sure it has directory separator at the end
-        $last = substr($this->monstersPath, -1);
-        if($last != '/' && $last != '\\')
+/**
+ * Checks if monsters are loaded.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return bool True if monsters are loaded.
+ */
+    public function areMonstersLoaded()
+    {
+        return isset($this->monsters);
+    }
+
+/**
+ * Unloads monsters list.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ */
+    public function unloadMonsters()
+    {
+        unset($this->monsters);
+    }
+
+/**
+ * Returns loaded data of given monster.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.0.6
+ * @param string $name Monster name.
+ * @return OTS_Monster|null Monster data (null if not exists).
+ * @throws E_OTS_NotLoaded If monsters list is not loaded.
+ * @deprecated 0.1.0+SVN Use POT::getMonstersList()->getMonster().
+ */
+    public function getMonster($name)
+    {
+        if( isset($this->monsters) )
         {
-            $this->monstersPath .= '/';
+            return $this->monsters->getMonster($name);
         }
-
-        // loads monsters mapping file
-        $monsters = new DOMDocument();
-        $monsters->load($this->monstersPath . 'monsters.xml');
-
-        foreach( $monsters->getElementsByTagName('monster') as $monster)
+        else
         {
-            $this->monsters[ $monster->getAttribute('name') ] = $monster->getAttribute('file');
+            throw new E_OTS_NotLoaded();
         }
     }
 
 /**
  * Returns list of laoded monsters.
  * 
- * @version 0.0.6
+ * @version 0.1.0+SVN
  * @since 0.0.6
- * @return array List of monster names.
+ * @return OTS_MonstersList List of monsters.
+ * @throws E_OTS_NotLoaded If monsters list is not loaded.
  */
     public function getMonstersList()
     {
-        return array_keys($this->monsters);
-    }
-
-/**
- * Returns loaded data of given monster.
- * 
- * @version 0.0.7
- * @since 0.0.6
- * @param string $name Monster name.
- * @return OTS_Monster|null Monster data (null if not exists).
- */
-    public function getMonster($name)
-    {
-        // checks if monster exists
-        if( isset($this->monsters[$name]) )
+        if( isset($this->monsters) )
         {
-            // loads file
-            $monster = new OTS_Monster();
-            $monster->load($this->monstersPath . $this->monsters[$name]);
-            return $monster;
+            return $this->monsters;
         }
         else
         {
-            return null;
+            throw new E_OTS_NotLoaded();
         }
     }
 
 /**
- * Rune spells.
+ * Spells list.
  * 
- * @version 0.0.7
- * @since 0.0.7
- * @var array
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @var OTS_SpellsList
  */
-    private $runes = array();
-
-/**
- * Instant spells.
- * 
- * @version 0.0.7
- * @since 0.0.7
- * @var array
- */
-    private $instants = array();
-
-/**
- * Conjure spells.
- * 
- * @version 0.0.7
- * @since 0.0.7
- * @var array
- */
-    private $conjures = array();
+    private $spells;
 
 /**
  * Loads spells list.
  * 
- * @version 0.0.7
+ * @version 0.1.0+SVN
  * @since 0.0.7
  * @param string $file Spells file name.
  */
     public function loadSpells($file)
     {
-        // loads DOM document
-        $spells = new DOMDocument();
-        $spells->load($file);
+        $this->spells = new OTS_SpellsList($file);
+    }
 
-        // loads runes
-        foreach( $spells->getElementsByTagName('rune') as $rune)
+/**
+ * Checks if spells are loaded.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return bool True if spells are loaded.
+ */
+    public function areSpellsLoaded()
+    {
+        return isset($this->spells);
+    }
+
+/**
+ * Unloads spells list.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ */
+    public function unloadSpells()
+    {
+        unset($this->spells);
+    }
+
+/**
+ * Returns list of laoded spells.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return OTS_SpellsList List of spells.
+ * @throws E_OTS_NotLoaded If spells list is not loaded.
+ */
+    public function getSpellsList()
+    {
+        if( isset($this->spells) )
         {
-            $this->runes[ $rune->getAttribute('name') ] = new OTS_Spell(self::SPELL_RUNE, $rune);
+            return $this->spells;
         }
-
-        // loads instants
-        foreach( $spells->getElementsByTagName('instant') as $instant)
+        else
         {
-            $this->instants[ $instant->getAttribute('name') ] = new OTS_Spell(self::SPELL_INSTANT, $instant);
-        }
-
-        // loads conjures
-        foreach( $spells->getElementsByTagName('conjure') as $conjure)
-        {
-            $this->conjures[ $conjure->getAttribute('name') ] = new OTS_Spell(self::SPELL_CONJURE, $conjure);
+            throw new E_OTS_NotLoaded();
         }
     }
 
 /**
  * Returns list of runes.
  * 
- * @version 0.0.7
+ * @version 0.1.0+SVN
  * @since 0.0.7
  * @return array List of rune names.
+ * @throws E_OTS_NotLoaded If spells list is not loaded.
+ * @deprecated 0.1.0+SVN Use POT::getSpellsList()->getRunesList().
  */
     public function getRunesList()
     {
-        return array_keys($this->runes);
+        if( isset($this->spells) )
+        {
+            return $this->spells->getRunesList();
+        }
+        else
+        {
+            throw new E_OTS_NotLoaded();
+        }
     }
 
 /**
  * Returns given rune spell.
  * 
- * @version 0.0.7
+ * @version 0.1.0+SVN
  * @since 0.0.7
  * @param string $name Rune name.
  * @return OTS_Spell|null Rune spell wrapper (null if rune does not exist).
+ * @throws E_OTS_NotLoaded If spells list is not loaded.
+ * @deprecated 0.1.0+SVN Use POT::getSpellsList()->getRune().
  */
     public function getRune($name)
     {
-        if( isset($this->runes[$name]) )
+        if( isset($this->spells) )
         {
-            return $this->runes[$name];
+            return $this->spells->getRune($name);
         }
         else
         {
-            return null;
+            throw new E_OTS_NotLoaded();
         }
     }
 
 /**
  * Returns list of instants.
  * 
- * @version 0.0.7
+ * @version 0.1.0+SVN
  * @since 0.0.7
  * @return array List of instant spells names.
+ * @throws E_OTS_NotLoaded If spells list is not loaded.
+ * @deprecated 0.1.0+SVN Use POT::getSpellsList()->getInstantsList().
  */
     public function getInstantsList()
     {
-        return array_keys($this->instants);
+        if( isset($this->spells) )
+        {
+            return $this->spells->getInstantsList();
+        }
+        else
+        {
+            throw new E_OTS_NotLoaded();
+        }
     }
 
 /**
  * Returns given instant spell.
  * 
- * @version 0.0.7
+ * @version 0.1.0+SVN
  * @since 0.0.7
  * @param string $name Spell name.
  * @return OTS_Spell|null Instant spell wrapper (null if rune does not exist).
+ * @throws E_OTS_NotLoaded If spells list is not loaded.
+ * @deprecated 0.1.0+SVN Use POT::getSpellsList()->getInstant().
  */
     public function getInstant($name)
     {
-        if( isset($this->instants[$name]) )
+        if( isset($this->spells) )
         {
-            return $this->instants[$name];
+            return $this->spells->getInstant($name);
         }
         else
         {
-            return null;
+            throw new E_OTS_NotLoaded();
         }
     }
 
 /**
  * Returns list of conjure spells.
  * 
- * @version 0.0.7
+ * @version 0.1.0+SVN
  * @since 0.0.7
  * @return array List of conjure spells names.
+ * @throws E_OTS_NotLoaded If spells list is not loaded.
+ * @deprecated 0.1.0+SVN Use POT::getSpellsList()->getConjuresList().
  */
     public function getConjuresList()
     {
-        return array_keys($this->conjures);
+        if( isset($this->spells) )
+        {
+            return $this->spells->getConjuresList();
+        }
+        else
+        {
+            throw new E_OTS_NotLoaded();
+        }
     }
 
 /**
  * Returns given conjure spell.
  * 
- * @version 0.0.7
+ * @version 0.1.0+SVN
  * @since 0.0.7
  * @param string $name Spell name.
  * @return OTS_Spell|null Conjure spell wrapper (null if rune does not exist).
+ * @throws E_OTS_NotLoaded If spells list is not loaded.
+ * @deprecated 0.1.0+SVN Use POT::getSpellsList()->getConjure().
  */
     public function getConjure($name)
     {
-        if( isset($this->conjures[$name]) )
+        if( isset($this->spells) )
         {
-            return $this->conjures[$name];
+            return $this->spells->getConjure($name);
         }
         else
         {
-            return null;
+            throw new E_OTS_NotLoaded();
+        }
+    }
+
+/**
+ * List of loaded houses.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @var OTS_HousesList
+ */
+    private $houses;
+
+/**
+ * Loads houses list file.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $path Houses file.
+ */
+    public function loadHouses($path)
+    {
+        $this->houses = new OTS_HousesList($path);
+    }
+
+/**
+ * Checks if houses are loaded.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return bool True if houses are loaded.
+ */
+    public function areHousesLoaded()
+    {
+        return isset($this->houses);
+    }
+
+/**
+ * Unloads houses list.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ */
+    public function unloadHouses()
+    {
+        unset($this->houses);
+    }
+
+/**
+ * Returns list of laoded houses.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return OTS_HousesList List of houses.
+ * @throws E_OTS_NotLoaded If houses list is not loaded.
+ */
+    public function getHousesList()
+    {
+        if( isset($this->houses) )
+        {
+            return $this->houses;
+        }
+        else
+        {
+            throw new E_OTS_NotLoaded();
+        }
+    }
+
+/**
+ * Cache handler for items loading.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @var IOTS_FileCache
+ */
+    private $itemsCache;
+
+/**
+ * Presets cache handler for items loader.
+ * 
+ * @param IOTS_FileCache $cache Cache handler (skip this parameter to reset cache handler to null).
+ */
+    public function setItemsCache(IOTS_FileCache $cache = null)
+    {
+        $this->itemsCache = $cache;
+    }
+
+/**
+ * List of loaded items.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @var OTS_ItemsList
+ */
+    private $items;
+
+/**
+ * Loads items list.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $path Items information directory.
+ */
+    public function loadItems($path)
+    {
+        $this->items = new OTS_ItemsList();
+
+        // sets items cache if any
+        if( isset($this->itemsCache) )
+        {
+            $this->items->setCacheDriver($this->itemsCache);
+        }
+
+        $this->items->loadItems($path);
+    }
+
+/**
+ * Checks if items are loaded.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return bool True if items are loaded.
+ */
+    public function areItemsLoaded()
+    {
+        return isset($this->items);
+    }
+
+/**
+ * Unloads items list.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ */
+    public function unloadItems()
+    {
+        unset($this->items);
+    }
+
+/**
+ * Returns list of laoded items.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return OTS_ItemsList List of items.
+ * @throws E_OTS_NotLoaded If items list is not loaded.
+ */
+    public function getItemsList()
+    {
+        if( isset($this->items) )
+        {
+            return $this->items;
+        }
+        else
+        {
+            throw new E_OTS_NotLoaded();
+        }
+    }
+
+/**
+ * Cache handler for OTBM loading.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @var IOTS_FileCache
+ */
+    private $mapCache;
+
+/**
+ * Presets cache handler for OTBM loader.
+ * 
+ * @param IOTS_FileCache $cache Cache handler (skip this parameter to reset cache handler to null).
+ */
+    public function setMapCache(IOTS_FileCache $cache = null)
+    {
+        $this->mapCache = $cache;
+    }
+
+/**
+ * Loaded map.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @var OTS_OTBMFile
+ */
+    private $map;
+
+/**
+ * Loads OTBM map.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $path Map file path.
+ */
+    public function loadMap($path)
+    {
+        $this->map = new OTS_OTBMFile();
+
+        // sets items cache if any
+        if( isset($this->mapCache) )
+        {
+            $this->map->setCacheDriver($this->mapCache);
+        }
+
+        $this->map->loadFile($path);
+    }
+
+/**
+ * Checks if OTBM is loaded.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return bool True if map is loaded.
+ */
+    public function isMapLoaded()
+    {
+        return isset($this->map);
+    }
+
+/**
+ * Unloads OTBM map.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ */
+    public function unloadMap()
+    {
+        unset($this->map);
+    }
+
+/**
+ * Returns loaded map.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return OTS_OTBMFile Loaded OTBM file.
+ * @throws E_OTS_NotLoaded If map is not loaded.
+ */
+    public function getMap()
+    {
+        if( isset($this->map) )
+        {
+            return $this->map;
+        }
+        else
+        {
+            throw new E_OTS_NotLoaded();
         }
     }
 }

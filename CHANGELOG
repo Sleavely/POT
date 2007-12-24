@@ -1,4 +1,9 @@
 [0.1.0+SVN]
+* Houses support. <wrzasq>
+* No need to call POT::createObject(). <wrzasq>
+* Separated data/ directory resources loaders. <wrzasq>
+* Default data/ directory resources instances within POT class. <wrzasq>
+* Each data/ directory resource reader is an Iterator and Countable class. <wrzasq>
 
 [0.0.8]
 * Added items.xml and items.otb files support. <wrzasq>

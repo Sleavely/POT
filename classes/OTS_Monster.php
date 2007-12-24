@@ -16,7 +16,7 @@
 /**
  * Wrapper for monsters files DOMDocument.
  * 
- * Note: as this class extends DOMDocument class and contains exacly respond XML tree you can work on it as on normal DOM tree.
+ * Note: as this class extends DOMDocument class and contains exacly file XML tree you can work on it as on normal DOM tree.
  * 
  * @package POT
  */

@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.6
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Basic data access object routines.
  * 
  * @package POT
- * @version 0.0.6
+ * @version 0.1.0+SVN
  */
 abstract class OTS_Base_DAO implements IOTS_DAO
 {
@@ -31,11 +31,11 @@ abstract class OTS_Base_DAO implements IOTS_DAO
 /**
  * Sets database connection handler.
  * 
- * @param PDO $db Database connection object.
+ * @version 0.1.0+SVN
  */
-    public function __construct(PDO $db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = POT::getInstance()->getDBHandle();
     }
 
 /**

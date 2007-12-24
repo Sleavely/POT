@@ -462,6 +462,7 @@ class OTS_ItemsList extends OTS_FileLoader implements Iterator, Countable
  * Returns all loaded items.
  * 
  * @return array List of item types.
+ * @deprecated 0.1.0+SVN Use this class object as array for iterations, counting and methods for field fetching.
  */
     public function getItemTypesList()
     {

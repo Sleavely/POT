@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.7
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -18,7 +18,7 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.0.7
+ * @version 0.1.0+SVN
  */
 class OTS_Player extends OTS_Base_DAO
 {
@@ -180,7 +180,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Returns account of this player.
  * 
- * @version 0.0.3
+ * @version 0.1.0+SVN
  * @return OTS_Account Owning account.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -191,7 +191,7 @@ class OTS_Player extends OTS_Base_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $account = POT::getInstance()->createObject('Account');
+        $account = new OTS_Account();
         $account->load($this->data['account_id']);
         return $account;
     }
@@ -209,7 +209,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Returns group of this player.
  * 
- * @version 0.0.3
+ * @version 0.1.0+SVN
  * @return OTS_Group Group of which current character is member.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -220,7 +220,7 @@ class OTS_Player extends OTS_Base_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $group = POT::getInstance()->createObject('Group');
+        $group = new OTS_Group();
         $group->load($this->data['group_id']);
         return $group;
     }
@@ -1105,6 +1105,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Assigned guild rank.
  * 
+ * @version 0.1.0+SVN
  * @return OTS_GuildRank|null Guild rank (null if not member of any).
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1120,7 +1121,7 @@ class OTS_Player extends OTS_Base_DAO
             return null;
         }
 
-        $guildRank = POT::getInstance()->createObject('GuildRank');
+        $guildRank = new OTS_GuildRank();
         $guildRank->load($this->data['rank_id']);
         return $guildRank;
     }

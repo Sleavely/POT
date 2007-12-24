@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.8
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ guild abstraction.
  * 
  * @package POT
- * @version 0.0.8
+ * @version 0.1.0+SVN
  */
 class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -201,6 +201,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Returns owning player of this player.
  * 
+ * @version 0.1.0+SVN
  * @return OTS_Player Owning player.
  * @throws E_OTS_NotLoaded If guild is not loaded.
  */
@@ -211,7 +212,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
             throw new E_OTS_NotLoaded();
         }
 
-        $owner = POT::getInstance()->createObject('Player');
+        $owner = new OTS_Player();
         $owner->load($this->data['ownerid']);
         return $owner;
     }
@@ -308,7 +309,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Reads all ranks that are in this guild.
  * 
- * @version 0.0.5
+ * @version 0.1.0+SVN
  * @return array List of ranks.
  * @throws E_OTS_NotLoaded If guild is not loaded.
  * @deprecated 0.0.5 Use getGuildRanksList().
@@ -325,7 +326,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
         foreach( $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('guild_ranks') . ' WHERE ' . $this->db->fieldName('guild_id') . ' = ' . $this->data['id'])->fetchAll() as $guildRank)
         {
             // creates new object
-            $object = POT::getInstance()->createObject('GuildRank');
+            $object = new OTS_GuildRank();
             $object->load($guildRank['id']);
             $guildRanks[] = $object;
         }
@@ -338,7 +339,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * In difference to {@link OTS_Guild::getGuildRanks() getGuildRanks() method} this method returns filtered {@link OTS_GuildRanks_List OTS_GuildRanks_List} object instead of array of {@link OTS_GuildRank OTS_GuildRank} objects. It is more effective since OTS_GuildRanks_List doesn't perform all rows loading at once.
  * 
- * @version 0.0.5
+ * @version 0.1.0+SVN
  * @since 0.0.5
  * @return OTS_GuildRanks_List List of ranks from current guild.
  * @throws E_OTS_NotLoaded If guild is not loaded.
@@ -353,11 +354,11 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
         $ots = POT::getInstance();
 
         // creates filter
-        $filter = $ots->createFilter();
+        $filter = new OTS_SQLFilter();
         $filter->compareField('guild_id', (int) $this->data['id']);
 
         // creates list object
-        $list = $ots->createObject('GuildRanks_List');
+        $list = new OTS_GuildRanks_List();
         $list->setFilter($filter);
 
         return $list;

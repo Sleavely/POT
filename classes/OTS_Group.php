@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.0.5
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ user group abstraction.
  * 
  * @package POT
- * @version 0.0.5
+ * @version 0.1.0+SVN
  */
 class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -283,7 +283,7 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * List of characters in given group.
  * 
- * @version 0.0.5
+ * @version 0.1.0+SVN
  * @return array Array of OTS_Player objects from given group.
  * @throws E_OTS_NotLoaded If group is not loaded.
  * @deprecated 0.0.5 Use getPlayersList().
@@ -300,7 +300,7 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
         foreach( $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('group_id') . ' = ' . $this->data['id'])->fetchAll() as $player)
         {
             // creates new object
-            $object = POT::getInstance()->createObject('Player');
+            $object = new OTS_Player();
             $object->load($player['id']);
             $players[] = $object;
         }
@@ -313,7 +313,7 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * In difference to {@link OTS_Group::getPlayers() getPlayers() method} this method returns filtered {@link OTS_Players_List OTS_Players_List} object instead of array of {@link OTS_Player OTS_Player} objects. It is more effective since OTS_Player_List doesn't perform all rows loading at once.
  * 
- * @version 0.0.5
+ * @version 0.1.0+SVN
  * @since 0.0.5
  * @return OTS_Players_List List of players from current group.
  * @throws E_OTS_NotLoaded If group is not loaded.
@@ -328,11 +328,11 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
         $ots = POT::getInstance();
 
         // creates filter
-        $filter = $ots->createFilter();
+        $filter = new OTS_SQLFilter();
         $filter->compareField('group_id', (int) $this->data['id']);
 
         // creates list object
-        $list = $ots->createObject('Players_List');
+        $list = new OTS_Players_List();
         $list->setFilter($filter);
 
         return $list;

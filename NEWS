@@ -1,5 +1,25 @@
-What's new in 0.1.0 version?
+What's new in 0.1.0+SVN version?
 
 * Houses support.
 
     It was mentioned to be in 0.0.9 release but as houses use buth data/ directory resources and SQL database we wanted to avoid making big mess with reconstructing it later..
+
+* No need to call POT::createObject().
+
+    All classes which use database handle fetch it now by themselves, you just call standard class constructors.
+
+    Of course POT::createObject() method will stay to provide backward compatibility, but you don't need to call it anymore!
+
+    Same reffers to POT::createFilter() method.
+
+* Separated data/ directory resources loaders.
+
+    From now you can load each data/ directory in separated object. This allows you to load, for example, data from two different data/ directories pararelly.
+
+* Default data/ directory resources instances within POT class.
+
+    Also now in POT class each resource (event that which didn't have loading method until now) has default instance which indicates that this instance stores info about current server gameworld. It allows you to link information references stored in other objects as IDs with full data from files.
+
+* Each data/ directory resource reader is an Iterator and Countable class.
+
+    They provide interface to use them as an arrays both for iteration and for counting.
