@@ -9,6 +9,7 @@
  * Code in this file bases on oryginal OTServ items loading C++ code (items.cpp, items.h).
  * 
  * @package POT
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -18,6 +19,26 @@
  * Item type info.
  * 
  * @package POT
+ * @version 0.1.0+SVN
+ * @property int $clientId Client ID.
+ * @property string $name Item name.
+ * @property int $group Group.
+ * @property int $type Item type.
+ * @property-read int $id Item type ID.
+ * @property-read array $attributesList List of all attributes.
+ * @property-read bool $isBlocking Is item blocking move.
+ * @property-read bool $hasHeight Does item have height.
+ * @property-read bool $isUsable Is item usable.
+ * @property-read bool $isPickupable Is player able to pick it up.
+ * @property-read bool $isMovable Can be moved.
+ * @property-read bool $isStackable Can be stacked.
+ * @property-read bool $isAlwaysOnTop Is always on top of stack.
+ * @property-read bool $isReadable Has readable sign.
+ * @property-read bool $isRotable Can be rotated.
+ * @property-read bool $isHangable Can be hang.
+ * @property-read bool $isVertical Is verticaly oriented.
+ * @property-read bool $isHorizontal Is horizontaly oriented.
+ * @property-write int $flags Special flags. 
  */
 class OTS_ItemType
 {
@@ -106,6 +127,13 @@ class OTS_ItemType
  * Magic field.
  */
     const ITEM_TYPE_MAGICFIELD = 6;
+/**
+ * Teleport.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ */
+    const ITEM_TYPE_TELEPORT = 7;
 
 /**
  * Can block characters from walking.
@@ -547,6 +575,116 @@ class OTS_ItemType
         else
         {
             return new OTS_Item($this->id);
+        }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'id':
+                return $this->getId();
+
+            case 'clientId':
+                return $this->getClientId();
+
+            case 'name':
+                return $this->getName();
+
+            case 'group':
+                return $this->getGroup();
+
+            case 'type':
+                return $this->getType();
+
+            case 'attributesList':
+                return $this->getAttributesList();
+
+            case 'isBlocking':
+                return $this->isBlocking();
+
+            case 'hasHeight':
+                return $this->hasHeight();
+
+            case 'isUsable':
+                return $this->isUsable();
+
+            case 'isPickupable':
+                return $this->isPickupable();
+
+            case 'isMovable':
+                return $this->isMovable();
+
+            case 'isStackable':
+                return $this->isStackable();
+
+            case 'isAlwaysOnTop':
+                return $this->isAlwaysOnTop();
+
+            case 'isReadable':
+                return $this->isReadable();
+
+            case 'isRotable':
+                return $this->isRotable();
+
+            case 'isHangable':
+                return $this->isHangable();
+
+            case 'isVertical':
+                return $this->isVertical();
+
+            case 'isHorizontal':
+                return $this->isHorizontal();
+
+            default:
+                throw new OutOfBoundsException();
+        }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @param mixed $value Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __set($name, $value)
+    {
+        switch($name)
+        {
+            case 'flags':
+                $this->setFlags($value);
+                break;
+
+            case 'clientId':
+                $this->setClientId($value);
+                break;
+
+            case 'name':
+                $this->setName($value);
+                break;
+
+            case 'group':
+                $this->setGroup($value);
+                break;
+
+            case 'type':
+                $this->setType($value);
+                break;
+
+            default:
+                throw new OutOfBoundsException();
         }
     }
 }

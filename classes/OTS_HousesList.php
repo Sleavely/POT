@@ -10,7 +10,6 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.0: Houses SQL part support.
  */
 
 /**
@@ -18,7 +17,7 @@
  * 
  * @package POT
  */
-class OTS_HousesList implements Iterator, Countable
+class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 {
 /**
  * List of houses elements.
@@ -39,8 +38,29 @@ class OTS_HousesList implements Iterator, Countable
 
         foreach( $houses->getElementsByTagName('house') as $house)
         {
-            $this->houses[ (int) $house->getAttribute('houseid') ] = $house;
+            $this->houses[ (int) $house->getAttribute('houseid') ] = new OTS_House($house);
         }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @internal Magic PHP5 method.
+ * @param array $properties List of object properties.
+ */
+    public function __set_state($properties)
+    {
+        $object = new self();
+
+        // loads properties
+        foreach($properties as $name => $value)
+        {
+            $object->$name = $value;
+        }
+
+        return $object;
     }
 
 /**
@@ -69,12 +89,12 @@ class OTS_HousesList implements Iterator, Countable
  */
     public function getHouseId($name)
     {
-        foreach($this->houses as $house)
+        foreach($this->houses as $id => $house)
         {
             // checks houses id
-            if( $house->getAttribute('name') == $name)
+            if( $house->getName() == $name)
             {
-                return $house->getAttribute('houseid');
+                return $id;
             }
         }
 
@@ -92,49 +112,84 @@ class OTS_HousesList implements Iterator, Countable
     }
 
 /**
- * Returns house at current position in iterator.
+ * Returns iterator handle for loops.
  * 
- * @return OTS_House House.
+ * @return ArrayIterator Houses list iterator.
  */
-    public function current()
+    public function getIterator()
     {
-        return $this->getHouse( key($this->houses) );
+        return new ArrayIterator($this->houses);
     }
 
 /**
- * Moves to next iterator house.
- */
-    public function next()
-    {
-        next($this->houses);
-    }
-
-/**
- * Returns ID of current position.
+ * Checks if given element exists.
  * 
- * @return int Current position key.
+ * @param string|int $offset Array key.
+ * @return bool True if it's set.
  */
-    public function key()
+    public function offsetExists($offset)
     {
-        return key($this->houses);
+        // integer key
+        if( is_int($offset) )
+        {
+            return isset($this->houses[$offset]);
+        }
+        // house name
+        else
+        {
+            return $this->getHouseId($offset) !== false;
+        }
     }
 
 /**
- * Checks if there is anything more in interator.
+ * Returns item from given position.
  * 
- * @return bool If iterator has anything more.
+ * @param string|int $offset Array key.
+ * @return mixed If key is an integer (type-sensitive!) then returns house instance. If it's a string then return associated ID found by house name. False if offset is not set.
  */
-    public function valid()
+    public function offsetGet($offset)
     {
-        return key($this->houses) !== null;
+        // integer key
+        if( is_int($offset) )
+        {
+            if( isset($this->houses[$offset]) )
+            {
+                return $this->houses[$offset];
+            }
+            // keys is not set
+            else
+            {
+                return false;
+            }
+        }
+        // house name
+        else
+        {
+            return $this->getHouseId($offset);
+        }
     }
 
 /**
- * Resets iterator index.
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to houses list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * 
+ * @param string|int $offset Array key.
+ * @param mixed $value Field value.
+ * @throws E_OTS_ReadOnly Always - this class is read-only.
  */
-    public function rewind()
+    public function offsetSet($offset, $value)
     {
-        reset($this->houses);
+        throw new E_OTS_ReadOnly();
+    }
+
+/**
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to houses list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * 
+ * @param string|int $offset Array key.
+ * @throws E_OTS_ReadOnly Always - this class is read-only.
+ */
+    public function offsetUnset($offset)
+    {
+        throw new E_OTS_ReadOnly();
     }
 }
 

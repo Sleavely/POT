@@ -9,6 +9,7 @@
  * Code in this file bases on oryginal OTServ binary format loading C++ code (fileloader.h, fileloader.cpp).
  * 
  * @package POT
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -18,6 +19,16 @@
  * OTServ binary file node representation.
  * 
  * @package POT
+ * @version 0.1.0+SVN
+ * @property string $buffer Properties binary string.
+ * @property OTS_FileNode $next Next sibling node.
+ * @property OTS_FileNode $child First child node.
+ * @property int $type Node type.
+ * @property-read bool $isValid isValid() method wrapper.
+ * @property-read int $char getChar() method wrapper.
+ * @property-read int $short getShort() method wrapper.
+ * @property-read int $long getLong() method wrapper.
+ * @property-read string $string getString(false) call wrapper.
  */
 class OTS_FileNode
 {
@@ -278,6 +289,81 @@ class OTS_FileNode
     {
         $this->check($n);
         $this->pos += $n;
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            // simple properties
+            case 'buffer':
+            case 'next':
+            case 'child':
+            case 'type':
+                return $this->$name;
+
+            // isValid() wrapper
+            case 'isValid':
+                return $this->isValid();
+
+            // getChar() wrapper
+            case 'char':
+                return $this->getChar();
+
+            // getShort() wrapper
+            case 'short':
+                return $this->getShort();
+
+            // getLong() wrapper
+            case 'long':
+                return $this->getLong();
+
+            // getString() wrapper
+            case 'string':
+                return $this->getString();
+
+            default:
+                throw new OutOfBoundsException();
+        }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @param mixed $value Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __set($name, $value)
+    {
+        switch($name)
+        {
+            // simple properties
+            case 'next':
+            case 'child':
+            case 'type':
+                $this->$name = $value;
+                break;
+
+            // buffer needs to be reset
+            case 'buffer':
+                $this->setBuffer($value);
+                break;
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

@@ -16,6 +16,9 @@
  * Wrapper for spells list.
  * 
  * @package POT
+ * @property-read array $runesList List of rune spells.
+ * @property-read array $instantsList List of instant spells.
+ * @property-read array $conjuresList List of conjure spells.
  */
 class OTS_SpellsList
 {
@@ -52,6 +55,26 @@ class OTS_SpellsList
  * @var array
  */
     private $conjures = array();
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @internal Magic PHP5 method.
+ * @param array $properties List of object properties.
+ */
+    public function __set_state($properties)
+    {
+        $object = new self();
+
+        // loads properties
+        foreach($properties as $name => $value)
+        {
+            $object->$name = $value;
+        }
+
+        return $object;
+    }
 
 /**
  * Loads spells list.
@@ -164,6 +187,31 @@ class OTS_SpellsList
         else
         {
             return null;
+        }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'runesList':
+                return $this->getRunesList();
+
+            case 'instantsList':
+                return $this->getInstantsList();
+
+            case 'conjuresList':
+                return $this->getConjuresList();
+
+            default:
+                throw new OutOfBoundsException();
         }
     }
 }

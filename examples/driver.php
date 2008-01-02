@@ -81,11 +81,11 @@ class InvitesDriver implements IOTS_GuildAction
 */
 
 // loads player wiht ID 1
-$player = $ots->createObject('Player');
+$player = new OTS_Player();
 $player->load(1);
 
 // loads guild with ID 1
-$guild = $ots->createObject('Guild');
+$guild = new OTS_Guild();
 $guild->load(1);
 
 // creates invitation logic driver for your implementation for current guild

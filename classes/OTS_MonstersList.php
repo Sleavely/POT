@@ -17,7 +17,7 @@
  * 
  * @package POT
  */
-class OTS_MonstersList implements Iterator, Countable
+class OTS_MonstersList implements Iterator, Countable, ArrayAccess
 {
 /**
  * Monsters directory.
@@ -57,6 +57,27 @@ class OTS_MonstersList implements Iterator, Countable
         {
             $this->monsters[ $monster->getAttribute('name') ] = $monster->getAttribute('file');
         }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @internal Magic PHP5 method.
+ * @param array $properties List of object properties.
+ */
+    public function __set_state($properties)
+    {
+        $object = new self();
+
+        // loads properties
+        foreach($properties as $name => $value)
+        {
+            $object->$name = $value;
+        }
+
+        return $object;
     }
 
 /**
@@ -135,6 +156,59 @@ class OTS_MonstersList implements Iterator, Countable
     public function rewind()
     {
         reset($this->monsters);
+    }
+
+/**
+ * Checks if given element exists.
+ * 
+ * @param string $offset Array key.
+ * @return bool True if it's set.
+ */
+    public function offsetExists($offset)
+    {
+        return isset($this->monsters[$offset]);
+    }
+
+/**
+ * Returns item from given position.
+ * 
+ * @param string $offset Array key.
+ * @return OTS_Monster|bool Monster instance. False if offset is not set.
+ */
+    public function offsetGet($offset)
+    {
+        if( isset($this->monsters[$offset]) )
+        {
+            return $this->getMonster($offset);
+        }
+        // keys is not set
+        else
+        {
+            return false;
+        }
+    }
+
+/**
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to monsters list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * 
+ * @param string|int $offset Array key.
+ * @param mixed $value Field value.
+ * @throws E_OTS_ReadOnly Always - this class is read-only.
+ */
+    public function offsetSet($offset, $value)
+    {
+        throw new E_OTS_ReadOnly();
+    }
+
+/**
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to monsters list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * 
+ * @param string|int $offset Array key.
+ * @throws E_OTS_ReadOnly Always - this class is read-only.
+ */
+    public function offsetUnset($offset)
+    {
+        throw new E_OTS_ReadOnly();
     }
 }
 

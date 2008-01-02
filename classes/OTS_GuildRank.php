@@ -18,6 +18,12 @@
  * 
  * @package POT
  * @version 0.1.0+SVN
+ * @property string $name Rank title.
+ * @property OTS_Guild $guild Guild in which rank exists.
+ * @property int $level Guild access level.
+ * @property-read bool $isLoaded Loaded state check.
+ * @property-read int $id Row ID.
+ * @property-read OTS_Players_List $playersList List of members with this rank.
  */
 class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -356,8 +362,73 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
  */
     public function count()
     {
-        // count( $this->getPlayersList() ); will be slower
         return $this->getPlayersList()->count();
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'isLoaded':
+                return $this->isLoaded();
+
+            case 'id':
+                return $this->getId();
+
+            case 'name':
+                return $this->getName();
+
+            case 'guild':
+                return $this->getGuild();
+
+            case 'level':
+                return $this->getLevel();
+
+            case 'playersList':
+                return $this->getPlayersList();
+
+            default:
+                throw new OutOfBoundsException();
+        }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @param mixed $value Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __set($name, $value)
+    {
+        switch($name)
+        {
+            case 'name':
+                $this->setName($value);
+                break;
+
+            case 'guild':
+                $this->setGuild($value);
+                break;
+
+            case 'level':
+                $this->setLevel($value);
+                break;
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

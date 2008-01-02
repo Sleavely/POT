@@ -11,8 +11,11 @@
 // to not repeat all that stuff
 include('quickstart.php');
 
+// loads item typing information
+$ots->getInstance()->loadItems('/path/to/your/ots/data/items');
+
 // creates new OTS_Player object
-$player = $ots->createObject('Player');
+$player = new OTS_Player();
 $player->find('Wrzasq');
 
 /*

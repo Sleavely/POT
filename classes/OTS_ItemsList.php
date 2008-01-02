@@ -9,6 +9,7 @@
  * Code in this file bases on oryginal OTServ items loading C++ code (itemloader.h, items.cpp, items.h).
  * 
  * @package POT
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -18,8 +19,12 @@
  * Items list loader.
  * 
  * @package POT
+ * @version 0.1.0+SVN
+ * @property-read int $otbVersion OTB file version.
+ * @property-read int $clientVersion Dedicated client version.
+ * @property-read int $buildVersion File build version.
  */
-class OTS_ItemsList extends OTS_FileLoader implements Iterator, Countable
+class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countable, ArrayAccess
 {
 /**
  * Root file attribute.
@@ -79,13 +84,6 @@ class OTS_ItemsList extends OTS_FileLoader implements Iterator, Countable
  * Always-on-top order.
  */
     const ITEM_ATTR_TOPORDER = 43;
-
-/**
- * List of towns.
- * 
- * @var array
- */
-    private $masks = array();
 
 /**
  * Temple positions.
@@ -207,6 +205,7 @@ class OTS_ItemsList extends OTS_FileLoader implements Iterator, Countable
 /**
  * Parses loaded file.
  * 
+ * @version 0.1.0+SVN
  * @throws E_OTS_FileLoaderError If file has invalid format.
  */
     private function parse()
@@ -366,11 +365,15 @@ class OTS_ItemsList extends OTS_FileLoader implements Iterator, Countable
                         $type->setType(OTS_ItemType::ITEM_TYPE_MAGICFIELD);
                         break;
 
+                    // teleport field
+                    case OTS_ItemType::ITEM_GROUP_TELEPORT:
+                        $type->setType(OTS_ItemType::ITEM_TYPE_TELEPORT);
+                        break;
+
                     // nothing special for this groups but we have to separate from default section
                     case OTS_ItemType::ITEM_GROUP_NONE:
                     case OTS_ItemType::ITEM_GROUP_GROUND:
                     case OTS_ItemType::ITEM_GROUP_RUNE:
-                    case OTS_ItemType::ITEM_GROUP_TELEPORT:
                     case OTS_ItemType::ITEM_GROUP_SPLASH:
                     case OTS_ItemType::ITEM_GROUP_FLUID:
                         break;
@@ -483,6 +486,7 @@ class OTS_ItemsList extends OTS_FileLoader implements Iterator, Countable
  * Returns item at current position in iterator.
  * 
  * @return string Item name.
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function current()
     {
@@ -491,6 +495,8 @@ class OTS_ItemsList extends OTS_FileLoader implements Iterator, Countable
 
 /**
  * Moves to next iterator item.
+ * 
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function next()
     {
@@ -501,6 +507,7 @@ class OTS_ItemsList extends OTS_FileLoader implements Iterator, Countable
  * Returns ID of current position.
  * 
  * @return int Current position key.
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function key()
     {
@@ -511,6 +518,7 @@ class OTS_ItemsList extends OTS_FileLoader implements Iterator, Countable
  * Checks if there is anything more in interator.
  * 
  * @return bool If iterator has anything more.
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function valid()
     {
@@ -519,10 +527,126 @@ class OTS_ItemsList extends OTS_FileLoader implements Iterator, Countable
 
 /**
  * Resets iterator index.
+ * 
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function rewind()
     {
         reset($this->items);
+    }
+
+/**
+ * Returns iterator handle for loops.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return ArrayIterator Items list iterator.
+ */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->items);
+    }
+
+/**
+ * Checks if given element exists.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string|int $offset Array key.
+ * @return bool True if it's set.
+ */
+    public function offsetExists($offset)
+    {
+        // integer key
+        if( is_int($offset) )
+        {
+            return isset($this->items[$offset]);
+        }
+        // item type name
+        else
+        {
+            return $this->getItemTypeId($offset) !== false;
+        }
+    }
+
+/**
+ * Returns item from given position.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string|int $offset Array key.
+ * @return mixed If key is an integer (type-sensitive!) then returns item type instance. If it's a string then return associated ID found by type name. False if offset is not set.
+ */
+    public function offsetGet($offset)
+    {
+        // integer key
+        if( is_int($offset) )
+        {
+            if( isset($this->items[$offset]) )
+            {
+                return $this->items[$offset];
+            }
+            // keys is not set
+            else
+            {
+                return false;
+            }
+        }
+        // item type name
+        else
+        {
+            return $this->getItemTypeId($offset);
+        }
+    }
+
+/**
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to items list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string|int $offset Array key.
+ * @param mixed $value Field value.
+ * @throws E_OTS_ReadOnly Always - this class is read-only.
+ */
+    public function offsetSet($offset, $value)
+    {
+        throw new E_OTS_ReadOnly();
+    }
+
+/**
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to items list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string|int $offset Array key.
+ * @throws E_OTS_ReadOnly Always - this class is read-only.
+ */
+    public function offsetUnset($offset)
+    {
+        throw new E_OTS_ReadOnly();
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'otbVersion':
+            case 'clientVersion':
+            case 'buildVersion':
+                return $this->$name;
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

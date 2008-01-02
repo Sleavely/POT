@@ -18,6 +18,13 @@
  * 
  * @package POT
  * @version 0.1.0+SVN
+ * @property string $password Password.
+ * @property string $eMail Email address.
+ * @property-read int $id Account number.
+ * @property-read bool $isLoaded Loaded state.
+ * @property-read OTS_Players_List $playersList Characters of this account.
+ * @property-read bool $isBlocked Blocked flag state.
+ * @property-read bool $isBanned Ban state.
  */
 class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -554,8 +561,72 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
  */
     public function count()
     {
-        // count( $this->getPlayersList() ); will be slower
         return $this->getPlayersList()->count();
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'id':
+                return $this->getId();
+
+            case 'password':
+                return $this->getPassword();
+
+            case 'eMail':
+                return $this->getEMail();
+
+            case 'isLoaded':
+                return $this->isLoaded();
+
+            case 'playersList':
+                return $this->getPlayersList();
+
+            case 'isBlocked':
+                return $this->isBlocked();
+
+            case 'isBanned':
+                return $this->isBanned();
+
+            default:
+                throw new OutOfBoundsException();
+        }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @param mixed $value Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __set($name, $value)
+    {
+        switch($name)
+        {
+            case 'password':
+                $this->setPassword($value);
+                break;
+
+            case 'eMail':
+                $this->setEMail($value);
+                break;
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

@@ -18,6 +18,15 @@
  * 
  * @package POT
  * @version 0.1.0+SVN
+ * @property string $read Guild name.
+ * @property OTS_Player $owner Guild founder.
+ * @property int $creationData Guild creation data (mostly timestamp).
+ * @property-read int $id Guild ID.
+ * @property-read OTS_GuildRanks_List $guildRanksList Ranks in this guild.
+ * @property-read array $invites List of invited players.
+ * @property-read array $requests List of players that requested invites.
+ * @property-write IOTS_GuildAction $invitesDriver Invitations handler.
+ * @property-write IOTS_GuildAction $requestsDriver Membership requests handler.
  */
 class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -594,8 +603,84 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
  */
     public function count()
     {
-        // count( $this->getGuildRanksList() ); will be slower
         return $this->getGuildRanksList()->count();
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'id':
+                return $this->getId();
+
+            case 'name':
+                return $this->getName();
+
+            case 'owner':
+                return $this->getOwner();
+
+            case 'creationData':
+                return $this->getCreationData();
+
+            case 'guildRanksList':
+                return $this->getGuildRanksList();
+
+            case 'invites':
+                return $this->listInvites();
+
+            case 'requests':
+                return $this->listRequests();
+
+            default:
+                throw new OutOfBoundsException();
+        }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @param mixed $value Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __set($name, $value)
+    {
+        switch($name)
+        {
+            case 'name':
+                $this->setName($value);
+                break;
+
+            case 'owner':
+                $this->setOwner($value);
+                break;
+
+            case 'creationData':
+                $this->setCreationData($value);
+                break;
+
+            case 'invitesDriver':
+                $this->setInvitesDriver($value);
+                break;
+
+            case 'requestsDriver':
+                $this->setRequestsDriver($value);
+                break;
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

@@ -13,15 +13,18 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.0: Link data between default instances with object references.
- * @todo 0.1.0: Implement __get()/__set()/__call()/__toString(); ArrayAccess interface.
- * @todo 0.1.1: Support for call constructurs with ID/name parameter for automatic pre-load for data.
+ * @todo 0.1.0: Implement __toString() as display drivers.
+ * @todo 0.1.1: Support for call constructors with ID/name parameter for automatic pre-load for data.
+ * @todo 0.1.2: OTAdmin protocol.
+ * @todo 0.1.3: SOAP interface for remote controll.
+ * @todo 0.2.0: Implement OutOfBoundsException instead of mixed results types.
+ * @todo 0.2.0: Implement NetworkMessage.
+ * @todo 1.0.0: Create automatic wrappers for related OTS resource handlers.
+ * @todo 1.0.0: Unify *List and *_List naming (probably into *List).
  * @todo 1.0.0: Deprecations cleanup.
  * @todo 1.0.0: Complete phpUnit test.
  * @todo 1.0.0: More detailed documentation and tutorials, also update examples and tutorials.
  * @todo 1.0.0: Main POT class as database instance.
- * @todo 1.0.0: SOAP interface for remote controll.
- * @todo 1.0.0: OTAdmin protocol.
  * @todo 1.0.0: PHAR and PHK packages.
  * @todo 2.0.0: Code as C++ extension (as an alternative to pure PHP library which of course would still be available).
  */
@@ -727,7 +730,7 @@ class POT
     {
         if( isset($this->vocations) )
         {
-            return $this->vocations->getVocationId($name)
+            return $this->vocations->getVocationId($name);
         }
         else
         {
@@ -1242,6 +1245,8 @@ class POT
 /**
  * Loads OTBM map.
  * 
+ * Note: This method will also load houses list associated with map.
+ * 
  * @version 0.1.0+SVN
  * @since 0.1.0+SVN
  * @param string $path Map file path.
@@ -1257,6 +1262,7 @@ class POT
         }
 
         $this->map->loadFile($path);
+        $this->houses = $this->map->getHousesList();
     }
 
 /**

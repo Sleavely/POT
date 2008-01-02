@@ -7,6 +7,7 @@
 
 /**
  * @package POT
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -18,6 +19,28 @@
  * Note: as this class extends DOMDocument class and contains exacly respond XML tree you can work on it as on normal DOM tree.
  * 
  * @package POT
+ * @version 0.1.0+SVN
+ * @property-read string $tspqVersion Root element version.
+ * @property-read int $uptime Uptime.
+ * @property-read string $ip IP number.
+ * @property-read string $name Server name.
+ * @property-read int $port Server port.
+ * @property-read string $location Server physical location.
+ * @property-read string $url Website URL.
+ * @property-read string $server What the hell...?
+ * @property-read string $serverVersion Server version.
+ * @property-read string $clientVersion Client version.
+ * @property-read string $owner Owner name.
+ * @property-read string $eMail Owner's e-mail.
+ * @property-read int $onlinePlayers Players online count.
+ * @property-read int $maxPlayers Maximum allowed players count.
+ * @property-read int $playersPeak Record of players online.
+ * @property-read int $monstersCount Number of monsters on map.
+ * @property-read string $mapName Map name.
+ * @property-read string $mapAuthor Map author.
+ * @property-read int $mapWidth Map width.
+ * @property-read int $mapHeight Map height.
+ * @property-read string $motd Message Of The Day.
  */
 class OTS_InfoRespond extends DOMDocument
 {
@@ -227,12 +250,13 @@ class OTS_InfoRespond extends DOMDocument
 /**
  * Returns server's Message Of The Day
  * 
+ * @version 0.1.0+SVN
  * @return string Server MOTD.
  */
     public function getMOTD()
     {
         // look for text node child
-        foreach( $this->documentElement->getElementsByTagName("motd")->item(0)->childNodes as $child)
+        foreach( $this->documentElement->getElementsByTagName('motd')->item(0)->childNodes as $child)
         {
             if($child->nodeType == XML_TEXT_NODE)
             {
@@ -243,6 +267,87 @@ class OTS_InfoRespond extends DOMDocument
 
         // strange...
         return '';
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'tspqVersion':
+                return $this->getTSPQVersion();
+
+            case 'uptime':
+                return $this->getUptime();
+
+            case 'ip':
+                return $this->getIP();
+
+            case 'name':
+                return $this->getName();
+
+            case 'port':
+                return $this->getPort();
+
+            case 'location':
+                return $this->getLocation();
+
+            case 'url':
+                return $this->getURL();
+
+            case 'server':
+                return $this->getServer();
+
+            case 'serverVersion':
+                return $this->getServerVersion();
+
+            case 'clientVersion':
+                return $this->getClientVersion();
+
+            case 'owner':
+                return $this->getOwner();
+
+            case 'eMail':
+                return $this->getEMail();
+
+            case 'onlinePlayers':
+                return $this->getOnlinePlayers();
+
+            case 'maxPlayers':
+                return $this->getMaxPlayers();
+
+            case 'playersPeak':
+                return $this->getPlayersPeak();
+
+            case 'monstersCount':
+                return $this->getMonstersCount();
+
+            case 'mapName':
+                return $this->getMapName();
+
+            case 'mapAuthor':
+                return $this->getMapAuthor();
+
+            case 'mapWidth':
+                return $this->getMapWidth();
+
+            case 'mapHeight':
+                return $this->getMapHeight();
+
+            case 'motd':
+                return $this->getMOTD();
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

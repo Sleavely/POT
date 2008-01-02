@@ -12,7 +12,7 @@
 include('quickstart.php');
 
 // creates new OTS_Player object
-$player = $ots->createObject('Player');
+$player = new OTS_Player();
 
 // loads player
 $player->find('Wrzasq');

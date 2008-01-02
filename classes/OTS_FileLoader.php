@@ -9,6 +9,7 @@
  * Code in this file bases on oryginal OTServ binary format loading C++ code (fileloader.h, fileloader.cpp).
  * 
  * @package POT
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -18,6 +19,8 @@
  * Universal OTServ binary formats reader.
  * 
  * @package POT
+ * @version 0.1.0+SVN
+ * @property-write IOTS_FileCache $cacheDriver Cache driver.
  */
 class OTS_FileLoader
 {
@@ -239,7 +242,6 @@ class OTS_FileLoader
                         case self::NODE_END:
                             $this->safeSeek( $this->safeTell() - 1);
                             return;
-                            break;
 
                         // invliad file format
                         default:
@@ -312,6 +314,29 @@ class OTS_FileLoader
         }
 
         return $pos;
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @param mixed $value Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __set($name, $value)
+    {
+        switch($name)
+        {
+            case 'cacheDriver':
+                $this->setCacheDriver($value);
+                break;
+
+            // not-supported
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

@@ -12,7 +12,7 @@
 include('quickstart.php');
 
 // loads guild
-$guild = $ots->createObject('Guild');
+$guild = new OTS_Guild();
 $guild->load(1);
 
 $color = '#FFFFCC';
@@ -31,7 +31,7 @@ echo '<h1>Members of ', htmlspecialchars( $guild->getName() ), '</h1>';
 <?php
 
 // lists members of all ranks
-foreach( $guild->getGuildRanks() as $guildRank)
+foreach($guild as $guildRank)
 {
     // display rank in first row
     $first = true;
@@ -39,7 +39,7 @@ foreach( $guild->getGuildRanks() as $guildRank)
     $color = $color == '#FFFFCC' ? '#FFCCFF' : '#FFFFCC';
 
     // list members of this rank
-    foreach( $guildRank->getPlayers() as $player)
+    foreach($guildRank as $player)
     {
         echo '<tr style="background-color: ', $color, '">
     <td>', $first ? htmlspecialchars( $guildRank->getName() ) : '', '</td>

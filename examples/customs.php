@@ -12,7 +12,7 @@
 include('quickstart.php');
 
 // creates new OTS_Player object
-$player = $ots->createObject('Player');
+$player = new OTS_Player();
 
 // sets basic fields
 $player->setName('Wrzasq');

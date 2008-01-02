@@ -3,7 +3,12 @@
 * No need to call POT::createObject(). <wrzasq>
 * Separated data/ directory resources loaders. <wrzasq>
 * Default data/ directory resources instances within POT class. <wrzasq>
-* Each data/ directory resource reader is an Iterator and Countable class. <wrzasq>
+* Each data/ directory resource reader class implements an Iterator/IteratorAggregate, Countable and ArrayAccess interfaces. <wrzasq>
+* Uses IteratorAggregate interface instead of Iterator in some places (returns ArrayIterator as iterator). <wrzasq>
+* Additional wrappers for resource binds. <wrzasq>
+* Some additional updates to match OTServ development. <wrzasq>
+* Fixed some typos. <wrzasq>
+* Code vleanup. <wrzasq>
 
 [0.0.8]
 * Added items.xml and items.otb files support. <wrzasq>

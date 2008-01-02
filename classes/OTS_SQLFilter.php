@@ -7,6 +7,7 @@
 
 /**
  * @package POT
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,6 +17,8 @@
  * SQL WHERE clause object.
  * 
  * @package POT
+ * @version 0.1.0+SVN
+ * @property-read array $tables List of tables used by this statement.
  */
 class OTS_SQLFilter extends OTS_Base_DAO
 {
@@ -307,6 +310,27 @@ class OTS_SQLFilter extends OTS_Base_DAO
         }
 
         return $tables;
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'tables':
+                return $this->getTables();
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

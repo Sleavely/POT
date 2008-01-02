@@ -12,7 +12,7 @@
 include('quickstart.php');
 
 // creates new OTS_Player object
-$players = $ots->createObject('Players_List');
+$players = new OTS_Players_List();
 
 // count of all players - Countable interface implemented
 echo 'There are ' . count($players) . ' players in our database.', "\n";

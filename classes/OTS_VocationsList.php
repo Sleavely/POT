@@ -17,7 +17,7 @@
  * 
  * @package POT
  */
-class OTS_VocationsList implements Iterator, Countable
+class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 {
 /**
  * List of vocations.
@@ -44,6 +44,27 @@ class OTS_VocationsList implements Iterator, Countable
         {
             $this->vocations[ (int) $vocation->getAttribute('id') ] = $vocation->getAttribute('name');
         }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * 
+ * @internal Magic PHP5 method.
+ * @param array $properties List of object properties.
+ */
+    public function __set_state($properties)
+    {
+        $object = new self();
+
+        // loads properties
+        foreach($properties as $name => $value)
+        {
+            $object->$name = $value;
+        }
+
+        return $object;
     }
 
 /**
@@ -86,49 +107,84 @@ class OTS_VocationsList implements Iterator, Countable
     }
 
 /**
- * Returns vocation at current position in iterator.
+ * Returns iterator handle for loops.
  * 
- * @return string Vocation name.
+ * @return ArrayIterator Vocations list iterator.
  */
-    public function current()
+    public function getIterator()
     {
-        return current($this->vocations);
+        return new ArrayIterator($this->vocations);
     }
 
 /**
- * Moves to next iterator vocation.
- */
-    public function next()
-    {
-        next($this->vocations);
-    }
-
-/**
- * Returns ID of current position.
+ * Checks if given element exists.
  * 
- * @return int Current position key.
+ * @param string|int $offset Array key.
+ * @return bool True if it's set.
  */
-    public function key()
+    public function offsetExists($offset)
     {
-        return key($this->vocations);
+        // integer key
+        if( is_int($offset) )
+        {
+            return isset($this->vocations[$offset]);
+        }
+        // vocation name
+        else
+        {
+            return array_search($offset, $this->vocations) !== false;
+        }
     }
 
 /**
- * Checks if there is anything more in interator.
+ * Returns item from given position.
  * 
- * @return bool If iterator has anything more.
+ * @param string|int $offset Array key.
+ * @return mixed If key is an integer (type-sensitive!) then returns vocation name. If it's a string then return associated ID. False if offset is not set.
  */
-    public function valid()
+    public function offsetGet($offset)
     {
-        return key($this->vocations) !== null;
+        // integer key
+        if( is_int($offset) )
+        {
+            if( isset($this->vocations[$offset]) )
+            {
+                return $this->vocations[$offset];
+            }
+            // keys is not set
+            else
+            {
+                return false;
+            }
+        }
+        // vocations name
+        else
+        {
+            return array_search($offset, $this->vocations);
+        }
     }
 
 /**
- * Resets iterator index.
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to vocations list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * 
+ * @param string|int $offset Array key.
+ * @param mixed $value Field value.
+ * @throws E_OTS_ReadOnly Always - this class is read-only.
  */
-    public function rewind()
+    public function offsetSet($offset, $value)
     {
-        reset($this->vocations);
+        throw new E_OTS_ReadOnly();
+    }
+
+/**
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to vocations list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * 
+ * @param string|int $offset Array key.
+ * @throws E_OTS_ReadOnly Always - this class is read-only.
+ */
+    public function offsetUnset($offset)
+    {
+        throw new E_OTS_ReadOnly();
     }
 }
 

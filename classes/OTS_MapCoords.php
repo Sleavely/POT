@@ -9,6 +9,7 @@
  * Code in this file bases on oryginal OTServ OTBM format loading C++ code (iomapotbm.h, iomapotbm.cpp).
  * 
  * @package POT
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -18,25 +19,29 @@
  * Map position point.
  * 
  * @package POT
+ * @version 0.1.0+SVN
+ * @property-read int $x X coord.
+ * @property-read int $y Y coord.
+ * @property-read int $z Z coord.
  */
 class OTS_MapCoords
 {
 /**
- * X
+ * X.
  * 
  * @var int
  */
     private $x;
 
 /**
- * Y
+ * Y.
  * 
  * @var int
  */
     private $y;
 
 /**
- * Z
+ * Z.
  * 
  * @var int
  */
@@ -97,6 +102,29 @@ class OTS_MapCoords
     public function getZ()
     {
         return $this->z;
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'x':
+            case 'y':
+            case 'z':
+                return $this->$name;
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

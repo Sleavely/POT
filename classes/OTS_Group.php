@@ -18,6 +18,14 @@
  * 
  * @package POT
  * @version 0.1.0+SVN
+ * @property string $name Group name.
+ * @property int $flags Access flags.
+ * @property int $access Access level.
+ * @property int $maxDepotItems Maximum count of items in depot.
+ * @property int $maxVIPList Maximum count of entries in VIP list.
+ * @property-read bool $isLoaded Loaded state check.
+ * @property-read int $id Row ID.
+ * @property-read OTS_Players_List $playersList List of members of this group.
  */
 class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -384,8 +392,87 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
  */
     public function count()
     {
-        // count( $this->getPlayersList() ); will be slower
         return $this->getPlayersList()->count();
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'isLoaded':
+                return $this->isLoaded();
+
+            case 'id':
+                return $this->getId();
+
+            case 'name':
+                return $this->getName();
+
+            case 'flags':
+                return $this->getFlags();
+
+            case 'access':
+                return $this->getAccess();
+
+            case 'maxDepotItems':
+                return $this->getMaxDepotItems();
+
+            case 'maxVIPList':
+                return $this->getMaxVIPList();
+
+            case 'playersList':
+                return $this->getPlayersList();
+
+            default:
+                throw new OutOfBoundsException();
+        }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @param mixed $value Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __set($name, $value)
+    {
+        switch($name)
+        {
+            case 'name':
+                $this->setName($value);
+                break;
+
+            case 'flags':
+                $this->setFlags($value);
+                break;
+
+            case 'access':
+                $this->setAccess($value);
+                break;
+
+            case 'maxDepotItems':
+                $this->setMaxDepotItems($value);
+                break;
+
+            case 'maxVIPList':
+                $this->setMaxVIPList($value);
+                break;
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

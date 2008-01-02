@@ -80,7 +80,7 @@ abstract class OTS_Base_DAO implements IOTS_DAO
  * 
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * 
- * @version 0.0.6
+ * @version 0.1.0+SVN
  * @internal Magic PHP5 method.
  * @param array $properties List of object properties.
  */
@@ -93,7 +93,7 @@ abstract class OTS_Base_DAO implements IOTS_DAO
         }
 
         // initializes new object with current database connection
-        $object = new self( POT::getInstance()->getDBHandle() );
+        $object = new self();
 
         // loads properties
         foreach($properties as $name => $value)

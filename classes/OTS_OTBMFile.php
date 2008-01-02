@@ -13,9 +13,8 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.0: Houses support.
- * @todo 1.0.0: Complete OTBM support: link tiles with items, spawns and houses.
  * @todo 1.0.0: Spawns support.
+ * @todo 1.0.0: Complete OTBM support: link tiles with items and spawns.
  */
 
 /**
@@ -23,8 +22,12 @@
  * 
  * @package POT
  * @version 0.1.0+SVN
+ * @property-read OTS_HousesList $housesList Houses list loaded from associated houses file.
+ * @property-read int $width Map width.
+ * @property-read int $height Map height.
+ * @property-read string $description Map description.
  */
-class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
+class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countable, ArrayAccess
 {
 /**
  * Description attribute.
@@ -176,6 +179,20 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
     private $temples = array();
 
 /**
+ * Directory path.
+ * 
+ * @var string
+ */
+    private $directory;
+
+/**
+ * External houses file.
+ * 
+ * @var OTS_HousesList
+ */
+    private $housesList;
+
+/**
  * Magic PHP5 method.
  * 
  * Allows object unserialisation.
@@ -212,6 +229,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
 /**
  * Loads OTBM file content.
  * 
+ * @version 0.1.0+SVN
  * @param string $file Filename.
  */
     public function loadFile($file)
@@ -219,12 +237,17 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
         // loads file structure
         parent::loadFile($file);
 
+        // saves directory path for external files
+        $this->directory = dirname($file);
+
         // parses loaded file
         $this->parse();
     }
 
 /**
  * Parses loaded file.
+ * 
+ * @version 0.1.0+SVN
  */
     private function parse()
     {
@@ -250,8 +273,6 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
             throw new E_OTS_OTBMError(E_OTS_OTBMError::LOADMAPERROR_UNKNOWNNODETYPE);
         }
 
-        $directory = dirname($file);
-
         // reads map attributes
         while( $node->isValid() )
         {
@@ -262,10 +283,13 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
                     $this->description .= $node->getString() . "\n";
                     break;
 
-                // external spawns file
-                case self::OTBM_ATTR_EXT_SPAWN_FILE:
                 // external houses file
                 case self::OTBM_ATTR_EXT_HOUSE_FILE:
+                    $this->housesList = new OTS_HousesList($this->directory . '/' . $node->getString() );
+                    break;
+
+                // external spawns file
+                case self::OTBM_ATTR_EXT_SPAWN_FILE:
                     // just we need to skip known attributes
                     $node->getString();
                     break;
@@ -285,7 +309,31 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
             {
                 // map definition part
                 case self::OTBM_NODE_TILE_AREA:
-/* we don't realy need it in POT, but in case we would, it is possible to add it here */
+                    // reads base X, Y and Z coords
+                    $baseX = $node->getShort();
+                    $baseY = $node->getShort();
+                    $x = $node->getChar();
+
+                    $tile = $node->getChild();
+
+                    // reads houses tiles
+                    while($tile)
+                    {
+                        // we dont need other tiles at the moment in POT, feel free to add it's suport on yourself
+                        if( $tile->getType() == self::OTBM_NODE_HOUSETILE)
+                        {
+                            // reads tile coords
+                            $offsetX = $tile->getChar();
+                            $offsetY = $tile->getChar();
+                            $coords = new OTS_MapCoords($baseX + $offsetX, $baseY + $offsetY, $z);
+
+                            // reads house by it's ID
+                            $house = $this->housesList->getHouse( $tile->getLong() );
+                            $house->addTile($coords);
+                        }
+
+                        $tile = $tile->getNext();
+                    }
                     break;
 
                 // list of towns on map
@@ -322,6 +370,18 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
 
             $node = $node->getNext();
         }
+    }
+
+/**
+ * Loads map's houses list.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return OTS_HousesList Houses from external file.
+ */
+    public function getHousesList()
+    {
+        return $this->housesList;
     }
 
 /**
@@ -430,6 +490,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
  * @version 0.0.8
  * @since 0.0.8
  * @return string Town name.
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function current()
     {
@@ -441,6 +502,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
  * 
  * @version 0.0.8
  * @since 0.0.8
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function next()
     {
@@ -453,6 +515,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
  * @version 0.0.8
  * @since 0.0.8
  * @return int Current position key.
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function key()
     {
@@ -465,6 +528,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
  * @version 0.0.8
  * @since 0.0.8
  * @return bool If iterator has anything more.
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function valid()
     {
@@ -476,10 +540,132 @@ class OTS_OTBMFile extends OTS_FileLoader implements Iterator, Countable
  * 
  * @version 0.0.8
  * @since 0.0.8
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function rewind()
     {
         reset($this->towns);
+    }
+
+/**
+ * Returns iterator handle for loops.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return ArrayIterator Towns list iterator.
+ */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->towns);
+    }
+
+/**
+ * Checks if given element exists.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string|int $offset Array key.
+ * @return bool True if it's set.
+ */
+    public function offsetExists($offset)
+    {
+        // integer key
+        if( is_int($offset) )
+        {
+            return isset($this->towns[$offset]);
+        }
+        // town name
+        else
+        {
+            return $this->getTownId($offset) !== false;
+        }
+    }
+
+/**
+ * Returns item from given position.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string|int $offset Array key.
+ * @return mixed If key is an integer (type-sensitive!) then returns town name. If it's a string then return associated ID found by town name. False if offset is not set.
+ */
+    public function offsetGet($offset)
+    {
+        // integer key
+        if( is_int($offset) )
+        {
+            if( isset($this->towns[$offset]) )
+            {
+                return $this->towns[$offset];
+            }
+            // keys is not set
+            else
+            {
+                return false;
+            }
+        }
+        // town name
+        else
+        {
+            return $this->getTownId($offset);
+        }
+    }
+
+/**
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to towns list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string|int $offset Array key.
+ * @param mixed $value Field value.
+ * @throws E_OTS_ReadOnly Always - this class is read-only.
+ */
+    public function offsetSet($offset, $value)
+    {
+        throw new E_OTS_ReadOnly();
+    }
+
+/**
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to towns list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string|int $offset Array key.
+ * @throws E_OTS_ReadOnly Always - this class is read-only.
+ */
+    public function offsetUnset($offset)
+    {
+        throw new E_OTS_ReadOnly();
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'housesList':
+                return $this->getHousesList();
+
+            case 'width':
+                return $this->getWidth();
+
+            case 'height':
+                return $this->getHeight();
+
+            case 'description':
+                return $this->getDescription();
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

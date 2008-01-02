@@ -15,7 +15,7 @@ include('quickstart.php');
 $number = 123456;
 
 // creates new OTS_Account object
-$account = $ots->createObject('Account');
+$account = new OTS_Account();
 $account->load($number);
 
 // number is busy

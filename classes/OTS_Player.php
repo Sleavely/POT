@@ -11,7 +11,6 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.0: Check item types if they are containers during loading slots/depots.
  */
 
 /**
@@ -19,6 +18,46 @@
  * 
  * @package POT
  * @version 0.1.0+SVN
+ * @property string $name Character name.
+ * @property OTS_Account $account Account to which character belongs.
+ * @property OTS_Group $group Group of which character is member.
+ * @property int $premiumEnd Timestamp of PACC end.
+ * @property int $sex Gender.
+ * @property int $vocation Vocation.
+ * @property int $experience Experience points.
+ * @property int $level Experience level.
+ * @property int $magLevel Magic level.
+ * @property int $health Hit points.
+ * @property int $healthMax Maximum hit points.
+ * @property int $mana Mana.
+ * @property int $manaMax Maximum mana.
+ * @property int $manaSpent Spent mana.
+ * @property int $soul Soul points.
+ * @property int $direction Looking direction.
+ * @property int $lookBody Body color.
+ * @property int $lookFeet Feet color.
+ * @property int $lookHead Hairs color.
+ * @property int $lookLegs Legs color.
+ * @property int $lookType Outfit type.
+ * @property int $lookAddons Addons.
+ * @property int $posX Spawn X coord.
+ * @property int $posY Spawn Y coord.
+ * @property int $posZ Spawn Z coord.
+ * @property int $cap Capacity.
+ * @property int $lastLogin Last login timestamp.
+ * @property int $lastIP Last login IP number.
+ * @property string $conditions Binary conditions.
+ * @property int $redSkullTime Timestamp for which red skull will last.
+ * @property string $guildNick
+ * @property OTS_GuildRank $rank
+ * @property int $townId
+ * @property int $lossExperience
+ * @property int $lossMana
+ * @property int $lossSkills
+ * @property-read int $id Player ID.
+ * @property-read bool $isSaveSet Player save flag.
+ * @property-read bool $hasRedSkull Player red skull flag.
+ * @property-read bool $isBanned Player banned state.
  */
 class OTS_Player extends OTS_Base_DAO
 {
@@ -974,7 +1013,7 @@ class OTS_Player extends OTS_Base_DAO
  * Conditions.
  * 
  * @version 0.0.3
- * @return mixed Conditions.
+ * @return string Conditions binary string.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getConditions()
@@ -990,7 +1029,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Sets conditions.
  * 
- * @param mixed $conditions Condition binary field.
+ * @param string $conditions Condition binary string.
  */
     public function setConditions($conditions)
     {
@@ -1411,11 +1450,12 @@ class OTS_Player extends OTS_Base_DAO
  * 
  * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
  * 
- * @version 0.0.5
+ * @version 0.1.0+SVN
  * @since 0.0.3
  * @param int $slot Slot to get items.
  * @return OTS_Item|null Item in given slot (items tree if in given slot there is a container). If there is no item in slot then null value will be returned.
  * @throws E_OTS_NotLoaded If player is not loaded.
+ * @throws E_OTS_NotAContainer If item which is not of type container contains sub items.
  */
     public function getSlot($slot)
     {
@@ -1439,14 +1479,19 @@ class OTS_Player extends OTS_Base_DAO
             $items[] = $this->getSlot($sub['sid']);
         }
 
-        // checks if current item is a container
-        if( empty($items) )
+        // item type
+        $slot = POT::getInstance()->getItemsList()->getItemType($item['itemtype'])->createItem();
+        $slot->setCount($item['count']);
+        $slot->setAttributes($item['attributes']);
+
+        // checks if current item has any contained items
+        if( !empty($items) )
         {
-            $slot = new OTS_Item($item['itemtype']);
-        }
-        else
-        {
-            $slot = new OTS_Container($item['itemtype']);
+            // checks if item is realy a container
+            if(!$slot instanceof OTS_Container)
+            {
+                throw new E_OTS_NotAContainer();
+            }
 
             // puts items into container
             foreach($items as $sub)
@@ -1454,9 +1499,6 @@ class OTS_Player extends OTS_Base_DAO
                 $slot->addItem($sub);
             }
         }
-
-        $slot->setCount($item['count']);
-        $slot->setAttributes($item['attributes']);
 
         return $slot;
     }
@@ -1546,11 +1588,12 @@ class OTS_Player extends OTS_Base_DAO
  * 
  * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
  * 
- * @version 0.0.5
+ * @version 0.1.0+SVN
  * @since 0.0.3
  * @param int $depot Depot ID to get items.
  * @return OTS_Item|null Item in given depot (items tree if in given depot there is a container). If there is no item in depot then null value will be returned.
  * @throws E_OTS_NotLoaded If player is not loaded.
+ * @throws E_OTS_NotAContainer If item which is not of type container contains sub items.
  */
     public function getDepot($depot)
     {
@@ -1574,14 +1617,19 @@ class OTS_Player extends OTS_Base_DAO
             $items[] = $this->getDepot($sub['sid']);
         }
 
-        // checks if current item is a container
-        if( empty($items) )
+        // item type
+        $depot = POT::getInstance()->getItemsList()->getItemType($item['itemtype'])->createItem();
+        $depot->setCount($item['count']);
+        $depot->setAttributes($item['attributes']);
+
+        // checks if current item has any contained items
+        if( !empty($items) )
         {
-            $depot = new OTS_Item($item['itemtype']);
-        }
-        else
-        {
-            $depot = new OTS_Container($item['itemtype']);
+            // checks if item is realy a container
+            if(!$depot instanceof OTS_Container)
+            {
+                throw new E_OTS_NotAContainer();
+            }
 
             // puts items into container
             foreach($items as $sub)
@@ -1589,9 +1637,6 @@ class OTS_Player extends OTS_Base_DAO
                 $depot->addItem($sub);
             }
         }
-
-        $depot->setCount($item['count']);
-        $depot->setAttributes($item['attributes']);
 
         return $depot;
     }
@@ -1742,10 +1787,11 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Player proffesion name.
  * 
- * @version 0.0.6
+ * @version 0.1.0+SVN
  * @since 0.0.6
  * @return string|bool Player proffesion name.
  * @throws E_OTS_NotLoaded If player is not loaded.
+ * @deprecated 0.1.0+SVN Use POT::getInstance()->getVocationsList().
  */
     public function getVocationName()
     {
@@ -1754,7 +1800,307 @@ class OTS_Player extends OTS_Base_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        return POT::getInstance()->getVocationName($this->data['vocation']);
+        return POT::getInstance()->getVocationsList()->getVocationName($this->data['vocation']);
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'id':
+                return $this->getId();
+
+            case 'name':
+                return $this->getName();
+
+            case 'account':
+                return $this->getAccount();
+
+            case 'group':
+                return $this->getGroup();
+
+            case 'premiumEnd':
+                return $this->getPremiumEnd();
+
+            case 'sex':
+                return $this->getSex();
+
+            case 'vocation':
+                return $this->getVocation();
+
+            case 'experience':
+                return $this->getExperience();
+
+            case 'level':
+                return $this->getLevel();
+
+            case 'magLevel':
+                return $this->getMagLevel();
+
+            case 'health':
+                return $this->getHealth();
+
+            case 'healthMax':
+                return $this->getHealthMax();
+
+            case 'mana':
+                return $this->getMana();
+
+            case 'manaMax':
+                return $this->getManaMax();
+
+            case 'manaSpent':
+                return $this->getManaSpent();
+
+            case 'soul':
+                return $this->getSoul();
+
+            case 'direction':
+                return $this->getDirection();
+
+            case 'lookBody':
+                return $this->getLookBody();
+
+            case 'lookFeet':
+                return $this->getLookFeet();
+
+            case 'lookHead':
+                return $this->getLookHead();
+
+            case 'lookLegs':
+                return $this->getLookLegs();
+
+            case 'lookType':
+                return $this->getLookType();
+
+            case 'lookAddons':
+                return $this->getLookAddons();
+
+            case 'posX':
+                return $this->getPosX();
+
+            case 'posY':
+                return $this->getPosY();
+
+            case 'posZ':
+                return $this->getPosZ();
+
+            case 'cap':
+                return $this->getCap();
+
+            case 'lastLogin':
+                return $this->getLastLogin();
+
+            case 'lastIP':
+                return $this->getLastIP();
+
+            case 'isSaveSet':
+                return $this->isSaveSet();
+
+            case 'conditions':
+                return $this->getConditions();
+
+            case 'redSkullTime':
+                return $this->getRedSkullTime();
+
+            case 'hasRedSkull':
+                return $this->hasRedSkull();
+
+            case 'guildNick':
+                return $this->getGuildNick();
+
+            case 'rank':
+                return $this->getRank();
+
+            case 'townId':
+                return $this->getTownId();
+
+            case 'lossExperience':
+                return $this->getLossExperience();
+
+            case 'lossMana':
+                return $this->getLossMana();
+
+            case 'lossSkills':
+                return $this->getLossSkills();
+
+            case 'isBanned':
+                return $this->isBanned();
+
+            default:
+                throw new OutOfBoundsException();
+        }
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @param mixed $value Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __set($name, $value)
+    {
+        switch($name)
+        {
+            case 'name':
+                $this->setName($value);
+                break;
+
+            case 'account':
+                $this->setAccount($value);
+                break;
+
+            case 'group':
+                $this->setGroup($value);
+                break;
+
+            case 'premiumEnd':
+                $this->setPremiumEnd($value);
+                break;
+
+            case 'sex':
+                $this->setSex($value);
+                break;
+
+            case 'vocation':
+                $this->setVocation($value);
+                break;
+
+            case 'experience':
+                $this->setExperience($value);
+                break;
+
+            case 'level':
+                $this->setLevel($value);
+                break;
+
+            case 'magLevel':
+                $this->setMagLevel($value);
+                break;
+
+            case 'health':
+                $this->setHealth($value);
+                break;
+
+            case 'healthMax':
+                $this->setHealthMax($value);
+                break;
+
+            case 'mana':
+                $this->setMana($value);
+                break;
+
+            case 'manaMax':
+                $this->setManaMax($value);
+                break;
+
+            case 'manaSpent':
+                $this->setManaSpent($value);
+                break;
+
+            case 'soul':
+                $this->setSoul($value);
+                break;
+
+            case 'direction':
+                $this->setDirection($value);
+                break;
+
+            case 'lookBody':
+                $this->setLookBody($value);
+                break;
+
+            case 'lookFeet':
+                $this->setLookFeet($value);
+                break;
+
+            case 'lookHead':
+                $this->setLookHead($value);
+                break;
+
+            case 'lookLegs':
+                $this->setLookLegs($value);
+                break;
+
+            case 'lookType':
+                $this->setLookType($value);
+                break;
+
+            case 'lookAddons':
+                $this->setLookAddons($value);
+                break;
+
+            case 'posX':
+                $this->setPosX($value);
+                break;
+
+            case 'posY':
+                $this->setPosY($value);
+                break;
+
+            case 'posZ':
+                $this->setPosZ($value);
+                break;
+
+            case 'cap':
+                $this->setCap($value);
+                break;
+
+            case 'lastLogin':
+                $this->setLastLogin($value);
+                break;
+
+            case 'lastIP':
+                $this->setLastIP($value);
+                break;
+
+            case 'conditions':
+                $this->setConditions($value);
+                break;
+
+            case 'redSkullTime':
+                $this->setRedSkullTime($value);
+                break;
+
+            case 'guildNick':
+                $this->setGuildNick($value);
+                break;
+
+            case 'rank':
+                $this->setRank($value);
+                break;
+
+            case 'townId':
+                $this->setTownId($value);
+                break;
+
+            case 'lossExperience':
+                $this->setLossExperience($value);
+                break;
+
+            case 'lossMana':
+                $this->setLossMana($value);
+                break;
+
+            case 'lossSkills':
+                $this->setLossSkills($value);
+                break;
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

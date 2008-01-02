@@ -15,7 +15,7 @@ include('../compat.php');
 include('quickstart.php');
 
 // STEP 1: no error here - even thought we loaded class that implements Countable interface which does not exists in PHP 5.0 SPL library, because 'compat' library defines it.
-$list = POT::getInstance()->createObject('Players_List');
+$list = new OTS_Players_List();
 
 // STEP 2: we can do that in every version - count() is in fact just a public method
 echo $list->count();

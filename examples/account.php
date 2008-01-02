@@ -12,7 +12,7 @@
 include('quickstart.php');
 
 // creates new OTS_Account object
-$account = $ots->createObject('Account');
+$account = new OTS_Account();
 
 // generates new account number
 $number = $account->create();

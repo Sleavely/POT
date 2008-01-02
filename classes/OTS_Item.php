@@ -7,16 +7,21 @@
 
 /**
  * @package POT
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.0: Provide item type fetching.
  */
 
 /**
  * Single item representation.
  * 
  * @package POT
+ * @version 0.1.0+SVN
+ * @property int $count Amount of item.
+ * @property string $attributes Attributes binary string.
+ * @property-read int $id Item type ID.
+ * @property-read OTS_ItemType|null $itemType Item type instance.
  */
 class OTS_Item implements Countable
 {
@@ -102,6 +107,18 @@ class OTS_Item implements Countable
     }
 
 /**
+ * Returns type of item.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return OTS_ItemType|null Returns item type of item (null if not exists).
+ */
+    public function getItemType()
+    {
+        return POT::getInstance()->getItemsList()->getItemType($this->id);
+    }
+
+/**
  * Count value for current item.
  * 
  * @return int Count of item.
@@ -109,6 +126,61 @@ class OTS_Item implements Countable
     public function count()
     {
         return $this->count;
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'count':
+                return $this->getCount();
+
+            case 'attributes':
+                return $this->getAttributes();
+
+            case 'id':
+                return $this->getId();
+
+            case 'itemType':
+                return $this->getItemType();
+
+            default:
+                throw new OutOfBoundsException();
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @param mixed $value Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __set($name, $value)
+    {
+        switch($name)
+        {
+            case 'count':
+                $this->setCount($value);
+                break;
+
+            case 'attributes':
+                $this->setAttributes($value);
+                break;
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

@@ -12,10 +12,10 @@
 include('quickstart.php');
 
 // creates new OTS_Account object
-$account = $ots->createObject('Account');
+$account = new OTS_Account();
 
 // group for account
-$group = $ots->createObject('Group');
+$group = new OTS_Group();
 
 // loads group with id 1
 $group->load(1);

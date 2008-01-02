@@ -7,6 +7,7 @@
 
 /**
  * @package POT
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,8 +17,9 @@
  * Container item representation.
  * 
  * @package POT
+ * @version 0.1.0+SVN
  */
-class OTS_Container extends OTS_Item implements Iterator
+class OTS_Container extends OTS_Item implements IteratorAggregate
 {
 /**
  * Contained items.
@@ -71,6 +73,7 @@ class OTS_Container extends OTS_Item implements Iterator
  * Returns current item.
  * 
  * @return OTS_Item Current item.
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function current()
     {
@@ -79,6 +82,8 @@ class OTS_Container extends OTS_Item implements Iterator
 
 /**
  * Moves to next item.
+ * 
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function next()
     {
@@ -89,6 +94,7 @@ class OTS_Container extends OTS_Item implements Iterator
  * Current cursor position.
  * 
  * @return mixed Iterator position.
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function key()
     {
@@ -99,6 +105,7 @@ class OTS_Container extends OTS_Item implements Iterator
  * Checks if there are any items left.
  * 
  * @return bool Does next item exist.
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function valid()
     {
@@ -107,10 +114,24 @@ class OTS_Container extends OTS_Item implements Iterator
 
 /**
  * Resets internal items array pointer.
+ * 
+ * @deprecated 0.1.0+SVN Use getIterator().
  */
     public function rewind()
     {
         reset($this->items);
+    }
+
+/**
+ * Returns iterator handle for loops.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return ArrayIterator Items iterator.
+ */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->items);
     }
 }
 

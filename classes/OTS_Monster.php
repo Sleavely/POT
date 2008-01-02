@@ -7,10 +7,10 @@
 
 /**
  * @package POT
+ * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.0: Fetching loot as item types.
  */
 
 /**
@@ -19,6 +19,21 @@
  * Note: as this class extends DOMDocument class and contains exacly file XML tree you can work on it as on normal DOM tree.
  * 
  * @package POT
+ * @version 0.1.0+SVN
+ * @property-read string $name Monster name.
+ * @property-read string $race Monster race.
+ * @property-read int $experience Experience for killing monster.
+ * @property-read int $speed Monster speed.
+ * @property-read int|bool $manaCost Mana required (false if not possible).
+ * @property-read int $health Hit points.
+ * @property-read array $flags Flags.
+ * @property-read array $voices List of sounds.
+ * @property-read array $items List of possible loot.
+ * @property-read array $immunities List of immunities.
+ * @property-read int $defense Defense rate.
+ * @property-read int $armor Armor rate.
+ * @property-read array $defenses List of defenses.
+ * @property-read array $attacks List of attacks.
  */
 class OTS_Monster extends DOMDocument
 {
@@ -160,6 +175,7 @@ class OTS_Monster extends DOMDocument
  * Returns all possible loot.
  * 
  * @return array List of item IDs.
+ * @deprecated 0.1.0+SVN Use getItems().
  */
     public function getLoot()
     {
@@ -179,6 +195,41 @@ class OTS_Monster extends DOMDocument
                 if( !in_array($id, $loot) )
                 {
                     $loot[] = $id;
+                }
+            }
+        }
+
+        return $loot;
+    }
+
+/**
+ * Returns all possible loot.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return array List of item types.
+ */
+    public function getItems()
+    {
+        $loot = array();
+        $keys = array();
+        $items = POT::getInstance()->getItemsList();
+
+        $element = $this->documentElement->getElementsByTagName('loot')->item(0);
+
+        // checks if it has any loot
+        if( isset($element) )
+        {
+            // adds all items
+            foreach( $element->getElementsByTagName('item') as $item)
+            {
+                $id = $item->getAttribute('id');
+
+                // avoid redundancy
+                if( !in_array($id, $keys) )
+                {
+                    $keys[] = $id;
+                    $loot[] = $items->getItemType($id);
                 }
             }
         }
@@ -323,6 +374,66 @@ class OTS_Monster extends DOMDocument
         }
 
         return $attacks;
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @return mixed Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __get($name)
+    {
+        switch($name)
+        {
+            case 'name':
+                return $this->getName();
+
+            case 'race':
+                return $this->getRace();
+
+            case 'experience':
+                return $this->getExperience();
+
+            case 'speed':
+                return $this->getSpeed();
+
+            case 'manaCost':
+                return $this->getManaCost();
+
+            case 'health':
+                return $this->getHealth();
+
+            case 'flags':
+                return $this->getFlags();
+
+            case 'voices':
+                return $this->getVoices();
+
+            case 'items':
+                return $this->getItems();
+
+            case 'immunities':
+                return $this->getImmunities();
+
+            case 'defense':
+                return $this->getDefense();
+
+            case 'armor':
+                return $this->getArmor();
+
+            case 'defenses':
+                return $this->getDefenses();
+
+            case 'attacks':
+                return $this->getAttacks();
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 

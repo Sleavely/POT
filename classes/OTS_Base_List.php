@@ -18,6 +18,9 @@
  * 
  * @package POT
  * @version 0.1.0+SVN
+ * @property-write int $limit Sets LIMIT clause.
+ * @property-write int $offset Sets OFFSET clause.
+ * @property-write OTS_SQLFilter $filter Sets filter for list SQL query.
  */
 abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 {
@@ -234,10 +237,10 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
     }
 
 /**
- * Returns number of accounts on list in current criterium.
+ * Returns number of rows on list in current criterium.
  * 
  * @version 0.0.5
- * @return int Number of accounts.
+ * @return int Number of rows.
  */
     public function count()
     {
@@ -371,6 +374,36 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
         }
 
         return 'SELECT ' . $fields . ' FROM ' . implode(', ', $tables) . $where . $orderBy . $this->db->limit($this->limit, $this->offset);
+    }
+
+/**
+ * Magic PHP5 method.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @param string $name Property name.
+ * @param mixed $value Property value.
+ * @throws OutOfBoundsException For non-supported properties.
+ */
+    public function __set($name, $value)
+    {
+        switch($name)
+        {
+            case 'limit':
+                $this->setLimit($value);
+                break;
+
+            case 'offset':
+                $this->setOffset($value);
+                break;
+
+            case 'filter':
+                $this->setFilter($value);
+                break;
+
+            default:
+                throw new OutOfBoundsException();
+        }
     }
 }
 
