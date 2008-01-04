@@ -5,6 +5,8 @@
 * Default data/ directory resources instances within POT class. <wrzasq>
 * Each data/ directory resource reader class implements an Iterator/IteratorAggregate, Countable and ArrayAccess interfaces. <wrzasq>
 * Uses IteratorAggregate interface instead of Iterator in some places (returns ArrayIterator as iterator). <wrzasq>
+* __get()/__set() implementation. <wrzasq>
+* __toString() as display drivers. <wrzasq>
 * Additional wrappers for resource binds. <wrzasq>
 * Some additional updates to match OTServ development. <wrzasq>
 * Fixed some typos. <wrzasq>

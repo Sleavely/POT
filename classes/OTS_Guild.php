@@ -682,6 +682,30 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
                 throw new OutOfBoundsException();
         }
     }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method. Else it returns guild name.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDisplayDriverLoaded() )
+        {
+            return $ots->getDisplayDriver()->displayGuild($this);
+        }
+        else
+        {
+            return $this->getName();
+        }
+    }
 }
 
 /**#@-*/

@@ -26,18 +26,18 @@
  * @property int $type Item type.
  * @property-read int $id Item type ID.
  * @property-read array $attributesList List of all attributes.
- * @property-read bool $isBlocking Is item blocking move.
+ * @property-read bool $blocking Is item blocking move.
  * @property-read bool $hasHeight Does item have height.
- * @property-read bool $isUsable Is item usable.
- * @property-read bool $isPickupable Is player able to pick it up.
- * @property-read bool $isMovable Can be moved.
- * @property-read bool $isStackable Can be stacked.
- * @property-read bool $isAlwaysOnTop Is always on top of stack.
- * @property-read bool $isReadable Has readable sign.
- * @property-read bool $isRotable Can be rotated.
- * @property-read bool $isHangable Can be hang.
- * @property-read bool $isVertical Is verticaly oriented.
- * @property-read bool $isHorizontal Is horizontaly oriented.
+ * @property-read bool $usable Is item usable.
+ * @property-read bool $pickupable Is player able to pick it up.
+ * @property-read bool $movable Can be moved.
+ * @property-read bool $stackable Can be stacked.
+ * @property-read bool $alwaysOnTop Is always on top of stack.
+ * @property-read bool $readable Has readable sign.
+ * @property-read bool $rotable Can be rotated.
+ * @property-read bool $hangable Can be hang.
+ * @property-read bool $vertical Is verticaly oriented.
+ * @property-read bool $horizontal Is horizontaly oriented.
  * @property-write int $flags Special flags. 
  */
 class OTS_ItemType
@@ -609,40 +609,40 @@ class OTS_ItemType
             case 'attributesList':
                 return $this->getAttributesList();
 
-            case 'isBlocking':
+            case 'blocking':
                 return $this->isBlocking();
 
             case 'hasHeight':
                 return $this->hasHeight();
 
-            case 'isUsable':
+            case 'usable':
                 return $this->isUsable();
 
-            case 'isPickupable':
+            case 'pickupable':
                 return $this->isPickupable();
 
-            case 'isMovable':
+            case 'movable':
                 return $this->isMovable();
 
-            case 'isStackable':
+            case 'stackable':
                 return $this->isStackable();
 
-            case 'isAlwaysOnTop':
+            case 'alwaysOnTop':
                 return $this->isAlwaysOnTop();
 
-            case 'isReadable':
+            case 'readable':
                 return $this->isReadable();
 
-            case 'isRotable':
+            case 'rotable':
                 return $this->isRotable();
 
-            case 'isHangable':
+            case 'hangable':
                 return $this->isHangable();
 
-            case 'isVertical':
+            case 'vertical':
                 return $this->isVertical();
 
-            case 'isHorizontal':
+            case 'horizontal':
                 return $this->isHorizontal();
 
             default:

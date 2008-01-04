@@ -22,17 +22,17 @@
  * @property-read string $name Spell name.
  * @property-read int $id Spell ID.
  * @property-read string $words Spell formula.
- * @property-read bool $isAgressive Does spell marks action as an attack.
+ * @property-read bool $agressive Does spell marks action as an attack.
  * @property-read int $charges Rune charges count.
  * @property-read int $level Required level.
  * @property-read int $magicLevel Required magic level.
  * @property-read int $mana Mana usage.
  * @property-read int $soul Soul points usage.
  * @property-read bool $hasParams Does spell has any arguments.
- * @property-read bool $isEnabled Is spell enabled.
- * @property-read bool $isFarUseAllowed Can the spell be used from distance.
- * @property-read bool $isPremium Does spell requires PACC.
- * @property-read bool $isLearnNeeded Does the spell needs to be learned.
+ * @property-read bool $enabled Is spell enabled.
+ * @property-read bool $farUseAllowed Can the spell be used from distance.
+ * @property-read bool $premium Does spell requires PACC.
+ * @property-read bool $learnNeeded Does the spell needs to be learned.
  * @property-read OTS_ItemType|null $conjure Conjure item type.
  * @property-read OTS_ItemType|null $reagent Item required to cast this spell.
  * @property-read int $conjuresCount Amount of items created with conjure cast.
@@ -342,7 +342,7 @@ class OTS_Spell
             case 'words':
                 return $this->getWords();
 
-            case 'isAggressive':
+            case 'aggressive':
                 return $this->isAggressive();
 
             case 'charges':
@@ -363,16 +363,16 @@ class OTS_Spell
             case 'hasParams':
                 return $this->hasParams();
 
-            case 'isEnabled':
+            case 'enabled':
                 return $this->isEnabled();
 
-            case 'isFarUseAllowed':
+            case 'farUseAllowed':
                 return $this->isFarUseAllowed();
 
-            case 'isPremium':
+            case 'premium':
                 return $this->isPremium();
 
-            case 'isLearnNeeded':
+            case 'learnNeeded':
                 return $this->isLearnNeeded();
 
             case 'conjure':
@@ -390,6 +390,18 @@ class OTS_Spell
             default:
                 throw new OutOfBoundsException();
         }
+    }
+
+/**
+ * Returns string representation of XML.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        return $this->element->ownerDocument->saveXML($this->element);
     }
 }
 

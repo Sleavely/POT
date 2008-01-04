@@ -21,7 +21,7 @@
  * @property string $name Rank title.
  * @property OTS_Guild $guild Guild in which rank exists.
  * @property int $level Guild access level.
- * @property-read bool $isLoaded Loaded state check.
+ * @property-read bool $loaded Loaded state check.
  * @property-read int $id Row ID.
  * @property-read OTS_Players_List $playersList List of members with this rank.
  */
@@ -378,7 +378,7 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
     {
         switch($name)
         {
-            case 'isLoaded':
+            case 'loaded':
                 return $this->isLoaded();
 
             case 'id':
@@ -428,6 +428,30 @@ class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
 
             default:
                 throw new OutOfBoundsException();
+        }
+    }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method. Else it returns rank name.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDisplayDriverLoaded() )
+        {
+            return $ots->getDisplayDriver()->displayGuildRank($this);
+        }
+        else
+        {
+            return $this->getName();
         }
     }
 }

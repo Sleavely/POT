@@ -24,7 +24,7 @@
  * @property OTS_FileNode $next Next sibling node.
  * @property OTS_FileNode $child First child node.
  * @property int $type Node type.
- * @property-read bool $isValid isValid() method wrapper.
+ * @property-read bool $valid isValid() method wrapper.
  * @property-read int $char getChar() method wrapper.
  * @property-read int $short getShort() method wrapper.
  * @property-read int $long getLong() method wrapper.
@@ -312,7 +312,7 @@ class OTS_FileNode
                 return $this->$name;
 
             // isValid() wrapper
-            case 'isValid':
+            case 'valid':
                 return $this->isValid();
 
             // getChar() wrapper

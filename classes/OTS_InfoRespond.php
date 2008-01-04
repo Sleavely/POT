@@ -349,6 +349,18 @@ class OTS_InfoRespond extends DOMDocument
                 throw new OutOfBoundsException();
         }
     }
+
+/**
+ * Returns string representation of XML.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        return $this->saveXML();
+    }
 }
 
 /**#@-*/

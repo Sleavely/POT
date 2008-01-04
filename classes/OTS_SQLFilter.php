@@ -89,6 +89,7 @@ class OTS_SQLFilter extends OTS_Base_DAO
  * 
  * Returned string can be easily inserted into SQL query.
  * 
+ * @version 0.1.0+SVN
  * @internal Magic PHP5 function.
  * @return string String WHERE clause.
  */
@@ -132,15 +133,7 @@ class OTS_SQLFilter extends OTS_Base_DAO
                 // left side
                 if($criterium['left'] instanceof OTS_SQLField)
                 {
-                    $table = $criterium['left']->getTable();
-
-                    // full table name
-                    if( !empty($table) )
-                    {
-                        $table = $this->db->tableName($table) . '.';
-                    }
-
-                    $where .= $table . $this->db->fieldName( $criterium['left']->getName() );
+                    $where .= $criterium['left']->__toString();
                 }
                 else
                 {
@@ -194,15 +187,7 @@ class OTS_SQLFilter extends OTS_Base_DAO
                 // right side
                 if($criterium['right'] instanceof OTS_SQLField)
                 {
-                    $table = $criterium['right']->getTable();
-
-                    // full table name
-                    if( !empty($table) )
-                    {
-                        $table = $this->db->tableName($table) . '.';
-                    }
-
-                    $where .= $table . $this->db->fieldName( $criterium['right']->getName() );
+                    $where .= $criterium['right']->__toString();
                 }
                 else
                 {

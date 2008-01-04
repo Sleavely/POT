@@ -89,6 +89,33 @@ class OTS_SQLField
                 throw new OutOfBoundsException();
         }
     }
+
+/**
+ * Returns string representation of WHERE clause.
+ * 
+ * Returned string can be easily inserted into SQL query.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @internal Magic PHP5 function.
+ * @return string String WHERE clause.
+ */
+    public function __toString()
+    {
+        // database handle
+        $db = POT::getInstance()->getDBHandle();
+
+        // basic name
+        $name = $db->fieldName($this->name);
+
+        // prepends table name
+        if( !empty($this->table) )
+        {
+            $name = $db->tableName($this->table) . '.' . $name;
+        }
+
+        return $name;
+    }
 }
 
 /**#@-*/

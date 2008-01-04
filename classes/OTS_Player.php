@@ -54,10 +54,11 @@
  * @property int $lossExperience
  * @property int $lossMana
  * @property int $lossSkills
+ * @property bool $save Player save flag.
+ * @property bool $redSkull Player red skull flag.
+ * @property bool $banned Player banned state.
  * @property-read int $id Player ID.
- * @property-read bool $isSaveSet Player save flag.
- * @property-read bool $hasRedSkull Player red skull flag.
- * @property-read bool $isBanned Player banned state.
+ * @property-read bool $loaded Loaded state.
  */
 class OTS_Player extends OTS_Base_DAO
 {
@@ -1791,7 +1792,6 @@ class OTS_Player extends OTS_Base_DAO
  * @since 0.0.6
  * @return string|bool Player proffesion name.
  * @throws E_OTS_NotLoaded If player is not loaded.
- * @deprecated 0.1.0+SVN Use POT::getInstance()->getVocationsList().
  */
     public function getVocationName()
     {
@@ -1903,7 +1903,7 @@ class OTS_Player extends OTS_Base_DAO
             case 'lastIP':
                 return $this->getLastIP();
 
-            case 'isSaveSet':
+            case 'save':
                 return $this->isSaveSet();
 
             case 'conditions':
@@ -1912,7 +1912,7 @@ class OTS_Player extends OTS_Base_DAO
             case 'redSkullTime':
                 return $this->getRedSkullTime();
 
-            case 'hasRedSkull':
+            case 'redSkull':
                 return $this->hasRedSkull();
 
             case 'guildNick':
@@ -1933,7 +1933,10 @@ class OTS_Player extends OTS_Base_DAO
             case 'lossSkills':
                 return $this->getLossSkills();
 
-            case 'isBanned':
+            case 'loaded':
+                return $this->isLoaded();
+
+            case 'banned':
                 return $this->isBanned();
 
             default:
@@ -2098,8 +2101,65 @@ class OTS_Player extends OTS_Base_DAO
                 $this->setLossSkills($value);
                 break;
 
+            case 'redSkull':
+                if($value)
+                {
+                    $this->setRedSkull();
+                }
+                else
+                {
+                    $this->unsetRedSkull();
+                }
+                break;
+
+            case 'save':
+                if($value)
+                {
+                    $this->setSave();
+                }
+                else
+                {
+                    $this->unsetSave();
+                }
+                break;
+
+            case 'banned':
+                if($value)
+                {
+                    $this->ban();
+                }
+                else
+                {
+                    $this->unban();
+                }
+                break;
+
             default:
                 throw new OutOfBoundsException();
+        }
+    }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method. Else it returns character name.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDisplayDriverLoaded() )
+        {
+            return $ots->getDisplayDriver()->displayPlayer($this);
+        }
+        else
+        {
+            return $this->getName();
         }
     }
 }

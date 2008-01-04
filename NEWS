@@ -34,6 +34,14 @@ What's new in 0.1.0+SVN version?
 
     This makes our code smaller. However note that this cause direct call to current(), rewind() and other Iterator interface methods impossible on objects with IteratorAggregate interface implemented (for backward compatibility those methods are still there, but are marked as deprecated).
 
+* __get()/__set() implementation.
+
+    Many classes now has __get() and __set() methods defined so you no longer have to call get*() and set*() methods since many properties are emulated.
+
+* __toString() as display drivers.
+
+    Classes with database content has now __toString() methods defined which allows to implement display logic on lower level. You can write own display driver which objects will call automaticly when code will attempt to output them.
+
 * Additional wrappers for resource binds.
 
     There are some additional functions which can make it easier for you to evaluate some things like create conjure item with sepll object etc.

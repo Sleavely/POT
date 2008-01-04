@@ -20,11 +20,11 @@
  * @version 0.1.0+SVN
  * @property string $password Password.
  * @property string $eMail Email address.
+ * @property bool $blocked Blocked flag state.
+ * @property bool $banned Ban state.
  * @property-read int $id Account number.
- * @property-read bool $isLoaded Loaded state.
+ * @property-read bool $loaded Loaded state.
  * @property-read OTS_Players_List $playersList Characters of this account.
- * @property-read bool $isBlocked Blocked flag state.
- * @property-read bool $isBanned Ban state.
  */
 class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
 {
@@ -586,16 +586,16 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
             case 'eMail':
                 return $this->getEMail();
 
-            case 'isLoaded':
+            case 'loaded':
                 return $this->isLoaded();
 
             case 'playersList':
                 return $this->getPlayersList();
 
-            case 'isBlocked':
+            case 'blocked':
                 return $this->isBlocked();
 
-            case 'isBanned':
+            case 'banned':
                 return $this->isBanned();
 
             default:
@@ -624,8 +624,54 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
                 $this->setEMail($value);
                 break;
 
+            case 'blocked':
+                if($value)
+                {
+                    $this->block();
+                }
+                else
+                {
+                    $this->unblock();
+                }
+                break;
+
+            case 'banned':
+                if($value)
+                {
+                    $this->ban();
+                }
+                else
+                {
+                    $this->unban();
+                }
+                break;
+
             default:
                 throw new OutOfBoundsException();
+        }
+    }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method. Otherwise just returns account number.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDisplayDriverLoaded() )
+        {
+            return $ots->getDisplayDriver()->displayAccount($this);
+        }
+        else
+        {
+            return $this->getId();
         }
     }
 }

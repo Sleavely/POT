@@ -23,6 +23,7 @@ if( !class_exists('OutOfBoundsException') )
 {
 /**
  * @ignore
+ * @version 0.1.0+SVN
  * @since 0.1.0+SVN
  */
     class OutOfBoundsException extends Exception

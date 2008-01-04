@@ -23,7 +23,7 @@
  * @property int $access Access level.
  * @property int $maxDepotItems Maximum count of items in depot.
  * @property int $maxVIPList Maximum count of entries in VIP list.
- * @property-read bool $isLoaded Loaded state check.
+ * @property-read bool $loaded Loaded state check.
  * @property-read int $id Row ID.
  * @property-read OTS_Players_List $playersList List of members of this group.
  */
@@ -408,7 +408,7 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
     {
         switch($name)
         {
-            case 'isLoaded':
+            case 'loaded':
                 return $this->isLoaded();
 
             case 'id':
@@ -472,6 +472,30 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
 
             default:
                 throw new OutOfBoundsException();
+        }
+    }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method. Else it returns group name.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDisplayDriverLoaded() )
+        {
+            return $ots->getDisplayDriver()->displayGroup($this);
+        }
+        else
+        {
+            return $this->getName();
         }
     }
 }
