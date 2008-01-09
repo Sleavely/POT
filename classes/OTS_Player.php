@@ -9,7 +9,7 @@
  * @package POT
  * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -59,6 +59,8 @@
  * @property bool $banned Player banned state.
  * @property-read int $id Player ID.
  * @property-read bool $loaded Loaded state.
+ * @property-read string $townName Name of town in which player residents.
+ * @property-read OTS_House $house House which player rents.
  */
 class OTS_Player extends OTS_Base_DAO
 {
@@ -1804,6 +1806,52 @@ class OTS_Player extends OTS_Base_DAO
     }
 
 /**
+ * Player residence town name.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return string|bool Player town name.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function getVocationName()
+    {
+        if( !isset($this->data['town_id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        return POT::getInstance()->getMap()->getTownName($this->data['town_id']);
+    }
+
+/**
+ * Returns house rented by this player.
+ * 
+ * @version 0.1.0+SVN
+ * @since 0.1.0+SVN
+ * @return OTS_House|null House rented by player.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function getHouse()
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // SELECT query on database
+        $house = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('houses') . ' WHERE ' . $this->db->fieldName('owner') . ' = ' . $this->data['id'])->fetch();
+
+        if( !empty($house) )
+        {
+            return POT::getInstance()->getHousesList()->getHouse($house['id']);
+        }
+        else
+        {
+           return null;
+        }
+    }
+
+/**
  * Magic PHP5 method.
  * 
  * @version 0.1.0+SVN
@@ -1923,6 +1971,12 @@ class OTS_Player extends OTS_Base_DAO
 
             case 'townId':
                 return $this->getTownId();
+
+            case 'townName':
+                return $this->getTownName();
+
+            case 'house':
+                return $this->getHouse();
 
             case 'lossExperience':
                 return $this->getLossExperience();
