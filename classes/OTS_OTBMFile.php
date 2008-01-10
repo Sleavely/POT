@@ -312,7 +312,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
                     // reads base X, Y and Z coords
                     $baseX = $node->getShort();
                     $baseY = $node->getShort();
-                    $x = $node->getChar();
+                    $z = $node->getChar();
 
                     $tile = $node->getChild();
 

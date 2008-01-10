@@ -376,6 +376,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
                     case OTS_ItemType::ITEM_GROUP_RUNE:
                     case OTS_ItemType::ITEM_GROUP_SPLASH:
                     case OTS_ItemType::ITEM_GROUP_FLUID:
+                    case OTS_ItemType::ITEM_GROUP_DEPRECATED:
                         break;
 
                     // unknown type

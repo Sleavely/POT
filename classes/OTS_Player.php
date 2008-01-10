@@ -1813,7 +1813,7 @@ class OTS_Player extends OTS_Base_DAO
  * @return string|bool Player town name.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
-    public function getVocationName()
+    public function getTownName()
     {
         if( !isset($this->data['town_id']) )
         {

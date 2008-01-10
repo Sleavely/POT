@@ -9,7 +9,7 @@
  * @package POT
  * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -155,6 +155,7 @@ class OTS_Item implements Countable
 
             default:
                 throw new OutOfBoundsException();
+        }
     }
 
 /**

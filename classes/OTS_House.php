@@ -8,7 +8,7 @@
 /**
  * @package POT
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -30,6 +30,13 @@
  */
 class OTS_House extends OTS_Base_DAO
 {
+/**
+ * House rent info.
+ * 
+ * @var array
+ */
+    private $data = array();
+
 /**
  * Information handler.
  * 

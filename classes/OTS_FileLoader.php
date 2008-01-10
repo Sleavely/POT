@@ -11,7 +11,7 @@
  * @package POT
  * @version 0.1.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -124,6 +124,7 @@ class OTS_FileLoader
 /**
  * Opens file.
  * 
+ * @version 0.1.0+SVN
  * @param string $file Filepath.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  */
@@ -149,7 +150,7 @@ class OTS_FileLoader
             // reads file version
             $version = unpack('L', fread($this->file, 4) );
 
-            if($version[0] > 0)
+            if($version[1] > 0)
             {
                 throw new E_OTS_FileLoaderError(E_OTS_FileLoaderError::ERROR_INVALID_FILE_VERSION);
             }
