@@ -83,11 +83,11 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Sets database connection handler.
  * 
- * @param PDO $db Database connection object.
+ * @version 0.1.0+SVN
  */
-    public function __construct(PDO $db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = POT::getInstance()->getDBHandle();
         $this->init();
     }
 
