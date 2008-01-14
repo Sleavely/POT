@@ -179,13 +179,13 @@ class POTTest extends PHPUnit_Framework_TestCase {
 
         $this->ots->connect(POT::DB_SQLITE, $this->config);
 
-        $account = $this->ots->createObject('Account');
+        $account = new OTS_Account();
         $number = $account->create();
-        $players = $account->getPlayers();
+        $players = $account->getPlayersList();
 
         $this->assertEquals(true, $account->isBlocked() );
         $this->assertEquals(true, is_int($number) );
-        $this->assertEquals(true, is_array($players) && empty($players) );
+        $this->assertEquals(true, $players instanceof Iterator && count($players) == 0);
     }
 }
 

@@ -1,4 +1,4 @@
-[0.1.0+SVN]
+[0.1.0]
 * Houses support. <wrzasq>
 * No need to call POT::createObject(). <wrzasq>
 * Separated data/ directory resources loaders. <wrzasq>
@@ -10,7 +10,7 @@
 * Additional wrappers for resource binds. <wrzasq>
 * Some additional updates to match OTServ development. <wrzasq>
 * Fixed some typos. <wrzasq>
-* Code vleanup. <wrzasq>
+* Code cleanup. <wrzasq>
 
 [0.0.8]
 * Added items.xml and items.otb files support. <wrzasq>

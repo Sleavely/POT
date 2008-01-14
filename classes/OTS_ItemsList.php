@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ items loading C++ code (itemloader.h, items.cpp, items.h).
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -19,7 +19,7 @@
  * Items list loader.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @property-read int $otbVersion OTB file version.
  * @property-read int $clientVersion Dedicated client version.
  * @property-read int $buildVersion File build version.
@@ -205,7 +205,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Parses loaded file.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @throws E_OTS_FileLoaderError If file has invalid format.
  */
     private function parse()
@@ -466,7 +466,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * Returns all loaded items.
  * 
  * @return array List of item types.
- * @deprecated 0.1.0+SVN Use this class object as array for iterations, counting and methods for field fetching.
+ * @deprecated 0.1.0 Use this class object as array for iterations, counting and methods for field fetching.
  */
     public function getItemTypesList()
     {
@@ -487,7 +487,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * Returns item at current position in iterator.
  * 
  * @return string Item name.
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function current()
     {
@@ -497,7 +497,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Moves to next iterator item.
  * 
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function next()
     {
@@ -508,7 +508,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * Returns ID of current position.
  * 
  * @return int Current position key.
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function key()
     {
@@ -519,7 +519,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * Checks if there is anything more in interator.
  * 
  * @return bool If iterator has anything more.
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function valid()
     {
@@ -529,7 +529,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Resets iterator index.
  * 
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function rewind()
     {
@@ -539,8 +539,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Returns iterator handle for loops.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return ArrayIterator Items list iterator.
  */
     public function getIterator()
@@ -551,8 +551,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Checks if given element exists.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @return bool True if it's set.
  */
@@ -573,8 +573,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Returns item from given position.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @return mixed If key is an integer (type-sensitive!) then returns item type instance. If it's a string then return associated ID found by type name. False if offset is not set.
  */
@@ -603,8 +603,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * This method is implemented for ArrayAccess interface. In fact you can't write/append to items list. Any call to this method will cause E_OTS_ReadOnly raise.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @param mixed $value Field value.
  * @throws E_OTS_ReadOnly Always - this class is read-only.
@@ -617,8 +617,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * This method is implemented for ArrayAccess interface. In fact you can't write/append to items list. Any call to this method will cause E_OTS_ReadOnly raise.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @throws E_OTS_ReadOnly Always - this class is read-only.
  */
@@ -630,8 +630,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.

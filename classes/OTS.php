@@ -9,7 +9,7 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -31,7 +31,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  */
 class POT
 {
@@ -286,7 +286,7 @@ class POT
  * 
  * @version 0.0.7
  * @since 0.0.7
- * @deprecated 0.1.0+SVN Use OTS_SpellsList::SPELL_RUNE.
+ * @deprecated 0.1.0 Use OTS_SpellsList::SPELL_RUNE.
  */
     const SPELL_RUNE = 0;
 /**
@@ -294,7 +294,7 @@ class POT
  * 
  * @version 0.0.7
  * @since 0.0.7
- * @deprecated 0.1.0+SVN Use OTS_SpellsList::SPELL_INSTANT.
+ * @deprecated 0.1.0 Use OTS_SpellsList::SPELL_INSTANT.
  */
     const SPELL_INSTANT = 1;
 /**
@@ -302,7 +302,7 @@ class POT
  * 
  * @version 0.0.7
  * @since 0.0.7
- * @deprecated 0.1.0+SVN Use OTS_SpellsList::SPELL_CONJURE.
+ * @deprecated 0.1.0 Use OTS_SpellsList::SPELL_CONJURE.
  */
     const SPELL_CONJURE = 2;
 
@@ -475,10 +475,10 @@ class POT
 /**
  * Creates OTServ DAO class instance.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @param string $class Class name.
  * @return IOTS_DAO OTServ database object.
- * @deprecated 0.1.0+SVN Create objects directly from now.
+ * @deprecated 0.1.0 Create objects directly from now.
  */
     public function createObject($class)
     {
@@ -659,10 +659,10 @@ class POT
 /**
  * Creates lists filter.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.5
  * @return OTS_SQLFilter Filter object.
- * @deprecated 0.1.0+SVN Create objects directly from now.
+ * @deprecated 0.1.0 Create objects directly from now.
  */
     public function createFilter()
     {
@@ -672,7 +672,7 @@ class POT
 /**
  * List of vocations.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.5
  * @var OTS_VocationsList
  */
@@ -681,7 +681,7 @@ class POT
 /**
  * Loads vocations list.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.5
  * @param string $file vocations.xml file location.
  */
@@ -694,8 +694,8 @@ class POT
 /**
  * Checks if vocations are loaded.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return bool True if vocations are loaded.
  */
     public function areVocationsLoaded()
@@ -706,8 +706,8 @@ class POT
 /**
  * Unloads vocations list.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  */
     public function unloadVocations()
     {
@@ -717,7 +717,7 @@ class POT
 /**
  * Returns vocations list object.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.5
  * @return OTS_VocationsList List of vocations.
  * @throws E_OTS_NotLoaded If vocations list is not loaded.
@@ -737,7 +737,7 @@ class POT
 /**
  * Returns vocation's ID.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.5
  * @param string $name Vocation.
  * @return int|bool ID (false if not found).
@@ -758,7 +758,7 @@ class POT
 /**
  * Returns name of given vocation's ID.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.5
  * @param int $id Vocation ID.
  * @return string|bool Name (false if not found).
@@ -779,7 +779,7 @@ class POT
 /**
  * List of loaded monsters.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.6
  * @var OTS_MonstersList
  */
@@ -788,7 +788,7 @@ class POT
 /**
  * Loads monsters mapping file.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.6
  * @param string $path Monsters directory.
  */
@@ -800,8 +800,8 @@ class POT
 /**
  * Checks if monsters are loaded.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return bool True if monsters are loaded.
  */
     public function areMonstersLoaded()
@@ -812,8 +812,8 @@ class POT
 /**
  * Unloads monsters list.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  */
     public function unloadMonsters()
     {
@@ -823,7 +823,7 @@ class POT
 /**
  * Returns list of laoded monsters.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.6
  * @return OTS_MonstersList List of monsters.
  * @throws E_OTS_NotLoaded If monsters list is not loaded.
@@ -843,7 +843,7 @@ class POT
 /**
  * Returns loaded data of given monster.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.6
  * @param string $name Monster name.
  * @return OTS_Monster|null Monster data (null if not exists).
@@ -864,8 +864,8 @@ class POT
 /**
  * Spells list.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @var OTS_SpellsList
  */
     private $spells;
@@ -873,7 +873,7 @@ class POT
 /**
  * Loads spells list.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.7
  * @param string $file Spells file name.
  */
@@ -885,8 +885,8 @@ class POT
 /**
  * Checks if spells are loaded.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return bool True if spells are loaded.
  */
     public function areSpellsLoaded()
@@ -897,8 +897,8 @@ class POT
 /**
  * Unloads spells list.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  */
     public function unloadSpells()
     {
@@ -908,8 +908,8 @@ class POT
 /**
  * Returns list of laoded spells.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_SpellsList List of spells.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
  */
@@ -928,7 +928,7 @@ class POT
 /**
  * Returns list of runes.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.7
  * @return array List of rune names.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
@@ -948,7 +948,7 @@ class POT
 /**
  * Returns given rune spell.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.7
  * @param string $name Rune name.
  * @return OTS_Spell|null Rune spell wrapper (null if rune does not exist).
@@ -969,7 +969,7 @@ class POT
 /**
  * Returns list of instants.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.7
  * @return array List of instant spells names.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
@@ -989,7 +989,7 @@ class POT
 /**
  * Returns given instant spell.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.7
  * @param string $name Spell name.
  * @return OTS_Spell|null Instant spell wrapper (null if rune does not exist).
@@ -1010,7 +1010,7 @@ class POT
 /**
  * Returns list of conjure spells.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.7
  * @return array List of conjure spells names.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
@@ -1030,7 +1030,7 @@ class POT
 /**
  * Returns given conjure spell.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.7
  * @param string $name Spell name.
  * @return OTS_Spell|null Conjure spell wrapper (null if rune does not exist).
@@ -1051,8 +1051,8 @@ class POT
 /**
  * List of loaded houses.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @var OTS_HousesList
  */
     private $houses;
@@ -1060,8 +1060,8 @@ class POT
 /**
  * Loads houses list file.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $path Houses file.
  */
     public function loadHouses($path)
@@ -1072,8 +1072,8 @@ class POT
 /**
  * Checks if houses are loaded.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return bool True if houses are loaded.
  */
     public function areHousesLoaded()
@@ -1084,8 +1084,8 @@ class POT
 /**
  * Unloads houses list.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  */
     public function unloadHouses()
     {
@@ -1095,8 +1095,8 @@ class POT
 /**
  * Returns list of laoded houses.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_HousesList List of houses.
  * @throws E_OTS_NotLoaded If houses list is not loaded.
  */
@@ -1115,8 +1115,8 @@ class POT
 /**
  * Returns house information.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param int $id House ID.
  * @return OTS_House|null House information wrapper (null if not found house).
  * @throws E_OTS_NotLoaded If houses list is not loaded.
@@ -1136,8 +1136,8 @@ class POT
 /**
  * Returns ID of house with given name.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name House name.
  * @return int|bool House ID (false if not found).
  * @throws E_OTS_NotLoaded If houses list is not loaded.
@@ -1157,8 +1157,8 @@ class POT
 /**
  * Cache handler for items loading.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @var IOTS_FileCache
  */
     private $itemsCache;
@@ -1176,8 +1176,8 @@ class POT
 /**
  * List of loaded items.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @var OTS_ItemsList
  */
     private $items;
@@ -1185,8 +1185,8 @@ class POT
 /**
  * Loads items list.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $path Items information directory.
  */
     public function loadItems($path)
@@ -1205,8 +1205,8 @@ class POT
 /**
  * Checks if items are loaded.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return bool True if items are loaded.
  */
     public function areItemsLoaded()
@@ -1217,8 +1217,8 @@ class POT
 /**
  * Unloads items list.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  */
     public function unloadItems()
     {
@@ -1228,8 +1228,8 @@ class POT
 /**
  * Returns list of laoded items.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_ItemsList List of items.
  * @throws E_OTS_NotLoaded If items list is not loaded.
  */
@@ -1248,8 +1248,8 @@ class POT
 /**
  * Returns item type instance.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param int $id Item type ID.
  * @return OTS_ItemType|null Item type object (null if not found).
  * @throws E_OTS_NotLoaded If items list is not loaded.
@@ -1269,8 +1269,8 @@ class POT
 /**
  * Returns ID of type with given name.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Item type name.
  * @return int|bool Type ID (false if not found).
  * @throws E_OTS_NotLoaded If items list is not loaded.
@@ -1290,8 +1290,8 @@ class POT
 /**
  * Cache handler for OTBM loading.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @var IOTS_FileCache
  */
     private $mapCache;
@@ -1309,8 +1309,8 @@ class POT
 /**
  * Loaded map.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @var OTS_OTBMFile
  */
     private $map;
@@ -1320,8 +1320,8 @@ class POT
  * 
  * Note: This method will also load houses list associated with map.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $path Map file path.
  */
     public function loadMap($path)
@@ -1341,8 +1341,8 @@ class POT
 /**
  * Checks if OTBM is loaded.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return bool True if map is loaded.
  */
     public function isMapLoaded()
@@ -1353,8 +1353,8 @@ class POT
 /**
  * Unloads OTBM map.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  */
     public function unloadMap()
     {
@@ -1364,8 +1364,8 @@ class POT
 /**
  * Returns loaded map.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_OTBMFile Loaded OTBM file.
  * @throws E_OTS_NotLoaded If map is not loaded.
  */
@@ -1384,8 +1384,8 @@ class POT
 /**
  * Returns map width.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int Map width.
  * @throws E_OTS_NotLoaded If map is not loaded.
  */
@@ -1404,8 +1404,8 @@ class POT
 /**
  * Returns map height.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int Map height.
  * @throws E_OTS_NotLoaded If map is not loaded.
  */
@@ -1424,8 +1424,8 @@ class POT
 /**
  * Returns map description.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return string Map description.
  * @throws E_OTS_NotLoaded If map is not loaded.
  */
@@ -1444,8 +1444,8 @@ class POT
 /**
  * Returns town's ID.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Town.
  * @return int|bool ID (false if not found).
  * @throws E_OTS_NotLoaded If map is not loaded.
@@ -1465,8 +1465,8 @@ class POT
 /**
  * Returns name of given town's ID.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param int $id Town ID.
  * @return string|bool Name (false if not found).
  * @throws E_OTS_NotLoaded If map is not loaded.
@@ -1486,8 +1486,8 @@ class POT
 /**
  * Display driver.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @var IOTS_Display
  */
     private $display;
@@ -1495,8 +1495,8 @@ class POT
 /**
  * Sets display driver.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param IOTS_Display $display Display driver.
  */
     public function setDisplayDriver(IOTS_Display $display)
@@ -1507,8 +1507,8 @@ class POT
 /**
  * Checks if any display driver is loaded.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return bool True if driver is loaded.
  */
     public function isDisplayDriverLoaded()
@@ -1519,8 +1519,8 @@ class POT
 /**
  * Unloads display driver.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  */
     public function unloadDisplayDriver()
     {
@@ -1530,8 +1530,8 @@ class POT
 /**
  * Returns current display driver.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return IOTS_Display Current display driver.
  * @throws E_OTS_NotLoaded If display driver is not loaded.
  */

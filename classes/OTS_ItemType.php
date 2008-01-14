@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ items loading C++ code (items.cpp, items.h).
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -19,7 +19,7 @@
  * Item type info.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @property int $clientId Client ID.
  * @property string $name Item name.
  * @property int $group Group.
@@ -100,9 +100,9 @@ class OTS_ItemType
     const ITEM_GROUP_DOOR = 13;
 /**
  * Deprecated item.
- *
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * 
+ * @version 0.1.0
+ * @since 0.1.0
  */
     const ITEM_GROUP_DEPRECATED = 14;
 
@@ -137,8 +137,8 @@ class OTS_ItemType
 /**
  * Teleport.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  */
     const ITEM_TYPE_TELEPORT = 7;
 
@@ -588,8 +588,8 @@ class OTS_ItemType
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -660,8 +660,8 @@ class OTS_ItemType
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws OutOfBoundsException For non-supported properties.

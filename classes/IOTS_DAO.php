@@ -1,7 +1,7 @@
 <?php
 
 /**#@+
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.1
  */
 
@@ -18,7 +18,7 @@
  * This insterface indicates that class is a OTServ DAO class.
  * 
  * @package POT
- * @deprecated 0.1.0+SVN This interface is not used anymore.
+ * @deprecated 0.1.0 This interface is not used anymore.
  */
 interface IOTS_DAO
 {

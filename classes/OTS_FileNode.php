@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ binary format loading C++ code (fileloader.h, fileloader.cpp).
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -19,7 +19,7 @@
  * OTServ binary file node representation.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @property string $buffer Properties binary string.
  * @property OTS_FileNode $next Next sibling node.
  * @property OTS_FileNode $child First child node.
@@ -294,8 +294,8 @@ class OTS_FileNode
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -339,8 +339,8 @@ class OTS_FileNode
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws OutOfBoundsException For non-supported properties.

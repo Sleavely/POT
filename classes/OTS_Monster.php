@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -19,7 +19,7 @@
  * Note: as this class extends DOMDocument class and contains exacly file XML tree you can work on it as on normal DOM tree.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @property-read string $name Monster name.
  * @property-read string $race Monster race.
  * @property-read int $experience Experience for killing monster.
@@ -175,7 +175,7 @@ class OTS_Monster extends DOMDocument
  * Returns all possible loot.
  * 
  * @return array List of item IDs.
- * @deprecated 0.1.0+SVN Use getItems().
+ * @deprecated 0.1.0 Use getItems().
  */
     public function getLoot()
     {
@@ -205,8 +205,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns all possible loot.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return array List of item types.
  */
     public function getItems()
@@ -379,8 +379,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -439,8 +439,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns string representation of XML.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return string String representation of object.
  */
     public function __toString()

@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Wrapper for spell info.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @property-read int $type Spell type.
  * @property-read string $name Spell name.
  * @property-read int $id Spell ID.
@@ -109,8 +109,8 @@ class OTS_Spell
 /**
  * Checks if spell is threated as unfriendly by other creatures.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return bool Is spell aggressive.
  */
     public function isAggressive()
@@ -121,9 +121,9 @@ class OTS_Spell
 /**
  * This method is the same as {@link OTS_Spell::isAggressive() OTS_Spell::isAggressive()}. It was created first by typo misstake. Left for backward compatibility.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @return bool Is spell aggressive.
- * @deprecated 0.1.0+SVN Use isAggressive().
+ * @deprecated 0.1.0 Use isAggressive().
  */
     public function isAggresive()
     {
@@ -234,7 +234,7 @@ class OTS_Spell
  * Returns ID of item conjured by this spell.
  * 
  * @return int Item ID.
- * @deprecated 0.1.0+SVN Use getConjure()->getId().
+ * @deprecated 0.1.0 Use getConjure()->getId().
  */
     public function getConjureId()
     {
@@ -244,8 +244,8 @@ class OTS_Spell
 /**
  * Returns item type of conjured item.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_ItemType|null Returns item type of conjure item (null if not exists).
  */
     public function getConjure()
@@ -257,7 +257,7 @@ class OTS_Spell
  * Returns ID of item that is used by spell.
  * 
  * @return int Reagent ID.
- * @deprecated 0.1.0+SVN Use getReagent()->getId().
+ * @deprecated 0.1.0 Use getReagent()->getId().
  */
     public function getReagentId()
     {
@@ -267,8 +267,8 @@ class OTS_Spell
 /**
  * Returns item type of reagent item.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_ItemType|null Returns item type of reagent item (null if not exists).
  */
     public function getReagent()
@@ -306,8 +306,8 @@ class OTS_Spell
 /**
  * Creates conjure item.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_Item Conjured item.
  */
     public function createConjure()
@@ -320,8 +320,8 @@ class OTS_Spell
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -395,8 +395,8 @@ class OTS_Spell
 /**
  * Returns string representation of XML.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return string String representation of object.
  */
     public function __toString()

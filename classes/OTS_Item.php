@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Single item representation.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @property int $count Amount of item.
  * @property string $attributes Attributes binary string.
  * @property-read int $id Item type ID.
@@ -109,8 +109,8 @@ class OTS_Item implements Countable
 /**
  * Returns type of item.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_ItemType|null Returns item type of item (null if not exists).
  */
     public function getItemType()
@@ -131,8 +131,8 @@ class OTS_Item implements Countable
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -161,8 +161,8 @@ class OTS_Item implements Countable
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws OutOfBoundsException For non-supported properties.

@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ OTBM format loading C++ code (iomapotbm.h, iomapotbm.cpp).
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -21,7 +21,7 @@
  * OTBM format reader.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @property-read OTS_HousesList $housesList Houses list loaded from associated houses file.
  * @property-read int $width Map width.
  * @property-read int $height Map height.
@@ -229,7 +229,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Loads OTBM file content.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @param string $file Filename.
  */
     public function loadFile($file)
@@ -247,7 +247,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Parses loaded file.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  */
     private function parse()
     {
@@ -375,8 +375,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Loads map's houses list.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_HousesList Houses from external file.
  */
     public function getHousesList()
@@ -447,7 +447,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * Returns list (id => name) of loaded towns.
  * 
  * @return array List of towns.
- * @deprecated 0.1.0+SVN Use this class object as array for iterations, counting and methods for field fetching.
+ * @deprecated 0.1.0 Use this class object as array for iterations, counting and methods for field fetching.
  */
     public function getTownsList()
     {
@@ -490,7 +490,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * @version 0.0.8
  * @since 0.0.8
  * @return string Town name.
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function current()
     {
@@ -502,7 +502,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * 
  * @version 0.0.8
  * @since 0.0.8
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function next()
     {
@@ -515,7 +515,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * @version 0.0.8
  * @since 0.0.8
  * @return int Current position key.
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function key()
     {
@@ -528,7 +528,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * @version 0.0.8
  * @since 0.0.8
  * @return bool If iterator has anything more.
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function valid()
     {
@@ -540,7 +540,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * 
  * @version 0.0.8
  * @since 0.0.8
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function rewind()
     {
@@ -550,8 +550,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Returns iterator handle for loops.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return ArrayIterator Towns list iterator.
  */
     public function getIterator()
@@ -562,8 +562,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Checks if given element exists.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @return bool True if it's set.
  */
@@ -584,8 +584,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Returns item from given position.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @return mixed If key is an integer (type-sensitive!) then returns town name. If it's a string then return associated ID found by town name. False if offset is not set.
  */
@@ -614,8 +614,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * This method is implemented for ArrayAccess interface. In fact you can't write/append to towns list. Any call to this method will cause E_OTS_ReadOnly raise.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @param mixed $value Field value.
  * @throws E_OTS_ReadOnly Always - this class is read-only.
@@ -628,8 +628,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * This method is implemented for ArrayAccess interface. In fact you can't write/append to towns list. Any call to this method will cause E_OTS_ReadOnly raise.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @throws E_OTS_ReadOnly Always - this class is read-only.
  */
@@ -641,8 +641,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.

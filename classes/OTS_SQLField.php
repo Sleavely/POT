@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * SQL identifier representation.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @property-read string $name Field name.
  * @property-read string $table Table name.
  */
@@ -71,8 +71,8 @@ class OTS_SQLField
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -95,8 +95,8 @@ class OTS_SQLField
  * 
  * Returned string can be easily inserted into SQL query.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @internal Magic PHP5 function.
  * @return string String WHERE clause.
  */

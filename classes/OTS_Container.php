@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Container item representation.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  */
 class OTS_Container extends OTS_Item implements IteratorAggregate
 {
@@ -73,7 +73,7 @@ class OTS_Container extends OTS_Item implements IteratorAggregate
  * Returns current item.
  * 
  * @return OTS_Item Current item.
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function current()
     {
@@ -83,7 +83,7 @@ class OTS_Container extends OTS_Item implements IteratorAggregate
 /**
  * Moves to next item.
  * 
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function next()
     {
@@ -94,7 +94,7 @@ class OTS_Container extends OTS_Item implements IteratorAggregate
  * Current cursor position.
  * 
  * @return mixed Iterator position.
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function key()
     {
@@ -105,7 +105,7 @@ class OTS_Container extends OTS_Item implements IteratorAggregate
  * Checks if there are any items left.
  * 
  * @return bool Does next item exist.
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function valid()
     {
@@ -115,7 +115,7 @@ class OTS_Container extends OTS_Item implements IteratorAggregate
 /**
  * Resets internal items array pointer.
  * 
- * @deprecated 0.1.0+SVN Use getIterator().
+ * @deprecated 0.1.0 Use getIterator().
  */
     public function rewind()
     {
@@ -125,8 +125,8 @@ class OTS_Container extends OTS_Item implements IteratorAggregate
 /**
  * Returns iterator handle for loops.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return ArrayIterator Items iterator.
  */
     public function getIterator()

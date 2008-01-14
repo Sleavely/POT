@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ guild abstraction.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @property string $read Guild name.
  * @property OTS_Player $owner Guild founder.
  * @property int $creationData Guild creation data (mostly timestamp).
@@ -210,7 +210,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Returns owning player of this player.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @return OTS_Player Owning player.
  * @throws E_OTS_NotLoaded If guild is not loaded.
  */
@@ -318,7 +318,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Reads all ranks that are in this guild.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @return array List of ranks.
  * @throws E_OTS_NotLoaded If guild is not loaded.
  * @deprecated 0.0.5 Use getGuildRanksList().
@@ -348,7 +348,7 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * In difference to {@link OTS_Guild::getGuildRanks() getGuildRanks() method} this method returns filtered {@link OTS_GuildRanks_List OTS_GuildRanks_List} object instead of array of {@link OTS_GuildRank OTS_GuildRank} objects. It is more effective since OTS_GuildRanks_List doesn't perform all rows loading at once.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.5
  * @return OTS_GuildRanks_List List of ranks from current guild.
  * @throws E_OTS_NotLoaded If guild is not loaded.
@@ -609,8 +609,8 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -648,8 +648,8 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -688,8 +688,8 @@ class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
  * 
  * If any display driver is currently loaded then it uses it's method. Else it returns guild name.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return string String representation of object.
  */
     public function __toString()

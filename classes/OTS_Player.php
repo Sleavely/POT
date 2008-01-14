@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @property string $name Character name.
  * @property OTS_Account $account Account to which character belongs.
  * @property OTS_Group $group Group of which character is member.
@@ -222,7 +222,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Returns account of this player.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @return OTS_Account Owning account.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -251,7 +251,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Returns group of this player.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @return OTS_Group Group of which current character is member.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1147,7 +1147,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Assigned guild rank.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @return OTS_GuildRank|null Guild rank (null if not member of any).
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1453,7 +1453,7 @@ class OTS_Player extends OTS_Base_DAO
  * 
  * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.3
  * @param int $slot Slot to get items.
  * @return OTS_Item|null Item in given slot (items tree if in given slot there is a container). If there is no item in slot then null value will be returned.
@@ -1591,7 +1591,7 @@ class OTS_Player extends OTS_Base_DAO
  * 
  * Note: OTS_Player class has no information about item types. It returns all items as OTS_Item, unless they have any contained items in database, so empty container will be instanced as OTS_Item object, not OTS_Container.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.3
  * @param int $depot Depot ID to get items.
  * @return OTS_Item|null Item in given depot (items tree if in given depot there is a container). If there is no item in depot then null value will be returned.
@@ -1790,7 +1790,7 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Player proffesion name.
  * 
- * @version 0.1.0+SVN
+ * @version 0.1.0
  * @since 0.0.6
  * @return string|bool Player proffesion name.
  * @throws E_OTS_NotLoaded If player is not loaded.
@@ -1808,8 +1808,8 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Player residence town name.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return string|bool Player town name.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1826,8 +1826,8 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Returns house rented by this player.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_House|null House rented by player.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
@@ -1854,8 +1854,8 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -2001,8 +2001,8 @@ class OTS_Player extends OTS_Base_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -2198,8 +2198,8 @@ class OTS_Player extends OTS_Base_DAO
  * 
  * If any display driver is currently loaded then it uses it's method. Else it returns character name.
  * 
- * @version 0.1.0+SVN
- * @since 0.1.0+SVN
+ * @version 0.1.0
+ * @since 0.1.0
  * @return string String representation of object.
  */
     public function __toString()
