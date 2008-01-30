@@ -7,9 +7,9 @@
 
 /**
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -17,7 +17,7 @@
  * OTServ guild abstraction.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  * @property string $read Guild name.
  * @property OTS_Player $owner Guild founder.
  * @property int $creationData Guild creation data (mostly timestamp).
@@ -28,7 +28,7 @@
  * @property-write IOTS_GuildAction $invitesDriver Invitations handler.
  * @property-write IOTS_GuildAction $requestsDriver Membership requests handler.
  */
-class OTS_Guild extends OTS_Base_DAO implements IteratorAggregate, Countable
+class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
 {
 /**
  * Guild data.

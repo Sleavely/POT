@@ -7,9 +7,9 @@
 
 /**
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -17,7 +17,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  * @property string $password Password.
  * @property string $eMail Email address.
  * @property bool $blocked Blocked flag state.
@@ -25,8 +25,9 @@
  * @property-read int $id Account number.
  * @property-read bool $loaded Loaded state.
  * @property-read OTS_Players_List $playersList Characters of this account.
+ * @property-read int $access Access level.
  */
-class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
+class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 {
 /**
  * Account data.
@@ -44,12 +45,12 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
  * Remember! This method sets blocked flag to true after account creation!
  * </p>
  * 
- * @version 0.0.6
+ * @version 0.1.1
  * @param int $min Minimum number.
  * @param int $max Maximum number.
  * @return int Created account number.
  * @example examples/account.php account.php
- * @throws Exception When there are no free account numbers.
+ * @throws E_OTS_Generic When there are no free account numbers.
  */
     public function create($min = 1, $max = 9999999)
     {
@@ -85,7 +86,7 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
             // we checked all possibilities
             if($number == $random)
             {
-                throw new Exception('No free account number are available.');
+                throw new E_OTS_Generic(E_OTS_Generic::CREATE_ACCOUNT_IMPOSSIBLE);
             }
         }
 
@@ -111,7 +112,7 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
  * IMPORTANT: Since 0.0.6 there isn't group_id field which this method was created for. You should use {@link OTS_Account::create() create()} method.
  * </p>
  * 
- * @version 0.0.6_SVN
+ * @version 0.0.6
  * @since 0.0.4
  * @param OTS_Group $group Group to be assigned to account.
  * @param int $min Minimum number.
@@ -537,6 +538,57 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
     }
 
 /**
+ * Checks highest access level of account.
+ * 
+ * @return int Access level (highest access level of all characters).
+ */
+    public function getAccess()
+    {
+        // by default
+        $access = 0;
+
+        // finds groups of all characters
+        foreach( $this->getPlayersList() as $player)
+        {
+            $group = $player->getGroup();
+
+            // checks if group's access level is higher then previouls found highest
+            if( $group->getAccess() > $access)
+            {
+                $access = $group->getAccess();
+            }
+        }
+
+        return $access;
+    }
+
+/**
+ * Checks highest access level of account in given guild.
+ * 
+ * @param OTS_Guild $guild Guild in which access should be checked.
+ * @return int Access level (highest access level of all characters).
+ */
+    public function getGuildAccess(OTS_Guild $guild)
+    {
+        // by default
+        $access = 0;
+
+        // finds ranks of all characters
+        foreach($account as $player)
+        {
+            $rank = $player->getRank();
+
+            // checks if rank's access level is higher then previouls found highest
+            if( isset($rank) && $rank->getGuild()->getId() == $guild->getId() && $rank->getLevel() > $access)
+            {
+                $access = $rank->getLevel();
+            }
+        }
+
+        return $access;
+    }
+
+/**
  * Returns players iterator.
  * 
  * There is no need to implement entire Iterator interface since we have {@link OTS_Players_List players list class} for it.
@@ -597,6 +649,9 @@ class OTS_Account extends OTS_Base_DAO implements IteratorAggregate, Countable
 
             case 'banned':
                 return $this->isBanned();
+
+            case 'access':
+                return $this->getAccess();
 
             default:
                 throw new OutOfBoundsException();

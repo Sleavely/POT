@@ -1,3 +1,10 @@
+[0.1.1]
+* Loading groups by names. <wrzasq>
+* Constructors with optional identifier argument for automatical object loading. <wrzasq>
+* OTS_Toolbox class. <wrzasq>
+* Access calculations in OTS_Account class. <wrzasq>
+* E_OTS_General class. <wrzasq>
+
 [0.1.0]
 * Houses support. <wrzasq>
 * No need to call POT::createObject(). <wrzasq>

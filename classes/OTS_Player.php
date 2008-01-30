@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  * @property string $name Character name.
  * @property OTS_Account $account Account to which character belongs.
  * @property OTS_Group $group Group of which character is member.
@@ -62,7 +62,7 @@
  * @property-read string $townName Name of town in which player residents.
  * @property-read OTS_House $house House which player rents.
  */
-class OTS_Player extends OTS_Base_DAO
+class OTS_Player extends OTS_Row_DAO
 {
 /**
  * Player data.

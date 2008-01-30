@@ -9,11 +9,10 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.1: Support for call constructors with ID/name parameter for automatic pre-load for data.
  * @todo 0.1.2: OTAdmin protocol.
  * @todo 0.1.3: SOAP interface for remote controll.
  * @todo 0.2.0: Implement OutOfBoundsException instead of mixed results types.
@@ -31,7 +30,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  */
 class POT
 {
@@ -421,10 +420,10 @@ class POT
  * - <var>driver</var> - optional, specifies driver, aplies when <var>$driver</var> method parameter is <i>null</i>
  * - <var>prefix</var> - optional, prefix for database tables, use if you have more then one OTServ installed on one database.
  * 
- * @version 0.0.4
+ * @version 0.1.1
  * @param int|null $driver Database driver type.
  * @param array $params Connection info.
- * @throws Exception When driver is not supported.
+ * @throws E_OTS_Generic When driver is not supported or not supported.
  * @example examples/connect.php connect.php
  */
     public function connect($driver, $params)
@@ -438,7 +437,7 @@ class POT
             }
             else
             {
-                throw new Exception('You must specify database driver to connect with.');
+                throw new E_OTS_Generic(E_OTS_Generic::CONNECT_NO_DRIVER);
             }
         }
         unset($params['driver']);
@@ -468,7 +467,7 @@ class POT
 
             // unsupported driver
             default:
-                throw new Exception('Driver \'' . $driver . '\' is not supported.');
+                throw new E_OTS_Generic(E_OTS_Generic::CONNECT_INVALID_DRIVER);
         }
     }
 

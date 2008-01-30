@@ -7,9 +7,9 @@
 
 /**
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -17,7 +17,7 @@
  * OTServ guild rank abstraction.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  * @property string $name Rank title.
  * @property OTS_Guild $guild Guild in which rank exists.
  * @property int $level Guild access level.
@@ -25,7 +25,7 @@
  * @property-read int $id Row ID.
  * @property-read OTS_Players_List $playersList List of members with this rank.
  */
-class OTS_GuildRank extends OTS_Base_DAO implements IteratorAggregate, Countable
+class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 {
 /**
  * Rank data.

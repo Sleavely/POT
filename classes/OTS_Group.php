@@ -7,9 +7,9 @@
 
 /**
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -17,7 +17,7 @@
  * OTServ user group abstraction.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.1
  * @property string $name Group name.
  * @property int $flags Access flags.
  * @property int $access Access level.
@@ -27,7 +27,7 @@
  * @property-read int $id Row ID.
  * @property-read OTS_Players_List $playersList List of members of this group.
  */
-class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
+class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
 {
 /**
  * Group data.
@@ -46,6 +46,25 @@ class OTS_Group extends OTS_Base_DAO implements IteratorAggregate, Countable
     {
         // SELECT query on database
         $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('flags') . ', ' . $this->db->fieldName('access') . ', ' . $this->db->fieldName('maxdepotitems') . ', ' . $this->db->fieldName('maxviplist') . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+    }
+
+/**
+ * Loads group by it's name.
+ * 
+ * @version 0.1.1
+ * @since 0.1.1
+ * @param string $name Group name.
+ */
+    public function find($name)
+    {
+        // finds group's ID
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) )->fetch();
+
+        // if anything was found
+        if( isset($id['id']) )
+        {
+            $this->load($id['id']);
+        }
     }
 
 /**

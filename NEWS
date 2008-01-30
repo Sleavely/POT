@@ -1,51 +1,21 @@
-What's new in 0.1.0 version?
+What's new in 0.1.1 version?
 
-* Houses support.
+* Loading groups by names.
 
-    It was mentioned to be in 0.0.9 release but as houses use buth data/ directory resources and SQL database we wanted to avoid making big mess with reconstructing it later.
+    I was surprised that it was missing. You can now use OTS_Group::find() to load group by it's name instead of ID.
 
-    Houses support including XML data loading and SQL rent controll.
+* Constructors with optional identifier argument for automatical object loading.
 
-    Also OTBM support has been extended to load house tiles and houses list from external XML file.
+    It is now possible to pass optional argument to DAO objects constructors (those which are database rows representations) which will effect in automatic object loading (integer value will load object by it's ID, string will load object by it's name - note that it's type-sensitive!).
 
-* No need to call POT::createObject().
+* OTS_Toolbox class.
 
-    All classes which use database handle fetch it now by themselves, you just call standard class constructors.
+    Usefull class which provides routines for common calculations like experience for level.
 
-    Of course POT::createObject() method will stay to provide backward compatibility, but you don't need to call it anymore!
+* Access calculations in OTS_Account class.
 
-    Same reffers to POT::createFilter() method.
+    OTS_Account class now contains methods for checking highers account access level.
 
-* Separated data/ directory resources loaders.
+* E_OTS_General class.
 
-    From now you can load each data/ directory in separated object. This allows you to load, for example, data from two different data/ directories pararelly.
-
-* Default data/ directory resources instances within POT class.
-
-    Also now in POT class each resource (event that which didn't have loading method until now) has default instance which indicates that this instance stores info about current server gameworld. It allows you to link information references stored in other objects as IDs with full data from files.
-
-* Each data/ directory resource reader class implements an Iterator/IteratorAggregate, Countable and ArrayAccess interfaces.
-
-    They provide interface to use them as an arrays both for iteration and for counting.
-
-    Also you can use their's fields like array fields.
-
-* Uses IteratorAggregate interface instead of Iterator in some places (returns ArrayIterator as iterator).
-
-    This makes our code smaller. However note that this cause direct call to current(), rewind() and other Iterator interface methods impossible on objects with IteratorAggregate interface implemented (for backward compatibility those methods are still there, but are marked as deprecated).
-
-* __get()/__set() implementation.
-
-    Many classes now has __get() and __set() methods defined so you no longer have to call get*() and set*() methods since many properties are emulated.
-
-* __toString() as display drivers.
-
-    Classes with database content has now __toString() methods defined which allows to implement display logic on lower level. You can write own display driver which objects will call automaticly when code will attempt to output them.
-
-* Additional wrappers for resource binds.
-
-    There are some additional functions which can make it easier for you to evaluate some things like create conjure item with sepll object etc.
-
-* Some additional updates to match OTServ development.
-
-    Like for example ITEM_TYPE_TELEPORT added etc.
+    In very first revisions there were placed some throwns of generic PHP exception class which make handling them quite difficult. They were replaced with E_OTS_General to make it possible to type-based handle them.
