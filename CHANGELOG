@@ -1,3 +1,7 @@
+[0.1.2+SVN]
+* getStorage()/setStorage() methods in OTS_Player class. <wrzasq>
+* More secured. <wrzasq>
+
 [0.1.1]
 * Loading groups by names. <wrzasq>
 * Constructors with optional identifier argument for automatical object loading. <wrzasq>

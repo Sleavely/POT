@@ -1,21 +1,9 @@
-What's new in 0.1.1 version?
+What's new in 0.1.2+SVN version?
 
-* Loading groups by names.
+* getStorage()/setStorage() methods in OTS_Player class.
 
-    I was surprised that it was missing. You can now use OTS_Group::find() to load group by it's name instead of ID.
+    As requested by Proglin on http://otfans.net/showthread.php?t=108150.
 
-* Constructors with optional identifier argument for automatical object loading.
+* More secured.
 
-    It is now possible to pass optional argument to DAO objects constructors (those which are database rows representations) which will effect in automatic object loading (integer value will load object by it's ID, string will load object by it's name - note that it's type-sensitive!).
-
-* OTS_Toolbox class.
-
-    Usefull class which provides routines for common calculations like experience for level.
-
-* Access calculations in OTS_Account class.
-
-    OTS_Account class now contains methods for checking highers account access level.
-
-* E_OTS_General class.
-
-    In very first revisions there were placed some throwns of generic PHP exception class which make handling them quite difficult. They were replaced with E_OTS_General to make it possible to type-based handle them.
+    Added some more stricted types controll. "Hey, you said POT is safe?!" - Yes it has always been safe, but now it is more idiot-friendly :P (in safety context) in code-based part.
