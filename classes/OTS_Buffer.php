@@ -7,7 +7,7 @@
 
 /**
  * This is generic class for classes that uses buffer-baser read-write operations (it can also emulate C-like pointers).
- * 
+ *
  * @package POT
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
@@ -16,7 +16,7 @@
 
 /**
  * Binary buffer container.
- * 
+ *
  * @package POT
  * @property string $buffer Properties binary string.
  * @property-read bool $valid isValid() method wrapper.
@@ -29,22 +29,22 @@ class OTS_Buffer
 {
 /**
  * Node properties stream.
- * 
+ *
  * @var string
  */
     protected $buffer;
 /**
  * Properties stream pointer.
- * 
+ *
  * @var int
  */
     protected $pos = 0;
 
 /**
  * Magic PHP5 method.
- * 
+ *
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
- * 
+ *
  * @internal Magic PHP5 method.
  * @param array $properties List of object properties.
  */
@@ -63,7 +63,7 @@ class OTS_Buffer
 
 /**
  * Returs properties stream.
- * 
+ *
  * @return string Properties stream.
  */
     public function getBuffer()
@@ -73,7 +73,7 @@ class OTS_Buffer
 
 /**
  * Sets properties stream.
- * 
+ *
  * @param string Properties stream.
  */
     public function setBuffer($buffer)
@@ -84,7 +84,7 @@ class OTS_Buffer
 
 /**
  * Checks if there is anything left in stream.
- * 
+ *
  * @return bool False if pointer is at the end of stream.
  */
     public function isValid()
@@ -94,7 +94,7 @@ class OTS_Buffer
 
 /**
  * Checks stream end state.
- * 
+ *
  * @param int $size Amount of bytes that are going to be read.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -108,7 +108,7 @@ class OTS_Buffer
 
 /**
  * Returns single byte.
- * 
+ *
  * @return int Byte (char) value.
  */
     public function getChar()
@@ -123,7 +123,7 @@ class OTS_Buffer
 
 /**
  * Returns double byte.
- * 
+ *
  * @return int Word (short) value.
  */
     public function getShort()
@@ -138,7 +138,7 @@ class OTS_Buffer
 
 /**
  * Returns quater byte.
- * 
+ *
  * @return int Double word (long) value.
  */
     public function getLong()
@@ -153,16 +153,16 @@ class OTS_Buffer
 
 /**
  * Returns string from buffer.
- * 
+ *
  * If length is not given then treats first byte from current buffer as string length.
- * 
+ *
  * @param int|bool $length String length.
  * @return string First substring.
  */
     public function getString($length = false)
     {
         // reads string length if not given
-        if($length === false)
+        if($length == false)
         {
             $length = $this->getShort();
         }
@@ -178,7 +178,7 @@ class OTS_Buffer
 
 /**
  * Skips given amount of bytes.
- * 
+ *
  * @param int $n Bytes to skip.
  */
     public function skip($n)
@@ -189,7 +189,7 @@ class OTS_Buffer
 
 /**
  * Magic PHP5 method.
- * 
+ *
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -229,7 +229,7 @@ class OTS_Buffer
 
 /**
  * Magic PHP5 method.
- * 
+ *
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws OutOfBoundsException For non-supported properties.
