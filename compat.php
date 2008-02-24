@@ -11,10 +11,10 @@
  * This package makes you sure that POT scripts won't cause FATAL errors on PHP older PHP 5.x versions. However remember that some PHP features won't be enabled with it. For example if you have PHP 5.0.x, this package will define Countable interface for you so PHP will know it, but it won't allow you to use count($countableObject) structure.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.2+SVN
  * @subpackage compat
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -27,6 +27,19 @@ if( !class_exists('OutOfBoundsException') )
  * @since 0.1.0
  */
     class OutOfBoundsException extends Exception
+    {
+    }
+}
+
+// LogicException class for 5.0.x
+if( !class_exists('LogicException') )
+{
+/**
+ * @ignore
+ * @version 0.1.2+SVN
+ * @since 0.1.2+SVN
+ */
+    class LogicException extends Exception
     {
     }
 }
