@@ -251,11 +251,19 @@ class OTS_Buffer
 /**
  * Returns string representation of buffer object.
  * 
- * @retrun string Object's buffer.
+ * @return string Object's buffer.
  */
     public function __toString()
     {
         return $this->buffer;
+    }
+
+/**
+ * Resets pointer of cloned object.
+ */
+    public function __clone()
+    {
+        $this->pos = 0;
     }
 }
 
