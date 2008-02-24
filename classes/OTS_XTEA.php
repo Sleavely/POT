@@ -21,7 +21,7 @@
  * 
  * @package POT
  */
-class OTS_XTEA
+class OTS_XTEA implements IOTS_Cipher
 {
 /**
  * Encryption key.
@@ -50,15 +50,20 @@ class OTS_XTEA
  */
     public function encrypt($message)
     {
-        // resize data to 64 bits (2 longs of 32 bits)
-        // leaves first long space for message length
+        // resize data to 32 bits
         $n = strlen($message);
-        $message = str_pad($message, $n - $n % 4 + 8, chr(0) );
+        $message = str_pad($message, $n - $n % 4 + 4, chr(0) );
 
         // convert data to long integers
         $message = unpack('N*', $message);
         $message[0] = $n;
         $length = count($message);
+
+        // resizes to 64 bits
+        if($length % 2 == 1)
+        {
+            $length[] = 0;
+        }
 
         $result = '';
 
@@ -139,26 +144,26 @@ class OTS_XTEA
     private function unsignedRightShift($integer, $n)
     {
         // convert to 32 bits
-        if(0xffffffff < $integer || -0xffffffff > $integer)
+        if(0xFFFFFFFF < $integer || -0xFFFFFFFF > $integer)
         {
-            $integer = fmod($integer, 0xffffffff + 1);
+            $integer = fmod($integer, 0xFFFFFFFF + 1);
         }
 
         // convert to unsigned integer
-        if(0x7fffffff < $integer)
+        if(0x7FFFFFFF < $integer)
         {
-            $integer -= 0xffffffff + 1;
+            $integer -= 0xFFFFFFFF + 1;
         }
         elseif(-0x80000000 > $integer)
         {
-            $integer += 0xffffffff + 1;
+            $integer += 0xFFFFFFFF + 1;
         }
 
         // do right shift
         if (0 > $integer)
         {
             // remove sign bit before shift
-            $integer &= 0x7fffffff;
+            $integer &= 0x7FFFFFFF;
             // right shift
             $integer >>= $n;
             // set shifted sign bit
@@ -185,30 +190,30 @@ class OTS_XTEA
         // remove sign if necessary
         if($a < 0)
         {
-            $a -= 1 + 0xffffffff;
+            $a -= 1 + 0xFFFFFFFF;
         }
 
         if($b < 0)
         {
-            $b -= 1 + 0xffffffff;
+            $b -= 1 + 0xFFFFFFFF;
         }
 
         $result = $a + $b;
 
         // convert to 32 bits
-        if(0xffffffff < $result || -0xffffffff > $result)
+        if(0xFFFFFFFF < $result || -0xFFFFFFFF > $result)
         {
-            $result = fmod($result, 0xffffffff + 1);
+            $result = fmod($result, 0xFFFFFFFF + 1);
         }
 
         // convert to signed integer
-        if(0x7fffffff < $result)
+        if(0x7FFFFFFF < $result)
         {
-            $result -= 0xffffffff + 1;
+            $result -= 0xFFFFFFFF + 1;
         }
         elseif(-0x80000000 > $result)
         {
-            $result += 0xffffffff + 1;
+            $result += 0xFFFFFFFF + 1;
         }
 
         return $result;
