@@ -90,7 +90,24 @@ class OTS_RSA implements IOTS_Cipher
         $this->n = bcmul($p, $q);
 
         // length of key
-        $this->length = $this->bitLen($this->n);
+        $tmp = OTS_BinaryTools::int2Bin($this->n);
+        $this->length = strlen($tmp) * 8;
+        $tmp = ord($tmp[ strlen($tmp) - 1]);
+
+        // if last byte is 0
+        if($tmp == 0)
+        {
+            $this->length -= 8;
+        }
+        else
+        {
+            // reduces last bits from count
+            while(!($tmp & 0x80))
+            {
+                $this->length--;
+                $tmp <<= 1;
+            }
+        }
     }
 
 /**
@@ -101,145 +118,25 @@ class OTS_RSA implements IOTS_Cipher
  */
     public function encrypt($message)
     {
-        // append tail \x01 to plain data. It needs for correctly decrypting of data
-        $message = $this->bin2Int($message . chr(1) );
+        // chunk length
+        $length = ceil($this->length / 8);
 
-        // divide plain data into chunks
-        $dataLength = $this->bitLen($message);
-        $chunkLength = $this->length - 1;
-        $blockLength = (int) ceil($chunkLength / 8);
-        $pos = 0;
-        $result = '';
-
-        while($pos < $dataLength)
-        {
-            $byte = intval($pos / 8);
-            $bit = $pos % 8;
-            $byteLength = intval($chunkLength / 8);
-            $bitLength = $chunkLength % 8;
-
-            if($bitLength)
-            {
-                $byteLength++;
-            }
-
-            $tmp = str_pad( substr( $this->int2Bin( bcdiv($message, 1 << $bit) ), $byte, $byteLength), $byteLength, chr(0) );
-
-            $result .= str_pad( $this->int2Bin( bcpowmod( $this->bin2Int( substr_replace($tmp, $tmp[$byteLength - 1] & chr(0xFF >> (8 - $bitLength) ), $byteLength - 1, 1) ), $this->e, $this->n) ), $blockLength, chr(0) );
-
-            $pos += $chunkLength;
-        }
-
-        return $result;
+        // c = m^e mod n
+        return str_pad( strrev( OTS_BinaryTools::int2Bin( bcpowmod( OTS_BinaryTools::bin2Int( strrev( str_pad($message, $length, chr(0) ) ) ), $this->e, $this->n) ) ), $length, chr(0), STR_PAD_LEFT);
     }
 
 /**
  * Decrypts RSA-encrypted message.
  * 
+ * As OTServ clients use RSA encryption only for sending requests we don't need decryption here. If it will be needed, then this method will be implemented. At the moment it will throw exception.
+ * 
  * @param string $message RSA-encrypted message.
  * @return string Decrypted content.
+ * @throws LogicException Always as this method is not implemented.
  */
     public function decrypt($message)
     {
-        $dataLength = strlen($message);
-        $chunkLength = $this->length - 1;
-        $blockLength = (int) ceil($chunkLength / 8);
-        $pos = 0;
-        $current = 0;
-        $result = '0';
-
-        while($pos < $dataLength)
-        {
-            $byte = intval($current / 8);
-            $bit = $current % 8;
-            $tmp = $this->int2Bin($message);
-            $tmp2 = $this->int2Bin( bcmul( bcpowmod( $this->bin2Int( substr($message, $pos, $blockLength) ), $this->d, $this->n), 1 << $bit) );
-
-            if($byte < strlen($tmp) )
-            {
-                $tmp2 |= substr($tmp, $byte);
-                $tmp = substr($tmp, 0, $byte) . $tmp2;
-            }
-            else
-            {
-                $tmp = str_pad($tmp, $byte, chr(0) ) . $tmp2;
-            }
-
-            $result = $this->bin2Int($tmp);
-
-            $current += $chunkLength;
-            $pos += $blockLength;
-        }
-
-        return substr( $this->int2Bin($result), 0, -1);
-    }
-
-/**
- * Transforms binary representation of large integer into string.
- * 
- * @param string $string Binary string.
- * @return string Numeric representation.
- */
-    private function bin2Int($string)
-    {
-        $result = '0';
-        $n = strlen($string);
-
-        do
-        {
-            $result = bcadd( bcmul($result, '256'), ord($string[--$n]) );
-        }
-        while($n > 0);
-
-        return $result;
-    }
-
-/**
- * Transforms large integer into binary string.
- * 
- * @param string $number Large integer.
- * @return string Binary string.
- */
-    private function int2Bin($number)
-    {
-        $result = '';
-
-        do
-        {
-            $result .= chr( bcmod($number, '256') );
-            $number = bcdiv($number, '256');
-        }
-        while( bccomp($number, '0') );
-
-        return $result;
-    }
-
-/**
- * Returns bit length of number $number.
- * 
- * @param string $number Large integer.
- * @return int Number of bits used.
- */
-    private function bitLen($number)
-    {
-        $tmp = $this->int2Bin($number);
-        $length = strlen($tmp) * 8;
-        $tmp = ord($tmp[ strlen($tmp) - 1]);
-
-        if($tmp == 0)
-        {
-            $length -= 8;
-        }
-        else
-        {
-            while(!($tmp & 0x80))
-            {
-                $length--;
-                $tmp <<= 1;
-            }
-        }
-
-        return $length;
+        throw new LogicException();
     }
 }
 

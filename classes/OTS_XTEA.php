@@ -39,7 +39,7 @@ class OTS_XTEA implements IOTS_Cipher
  */
     public function __construct($key)
     {
-        $this->key = array_values( unpack('N4', $key) );
+        $this->key = array_values( unpack('V4', $key) );
     }
 
 /**
@@ -55,14 +55,23 @@ class OTS_XTEA implements IOTS_Cipher
         $message = str_pad($message, $n - $n % 4 + 4, chr(0) );
 
         // convert data to long integers
-        $message = unpack('N*', $message);
+        $message = unpack('V*', $message);
         $message[0] = $n;
         $length = count($message);
+
+        // converts to unsigned integers
+        foreach($message as $index => $result)
+        {
+            if($result < 0)
+            {
+                $message[$index] += 0xFFFFFFFF + 1;
+            }
+        }
 
         // resizes to 64 bits
         if($length % 2 == 1)
         {
-            $length[] = 0;
+            $message[] = 0;
         }
 
         $result = '';
@@ -77,13 +86,13 @@ class OTS_XTEA implements IOTS_Cipher
 
             for($j = 0; $j < 32; $j++)
             {
-                $y = $this->unsignedAdd($y, $this->unsignedAdd( ($z << 4) ^ $this->unsignedRightShift($z, 5), $z) ^ $this->unsignedAdd($sum, $this->key[$sum & 3]) );
-                $sum = $this->unsignedAdd($sum, $delta);
-                $z = $this->unsignedAdd($z, $this->unsignedAdd( ($y << 4) ^ $this->unsignedRightShift($y, 5), $y) ^ $this->unsignedAdd($sum, $this->key[ $this->unsignedRightShift($sum, 11) & 3]) );
+                $y = OTS_BinaryTools::unsignedAdd($y, OTS_BinaryTools::unsignedAdd( ($z << 4) ^ OTS_BinaryTools::unsignedRightShift($z, 5), $z) ^ OTS_BinaryTools::unsignedAdd($sum, $this->key[$sum & 3]) );
+                $sum = OTS_BinaryTools::unsignedAdd($sum, $delta);
+                $z = OTS_BinaryTools::unsignedAdd($z, OTS_BinaryTools::unsignedAdd( ($y << 4) ^ OTS_BinaryTools::unsignedRightShift($y, 5), $y) ^ OTS_BinaryTools::unsignedAdd($sum, $this->key[ OTS_BinaryTools::unsignedRightShift($sum, 11) & 3]) );
             }
 
             // append the enciphered longs to the result
-            $result .= pack('NN', $y, $z);
+            $result .= pack('VV', $y, $z);
         }
 
         return $result;
@@ -98,125 +107,43 @@ class OTS_XTEA implements IOTS_Cipher
     public function decrypt($message)
     {
         // convert data to long
-        $message = array_values( unpack('N*', $message) );
+        $message = array_values( unpack('V*', $message) );
         $length = count($message);
+
+        // converts to unsigned integers
+        foreach($message as $index => $result)
+        {
+            if($result < 0)
+            {
+                $message[$index] += 0xFFFFFFFF + 1;
+            }
+        }
 
         // decrypt the long data with the key
         $result = '';
-        $offset = 0;
 
-        for ($i = 0; $i < $length; $i++)
+        for($i = 0; $i < $length; $i++)
         {
             $sum = 0xC6EF3720;
-            $delta = 0x9E3779B9;
+            $delta = 0x61C88647;
             $y = $message[$i];
             $z = $message[++$i];
 
             for($j = 0; $j < 32; $j++)
             {
-                $z = $this->unsignedAdd($z, -( $this->unsignedAdd( ($y << 4) ^ $this->unsignedRightShift($y, 5), $y) ^ $this->unsignedAdd($sum, $this->key[ $this->unsignedRightShift($sum, 11) & 3]) ) );
-                $sum = $this->unsignedAdd($sum, -$delta);
-                $y = $this->unsignedAdd($y, -( $this->unsignedAdd( ($z << 4) ^ $this->unsignedRightShift($z, 5), $z) ^ $this->unsignedAdd($sum, $this->key[$sum & 3]) ) );
+                $z = OTS_BinaryTools::unsignedAdd($z, -( OTS_BinaryTools::unsignedAdd( ($y << 4) ^ OTS_BinaryTools::unsignedRightShift($y, 5), $y) ^ OTS_BinaryTools::unsignedAdd($sum, $this->key[ OTS_BinaryTools::unsignedRightShift($sum, 11) & 3]) ) );
+                $sum = OTS_BinaryTools::unsignedAdd($sum, $delta);
+                $y = OTS_BinaryTools::unsignedAdd($y, -( OTS_BinaryTools::unsignedAdd( ($z << 4) ^ OTS_BinaryTools::unsignedRightShift($z, 5), $z) ^ OTS_BinaryTools::unsignedAdd($sum, $this->key[$sum & 3]) ) );
             }
 
-            // append the deciphered longs to the result data (remove padding)
-            if(1 == $i)
-            {
-                $offset = $y;
-                $result .= pack('N', $z);
-            }
-            else
-            {
-                $result .= pack('NN', $y, $z);
-            }
+            // append the deciphered longs to the result data
+            $result .= pack('VV', $y, $z);
         }
 
-        return substr($result, 0, $offset);
-    }
+        // reads message length
+        $offset = unpack('S', $result);
 
-/**
- * Handle proper unsigned right shift, dealing with PHP's signed shift.
- * 
- * @param int $integer Number to be shifted.
- * @param int $n Number of bits to shift.
- * @return int Shifted integer.
- */
-    private function unsignedRightShift($integer, $n)
-    {
-        // convert to 32 bits
-        if(0xFFFFFFFF < $integer || -0xFFFFFFFF > $integer)
-        {
-            $integer = fmod($integer, 0xFFFFFFFF + 1);
-        }
-
-        // convert to unsigned integer
-        if(0x7FFFFFFF < $integer)
-        {
-            $integer -= 0xFFFFFFFF + 1;
-        }
-        elseif(-0x80000000 > $integer)
-        {
-            $integer += 0xFFFFFFFF + 1;
-        }
-
-        // do right shift
-        if (0 > $integer)
-        {
-            // remove sign bit before shift
-            $integer &= 0x7FFFFFFF;
-            // right shift
-            $integer >>= $n;
-            // set shifted sign bit
-            $integer |= 1 << (31 - $n);
-        }
-        else
-        {
-            // use normal right shift
-            $integer >>= $n;
-        }
-
-        return $integer;
-    }
-
-/**
- * Handle proper unsigned add, dealing with PHP's signed add.
- * 
- * @param int $a First number.
- * @param int $b Second number.
- * @return int Unsigned sum.
- */
-    private function unsignedAdd($a, $b)
-    {
-        // remove sign if necessary
-        if($a < 0)
-        {
-            $a -= 1 + 0xFFFFFFFF;
-        }
-
-        if($b < 0)
-        {
-            $b -= 1 + 0xFFFFFFFF;
-        }
-
-        $result = $a + $b;
-
-        // convert to 32 bits
-        if(0xFFFFFFFF < $result || -0xFFFFFFFF > $result)
-        {
-            $result = fmod($result, 0xFFFFFFFF + 1);
-        }
-
-        // convert to signed integer
-        if(0x7FFFFFFF < $result)
-        {
-            $result -= 0xFFFFFFFF + 1;
-        }
-        elseif(-0x80000000 > $result)
-        {
-            $result += 0xFFFFFFFF + 1;
-        }
-
-        return $result;
+        return substr($result, 2, $offset[1]);
     }
 }
 

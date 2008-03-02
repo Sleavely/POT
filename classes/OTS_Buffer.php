@@ -19,11 +19,13 @@
  * 
  * @package POT
  * @property string $buffer Properties binary string.
+ * @property int $char getChar()/putChar() method wrapper.
+ * @property int $short getShort()/putShort() method wrapper.
+ * @property int $long getLong()/putLong() method wrapper.
+ * @property string $string getString(false)/putString(, true) call wrapper.
  * @property-read bool $valid isValid() method wrapper.
- * @property-read int $char getChar() method wrapper.
- * @property-read int $short getShort() method wrapper.
- * @property-read int $long getLong() method wrapper.
- * @property-read string $string getString(false) call wrapper.
+ * @property-read int $pos getPos() method wrapper.
+ * @property-read int $size getSize() method wrapper.
  */
 class OTS_Buffer
 {
@@ -38,7 +40,18 @@ class OTS_Buffer
  * 
  * @var int
  */
-    protected $pos = 0;
+    protected $pos;
+
+/**
+ * Initializes new buffered reader.
+ * 
+ * @param string $buffer Buffer content.
+ */
+    public function __construct($buffer = '')
+    {
+        $this->buffer = $buffer;
+        $this->pos = 0;
+    }
 
 /**
  * Magic PHP5 method.
@@ -122,6 +135,16 @@ class OTS_Buffer
     }
 
 /**
+ * Appends single byte to buffer.
+ * 
+ * @param int $char Byte (char) value.
+ */
+    public function putChar($char)
+    {
+        $this->buffer .= chr($char);
+    }
+
+/**
  * Returns double byte.
  * 
  * @return int Word (short) value.
@@ -131,9 +154,19 @@ class OTS_Buffer
         // checks buffer size
         $this->check(2);
 
-        $value = unpack('S', substr($this->buffer, $this->pos, 2) );
+        $value = unpack('v', substr($this->buffer, $this->pos, 2) );
         $this->pos += 2;
         return $value[1];
+    }
+
+/**
+ * Appends double byte to buffer.
+ * 
+ * @param int $short Word (short) value.
+ */
+    public function putShort($short)
+    {
+        $this->buffer .= pack('v', $short);
     }
 
 /**
@@ -146,9 +179,19 @@ class OTS_Buffer
         // checks buffer size
         $this->check(4);
 
-        $value = unpack('L', substr($this->buffer, $this->pos, 4) );
+        $value = unpack('V', substr($this->buffer, $this->pos, 4) );
         $this->pos += 4;
         return $value[1];
+    }
+
+/**
+ * Appends quater byte to buffer.
+ * 
+ * @param int $long Double word (long) value.
+ */
+    public function putLong($long)
+    {
+        $this->buffer .= pack('V', $long);
     }
 
 /**
@@ -174,6 +217,51 @@ class OTS_Buffer
         $value = substr($this->buffer, $this->pos, $length);
         $this->pos += $length;
         return $value;
+    }
+
+/**
+ * Appends string to buffer.
+ * 
+ * @param string $string Binary length.
+ * @param bool $dynamic Whether if string length is fixed or not (if it is dynamic then length will be inserted as short before string chunk).
+ */
+    public function putString($string, $dynamic = true)
+    {
+        // appends string length if requires
+        if($dynamic)
+        {
+            $this->putShort( strlen($string) );
+        }
+
+        $this->buffer .= $string;
+    }
+
+/**
+ * Empties buffer.
+ */
+    public function reset()
+    {
+        $this->__construct();
+    }
+
+/**
+ * Returns current read position.
+ * 
+ * @return int Read position.
+ */
+    public function getPos()
+    {
+        return $this->pos;
+    }
+
+/**
+ * Returns buffer size.
+ * 
+ * @return int Buffer length.
+ */
+    public function getSize()
+    {
+        return strlen($this->buffer);
     }
 
 /**
@@ -222,6 +310,14 @@ class OTS_Buffer
             case 'string':
                 return $this->getString();
 
+            // getPos() wrapper
+            case 'pos':
+                return $this->getPos();
+
+            // getSize() wrapper
+            case 'size':
+                return $this->getSize();
+
             default:
                 throw new OutOfBoundsException();
         }
@@ -242,6 +338,22 @@ class OTS_Buffer
             case 'buffer':
                 $this->setBuffer($value);
                 break;
+
+            // putChar() wrapper
+            case 'char':
+                $this->putChar($value);
+
+            // putShort() wrapper
+            case 'short':
+                $this->putShort($value);
+
+            // putLong() wrapper
+            case 'long':
+                $this->putLong($value);
+
+            // putString() wrapper
+            case 'string':
+                $this->putString($value);
 
             default:
                 throw new OutOfBoundsException();

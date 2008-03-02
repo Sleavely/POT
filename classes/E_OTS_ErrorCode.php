@@ -1,7 +1,7 @@
 <?php
 
 /**#@+
- * @version 0.0.6
+ * @version 0.1.2+SVN
  * @since 0.0.6
  */
 
@@ -23,10 +23,11 @@ class E_OTS_ErrorCode extends Exception
  * Sets error code.
  * 
  * @param int $code Error code.
+ * @param string $message Optional error message.
  */
-    public function __construct($code)
+    public function __construct($code, $message = '')
     {
-        parent::__construct('', $code);
+        parent::__construct($message, $code);
     }
 }
 
