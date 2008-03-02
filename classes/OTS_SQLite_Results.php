@@ -50,25 +50,31 @@ class OTS_SQLite_Results extends PDOStatement
 /**
  * Removes quoting delimiters from single row fields.
  * 
+ * @param int $mode Optional fetch mode.
+ * @param int $index Optional column index.
+ * @param array $args Optional class constructor arguments.
  * @return array Record row.
  */
-    public function fetch()
+    public function fetch($mode = null, $index = null, $args = null)
     {
         // standard output
-        return $this->strip( parent::fetch() );
+        return $this->strip( parent::fetch($mode, $index, $args) );
     }
 
 /**
  * Removes quotes from all result rows.
  * 
+ * @param int $mode Optional fetch mode.
+ * @param int $oreintation Optional cursor orientation.
+ * @param int $offset Optional cursor offset.
  * @return array Records set.
  */
-    public function fetchAll()
+    public function fetchAll($mode = null, $oreintation = null, $offset = null)
     {
         $results = array();
 
         // fetches all results
-        foreach( parent::fetchAll() as $index => $record)
+        foreach( parent::fetchAll($mode, $oreintation, $offset) as $index => $record)
         {
             $results[$index] = $this->strip($record);
         }

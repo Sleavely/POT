@@ -1478,7 +1478,7 @@ class OTS_Player extends OTS_Row_DAO
             $this->db->query('INSERT INTO ' . $this->db->tableName('player_storage') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('key') . ', ' . $this->db->fieldName('value') . ') VALUES (' . $this->data['id'] . ', ' . (int) $key . ', ' . (int) $value . ')');
         }
     }
-pid
+
 /**
  * Deletes item with contained items.
  * 
