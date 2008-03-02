@@ -365,7 +365,8 @@ class OTS_Admin
         }
 
         // returns respond
-        return new OTS_Buffer($buffer);
+        $respond->setPos(0);
+        return $respond;
     }
 
 /**
@@ -483,7 +484,8 @@ class OTS_Admin
         }
 
         // returns respond with reseted position
-        return clone $buffer;
+        $buffer->setPos(0);
+        return $buffer;
     }
 
 /**

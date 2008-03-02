@@ -13,15 +13,16 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.3: SOAP interface for remote controll.
  * @todo 0.2.0: Implement OutOfBoundsException instead of mixed results types.
  * @todo 1.0.0: Unify *List and *_List naming (probably into *List).
  * @todo 1.0.0: Deprecations cleanup.
  * @todo 1.0.0: Complete phpUnit test.
  * @todo 1.0.0: More detailed documentation and tutorials, also update examples and tutorials.
  * @todo 1.0.0: Main POT class as database instance.
+ * @todo 1.0.0: E_* classes into *Exception, IOTS* into *Interface, change POT classes prefix from OTS_* into OT_*.
  * @todo 1.0.0: PHAR and PHK packages.
  * @todo 2.0.0: Code as C++ extension (as an alternative to pure PHP library which of course would still be available).
+ * @todo ?: Implement POT namespace when it will be supported by PHP.
  */
 
 /**

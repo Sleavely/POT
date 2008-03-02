@@ -23,8 +23,8 @@
  * @property int $short getShort()/putShort() method wrapper.
  * @property int $long getLong()/putLong() method wrapper.
  * @property string $string getString(false)/putString(, true) call wrapper.
+ * @property int $pos getPos()/setPos() method wrapper.
  * @property-read bool $valid isValid() method wrapper.
- * @property-read int $pos getPos() method wrapper.
  * @property-read int $size getSize() method wrapper.
  */
 class OTS_Buffer
@@ -255,6 +255,16 @@ class OTS_Buffer
     }
 
 /**
+ * Seeks current reading position.
+ * 
+ * @param int $pos Read position.
+ */
+    public function setPos($pos)
+    {
+        $this->pos = $pos;
+    }
+
+/**
  * Returns buffer size.
  * 
  * @return int Buffer length.
@@ -354,6 +364,10 @@ class OTS_Buffer
             // putString() wrapper
             case 'string':
                 $this->putString($value);
+
+            // setPos() wrapper
+            case 'sos':
+                $this->setPos($value);
 
             default:
                 throw new OutOfBoundsException();

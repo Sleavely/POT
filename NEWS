@@ -4,6 +4,10 @@ What's new in 0.1.2+SVN version?
 
     Full OTAdmin support including RSA and XTEA encryption, keys negotiations and logging in. All currently available OTAdmin commands (BROADCAST, CLOSE_SERVER, PAY_HOUSES and SHUTDOWN_SERVER) supported.
 
+* Supports bank balance.
+
+    POT is always as up-to-date as it is possible. OTServ introduced new way of storing money in game - bank account like in real Tibia. It uses new database field. OTS_Player class contains new methods: getBalance() and setBalance(int $balance). $balance virtual property can be also used as an alias to those methods.
+
 * getStorage()/setStorage() methods in OTS_Player class.
 
     As requested by Proglin on http://otfans.net/showthread.php?t=108150.
