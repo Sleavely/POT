@@ -1935,7 +1935,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0
+ * @version 0.1.2+SVN
  * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
@@ -2068,6 +2068,9 @@ class OTS_Player extends OTS_Row_DAO
             case 'lossSkills':
                 return $this->getLossSkills();
 
+            case 'balance':
+                return $this->getBalance();
+
             case 'loaded':
                 return $this->isLoaded();
 
@@ -2082,7 +2085,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0
+ * @version 0.1.2+SVN
  * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.
@@ -2234,6 +2237,10 @@ class OTS_Player extends OTS_Row_DAO
 
             case 'lossSkills':
                 $this->setLossSkills($value);
+                break;
+
+            case 'balance':
+                $this->setBalance($value);
                 break;
 
             case 'redSkull':

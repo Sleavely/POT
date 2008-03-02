@@ -366,7 +366,7 @@ class OTS_Buffer
                 $this->putString($value);
 
             // setPos() wrapper
-            case 'sos':
+            case 'pos':
                 $this->setPos($value);
 
             default:
