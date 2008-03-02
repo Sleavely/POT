@@ -13,10 +13,8 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.2: OTAdmin protocol.
  * @todo 0.1.3: SOAP interface for remote controll.
  * @todo 0.2.0: Implement OutOfBoundsException instead of mixed results types.
- * @todo 0.2.0: Implement NetworkMessage.
  * @todo 1.0.0: Unify *List and *_List naming (probably into *List).
  * @todo 1.0.0: Deprecations cleanup.
  * @todo 1.0.0: Complete phpUnit test.

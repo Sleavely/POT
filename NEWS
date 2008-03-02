@@ -1,5 +1,9 @@
 What's new in 0.1.2+SVN version?
 
+* OTAdmin protocol support.
+
+    Full OTAdmin support including RSA and XTEA encryption, keys negotiations and logging in. All currently available OTAdmin commands (BROADCAST, CLOSE_SERVER, PAY_HOUSES and SHUTDOWN_SERVER) supported.
+
 * getStorage()/setStorage() methods in OTS_Player class.
 
     As requested by Proglin on http://otfans.net/showthread.php?t=108150.
@@ -7,3 +11,11 @@ What's new in 0.1.2+SVN version?
 * More secured.
 
     Added some more stricted types controll. "Hey, you said POT is safe?!" - Yes it has always been safe, but now it is more idiot-friendly :P (in safety context) in code-based part.
+
+* Fixed buffered streams to use little-endian storage (like Open Tibia does).
+
+    Until now buffered streams used machine-dependent bits order which could produce problems while using POT on big-endian machines. Mainly when trying to use them for protocol packets. Now it's fixed to use always little-endian bits order.
+
+* Implemented NetworkMessage.
+
+    NetworkMessage class is realised in POT by OTS_Buffer class. It contains streamed reading and writing methods. Thought it is not fully same that C++ NetworkMessage class. Mainly because any enryption, decryption and header-connected routines were moved to connection handling classes.

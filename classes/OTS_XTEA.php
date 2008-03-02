@@ -52,11 +52,10 @@ class OTS_XTEA implements IOTS_Cipher
     {
         // resize data to 32 bits
         $n = strlen($message);
-        $message = str_pad($message, $n - $n % 4 + 4, chr(0) );
+        $message = pack('v', $n) . str_pad($message, $n - ($n - 2) % 4 + 4, chr(0) );
 
         // convert data to long integers
-        $message = unpack('V*', $message);
-        $message[0] = $n;
+        $message = array_values( unpack('V*', $message) );
         $length = count($message);
 
         // converts to unsigned integers
@@ -141,7 +140,7 @@ class OTS_XTEA implements IOTS_Cipher
         }
 
         // reads message length
-        $offset = unpack('S', $result);
+        $offset = unpack('v', $result);
 
         return substr($result, 2, $offset[1]);
     }
