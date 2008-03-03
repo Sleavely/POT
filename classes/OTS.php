@@ -9,11 +9,11 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.1.2+SVN
+ * @version 0.1.2
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.2.0: Implement OutOfBoundsException instead of mixed results types.
+ * @todo 1.0.0: Implement OutOfBoundsException instead of mixed results types.
  * @todo 1.0.0: Unify *List and *_List naming (probably into *List).
  * @todo 1.0.0: Deprecations cleanup.
  * @todo 1.0.0: Complete phpUnit test.
@@ -29,7 +29,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.1.2+SVN
+ * @version 0.1.2
  */
 class POT
 {
@@ -419,7 +419,7 @@ class POT
  * - <var>driver</var> - optional, specifies driver, aplies when <var>$driver</var> method parameter is <i>null</i>
  * - <var>prefix</var> - optional, prefix for database tables, use if you have more then one OTServ installed on one database.
  * 
- * @version 0.1.2+SVN
+ * @version 0.1.2
  * @param int|null $driver Database driver type.
  * @param array $params Connection info.
  * @throws E_OTS_Generic When driver is not supported or not supported.

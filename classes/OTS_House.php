@@ -18,7 +18,7 @@
  * @package POT
  * @property OTS_Player $owner House owner.
  * @property int $paid Paid time.
- * @property string $warnings Warnings message.
+ * @property int $warnings Warnings message.
  * @property-read int $id House ID.
  * @property-read string $name House name.
  * @property-read int $townId ID of town where house is located.
@@ -86,12 +86,12 @@ class OTS_House extends OTS_Base_DAO
         // inserts new record
         if( empty($this->data) )
         {
-            $this->db->query('INSERT INTO ' . $this->db->tableName('houses') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('owner') . ', ' . $this->db->fieldName('paid') . ', ' . $this->db->fieldName('warnings') . ') VALUES (' . $this->getId() . ', ' . $this->data['owner'] . ', ' . $this->data['paid'] . ', ' . $this->db->quote($this->data['warnings']) . ')');
+            $this->db->query('INSERT INTO ' . $this->db->tableName('houses') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('owner') . ', ' . $this->db->fieldName('paid') . ', ' . $this->db->fieldName('warnings') . ') VALUES (' . $this->getId() . ', ' . $this->data['owner'] . ', ' . $this->data['paid'] . ', ' . $this->data['warnings'] . ')');
         }
         // updates previous one
         else
         {
-            $this->db->query('UPDATE ' . $this->db->tableName('houses') . ' SET ' . $this->db->fieldName('id') . ' = ' . $this->getId() . ', ' . $this->db->fieldName('owner') . ' = ' . $this->data['owner'] . ', ' . $this->db->fieldName('paid') . ' = ' . $this->data['paid'] . ', ' . $this->db->fieldName('warnings') . ' = ' . $this->db->quote($this->data['warnings']) . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->getId() );
+            $this->db->query('UPDATE ' . $this->db->tableName('houses') . ' SET ' . $this->db->fieldName('id') . ' = ' . $this->getId() . ', ' . $this->db->fieldName('owner') . ' = ' . $this->data['owner'] . ', ' . $this->db->fieldName('paid') . ' = ' . $this->data['paid'] . ', ' . $this->db->fieldName('warnings') . ' = ' . $this->data['warnings'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->getId() );
         }
     }
 
@@ -238,7 +238,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Returns house warnings.
  * 
- * @return string|false Warnings text (false if none).
+ * @version 0.1.2
+ * @return int|false Warnings text (false if none).
  */
     public function getWarnings()
     {
@@ -256,11 +257,12 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Sets house warnings.
  * 
- * @param string $warnings Sets house warnings.
+ * @version 0.1.2
+ * @param int $warnings Sets house warnings.
  */
     public function setWarnings($warnings)
     {
-        $this->data['warnings'] = $warnings;
+        $this->data['warnings'] = (int) $warnings;
     }
 
 /**
