@@ -9,27 +9,23 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.1.2
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 1.0.0: Implement OutOfBoundsException instead of mixed results types.
- * @todo 1.0.0: Unify *List and *_List naming (probably into *List).
- * @todo 1.0.0: Deprecations cleanup.
- * @todo 1.0.0: Complete phpUnit test.
- * @todo 1.0.0: More detailed documentation and tutorials, also update examples and tutorials.
+ * @todo 0.1.3: Complete phpUnit test.
+ * @todo 0.1.3: More detailed documentation and tutorials, also update examples and tutorials.
+ * @todo 0.1.3: PHAR and PHK packages.
+ * @todo 1.0.0: Code as C++ extension (as an alternative to pure PHP library which of course would still be available).
  * @todo 1.0.0: Main POT class as database instance.
- * @todo 1.0.0: E_* classes into *Exception, IOTS* into *Interface, change POT classes prefix from OTS_* into OT_*.
- * @todo 1.0.0: PHAR and PHK packages.
- * @todo 2.0.0: Code as C++ extension (as an alternative to pure PHP library which of course would still be available).
- * @todo ?: Implement POT namespace when it will be supported by PHP.
+ * @todo 1.0.0: Implement POT namespace when it will be supported by PHP.
  */
 
 /**
  * Main POT class.
  * 
  * @package POT
- * @version 0.1.2
+ * @version 0.1.3+SVN
  */
 class POT
 {
@@ -659,6 +655,18 @@ class POT
 
         $ban = $this->db->query('SELECT COUNT(' . $this->db->fieldName('type') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('ip') . ' & ' . $this->db->fieldName('mask') . ' = ' . $ip . ' & ' . $this->db->fieldName('mask') . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP)->fetch();
         return $ban['count'] > 0;
+    }
+
+/**
+ * Returns list of banned IPs as list of pairs (ip => IP, mask => MASK).
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @return array List of banned IPs.
+ */
+    public function bannedIPs()
+    {
+        return $this->db->query('SELECT ' . $this->db->fieldName('ip') . ', ' . $this->db->fieldName('mask') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('ip') . ' & ' . $this->db->fieldName('mask') . ' = ' . $ip . ' & ' . $this->db->fieldName('mask') . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP)->fetchAll();
     }
 
 /**

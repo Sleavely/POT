@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ binary format loading C++ code (fileloader.h, fileloader.cpp).
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -19,7 +19,7 @@
  * Universal OTServ binary formats reader.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @property-write IOTS_FileCache $cacheDriver Cache driver.
  */
 class OTS_FileLoader
@@ -124,7 +124,7 @@ class OTS_FileLoader
 /**
  * Opens file.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @param string $file Filepath.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  */
@@ -148,7 +148,7 @@ class OTS_FileLoader
         if($this->file)
         {
             // reads file version
-            $version = unpack('L', fread($this->file, 4) );
+            $version = unpack('V', fread($this->file, 4) );
 
             if($version[1] > 0)
             {

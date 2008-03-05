@@ -1,25 +1,7 @@
-What's new in 0.1.2 version?
+What's new in 0.1.3+SVN version?
 
-* OTAdmin protocol support.
+* Bans lists.
 
-    Full OTAdmin support including RSA and XTEA encryption, keys negotiations and logging in. All currently available OTAdmin commands (BROADCAST, CLOSE_SERVER, PAY_HOUSES and SHUTDOWN_SERVER) supported.
+    It is possible now to fetch list of banned account, players and IP addresses. Accounts and players can be found at OTS_Toolbox ( bannedPlayers() and bannedAccount() methods). IPs list can be take by OTS::bannedIPs().
 
-* Supports bank balance.
-
-    POT is always as up-to-date as it is possible. OTServ introduced new way of storing money in game - bank account like in real Tibia. It uses new database field. OTS_Player class contains new methods: getBalance() and setBalance(int $balance). $balance virtual property can be also used as an alias to those methods.
-
-* getStorage()/setStorage() methods in OTS_Player class.
-
-    As requested by Proglin on http://otfans.net/showthread.php?t=108150.
-
-* More secured.
-
-    Added some more stricted types controll. "Hey, you said POT is safe?!" - Yes it has always been safe, but now it is more idiot-friendly :P (in safety context) in code-based part.
-
-* Fixed buffered streams to use little-endian storage (like Open Tibia does).
-
-    Until now buffered streams used machine-dependent bits order which could produce problems while using POT on big-endian machines. Mainly when trying to use them for protocol packets. Now it's fixed to use always little-endian bits order.
-
-* Implemented NetworkMessage.
-
-    NetworkMessage class is realised in POT by OTS_Buffer class. It contains streamed reading and writing methods. Thought it is not fully same that C++ NetworkMessage class. Mainly because any enryption, decryption and header-connected routines were moved to connection handling classes.
+* Bugfixes.
