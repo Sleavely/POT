@@ -13,8 +13,6 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 1.0.0: Spawns support.
- * @todo 1.0.0: Complete OTBM support: link tiles with items and spawns.
  */
 
 /**
@@ -196,8 +194,6 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * Magic PHP5 method.
  * 
  * Allows object unserialisation.
- * 
- * @internal Magic PHP5 method.
  */
     public function __wakeup()
     {
@@ -210,7 +206,6 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * 
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * 
- * @internal Magic PHP5 method.
  * @param array $properties List of object properties.
  */
     public static function __set_state($properties)

@@ -548,7 +548,6 @@ class OTS_Admin
  * 
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * 
- * @internal Magic PHP5 method.
  * @param array $properties List of object properties.
  */
     public static function __set_state($properties)
@@ -572,7 +571,6 @@ class OTS_Admin
  * Allows object serialisation.
  * 
  * @return array List of properties that should be saved.
- * @internal Magic PHP5 method.
  */
     public function __sleep()
     {
@@ -583,8 +581,6 @@ class OTS_Admin
  * Magic PHP5 method.
  * 
  * Allows object unserialisation.
- * 
- * @internal Magic PHP5 method.
  */
     public function __wakeup()
     {

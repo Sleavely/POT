@@ -49,8 +49,6 @@ class OTS_FileNode extends OTS_Buffer
  * Creates clone of object.
  * 
  * Copy of object needs to have different ID.
- * 
- * @internal magic PHP5 method.
  */
     public function __clone()
     {

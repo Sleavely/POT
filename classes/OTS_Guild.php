@@ -57,7 +57,6 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Allows object serialisation.
  * 
  * @return array List of properties that should be saved.
- * @internal Magic PHP5 method.
  */
     public function __sleep()
     {
@@ -68,8 +67,6 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Creates clone of object.
  * 
  * Copy of object needs to have different ID.
- * 
- * @internal magic PHP5 method.
  */
     public function __clone()
     {

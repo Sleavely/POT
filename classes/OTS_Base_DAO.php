@@ -44,7 +44,6 @@ abstract class OTS_Base_DAO implements IOTS_DAO
  * Allows object serialisation.
  * 
  * @return array List of properties that should be saved.
- * @internal Magic PHP5 method.
  */
     public function __sleep()
     {
@@ -55,8 +54,6 @@ abstract class OTS_Base_DAO implements IOTS_DAO
  * Magic PHP5 method.
  * 
  * Allows object unserialisation.
- * 
- * @internal Magic PHP5 method.
  */
     public function __wakeup()
     {
@@ -68,7 +65,6 @@ abstract class OTS_Base_DAO implements IOTS_DAO
  * 
  * Copy of object needs to have different ID.
  * 
- * @internal magic PHP5 method.
  */
     public function __clone()
     {
@@ -81,7 +77,6 @@ abstract class OTS_Base_DAO implements IOTS_DAO
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * 
  * @version 0.1.0
- * @internal Magic PHP5 method.
  * @param array $properties List of object properties.
  */
     public static function __set_state($properties)

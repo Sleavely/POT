@@ -88,7 +88,6 @@ class OTS_Player extends OTS_Row_DAO
  * Allows object serialisation.
  * 
  * @return array List of properties that should be saved.
- * @internal Magic PHP5 method.
  * @version 0.0.4
  * @since 0.0.4
  */

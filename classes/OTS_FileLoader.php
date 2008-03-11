@@ -66,7 +66,6 @@ class OTS_FileLoader
  * @version 0.0.6
  * @since 0.0.6
  * @return array List of properties that should be saved.
- * @internal Magic PHP5 method.
  */
     public function __sleep()
     {
@@ -80,7 +79,6 @@ class OTS_FileLoader
  * 
  * @version 0.0.6
  * @since 0.0.6
- * @internal magic PHP5 method.
  */
     public function __clone()
     {
@@ -95,7 +93,6 @@ class OTS_FileLoader
  * 
  * @version 0.0.6
  * @since 0.0.6
- * @internal Magic PHP5 method.
  * @param array $properties List of object properties.
  */
     public static function __set_state($properties)

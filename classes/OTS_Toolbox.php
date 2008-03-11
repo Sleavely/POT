@@ -100,7 +100,7 @@ class OTS_Toolbox
         $actives->addFilter( new OTS_SQLField('time', 'bans'), 0);
         $actives->addFilter( new OTS_SQLField('time', 'bans'), time(), OTS_SQLFilter::OPERATOR_GREATER, OTS_SQLFilter::CRITERIUM_OR);
         $filter->addFilter($actives);
-echo $filter, "\n";
+
         // creates list and aplies filter
         $list = new OTS_Accounts_List();
         $list->setFilter($filter);

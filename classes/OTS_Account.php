@@ -49,7 +49,6 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * @param int $min Minimum number.
  * @param int $max Maximum number.
  * @return int Created account number.
- * @example examples/account.php account.php
  * @throws E_OTS_Generic When there are no free account numbers.
  */
     public function create($min = 1, $max = 9999999)

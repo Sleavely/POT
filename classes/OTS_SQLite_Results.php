@@ -16,7 +16,6 @@
  * This class will drop " quotes from field names in SQLite results.
  * 
  * @package POT
- * @internal You dont need to know anything about this class.
  * @ignore
  */
 class OTS_SQLite_Results extends PDOStatement

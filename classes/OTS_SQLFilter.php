@@ -77,7 +77,6 @@ class OTS_SQLFilter extends OTS_Base_DAO
  * Allows object serialisation.
  * 
  * @return array List of properties that should be saved.
- * @internal Magic PHP5 method.
  */
     public function __sleep()
     {
@@ -90,7 +89,6 @@ class OTS_SQLFilter extends OTS_Base_DAO
  * Returned string can be easily inserted into SQL query.
  * 
  * @version 0.1.0
- * @internal Magic PHP5 function.
  * @return string String WHERE clause.
  */
     public function __toString()

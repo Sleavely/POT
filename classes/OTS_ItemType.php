@@ -291,7 +291,6 @@ class OTS_ItemType
  * 
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * 
- * @internal Magic PHP5 method.
  * @param array $properties List of object properties.
  */
     public static function __set_state($properties)

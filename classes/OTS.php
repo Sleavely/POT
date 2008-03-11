@@ -17,7 +17,6 @@
  * @todo 0.1.3: More detailed documentation and tutorials, also update examples and tutorials.
  * @todo 0.1.3: PHAR and PHK packages.
  * @todo 1.0.0: Code as C++ extension (as an alternative to pure PHP library which of course would still be available).
- * @todo 1.0.0: Main POT class as database instance.
  * @todo 1.0.0: Implement POT namespace when it will be supported by PHP.
  */
 
@@ -312,7 +311,7 @@ class POT
         // creates new instance
         if( !isset($instance) )
         {
-            $instance = new self;
+            $instance = new self();
         }
 
         return $instance;
@@ -324,7 +323,6 @@ class POT
  * Directory path to POT files.
  * 
  * @var string
- * @see POT::setPOTPath()
  */
     private $path = '';
 
@@ -334,7 +332,6 @@ class POT
  * Use this method if you keep your POT package in different directory then this file.
  * 
  * @param string $path POT files path.
- * @example examples/fakeroot.php fakeroot.php
  */
     public function setPOTPath($path)
     {
@@ -353,8 +350,6 @@ class POT
  * Never create instance of this class by yourself! Use POT::getInstance()!
  * 
  * @version 0.0.3
- * @see POT::getInstance()
- * @internal
  */
     private function __construct()
     {
@@ -374,7 +369,7 @@ class POT
  * </p>
  * 
  * <p>
- * Note: Since 0.0.3 version this function handles also exceptions.
+ * Note: Since 0.0.3 version this function handles also exception classes.
  * </p>
  * 
  * @version 0.0.3
@@ -420,7 +415,6 @@ class POT
  * @param array $params Connection info.
  * @throws E_OTS_Generic When driver is not supported or not supported.
  * @throws LogicException When PDO extension is not loaded.
- * @example examples/connect.php connect.php
  */
     public function connect($driver, $params)
     {
@@ -497,7 +491,6 @@ class POT
  * @param string $server Server IP/domain.
  * @param int $port OTServ port.
  * @return OTS_InfoRespond|bool Respond content document (false when server is offline).
- * @example examples/info.php
  */
     public function serverStatus($server, $port)
     {
@@ -554,7 +547,6 @@ class POT
  * @version 0.0.4
  * @since 0.0.4
  * @return PDO Database connection handle.
- * @internal You should not call this function in your external code without real need.
  */
     public function getDBHandle()
     {
@@ -666,7 +658,7 @@ class POT
  */
     public function bannedIPs()
     {
-        return $this->db->query('SELECT ' . $this->db->fieldName('ip') . ', ' . $this->db->fieldName('mask') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('ip') . ' & ' . $this->db->fieldName('mask') . ' = ' . $ip . ' & ' . $this->db->fieldName('mask') . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP)->fetchAll();
+        return $this->db->query('SELECT ' . $this->db->fieldName('ip') . ', ' . $this->db->fieldName('mask') . ' FROM ' . $this->db->tableName('bans') . ' WHERE (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP)->fetchAll();
     }
 
 /**

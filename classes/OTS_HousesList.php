@@ -47,7 +47,6 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
  * 
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * 
- * @internal Magic PHP5 method.
  * @param array $properties List of object properties.
  */
     public function __set_state($properties)

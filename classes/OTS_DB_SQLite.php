@@ -41,7 +41,6 @@ class OTS_DB_SQLite extends PDO implements IOTS_DB
  * 
  * @version 0.0.7
  * @param array $params Connection parameters.
- * @see POT::connect()
  */
     public function __construct($params)
     {
@@ -87,7 +86,6 @@ class OTS_DB_SQLite extends PDO implements IOTS_DB
  * 
  * @param stirng $string String to be quoted.
  * @return string Quoted string.
- * @internal bridge over ISQL_DB and PDO.
  * @deprecated 0.0.5 Use PDO::quote().
  * @version 0.0.7
  */
@@ -103,7 +101,6 @@ class OTS_DB_SQLite extends PDO implements IOTS_DB
  * 
  * @param string $query SQL query.
  * @return PDOStatement|bool Query results.
- * @internal bridge over ISQL_DB and PDO.
  * @deprecated 0.0.5 Use PDO::query().
  */
     public function SQLquery($query)

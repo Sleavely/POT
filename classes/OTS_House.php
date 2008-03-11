@@ -71,7 +71,6 @@ class OTS_House extends OTS_Base_DAO
  * Allows object serialisation.
  * 
  * @return array List of properties that should be saved.
- * @internal Magic PHP5 method.
  */
     public function __sleep()
     {

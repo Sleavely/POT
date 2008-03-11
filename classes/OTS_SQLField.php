@@ -97,7 +97,6 @@ class OTS_SQLField
  * 
  * @version 0.1.0
  * @since 0.1.0
- * @internal Magic PHP5 function.
  * @return string String WHERE clause.
  */
     public function __toString()
