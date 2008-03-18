@@ -183,17 +183,15 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Returns current row.
  * 
- * @version 0.1.0
- * @return IOTS_DAO Current row.
+ * @version 0.1.3+SVN
+ * @return OTS_Base_DAO Current row.
  */
     public function current()
     {
         $id = current($this->rows);
 
         $class = 'OTS_' . $this->class;
-        $object = new $class();
-        $object->load($id['id']);
-        return $object;
+        return new $class( (int) $id['id']);
     }
 
 /**

@@ -9,6 +9,7 @@
  * This is generic class for classes that uses buffer-baser read-write operations (it can also emulate C-like pointers).
  * 
  * @package POT
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -18,6 +19,7 @@
  * Binary buffer container.
  * 
  * @package POT
+ * @version 0.1.3+SVN
  * @property string $buffer Properties binary string.
  * @property int $char getChar()/putChar() method wrapper.
  * @property int $short getShort()/putShort() method wrapper.
@@ -335,6 +337,7 @@ class OTS_Buffer
 /**
  * Magic PHP5 method.
  * 
+ * @version 0.1.3+SVN
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -351,22 +354,27 @@ class OTS_Buffer
             // putChar() wrapper
             case 'char':
                 $this->putChar($value);
+                break;
 
             // putShort() wrapper
             case 'short':
                 $this->putShort($value);
+                break;
 
             // putLong() wrapper
             case 'long':
                 $this->putLong($value);
+                break;
 
             // putString() wrapper
             case 'string':
                 $this->putString($value);
+                break;
 
             // setPos() wrapper
             case 'pos':
                 $this->setPos($value);
+                break;
 
             default:
                 throw new OutOfBoundsException();

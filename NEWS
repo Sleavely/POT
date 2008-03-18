@@ -4,4 +4,12 @@ What's new in 0.1.3+SVN version?
 
     It is possible now to fetch list of banned account, players and IP addresses. Accounts and players can be found at OTS_Toolbox ( bannedPlayers() and bannedAccount() methods). IPs list can be take by OTS::bannedIPs().
 
+* Separated make targets for POT package and it's documentation.
+
+    Documentation in PDF format is very huge and it used to oversize POT package. Now it is in separated package.
+
+* Added __get() and __set() methods to OTS_Admin.
+
+    I forgot to add that in previous release after finishing work on OTS_Admin class itself.
+
 * Bugfixes.

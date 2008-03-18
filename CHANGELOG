@@ -1,5 +1,7 @@
 [0.1.3+SVN]
 * Bans lists. <wrzasq>
+* Separated make targets for POT package and it's documentation. <wrzasq>
+* Added __get() and __set() methods to OTS_Admin. <wrzasq>
 * Bugfixes. <wrzasq>
 
 [0.1.2]
