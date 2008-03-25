@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ items loading C++ code (items.cpp, items.h).
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -19,7 +19,7 @@
  * Item type info.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @property int $clientId Client ID.
  * @property string $name Item name.
  * @property int $group Group.
@@ -359,8 +359,10 @@ class OTS_ItemType
 /**
  * Returns given attribute.
  * 
+ * @version 0.1.3+SVN
  * @param string $attribyte Attribute name.
- * @return string|null Attribute value (null if not set).
+ * @return string Attribute value.
+ * @throws OutOfBoundsException If not set.
  */
     public function getAttribute($name)
     {
@@ -368,10 +370,8 @@ class OTS_ItemType
         {
             return $this->attributes[$name];
         }
-        else
-        {
-            return null;
-        }
+
+        throw new OutOfBoundsException();
     }
 
 /**

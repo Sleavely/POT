@@ -10,6 +10,7 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
+ * @todo future: Add hasCache() instead of mixed result type in readCache().
  */
 
 /**

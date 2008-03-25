@@ -21,7 +21,7 @@
  * @property int $count Amount of item.
  * @property string $attributes Attributes binary string.
  * @property-read int $id Item type ID.
- * @property-read OTS_ItemType|null $itemType Item type instance.
+ * @property-read OTS_ItemType $itemType Item type instance.
  */
 class OTS_Item implements Countable
 {
@@ -111,7 +111,7 @@ class OTS_Item implements Countable
  * 
  * @version 0.1.0
  * @since 0.1.0
- * @return OTS_ItemType|null Returns item type of item (null if not exists).
+ * @return OTS_ItemType Returns item type of item (null if not exists).
  */
     public function getItemType()
     {

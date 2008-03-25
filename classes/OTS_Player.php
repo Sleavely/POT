@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.2
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.1.2
+ * @version 0.1.3+SVN
  * @property string $name Character name.
  * @property OTS_Account $account Account to which character belongs.
  * @property OTS_Group $group Group of which character is member.
@@ -1872,7 +1872,7 @@ class OTS_Player extends OTS_Row_DAO
  * 
  * @version 0.1.0
  * @since 0.0.6
- * @return string|bool Player proffesion name.
+ * @return string Player proffesion name.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getVocationName()
@@ -1890,7 +1890,7 @@ class OTS_Player extends OTS_Row_DAO
  * 
  * @version 0.1.0
  * @since 0.1.0
- * @return string|bool Player town name.
+ * @return string Player town name.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function getTownName()
@@ -1925,10 +1925,8 @@ class OTS_Player extends OTS_Row_DAO
         {
             return POT::getInstance()->getHousesList()->getHouse($house['id']);
         }
-        else
-        {
-           return null;
-        }
+
+        return null;
     }
 
 /**
@@ -2285,7 +2283,7 @@ class OTS_Player extends OTS_Row_DAO
  * 
  * If any display driver is currently loaded then it uses it's method. Else it returns character name.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @return string String representation of object.
  */
@@ -2298,10 +2296,8 @@ class OTS_Player extends OTS_Row_DAO
         {
             return $ots->getDisplayDriver()->displayPlayer($this);
         }
-        else
-        {
-            return $this->getName();
-        }
+
+        return $this->getName();
     }
 }
 

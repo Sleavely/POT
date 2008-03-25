@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.1
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.1.1
+ * @version 0.1.3+SVN
  * @property string $password Password.
  * @property string $eMail Email address.
  * @property bool $blocked Blocked flag state.
@@ -710,7 +710,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * 
  * If any display driver is currently loaded then it uses it's method. Otherwise just returns account number.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @return string String representation of object.
  */
@@ -723,10 +723,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
         {
             return $ots->getDisplayDriver()->displayAccount($this);
         }
-        else
-        {
-            return $this->getId();
-        }
+
+        return $this->getId();
     }
 }
 

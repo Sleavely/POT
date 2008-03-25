@@ -13,10 +13,16 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
+ * @todo 0.1.3: Add missing exists checks.
+ * @todo 0.1.3: Display driver for data/ directory resources.
  * @todo 0.1.3: More detailed documentation and tutorials, also update examples and tutorials.
  * @todo 0.1.3: PHAR and PHK packages.
- * @todo 1.0.0: Code as C++ extension (as an alternative to pure PHP library which of course would still be available).
- * @todo 1.0.0: Implement POT namespace when it will be supported by PHP.
+ * @todo future: Code as C++ extension (as an alternative to pure PHP library which of course would still be available).
+ * @todo future: Implement POT namespace when it will be supported by PHP.
+ * @todo future: Complete phpUnit test.
+ * @todo future: Deprecations cleanup.
+ * @todo future: Main POT class as database instance.
+ * @todo future: E_* classes into *Exception, IOTS* into *Interface, change POT classes prefix from OTS_* into OT_*, unify *List and *_List naming into *List.
  */
 
 /**
@@ -485,7 +491,7 @@ class POT
  * 
  * Sends 'info' packet to OTS server and return output.
  * 
- * @version 0.0.2
+ * @version 0.1.3+SVN
  * @since 0.0.2
  * @param string $server Server IP/domain.
  * @param int $port OTServ port.
@@ -525,11 +531,9 @@ class POT
             $info->loadXML($data);
             return $info;
         }
+
         // returns offline state
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
 /**
@@ -721,7 +725,7 @@ class POT
 /**
  * Returns vocations list object.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.0.5
  * @return OTS_VocationsList List of vocations.
  * @throws E_OTS_NotLoaded If vocations list is not loaded.
@@ -732,19 +736,17 @@ class POT
         {
             return $this->vocations;
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns vocation's ID.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.0.5
  * @param string $name Vocation.
- * @return int|bool ID (false if not found).
+ * @return int ID.
  * @throws E_OTS_NotLoaded If vocations list is not loaded.
  */
     public function getVocationId($name)
@@ -753,19 +755,17 @@ class POT
         {
             return $this->vocations->getVocationId($name);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns name of given vocation's ID.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.0.5
  * @param int $id Vocation ID.
- * @return string|bool Name (false if not found).
+ * @return string Name.
  * @throws E_OTS_NotLoaded If vocations list is not loaded.
  */
     public function getVocationName($id)
@@ -774,10 +774,8 @@ class POT
         {
             return $this->vocations->getVocationName($id);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
@@ -827,7 +825,7 @@ class POT
 /**
  * Returns list of laoded monsters.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.0.6
  * @return OTS_MonstersList List of monsters.
  * @throws E_OTS_NotLoaded If monsters list is not loaded.
@@ -838,19 +836,17 @@ class POT
         {
             return $this->monsters;
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns loaded data of given monster.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.0.6
  * @param string $name Monster name.
- * @return OTS_Monster|null Monster data (null if not exists).
+ * @return OTS_Monster Monster data.
  * @throws E_OTS_NotLoaded If monsters list is not loaded.
  */
     public function getMonster($name)
@@ -859,10 +855,8 @@ class POT
         {
             return $this->monsters->getMonster($name);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
@@ -912,7 +906,7 @@ class POT
 /**
  * Returns list of laoded spells.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @return OTS_SpellsList List of spells.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
@@ -923,16 +917,14 @@ class POT
         {
             return $this->spells;
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns list of runes.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.0.7
  * @return array List of rune names.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
@@ -943,19 +935,17 @@ class POT
         {
             return $this->spells->getRunesList();
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns given rune spell.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.0.7
  * @param string $name Rune name.
- * @return OTS_Spell|null Rune spell wrapper (null if rune does not exist).
+ * @return OTS_Spell Rune spell wrapper (null if rune does not exist).
  * @throws E_OTS_NotLoaded If spells list is not loaded.
  */
     public function getRune($name)
@@ -964,16 +954,14 @@ class POT
         {
             return $this->spells->getRune($name);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns list of instants.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.0.7
  * @return array List of instant spells names.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
@@ -984,19 +972,17 @@ class POT
         {
             return $this->spells->getInstantsList();
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns given instant spell.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.0.7
  * @param string $name Spell name.
- * @return OTS_Spell|null Instant spell wrapper (null if rune does not exist).
+ * @return OTS_Spell Instant spell wrapper (null if rune does not exist).
  * @throws E_OTS_NotLoaded If spells list is not loaded.
  */
     public function getInstant($name)
@@ -1005,16 +991,14 @@ class POT
         {
             return $this->spells->getInstant($name);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns list of conjure spells.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.0.7
  * @return array List of conjure spells names.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
@@ -1025,19 +1009,17 @@ class POT
         {
             return $this->spells->getConjuresList();
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns given conjure spell.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.0.7
  * @param string $name Spell name.
- * @return OTS_Spell|null Conjure spell wrapper (null if rune does not exist).
+ * @return OTS_Spell Conjure spell wrapper (null if rune does not exist).
  * @throws E_OTS_NotLoaded If spells list is not loaded.
  */
     public function getConjure($name)
@@ -1046,10 +1028,8 @@ class POT
         {
             return $this->spells->getConjure($name);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
@@ -1099,7 +1079,7 @@ class POT
 /**
  * Returns list of laoded houses.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @return OTS_HousesList List of houses.
  * @throws E_OTS_NotLoaded If houses list is not loaded.
@@ -1110,19 +1090,17 @@ class POT
         {
             return $this->houses;
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns house information.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @param int $id House ID.
- * @return OTS_House|null House information wrapper (null if not found house).
+ * @return OTS_House House information wrapper.
  * @throws E_OTS_NotLoaded If houses list is not loaded.
  */
     public function getHouse($id)
@@ -1131,19 +1109,17 @@ class POT
         {
             return $this->houses->getHouse($id);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns ID of house with given name.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @param string $name House name.
- * @return int|bool House ID (false if not found).
+ * @return int House ID.
  * @throws E_OTS_NotLoaded If houses list is not loaded.
  */
     public function getHouseId($name)
@@ -1152,10 +1128,8 @@ class POT
         {
             return $this->houses->getHouseId($name);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
@@ -1232,7 +1206,7 @@ class POT
 /**
  * Returns list of laoded items.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @return OTS_ItemsList List of items.
  * @throws E_OTS_NotLoaded If items list is not loaded.
@@ -1243,19 +1217,17 @@ class POT
         {
             return $this->items;
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns item type instance.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @param int $id Item type ID.
- * @return OTS_ItemType|null Item type object (null if not found).
+ * @return OTS_ItemType Item type object.
  * @throws E_OTS_NotLoaded If items list is not loaded.
  */
     public function getItemType($id)
@@ -1264,19 +1236,17 @@ class POT
         {
             return $this->items->getItemType($id);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns ID of type with given name.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @param string $name Item type name.
- * @return int|bool Type ID (false if not found).
+ * @return int Type ID.
  * @throws E_OTS_NotLoaded If items list is not loaded.
  */
     public function getItemTypeId($name)
@@ -1285,10 +1255,8 @@ class POT
         {
             return $this->items->getItemTypeId($name);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
@@ -1368,7 +1336,7 @@ class POT
 /**
  * Returns loaded map.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @return OTS_OTBMFile Loaded OTBM file.
  * @throws E_OTS_NotLoaded If map is not loaded.
@@ -1379,16 +1347,14 @@ class POT
         {
             return $this->map;
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns map width.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @return int Map width.
  * @throws E_OTS_NotLoaded If map is not loaded.
@@ -1399,16 +1365,14 @@ class POT
         {
             return $this->map->getWidth();
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns map height.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @return int Map height.
  * @throws E_OTS_NotLoaded If map is not loaded.
@@ -1419,16 +1383,14 @@ class POT
         {
             return $this->map->getHeight();
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns map description.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @return string Map description.
  * @throws E_OTS_NotLoaded If map is not loaded.
@@ -1439,19 +1401,17 @@ class POT
         {
             return $this->map->getDescription();
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns town's ID.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @param string $name Town.
- * @return int|bool ID (false if not found).
+ * @return int ID.
  * @throws E_OTS_NotLoaded If map is not loaded.
  */
     public function getTownId($name)
@@ -1460,19 +1420,17 @@ class POT
         {
             return $this->map->getTownId($name);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
  * Returns name of given town's ID.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @param int $id Town ID.
- * @return string|bool Name (false if not found).
+ * @return string Name.
  * @throws E_OTS_NotLoaded If map is not loaded.
  */
     public function getTownName($id)
@@ -1481,10 +1439,8 @@ class POT
         {
             return $this->map->getTownName($id);
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 
 /**
@@ -1534,7 +1490,7 @@ class POT
 /**
  * Returns current display driver.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @return IOTS_Display Current display driver.
  * @throws E_OTS_NotLoaded If display driver is not loaded.
@@ -1545,10 +1501,8 @@ class POT
         {
             return $this->display;
         }
-        else
-        {
-            throw new E_OTS_NotLoaded();
-        }
+
+        throw new E_OTS_NotLoaded();
     }
 }
 

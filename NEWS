@@ -8,8 +8,16 @@ What's new in 0.1.3+SVN version?
 
     Documentation in PDF format is very huge and it used to oversize POT package. Now it is in separated package.
 
+* More stricted parameters and results types.
+
+    Many methods will now throw exceptions instead of returning mixed types of results.
+
 * Added __get() and __set() methods to OTS_Admin.
 
     I forgot to add that in previous release after finishing work on OTS_Admin class itself.
+
+* Code optimalisation.
+
+    Removed some unrequired calls and dropped some blocks that was not required.
 
 * Bugfixes.

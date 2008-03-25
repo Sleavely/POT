@@ -9,17 +9,19 @@
  * Code in this file bases on oryginal OTServ OTBM format loading C++ code (iomapotbm.h, iomapotbm.cpp).
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
+ * @todo future: Complete OTBM support: link tiles with items and spawns.
+ * @todo future: Spawns support.
  */
 
 /**
  * OTBM format reader.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @property-read OTS_HousesList $housesList Houses list loaded from associated houses file.
  * @property-read int $width Map width.
  * @property-read int $height Map height.
@@ -412,19 +414,30 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Returns town's ID.
  * 
+ * @version 0.1.3+SVN
  * @param string $name Town.
- * @return int|bool ID (false if not found).
+ * @return int ID.
+ * @throws OutOfBoundsException If not found.
  */
     public function getTownID($name)
     {
-        return array_search($name, $this->towns);
+        $id = array_search($name, $this->towns);
+
+        if($id === false)
+        {
+            throw new OutOfBoundsException();
+        }
+
+        return $id;
     }
 
 /**
  * Returns name of given town's ID.
  * 
+ * @version 0.1.3+SVN
  * @param int $id Town ID.
- * @return string|bool Name (false if not found).
+ * @return string Name.
+ * @throws OutOfBoundsException If not found.
  */
     public function getTownName($id)
     {
@@ -432,10 +445,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
         {
             return $this->towns[$id];
         }
-        else
-        {
-            return false;
-        }
+
+        throw new OutOfBoundsException();
     }
 
 /**

@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * List of players.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  */
 class OTS_Players_List extends OTS_Base_List
 {
@@ -51,7 +51,7 @@ class OTS_Players_List extends OTS_Base_List
  * 
  * If any display driver is currently loaded then it uses it's method.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @return string String representation of object.
  */
@@ -64,10 +64,8 @@ class OTS_Players_List extends OTS_Base_List
         {
             return $ots->getDisplayDriver()->displayPlayersList($this);
         }
-        else
-        {
-            return (string) $this->count();
-        }
+
+        return (string) $this->count();
     }
 }
 

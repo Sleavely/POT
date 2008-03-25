@@ -7,6 +7,7 @@
 
 /**
  * @package POT
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,6 +17,7 @@
  * Wrapper for houses list.
  * 
  * @package POT
+ * @version 0.1.3+SVN
  */
 class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 {
@@ -65,8 +67,10 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns house information.
  * 
+ * @version 0.1.3+SVN
  * @param int $id House ID.
- * @return OTS_House|null House information wrapper (null if not found house).
+ * @return OTS_House House information wrapper.
+ * @throws OutOfBoundsException If house was not found.
  */
     public function getHouse($id)
     {
@@ -74,17 +78,17 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
         {
             return $this->houses[$id];
         }
-        else
-        {
-            return null;
-        }
+
+        throw new OutOfBoundsException();
     }
 
 /**
  * Returns ID of house with given name.
  * 
+ * @version 0.1.3+SVN
  * @param string $name House name.
- * @return int|bool House ID (false if not found).
+ * @return int House ID.
+ * @throws OutOfBoundsException False if not found.
  */
     public function getHouseId($name)
     {
@@ -97,7 +101,7 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
             }
         }
 
-        return false;
+        throw new OutOfBoundsException();
     }
 
 /**
@@ -133,39 +137,37 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
         {
             return isset($this->houses[$offset]);
         }
+
         // house name
-        else
+        foreach($this->houses as $id => $house)
         {
-            return $this->getHouseId($offset) !== false;
+            // checks houses id
+            if( $house->getName() == $name)
+            {
+                return true;
+            }
         }
+
+        return false;
     }
 
 /**
  * Returns item from given position.
  * 
+ * @version 0.1.3+SVN
  * @param string|int $offset Array key.
- * @return mixed If key is an integer (type-sensitive!) then returns house instance. If it's a string then return associated ID found by house name. False if offset is not set.
+ * @return OTS_House|int If key is an integer (type-sensitive!) then returns house instance. If it's a string then return associated ID found by house name.
  */
     public function offsetGet($offset)
     {
         // integer key
         if( is_int($offset) )
         {
-            if( isset($this->houses[$offset]) )
-            {
-                return $this->houses[$offset];
-            }
-            // keys is not set
-            else
-            {
-                return false;
-            }
+            return $this->getHouse($offset);
         }
+
         // house name
-        else
-        {
-            return $this->getHouseId($offset);
-        }
+        return $this->getHouseId($offset);
     }
 
 /**

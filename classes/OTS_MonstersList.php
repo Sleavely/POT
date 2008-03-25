@@ -7,6 +7,7 @@
 
 /**
  * @package POT
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,6 +17,7 @@
  * Wrapper for monsters list.
  * 
  * @package POT
+ * @version 0.1.3+SVN
  */
 class OTS_MonstersList implements Iterator, Countable, ArrayAccess
 {
@@ -82,8 +84,10 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
 /**
  * Returns loaded data of given monster.
  * 
+ * @version 0.1.3+SVN
  * @param string $name Monster name.
- * @return OTS_Monster|null Monster data (null if not exists).
+ * @return OTS_Monster Monster data.
+ * @throws OutOfBoundsException If not exists.
  */
     public function getMonster($name)
     {
@@ -95,10 +99,8 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
             $monster->load($this->monstersPath . $this->monsters[$name]);
             return $monster;
         }
-        else
-        {
-            return null;
-        }
+
+        throw new OutOfBoundsException();
     }
 
 /**
@@ -171,20 +173,13 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
 /**
  * Returns item from given position.
  * 
+ * @version 0.1.3+SVN
  * @param string $offset Array key.
- * @return OTS_Monster|bool Monster instance. False if offset is not set.
+ * @return OTS_Monster Monster instance.
  */
     public function offsetGet($offset)
     {
-        if( isset($this->monsters[$offset]) )
-        {
-            return $this->getMonster($offset);
-        }
-        // keys is not set
-        else
-        {
-            return false;
-        }
+        return $this->getMonster($offset);
     }
 
 /**

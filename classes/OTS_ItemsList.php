@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ items loading C++ code (itemloader.h, items.cpp, items.h).
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -19,7 +19,7 @@
  * Items list loader.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @property-read int $otbVersion OTB file version.
  * @property-read int $clientVersion Dedicated client version.
  * @property-read int $buildVersion File build version.
@@ -419,8 +419,10 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Returns given item type.
  * 
+ * @version 0.1.3+SVN
  * @param int $id Item type (server) ID.
- * @return OTS_ItemType|null Returns item type of given ID (null if not exists).
+ * @return OTS_ItemType Returns item type of given ID.
+ * @throws OutOfBoundsException If not exists.
  */
     public function getItemType($id)
     {
@@ -428,10 +430,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
         {
             return $this->items[$id];
         }
-        else
-        {
-            return null;
-        }
+
+        throw new OutOfBoundsException();
     }
 
 /**
@@ -441,8 +441,10 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * Note: If there are more then one items with same name this function will return first found server ID. It doesn't also mean that it will be the lowest ID - item types are ordered in order that they were loaded from items.xml file.
  * </p>
  * 
+ * @version 0.1.3+SVN
  * @param string $name Item type name.
- * @return int|bool Returns item type (server) ID (false if not found).
+ * @return int Returns item type (server) ID.
+ * @throws OutOfBoundsException If not found.
  */
     public function getItemTypeId($name)
     {
@@ -456,7 +458,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
         }
 
         // not found
-        return false;
+        throw new OutOfBoundsException();
     }
 
 /**
@@ -560,41 +562,39 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
         {
             return isset($this->items[$offset]);
         }
+
         // item type name
-        else
+        foreach($this->items as $id => $type)
         {
-            return $this->getItemTypeId($offset) !== false;
+            if( $type->getName() == $name)
+            {
+                // found it
+                return true;
+            }
         }
+
+        // not found
+        return false;
     }
 
 /**
  * Returns item from given position.
  * 
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @param string|int $offset Array key.
- * @return mixed If key is an integer (type-sensitive!) then returns item type instance. If it's a string then return associated ID found by type name. False if offset is not set.
+ * @return OTS_ItemType|int If key is an integer (type-sensitive!) then returns item type instance. If it's a string then return associated ID found by type name.
  */
     public function offsetGet($offset)
     {
         // integer key
         if( is_int($offset) )
         {
-            if( isset($this->items[$offset]) )
-            {
-                return $this->items[$offset];
-            }
-            // keys is not set
-            else
-            {
-                return false;
-            }
+            return $this->getItemType($offset);
         }
-        // item type name
-        else
-        {
-            return $this->getItemTypeId($offset);
-        }
+
+        // house name
+        return $this->getItemTypeId($offset);
     }
 
 /**

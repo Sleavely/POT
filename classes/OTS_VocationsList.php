@@ -7,6 +7,7 @@
 
 /**
  * @package POT
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,6 +17,7 @@
  * Wrapper for vocations.xml file.
  * 
  * @package POT
+ * @version 0.1.3+SVN
  */
 class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 {
@@ -69,19 +71,31 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns vocation's ID.
  * 
+ * @version 0.1.3+SVN
  * @param string $name Vocation.
- * @return int|bool ID (false if not found).
+ * @return int ID.
+ * @throws OutOfBoundsException If not found.
  */
     public function getVocationId($name)
     {
-        return array_search($name, $this->vocations);
+        $id = array_search($name, $this->vocations);
+
+        // checks if vocation was found
+        if($id === false)
+        {
+            throw new OutOfBoundsException();
+        }
+
+        return $id;
     }
 
 /**
  * Returns name of given vocation's ID.
  * 
+ * @version 0.1.3+SVN
  * @param int $id Vocation ID.
- * @return string|bool Name (false if not found).
+ * @return string Name
+ * @throws OutOfBoundsException If not found.
  */
     public function getVocationName($id)
     {
@@ -89,10 +103,8 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
         {
             return $this->vocations[$id];
         }
-        else
-        {
-            return false;
-        }
+
+        throw new OutOfBoundsException();
     }
 
 /**
@@ -118,6 +130,7 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Checks if given element exists.
  * 
+ * @version 0.1.3+SVN
  * @param string|int $offset Array key.
  * @return bool True if it's set.
  */
@@ -128,39 +141,28 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
         {
             return isset($this->vocations[$offset]);
         }
+
         // vocation name
-        else
-        {
-            return array_search($offset, $this->vocations) !== false;
-        }
+        return array_search($offset, $this->vocations) !== false;
     }
 
 /**
  * Returns item from given position.
  * 
+ * @version 0.1.3+SVN
  * @param string|int $offset Array key.
- * @return mixed If key is an integer (type-sensitive!) then returns vocation name. If it's a string then return associated ID. False if offset is not set.
+ * @return string|int If key is an integer (type-sensitive!) then returns vocation name. If it's a string then return associated ID.
  */
     public function offsetGet($offset)
     {
         // integer key
         if( is_int($offset) )
         {
-            if( isset($this->vocations[$offset]) )
-            {
-                return $this->vocations[$offset];
-            }
-            // keys is not set
-            else
-            {
-                return false;
-            }
+            return $this->getVocationName($offset);
         }
+
         // vocations name
-        else
-        {
-            return array_search($offset, $this->vocations);
-        }
+        return $this->getVocationId($offset);
     }
 
 /**
