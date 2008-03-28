@@ -357,6 +357,19 @@ class OTS_ItemType
     }
 
 /**
+ * Checks if this type has given attribute.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param string $attribyte Attribute name.
+ * @return bool Attribute set state.
+ */
+    public function hasAttribute($name)
+    {
+        return isset($this->attributes[$name]);
+    }
+
+/**
  * Returns given attribute.
  * 
  * @version 0.1.3+SVN
@@ -692,6 +705,28 @@ class OTS_ItemType
             default:
                 throw new OutOfBoundsException();
         }
+    }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method. Otherwise just returns item ID.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDataDisplayDriverLoaded() )
+        {
+            return $ots->getDataDisplayDriver()->displayItemType($this);
+        }
+
+        return $this->getId();
     }
 }
 

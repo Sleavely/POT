@@ -65,6 +65,28 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
     }
 
 /**
+ * Checks if given house exists on list.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param string $name Name.
+ * @return bool If house is set then true.
+ */
+    public function hasHouse($name)
+    {
+        foreach($this->houses as $id => $house)
+        {
+            // checks houses id
+            if( $house->getName() == $name)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+/**
  * Returns house information.
  * 
  * @version 0.1.3+SVN
@@ -80,6 +102,19 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
         }
 
         throw new OutOfBoundsException();
+    }
+
+/**
+ * Checks if given house ID exists on list.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param int $id ID.
+ * @return bool If house is set then true.
+ */
+    public function hasHouseId($id)
+    {
+        return isset($this->houses[$id]);
     }
 
 /**
@@ -139,16 +174,7 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
         }
 
         // house name
-        foreach($this->houses as $id => $house)
-        {
-            // checks houses id
-            if( $house->getName() == $name)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->hasHouse($offset);
     }
 
 /**
@@ -191,6 +217,28 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
     public function offsetUnset($offset)
     {
         throw new E_OTS_ReadOnly();
+    }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDataDisplayDriverLoaded() )
+        {
+            return $ots->getDataDisplayDriver()->displayHousesList($this);
+        }
+
+        return (string) $this->count();
     }
 }
 

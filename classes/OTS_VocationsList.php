@@ -69,6 +69,19 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
     }
 
 /**
+ * Checks if given vocation ID exists on list.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param int $id ID.
+ * @return bool If vocation is set then true.
+ */
+    public function hasVocationId($id)
+    {
+        return isset($this->vocations[$id]);
+    }
+
+/**
  * Returns vocation's ID.
  * 
  * @version 0.1.3+SVN
@@ -90,11 +103,24 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
     }
 
 /**
+ * Checks if given vocation name exists on list.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param string $name Vocation.
+ * @return bool If vocation is set then true.
+ */
+    public function hasVocationName($name)
+    {
+        return array_search($name, $this->vocations) !== false;
+    }
+
+/**
  * Returns name of given vocation's ID.
  * 
  * @version 0.1.3+SVN
  * @param int $id Vocation ID.
- * @return string Name
+ * @return string Name.
  * @throws OutOfBoundsException If not found.
  */
     public function getVocationName($id)

@@ -2,6 +2,8 @@
 * Bans lists. <wrzasq>
 * Separated make targets for POT package and it's documentation. <wrzasq>
 * More stricted parameters and results types. <wrzasq>
+* Added display driver interface for non-database resources. <wrzasq>
+* Added existence checking methods. <wrzasq>
 * Added __get() and __set() methods to OTS_Admin. <wrzasq>
 * Code optimalisation. <wrzasq>
 * Bugfixes. <wrzasq>

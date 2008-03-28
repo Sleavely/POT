@@ -82,6 +82,19 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
     }
 
 /**
+ * Checks if given monster ID exists on list.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param string $name Monster name.
+ * @return bool If monster is set then true.
+ */
+    public function hasMonster($name)
+    {
+        return isset($this->monsters[$name]);
+    }
+
+/**
  * Returns loaded data of given monster.
  * 
  * @version 0.1.3+SVN
@@ -203,6 +216,28 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
     public function offsetUnset($offset)
     {
         throw new E_OTS_ReadOnly();
+    }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDataDisplayDriverLoaded() )
+        {
+            return $ots->getDataDisplayDriver()->displayMonstersList($this);
+        }
+
+        return (string) $this->count();
     }
 }
 

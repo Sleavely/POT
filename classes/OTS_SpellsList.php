@@ -118,6 +118,19 @@ class OTS_SpellsList
     }
 
 /**
+ * Checks if rune exists.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param string $name Rune name.
+ * @return bool If rune is set then true.
+ */
+    public function hasRune($name)
+    {
+        return isset($this->runes[$name]);
+    }
+
+/**
  * Returns given rune spell.
  * 
  * @version 0.1.3+SVN
@@ -146,12 +159,25 @@ class OTS_SpellsList
     }
 
 /**
+ * Checks if instant exists.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param string $name Instant name.
+ * @return bool If instant is set then true.
+ */
+    public function hasInstant($name)
+    {
+        return isset($this->instants[$name]);
+    }
+
+/**
  * Returns given instant spell.
  * 
  * @version 0.1.3+SVN
  * @param string $name Spell name.
  * @return OTS_Spell Instant spell wrapper.
- * @throws OutOfBoundsException If rune does not exist.
+ * @throws OutOfBoundsException If instant does not exist.
  */
     public function getInstant($name)
     {
@@ -174,12 +200,25 @@ class OTS_SpellsList
     }
 
 /**
+ * Checks if conjure exists.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param string $name Conjure name.
+ * @return bool If conjure is set then true.
+ */
+    public function hasConjure($name)
+    {
+        return isset($this->conjures[$name]);
+    }
+
+/**
  * Returns given conjure spell.
  * 
  * @version 0.1.3+SVN
  * @param string $name Spell name.
  * @return OTS_Spell Conjure spell wrapper.
- * @throws OutOfBoundsException If rune does not exist.
+ * @throws OutOfBoundsException If conjure does not exist.
  */
     public function getConjure($name)
     {
@@ -214,6 +253,28 @@ class OTS_SpellsList
             default:
                 throw new OutOfBoundsException();
         }
+    }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDataDisplayDriverLoaded() )
+        {
+            return $ots->getDataDisplayDriver()->displaySpellsList($this);
+        }
+
+        return (string) $this->count();
     }
 }
 

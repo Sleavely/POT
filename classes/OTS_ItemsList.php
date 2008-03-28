@@ -417,6 +417,28 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     }
 
 /**
+ * Checks if given item type exists on list.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param string $name Name.
+ * @return bool If item type is set then true.
+ */
+    public function hasItemType($name)
+    {
+        foreach($this->items as $id => $type)
+        {
+            if( $type->getName() == $name)
+            {
+                // found it
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+/**
  * Returns given item type.
  * 
  * @version 0.1.3+SVN
@@ -432,6 +454,19 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
         }
 
         throw new OutOfBoundsException();
+    }
+
+/**
+ * Checks if given type ID exists on list.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param int $id ID.
+ * @return bool If item type is set then true.
+ */
+    public function hasItemTypeId($id)
+    {
+        return isset($this->items[$id]);
     }
 
 /**
@@ -564,17 +599,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
         }
 
         // item type name
-        foreach($this->items as $id => $type)
-        {
-            if( $type->getName() == $name)
-            {
-                // found it
-                return true;
-            }
-        }
-
-        // not found
-        return false;
+        return $this->hasItemType($offset);
     }
 
 /**
@@ -645,6 +670,28 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
             default:
                 throw new OutOfBoundsException();
         }
+    }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDataDisplayDriverLoaded() )
+        {
+            return $ots->getDataDisplayDriver()->displayItemsList($this);
+        }
+
+        return (string) $this->count();
     }
 }
 

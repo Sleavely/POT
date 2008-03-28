@@ -412,6 +412,19 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
     }
 
 /**
+ * Checks if given town ID exists on list.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param int $id ID.
+ * @return bool If town is set then true.
+ */
+    public function hasTownId($id)
+    {
+        return isset($this->towns[$id]);
+    }
+
+/**
  * Returns town's ID.
  * 
  * @version 0.1.3+SVN
@@ -429,6 +442,19 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
         }
 
         return $id;
+    }
+
+/**
+ * Checks if given town name exists on list.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param string $name Town.
+ * @return bool If town is set then true.
+ */
+    public function hasTownName($name)
+    {
+        return array_search($name, $this->towns) !== false;
     }
 
 /**
@@ -672,6 +698,28 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
             default:
                 throw new OutOfBoundsException();
         }
+    }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDataDisplayDriverLoaded() )
+        {
+            return $ots->getDataDisplayDriver()->displayOTBMMap($this);
+        }
+
+        return (string) $this->count();
     }
 }
 

@@ -7,6 +7,7 @@
 
 /**
  * @package POT
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,6 +17,7 @@
  * Wrapper for house information.
  * 
  * @package POT
+ * @version 0.1.3+SVN
  * @property OTS_Player $owner House owner.
  * @property int $paid Paid time.
  * @property int $warnings Warnings message.
@@ -359,6 +361,28 @@ class OTS_House extends OTS_Base_DAO
             default:
                 throw new OutOfBoundsException();
         }
+    }
+
+/**
+ * Returns string representation of object.
+ * 
+ * If any display driver is currently loaded then it uses it's method. Otherwise just returns house ID.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @return string String representation of object.
+ */
+    public function __toString()
+    {
+        $ots = POT::getInstance();
+
+        // checks if display driver is loaded
+        if( $ots->isDataDisplayDriverLoaded() )
+        {
+            return $ots->getDataDisplayDriver()->displayHouse($this);
+        }
+
+        return $this->getId();
     }
 }
 
