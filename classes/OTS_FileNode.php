@@ -18,6 +18,10 @@
 /**
  * OTServ binary file node representation.
  * 
+ * <p>
+ * This file extends {@link OTS_Buffer OTS_Buffer class} for nodes tree logic with siblings and childs.
+ * </p>
+ * 
  * @package POT
  * @version 0.1.2
  * @property OTS_FileNode $next Next sibling node.
@@ -48,7 +52,9 @@ class OTS_FileNode extends OTS_Buffer
 /**
  * Creates clone of object.
  * 
- * Copy of object needs to have different ID.
+ * <p>
+ * Creates complete tree copy by copying sibling and child nodes.
+ * </p>
  */
     public function __clone()
     {
@@ -132,6 +138,7 @@ class OTS_FileNode extends OTS_Buffer
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
+ * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
     public function __get($name)
     {

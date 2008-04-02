@@ -16,6 +16,10 @@
 /**
  * MySQL connection interface.
  * 
+ * <p>
+ * At all everything that you really need to read from this class documentation is list of parameters for driver's constructor.
+ * </p>
+ * 
  * @package POT
  * @version 0.0.6
  */
@@ -31,20 +35,25 @@ class OTS_DB_MySQL extends PDO implements IOTS_DB
 /**
  * Creates database connection.
  * 
+ * <p>
  * Connects to MySQL database on given arguments.
+ * </p>
  * 
  * <p>
  * List of parameters for this drivers:
  * </p>
  * 
- * - <var>host</var> - database server.
- * - <var>port</var> - port (optional, also it is possible to use host:port in <var>host</var> parameter).
- * - <var>database</var> - database name.
- * - <var>user</var> - user login.
- * - <var>password</var> - user password.
+ * <ul>
+ * <li><var>host</var> - database server.</li>
+ * <li><var>port</var> - port (optional, also it is possible to use host:port in <var>host</var> parameter).</li>
+ * <li><var>database</var> - database name.</li>
+ * <li><var>user</var> - user login.</li>
+ * <li><var>password</var> - user password.</li>
+ * </ul>
  * 
  * @version 0.0.6
  * @param array $params Connection parameters.
+ * @throws PDOException On PDO operation error.
  */
     public function __construct($params)
     {
@@ -118,10 +127,6 @@ class OTS_DB_MySQL extends PDO implements IOTS_DB
     }
 
 /**
- * IOTS_DB method.
- * 
- * Overwrites PDO method - we won't use quoting agains other values.
- * 
  * @param stirng $string String to be quoted.
  * @return string Quoted string.
  * @deprecated 0.0.5 Use PDO::quote().
@@ -133,10 +138,6 @@ class OTS_DB_MySQL extends PDO implements IOTS_DB
     }
 
 /**
- * IOTS_DB method.
- * 
- * Overwrites PDO method.
- * 
  * @param string $query SQL query.
  * @return PDOStatement|bool Query results.
  * @deprecated 0.0.5 Use PDO::query().

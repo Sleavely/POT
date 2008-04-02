@@ -9,12 +9,16 @@
  * @package POT
  * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
 /**
  * ODBC connection interface.
+ * 
+ * <p>
+ * At all everything that you really need to read from this class documentation is list of parameters for driver's constructor.
+ * </p>
  * 
  * @package POT
  * @version 0.1.3+SVN
@@ -31,21 +35,30 @@ class OTS_DB_ODBC extends PDO implements IOTS_DB
 /**
  * Creates database connection.
  * 
+ * <p>
  * Connects to ODBC data source on given arguments.
+ * </p>
  * 
  * <p>
  * List of parameters for this drivers:
  * </p>
  * 
- * - <var>host</var> - database host.
- * - <var>port</var> - ODBC driver.
- * - <var>database</var> - database name.
- * - <var>user</var> - user login.
- * - <var>password</var> - user password.
- * - <var>source</var> - ODBC data source.
+ * <ul>
+ * <li><var>host</var> - database host.</li>
+ * <li><var>port</var> - ODBC driver.</li>
+ * <li><var>database</var> - database name.</li>
+ * <li><var>user</var> - user login.</li>
+ * <li><var>password</var> - user password.</li>
+ * <li><var>source</var> - ODBC data source.</li>
+ * </ul>
+ * 
+ * <p>
+ * Note: Since 0.1.3+SVN version <var>source</var> parameter was added.
+ * </p>
  * 
  * @version 0.1.3+SVN
  * @param array $params Connection parameters.
+ * @throws PDOException On PDO operation error.
  */
     public function __construct($params)
     {
@@ -121,10 +134,6 @@ class OTS_DB_ODBC extends PDO implements IOTS_DB
     }
 
 /**
- * IOTS_DB method.
- * 
- * Overwrites PDO method - we won't use quoting agains other values.
- * 
  * @param stirng $string String to be quoted.
  * @return string Quoted string.
  * @deprecated 0.0.5 Use PDO::quote().
@@ -136,10 +145,6 @@ class OTS_DB_ODBC extends PDO implements IOTS_DB
     }
 
 /**
- * IOTS_DB method.
- * 
- * Overwrites PDO method.
- * 
  * @param string $query SQL query.
  * @return PDOStatement|bool Query results.
  * @deprecated 0.0.5 Use PDO::query().

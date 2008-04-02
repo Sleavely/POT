@@ -13,7 +13,7 @@
  */
 
 /**
- * This is class similar to OTS_Toolbox except that this class contains routines for binary number operations.
+ * This is class similar to {@link OTS_Toolbox OTS_Toolbox} except that this class contains routines for binary number operations. It is mainly used by encryption/decryption classes so you are probably not interested in using it.
  * 
  * @package POT
  */

@@ -10,6 +10,8 @@
  * 
  * This package makes you sure that POT scripts won't cause FATAL errors on PHP older PHP 5.x versions. However remember that some PHP features won't be enabled with it. For example if you have PHP 5.0.x, this package will define Countable interface for you so PHP will know it, but it won't allow you to use count($countableObject) structure.
  * 
+ * Note that you need to include this file before any other POT file or they will cause FATAL errors.
+ * 
  * @package POT
  * @version 0.1.2
  * @subpackage compat

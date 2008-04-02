@@ -91,9 +91,11 @@ class OTS_SQLField
     }
 
 /**
- * Returns string representation of WHERE clause.
+ * Returns string representation for WHERE clause.
  * 
+ * <p>
  * Returned string can be easily inserted into SQL query.
+ * </p>
  * 
  * @version 0.1.0
  * @since 0.1.0

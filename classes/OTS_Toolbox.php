@@ -36,7 +36,9 @@ class OTS_Toolbox
 /**
  * Finds out which level user have basing on his/her experience.
  * 
- * PHP doesn't support complex numbers natively so solving third-level polynomials would be quite hard...
+ * <p>
+ * PHP doesn't support complex numbers natively so solving third-level polynomials would be quite hard. Rather then doing this, this method iterates calculating experience for next levels until it finds one which requires enought experience we have. Because of that, for high experience values this function can take relatively long time to be executed.
+ * </p>
  * 
  * @param int $experience Current experience points.
  * @return int Experience level.

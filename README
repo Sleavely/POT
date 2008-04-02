@@ -59,38 +59,6 @@ For more readable output of phpUnit test run:
 php test.php
 
 
-
-===== Testing ====
-
-
-If you want to run phpUnit test suite you should have following enviroment available (if some of those won't fit your current settings, some tests will fails):
-
-MySQL configuration:
-    host: localhost
-    user: otserv
-    database: otserv
-    without password
-
-SQLite configuration:
-    database: db.s3db in current directory
-
-PostgreSQL configuration:
-    host: localhost
-    user: otserv
-    password: otserv
-    database: otserv
-
-ODBC configuration:
-    data source: OTServ
-
-OTServ configuration:
-    host: localhost
-    port: 7171
-    otadmin: enabled
-    otadmin flags: required login, RSA1024XTEA encryption
-    otadmin password: otserv
-
-
 ===== Credits =====
 
 

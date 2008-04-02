@@ -13,10 +13,6 @@
  */
 
 /**
- * OTserv database object.
- * 
- * This insterface indicates that class is a OTServ DAO class.
- * 
  * @package POT
  * @deprecated 0.1.0 This interface is not used anymore.
  */

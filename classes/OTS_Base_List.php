@@ -9,12 +9,24 @@
  * @package POT
  * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
 /**
  * Basic list class routines.
+ * 
+ * <p>
+ * This class defines entire lists mechanism for classes that represents records set from OTServ database. All child classes only have to define {@link OTS_Base_List::init() init() method} to set table info for queries.
+ * </p>
+ * 
+ * <p>
+ * Table on which list will operate has to contain integer <var>"id"</var> field and single row representing class has to support loading by this filed as key.
+ * </p>
+ * 
+ * <p>
+ * This class is mostly usefull when you create own extensions for POT code.
+ * </p>
  * 
  * @package POT
  * @version 0.1.3+SVN
@@ -99,7 +111,9 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Magic PHP5 method.
  * 
+ * <p>
  * Allows object serialisation.
+ * </p>
  * 
  * @return array List of properties that should be saved.
  */
@@ -111,7 +125,9 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Magic PHP5 method.
  * 
+ * <p>
  * Allows object unserialisation.
+ * </p>
  */
     public function __wakeup()
     {
@@ -121,7 +137,9 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Magic PHP5 method.
  * 
+ * <p>
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * </p>
  * 
  * @version 0.1.3+SVN
  * @param array $properties List of object properties.
@@ -147,9 +165,13 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
     }
 
 /**
- * Sets LIMIT.
+ * Sets LIMIT clause.
  * 
- * @param int|bool Limit for SELECT (false to reset).
+ * <p>
+ * Reduces amount of seleced rows up to given number.
+ * </p>
+ * 
+ * @param int|bool $limit Limit for SELECT (false to reset).
  */
     public function setLimit($limit = false)
     {
@@ -164,9 +186,13 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
     }
 
 /**
- * Sets OFFSET.
+ * Sets OFFSET clause.
  * 
- * @param int|bool Offset for SELECT (false to reset).
+ * <p>
+ * Moves starting rows of selected set to given position.
+ * </p>
+ * 
+ * @param int|bool $offset Offset for SELECT (false to reset).
  */
     public function setOffset($offset = false)
     {
@@ -183,6 +209,10 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Returns current row.
  * 
+ * <p>
+ * Returns object of class which handle single row representation. Object is initialised with ID of current position in result cursor.
+ * </p>
+ * 
  * @version 0.1.3+SVN
  * @return OTS_Base_DAO Current row.
  */
@@ -196,6 +226,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 
 /**
  * Select rows from database.
+ * 
+ * @throws PDOException On PDO operation error.
  */
     public function rewind()
     {
@@ -235,6 +267,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * 
  * @version 0.0.5
  * @return int Number of rows.
+ * @throws PDOException On PDO operation error.
  */
     public function count()
     {
@@ -245,7 +278,9 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Sets filter on list.
  * 
+ * <p>
  * Call without argument to reset filter.
+ * </p>
  * 
  * @param OTS_SQLFilter|null $filter Filter for list.
  */
@@ -264,6 +299,14 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 
 /**
  * Appends sorting rule.
+ * 
+ * <p>
+ * First parameter may be of type string, then it will be used as literal field name, or object of {@link OTS_SQLField OTS_SQLField class}, then it's representation will be used as qualiffied SQL identifier name.
+ * </p>
+ * 
+ * <p>
+ * Note: Since 0.0.7 version <var>$field</var> parameter can be instance of {@link OTS_SQLField OTS_SQLField class}.
+ * </p>
  * 
  * @version 0.0.7
  * @param OTS_SQLField|string $field Field name.

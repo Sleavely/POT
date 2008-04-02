@@ -9,7 +9,7 @@
  * @package POT
  * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -38,7 +38,12 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
 /**
  * Loads monsters mapping file.
  * 
+ * <p>
+ * Note: You pass directory path, not monsters.xml file name itself.
+ * </p>
+ * 
  * @param string $path Monsters directory.
+ * @throws DOMException On DOM operation error.
  */
     public function __construct($path)
     {
@@ -101,6 +106,7 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
  * @param string $name Monster name.
  * @return OTS_Monster Monster data.
  * @throws OutOfBoundsException If not exists.
+ * @throws DOMException On DOM operation error.
  */
     public function getMonster($name)
     {
@@ -130,6 +136,7 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
  * Returns monster at current position in iterator.
  * 
  * @return OTS_Monster Monster.
+ * @throws DOMException On DOM operation error.
  */
     public function current()
     {
@@ -189,6 +196,7 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
  * @version 0.1.3+SVN
  * @param string $offset Array key.
  * @return OTS_Monster Monster instance.
+ * @throws DOMException On DOM operation error.
  */
     public function offsetGet($offset)
     {
@@ -196,7 +204,7 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
     }
 
 /**
- * This method is implemented for ArrayAccess interface. In fact you can't write/append to monsters list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to monsters list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
  * 
  * @param string|int $offset Array key.
  * @param mixed $value Field value.
@@ -208,7 +216,7 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
     }
 
 /**
- * This method is implemented for ArrayAccess interface. In fact you can't write/append to monsters list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to monsters list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
  * 
  * @param string|int $offset Array key.
  * @throws E_OTS_ReadOnly Always - this class is read-only.
@@ -221,7 +229,9 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
 /**
  * Returns string representation of object.
  * 
+ * <p>
  * If any display driver is currently loaded then it uses it's method.
+ * </p>
  * 
  * @version 0.1.3+SVN
  * @since 0.1.3+SVN

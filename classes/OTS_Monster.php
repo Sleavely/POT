@@ -9,14 +9,16 @@
  * @package POT
  * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
 /**
  * Wrapper for monsters files DOMDocument.
  * 
- * Note: as this class extends DOMDocument class and contains exacly file XML tree you can work on it as on normal DOM tree.
+ * <p>
+ * Note: as this class extends {@link http://www.php.net/manual/en/ref.dom.php DOMDocument class} and contains exacly file XML tree you can work on it as on normal DOM tree.
+ * </p>
  * 
  * @package POT
  * @version 0.1.3+SVN
@@ -41,6 +43,7 @@ class OTS_Monster extends DOMDocument
  * Returns monster name.
  * 
  * @return string Name.
+ * @throws DOMException On DOM operation error.
  */
     public function getName()
     {
@@ -51,6 +54,7 @@ class OTS_Monster extends DOMDocument
  * Returns monster race.
  * 
  * @return string Race.
+ * @throws DOMException On DOM operation error.
  */
     public function getRace()
     {
@@ -61,6 +65,7 @@ class OTS_Monster extends DOMDocument
  * Returns amount of experience for killing this monster.
  * 
  * @return int Experience points.
+ * @throws DOMException On DOM operation error.
  */
     public function getExperience()
     {
@@ -71,6 +76,7 @@ class OTS_Monster extends DOMDocument
  * Returns monster speed.
  * 
  * @return int Speed.
+ * @throws DOMException On DOM operation error.
  */
     public function getSpeed()
     {
@@ -81,6 +87,7 @@ class OTS_Monster extends DOMDocument
  * Returns amount of mana required to summon this monster.
  * 
  * @return int|bool Mana required (false if not possible).
+ * @throws DOMException On DOM operation error.
  */
     public function getManaCost()
     {
@@ -99,6 +106,7 @@ class OTS_Monster extends DOMDocument
  * Returns monster HP.
  * 
  * @return int Hit points.
+ * @throws DOMException On DOM operation error.
  */
     public function getHealth()
     {
@@ -109,6 +117,7 @@ class OTS_Monster extends DOMDocument
  * Returns all monster flags (in format flagname => value).
  * 
  * @return array Flags.
+ * @throws DOMException On DOM operation error.
  */
     public function getFlags()
     {
@@ -130,6 +139,7 @@ class OTS_Monster extends DOMDocument
  * 
  * @param string $flag Flag.
  * @return int|bool Flag value (false if not set).
+ * @throws DOMException On DOM operation error.
  */
     public function getFlag($flag)
     {
@@ -151,6 +161,7 @@ class OTS_Monster extends DOMDocument
  * Returns voices that monster can sound.
  * 
  * @return array List of voices.
+ * @throws DOMException On DOM operation error.
  */
     public function getVoices()
     {
@@ -172,8 +183,6 @@ class OTS_Monster extends DOMDocument
     }
 
 /**
- * Returns all possible loot.
- * 
  * @return array List of item IDs.
  * @deprecated 0.1.0 Use getItems().
  */
@@ -205,9 +214,15 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns all possible loot.
  * 
+ * <p>
+ * In order to use this method you have to have global items list loaded.
+ * </p>
+ * 
  * @version 0.1.0
  * @since 0.1.0
  * @return array List of item types.
+ * @throws E_OTS_NotLoaded When there is no items list available in global POT instance.
+ * @throws DOMException On DOM operation error.
  */
     public function getItems()
     {
@@ -241,6 +256,7 @@ class OTS_Monster extends DOMDocument
  * Returns all monster immunities.
  * 
  * @return array Immunities.
+ * @throws DOMException On DOM operation error.
  */
     public function getImmunities()
     {
@@ -272,6 +288,7 @@ class OTS_Monster extends DOMDocument
  * 
  * @param string $name Immunity to check.
  * @return bool Immunity state.
+ * @throws DOMException On DOM operation error.
  */
     public function hasImmunity($name)
     {
@@ -298,6 +315,7 @@ class OTS_Monster extends DOMDocument
  * Returns monster defense rate.
  * 
  * @return int Defense rate.
+ * @throws DOMException On DOM operation error.
  */
     public function getDefense()
     {
@@ -316,6 +334,7 @@ class OTS_Monster extends DOMDocument
  * Returns monster armor.
  * 
  * @return int Armor rate.
+ * @throws DOMException On DOM operation error.
  */
     public function getArmor()
     {
@@ -334,6 +353,7 @@ class OTS_Monster extends DOMDocument
  * Returns list of special defenses.
  * 
  * @return array List of defense effects.
+ * @throws DOMException On DOM operation error.
  */
     public function getDefenses()
     {
@@ -357,6 +377,7 @@ class OTS_Monster extends DOMDocument
  * Returns list of monster attacks.
  * 
  * @return array List of attafck effects.
+ * @throws DOMException On DOM operation error.
  */
     public function getAttacks()
     {
@@ -384,6 +405,7 @@ class OTS_Monster extends DOMDocument
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
+ * @throws DOMException On DOM operation error.
  */
     public function __get($name)
     {
@@ -439,7 +461,9 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns string representation of XML.
  * 
+ * <p>
  * If any display driver is currently loaded then it uses it's method. Otherwise just returns monster XML content.
+ * </p>
  * 
  * @version 0.1.3+SVN
  * @since 0.1.0

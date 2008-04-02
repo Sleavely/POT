@@ -39,6 +39,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * 
  * @version 0.0.5
  * @param int $id Rank's ID.
+ * @throws PDOException On PDO operation error.
  */
     public function load($id)
     {
@@ -49,11 +50,15 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Loads rank by it's name.
  * 
+ * <p>
  * As there can be several ranks with same name in different guilds you can pass optional second parameter to specify in which guild script should look for rank.
+ * </p>
  * 
  * @version 0.0.5
  * @param string $name Rank's name.
  * @param OTS_Guild $guild Guild in which rank should be found.
+ * @throws PDOException On PDO operation error.
+ * @throws E_OTS_NotLoaded If given <var>$guild</var> object is not loaded.
  */
     public function find($name, OTS_Guild $guild = null)
     {
@@ -88,7 +93,12 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Saves rank in database.
  * 
+ * <p>
+ * If rank is not loaded to represent any existing group it will create new row for it.
+ * </p>
+ * 
  * @version 0.0.8
+ * @throws PDOException On PDO operation error.
  */
     public function save()
     {
@@ -143,6 +153,10 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Sets rank's name.
  * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changed to database.
+ * </p>
+ * 
  * @param string $name Name.
  */
     public function setName($name)
@@ -156,6 +170,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * @version 0.1.0
  * @return OTS_Guild Guild of this rank.
  * @throws E_OTS_NotLoaded If rank is not loaded.
+ * @throws PDOException On PDO operation error.
  */
     public function getGuild()
     {
@@ -172,7 +187,12 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Assigns rank to guild.
  * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changed to database.
+ * </p>
+ * 
  * @param OTS_Guild $guild Owning guild.
+ * @throws E_OTS_NotLoaded If given <var>$guild</var> object is not loaded.
  */
     public function setGuild(OTS_Guild $guild)
     {
@@ -198,6 +218,10 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Sets rank's access level within guild.
  * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changed to database.
+ * </p>
+ * 
  * @param int $level access level within guild.
  */
     public function setLevel($level)
@@ -208,14 +232,19 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Reads custom field.
  * 
+ * <p>
  * Reads field by it's name. Can read any field of given record that exists in database.
+ * </p>
  * 
+ * <p>
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+ * </p>
  * 
  * @version 0.0.5
  * @param string $field Field name.
  * @return string Field value.
  * @throws E_OTS_NotLoaded If rank is not loaded.
+ * @throws PDOException On PDO operation error.
  */
     public function getCustomField($field)
     {
@@ -231,16 +260,23 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Writes custom field.
  * 
+ * <p>
  * Write field by it's name. Can write any field of given record that exists in database.
+ * </p>
  * 
+ * <p>
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
+ * </p>
  * 
+ * <p>
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field value. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
+ * </p>
  * 
  * @version 0.0.5
  * @param string $field Field name.
  * @param mixed $value Field value.
  * @throws E_OTS_NotLoaded If rank is not loaded.
+ * @throws PDOException On PDO operation error.
  */
     public function setCustomField($field, $value)
     {
@@ -259,8 +295,6 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
     }
 
 /**
- * Reads all players who has this rank set.
- * 
  * @version 0.1.0
  * @return array List of members.
  * @throws E_OTS_NotLoaded If rank is not loaded.
@@ -289,7 +323,13 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * List of characters with current rank.
  * 
+ * <p>
  * In difference to {@link OTS_GuildRank::getPlayers() getPlayers() method} this method returns filtered {@link OTS_Players_List OTS_Players_List} object instead of array of {@link OTS_Player OTS_Player} objects. It is more effective since OTS_Player_List doesn't perform all rows loading at once.
+ * </p>
+ * 
+ * <p>
+ * Note: Returned object is only prepared, but not initialised. When using as parameter in foreach loop it doesn't matter since it will return it's iterator, but if you will wan't to execute direct operation on that object you will need to call {@link OTS_Base_List::rewind() rewind() method} first.
+ * </p>
  * 
  * @version 0.1.0
  * @since 0.0.5
@@ -322,6 +362,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * @version 0.0.5
  * @since 0.0.5
  * @throws E_OTS_NotLoaded If guild rank is not loaded.
+ * @throws PDOException On PDO operation error.
  */
     public function delete()
     {
@@ -340,11 +381,14 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Returns players iterator.
  * 
+ * <p>
  * There is no need to implement entire Iterator interface since we have {@link OTS_Players_List players list class} for it.
+ * </p>
  * 
  * @version 0.0.5
  * @since 0.0.5
  * @throws E_OTS_NotLoaded If rank is not loaded.
+ * @throws PDOException On PDO operation error.
  * @return Iterator List of players.
  */
     public function getIterator()
@@ -358,6 +402,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * @version 0.0.5
  * @since 0.0.5
  * @throws E_OTS_NotLoaded If rank is not loaded.
+ * @throws PDOException On PDO operation error.
  * @return int Count of players.
  */
     public function count()
@@ -373,6 +418,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
+ * @throws PDOException On PDO operation error.
  */
     public function __get($name)
     {
@@ -409,6 +455,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws OutOfBoundsException For non-supported properties.
+ * @throws PDOException On PDO operation error.
  */
     public function __set($name, $value)
     {
@@ -434,7 +481,9 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Returns string representation of object.
  * 
+ * <p>
  * If any display driver is currently loaded then it uses it's method. Else it returns rank name.
+ * </p>
  * 
  * @version 0.1.3+SVN
  * @since 0.1.0

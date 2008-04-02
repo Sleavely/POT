@@ -1,5 +1,11 @@
 What's new in 0.1.3+SVN version?
 
+* Updated documentation.
+
+    Filled many undocumented methods, added many missing info, updated outdated parts.
+
+    Also there are planty new tutorials, much better and more detailed then old ones. Using POT, as well, as starting using it, should be now easier then ever.
+
 * Bans lists.
 
     It is possible now to fetch list of banned account, players and IP addresses. Accounts and players can be found at OTS_Toolbox ( bannedPlayers() and bannedAccount() methods). IPs list can be take by OTS::bannedIPs().
@@ -23,6 +29,10 @@ What's new in 0.1.3+SVN version?
 * Added __get() and __set() methods to OTS_Admin.
 
     I forgot to add that in previous release after finishing work on OTS_Admin class itself.
+
+* PDO connection is now set to throw exceptions on SQL errors instead of silence them.
+
+    This is the way we want our toolkit to work - throw an exception whenever something is wrong. If you don't want it you still can turn if off directly like you used to turn it on now.
 
 * Code optimalisation.
 

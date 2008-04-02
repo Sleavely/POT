@@ -11,7 +11,7 @@
  * @package POT
  * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -116,7 +116,9 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Magic PHP5 method.
  * 
+ * <p>
  * Allows object unserialisation.
+ * </p>
  */
     public function __wakeup()
     {
@@ -125,29 +127,16 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     }
 
 /**
- * Magic PHP5 method.
- * 
- * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
- * 
- * @param array $properties List of object properties.
- */
-    public static function __set_state($properties)
-    {
-        $object = new self();
-
-        // loads properties
-        foreach($properties as $name => $value)
-        {
-            $object->$name = $value;
-        }
-
-        return $object;
-    }
-
-/**
  * Loads items.xml and items.otb files.
  * 
+ * <p>
+ * This method loads both items.xml and items.otb files. Both of them has to be in given directory.
+ * </p>
+ * 
+ * @version 0.1.3+SVN
  * @param string $path Path to data/items directory.
+ * @throws E_OTS_FileLoaderError When error occurs during file operation.
+ * @throws DOMException On DOM operation error.
  */
     public function loadItems($path)
     {
@@ -156,7 +145,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
         // loads items.xml cache
         if( isset($this->cache) && $this->cache instanceof IOTS_ItemsCache)
         {
-            $this->items = $this->cache->readItems( md5($path . '/items.xml') );
+            $this->items = $this->cache->readItems( md5_file($path . '/items.xml') );
         }
 
         // checks if cache is loaded
@@ -187,7 +176,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
         }
 
         // loads items.otb
-        parent::loadFile($path . '/items.otb');
+        $this->loadFile($path . '/items.otb');
 
         // parses loaded file
         $this->parse();
@@ -195,7 +184,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
         // saves cache
         if($empty && isset($this->cache) && $this->cache instanceof IOTS_ItemsCache)
         {
-            $this->cache->writeItems( md5($path . '/items.xml'), $this->items);
+            $this->cache->writeItems( md5_file($path . '/items.xml'), $this->items);
         }
     }
 
@@ -497,8 +486,6 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     }
 
 /**
- * Returns all loaded items.
- * 
  * @return array List of item types.
  * @deprecated 0.1.0 Use this class object as array for iterations, counting and methods for field fetching.
  */
@@ -518,8 +505,6 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     }
 
 /**
- * Returns item at current position in iterator.
- * 
  * @return string Item name.
  * @deprecated 0.1.0 Use getIterator().
  */
@@ -529,8 +514,6 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     }
 
 /**
- * Moves to next iterator item.
- * 
  * @deprecated 0.1.0 Use getIterator().
  */
     public function next()
@@ -539,8 +522,6 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     }
 
 /**
- * Returns ID of current position.
- * 
  * @return int Current position key.
  * @deprecated 0.1.0 Use getIterator().
  */
@@ -550,8 +531,6 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     }
 
 /**
- * Checks if there is anything more in interator.
- * 
  * @return bool If iterator has anything more.
  * @deprecated 0.1.0 Use getIterator().
  */
@@ -561,8 +540,6 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     }
 
 /**
- * Resets iterator index.
- * 
  * @deprecated 0.1.0 Use getIterator().
  */
     public function rewind()
@@ -623,7 +600,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     }
 
 /**
- * This method is implemented for ArrayAccess interface. In fact you can't write/append to items list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to items list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
  * 
  * @version 0.1.0
  * @since 0.1.0
@@ -637,7 +614,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     }
 
 /**
- * This method is implemented for ArrayAccess interface. In fact you can't write/append to items list. Any call to this method will cause E_OTS_ReadOnly raise.
+ * This method is implemented for ArrayAccess interface. In fact you can't write/append to items list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
  * 
  * @version 0.1.0
  * @since 0.1.0
@@ -675,7 +652,9 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Returns string representation of object.
  * 
+ * <p>
  * If any display driver is currently loaded then it uses it's method.
+ * </p>
  * 
  * @version 0.1.3+SVN
  * @since 0.1.3+SVN

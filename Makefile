@@ -21,6 +21,7 @@ documentation.pdf:
 
 online:
 	phpdoc -j on -t online -o HTML:Smarty:OTServAAC -ti 'PHP OTServ Toolkit' -d . -i test.php,examples/ -ric CHANGELOG,INSTALL,LICENSE,NEWS,README,RULES
+	find online -name "*.html" | sed s/"^online"/"http:\/\/otserv-aac.info"/ > online/sitemap
 
 test:
 	phpunit POTTest test.php

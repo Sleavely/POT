@@ -9,12 +9,16 @@
  * @package POT
  * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
 /**
  * Wrapper for spells list.
+ * 
+ * <p>
+ * Note: Unlike other lists classes this one doesn't implement either Iterator/IteratorAggregate, Countable or ArrayAccess interfaces because it contains three kinds of spells grouped into pararell arrays.
+ * </p>
  * 
  * @package POT
  * @version 0.1.3+SVN
@@ -57,10 +61,13 @@ class OTS_SpellsList
  * @var array
  */
     private $conjures = array();
+
 /**
  * Magic PHP5 method.
  * 
+ * <p>
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * </p>
  * 
  * @param array $properties List of object properties.
  */
@@ -81,6 +88,7 @@ class OTS_SpellsList
  * Loads spells list.
  * 
  * @param string $file Spells file name.
+ * @throws DOMException On DOM operation error.
  */
     public function __construct($file)
     {
@@ -258,7 +266,9 @@ class OTS_SpellsList
 /**
  * Returns string representation of object.
  * 
+ * <p>
  * If any display driver is currently loaded then it uses it's method.
+ * </p>
  * 
  * @version 0.1.3+SVN
  * @since 0.1.3+SVN

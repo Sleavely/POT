@@ -18,6 +18,10 @@
 /**
  * Item type info.
  * 
+ * <p>
+ * This class represents only item type information. You can't assign it to player. To do that, you need to create instance of this item type (you can use {@link OTS_ItemType::createItem() createItem() method} to do that).
+ * </p>
+ * 
  * @package POT
  * @version 0.1.3+SVN
  * @property int $clientId Client ID.
@@ -289,13 +293,18 @@ class OTS_ItemType
 /**
  * Magic PHP5 method.
  * 
+ * <p>
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * </p>
  * 
+ * @version 0.1.3+SVN
  * @param array $properties List of object properties.
  */
     public static function __set_state($properties)
     {
-        $object = new self();
+        $object = new self($properties['id']);
+
+        unset($properties['id']);
 
         // loads properties
         foreach($properties as $name => $value)
@@ -710,7 +719,9 @@ class OTS_ItemType
 /**
  * Returns string representation of object.
  * 
+ * <p>
  * If any display driver is currently loaded then it uses it's method. Otherwise just returns item ID.
+ * </p>
  * 
  * @version 0.1.3+SVN
  * @since 0.1.3+SVN

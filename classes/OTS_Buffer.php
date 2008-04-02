@@ -6,8 +6,6 @@
  */
 
 /**
- * This is generic class for classes that uses buffer-baser read-write operations (it can also emulate C-like pointers).
- * 
  * @package POT
  * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
@@ -18,16 +16,24 @@
 /**
  * Binary buffer container.
  * 
+ * <p>
+ * This is generic class for classes that uses buffer-baser read-write operations (it can also emulate C-like pointers).
+ * <p>
+ * 
+ * <p>
+ * Note that unlike <var>NetworkMessage</var> class from OTServ C++ source code, in this one reading and writing positions are separated so you can pararelly read and write it's content like for example using object of this class as stack.
+ * </p>
+ * 
  * @package POT
  * @version 0.1.3+SVN
  * @property string $buffer Properties binary string.
- * @property int $char getChar()/putChar() method wrapper.
- * @property int $short getShort()/putShort() method wrapper.
- * @property int $long getLong()/putLong() method wrapper.
- * @property string $string getString(false)/putString(, true) call wrapper.
- * @property int $pos getPos()/setPos() method wrapper.
- * @property-read bool $valid isValid() method wrapper.
- * @property-read int $size getSize() method wrapper.
+ * @property int $char {@link OTS_Buffer::getChar() getChar()}/{@link OTS_Buffer::putChar() putChar()} method wrapper.
+ * @property int $short {@link OTS_Buffer::getShort() getShort()}/{@link OTS_Buffer::putShort() putShort()} method wrapper.
+ * @property int $long {@link OTS_Buffer::getLong() getLong()}/{@link OTS_Buffer::putLong() putLong()} method wrapper.
+ * @property string $string {@link OTS_Buffer::getString() getString(false)}/{@link OTS_Buffer::putString() putString(, true)} call wrapper.
+ * @property int $pos {@link OTS_Buffer::getPos() getPos()}/{@link OTS_Buffer::setPos() setPos()} method wrapper.
+ * @property-read bool $valid {@link OTS_Buffer::isValid() isValid()} method wrapper.
+ * @property-read int $size {@link OTS_Buffer::getSize() getSize()} method wrapper.
  */
 class OTS_Buffer
 {
@@ -58,7 +64,9 @@ class OTS_Buffer
 /**
  * Magic PHP5 method.
  * 
+ * <p>
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * </p>
  * 
  * @param array $properties List of object properties.
  */
@@ -124,6 +132,7 @@ class OTS_Buffer
  * Returns single byte.
  * 
  * @return int Byte (char) value.
+ * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
     public function getChar()
     {
@@ -149,6 +158,7 @@ class OTS_Buffer
  * Returns double byte.
  * 
  * @return int Word (short) value.
+ * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
     public function getShort()
     {
@@ -174,6 +184,7 @@ class OTS_Buffer
  * Returns quater byte.
  * 
  * @return int Double word (long) value.
+ * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
     public function getLong()
     {
@@ -198,10 +209,13 @@ class OTS_Buffer
 /**
  * Returns string from buffer.
  * 
- * If length is not given then treats first byte from current buffer as string length.
+ * <p>
+ * If length is not given then treats first short value from current buffer as string length.
+ * </p>
  * 
  * @param int|bool $length String length.
  * @return string First substring.
+ * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
     public function getString($length = false)
     {
@@ -279,6 +293,7 @@ class OTS_Buffer
  * Skips given amount of bytes.
  * 
  * @param int $n Bytes to skip.
+ * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
     public function skip($n)
     {
@@ -292,6 +307,7 @@ class OTS_Buffer
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
+ * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
     public function __get($name)
     {

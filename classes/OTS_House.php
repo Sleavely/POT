@@ -16,6 +16,10 @@
 /**
  * Wrapper for house information.
  * 
+ * <p>
+ * Unlike other {@link OTS_Base_DAO OTS_Base_DAO} child classes, OTS_House bases not only on database, but also loads some additional info from XML DOM node. It can't be load - it is always initialised with {@link http://www.php.net/manual/en/ref.dom.php DOMElement} object. Saving will only update database row - won't change XML data. Same about using {@link OTS_House::delete() delete() method}.
+ * </p>
+ * 
  * @package POT
  * @version 0.1.3+SVN
  * @property OTS_Player $owner House owner.
@@ -57,6 +61,7 @@ class OTS_House extends OTS_Base_DAO
  * Creates wrapper for given house element.
  * 
  * @param DOMElement $element House information.
+ * @throws PDOException On PDO operation error.
  */
     public function __construct(DOMElement $element)
     {
@@ -70,7 +75,9 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Magic PHP5 method.
  * 
+ * <p>
  * Allows object serialisation.
+ * </p>
  * 
  * @return array List of properties that should be saved.
  */
@@ -81,6 +88,8 @@ class OTS_House extends OTS_Base_DAO
 
 /**
  * Saves info in database.
+ * 
+ * @throws PDOException On PDO operation error.
  */
     public function save()
     {
@@ -98,6 +107,8 @@ class OTS_House extends OTS_Base_DAO
 
 /**
  * Deletes house info from database.
+ * 
+ * @throws PDOException On PDO operation error.
  */
     public function delete()
     {
@@ -112,6 +123,7 @@ class OTS_House extends OTS_Base_DAO
  * Returns house's ID.
  * 
  * @return int House ID.
+ * @throws DOMException On DOM operation error.
  */
     public function getId()
     {
@@ -122,6 +134,7 @@ class OTS_House extends OTS_Base_DAO
  * Return house's name.
  * 
  * @return string House name.
+ * @throws DOMException On DOM operation error.
  */
     public function getName()
     {
@@ -132,6 +145,7 @@ class OTS_House extends OTS_Base_DAO
  * Returns town ID in which house is located.
  * 
  * @return int Town ID.
+ * @throws DOMException On DOM operation error.
  */
     public function getTownId()
     {
@@ -142,6 +156,7 @@ class OTS_House extends OTS_Base_DAO
  * Returns town name.
  * 
  * @return string Town name.
+ * @throws E_OTS_NotLoaded When map file is not loaded to fetch towns names.
  */
     public function getTownName()
     {
@@ -152,6 +167,7 @@ class OTS_House extends OTS_Base_DAO
  * Returns house rent cost.
  * 
  * @return int Rent cost.
+ * @throws DOMException On DOM operation error.
  */
     public function getRent()
     {
@@ -162,6 +178,7 @@ class OTS_House extends OTS_Base_DAO
  * Returns house size.
  * 
  * @return int House size.
+ * @throws DOMException On DOM operation error.
  */
     public function getSize()
     {
@@ -201,7 +218,12 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Sets house owner.
  * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changed to database.
+ * </p>
+ * 
  * @param OTS_Player $player House owner to be set.
+ * @throws E_OTS_NotLoaded If given <var>$player</var> object is not loaded.
  */
     public function setOwner(OTS_Player $player)
     {
@@ -228,6 +250,10 @@ class OTS_House extends OTS_Base_DAO
 
 /**
  * Sets paid date.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changed to database.
+ * </p>
  * 
  * @param int $paid Sets paid timestamp to passed one.
  */
@@ -258,6 +284,10 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Sets house warnings.
  * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changed to database.
+ * </p>
+ * 
  * @version 0.1.2
  * @param int $warnings Sets house warnings.
  */
@@ -279,6 +309,10 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Returns tiles list.
  * 
+ * <p>
+ * This returns list of coords of tiles used by this house on map. It will succeed only if house object was created during map loading with houses file opened to assign loaded tiles.
+ * </p>
+ * 
  * @return array List of tiles.
  */
     public function getTiles()
@@ -291,7 +325,9 @@ class OTS_House extends OTS_Base_DAO
  * 
  * @param string $name Property name.
  * @return mixed Property value.
+ * @throws E_OTS_NotLoaded When atempt to read info about map while map not being loaded.
  * @throws OutOfBoundsException For non-supported properties.
+ * @throws DOMException On DOM operation error.
  */
     public function __get($name)
     {
@@ -340,6 +376,7 @@ class OTS_House extends OTS_Base_DAO
  * 
  * @param string $name Property name.
  * @param mixed $value Property value.
+ * @throws E_OTS_NotLoaded If passed parameter for owner field won't be loaded.
  * @throws OutOfBoundsException For non-supported properties.
  */
     public function __set($name, $value)
@@ -366,7 +403,9 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Returns string representation of object.
  * 
+ * <p>
  * If any display driver is currently loaded then it uses it's method. Otherwise just returns house ID.
+ * </p>
  * 
  * @version 0.1.3+SVN
  * @since 0.1.3+SVN

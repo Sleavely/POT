@@ -7,6 +7,7 @@
 
 /**
  * @package POT
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @author Alexander Valyalkin <valyala@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
@@ -17,24 +18,49 @@
 /**
  * RSA encryption/decryption mechanism.
  * 
+ * <p>
  * This code bases in large part on Alexander Valyalkin'es Crypt_RSA's source code.
+ * </p>
  * 
  * @package POT
+ * @version 0.1.3+SVN
  */
 class OTS_RSA implements IOTS_Cipher
 {
 /**
  * OTServ key part.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
  */
-    const P = '14299623962416399520070177382898895550795403345466153217470516082934737582776038882967213386204600674145392845853859217990626450972452084065728686565928113';
+    const OTSERV_P = '14299623962416399520070177382898895550795403345466153217470516082934737582776038882967213386204600674145392845853859217990626450972452084065728686565928113';
 /**
  * OTServ key part.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
  */
-    const Q = '7630979195970404721891201847792002125535401292779123937207447574596692788513647179235335529307251350570728407373705564708871762033017096809910315212884101';
+    const OTSERV_Q = '7630979195970404721891201847792002125535401292779123937207447574596692788513647179235335529307251350570728407373705564708871762033017096809910315212884101';
 /**
  * OTServ key part.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
  */
-    const D = '46730330223584118622160180015036832148732986808519344675210555262940258739805766860224610646919605860206328024326703361630109888417839241959507572247284807035235569619173792292786907845791904955103601652822519121908367187885509270025388641700821735345222087940578381210879116823013776808975766851829020659073';
+    const OTSERV_D = '46730330223584118622160180015036832148732986808519344675210555262940258739805766860224610646919605860206328024326703361630109888417839241959507572247284807035235569619173792292786907845791904955103601652822519121908367187885509270025388641700821735345222087940578381210879116823013776808975766851829020659073';
+
+/**
+ * @deprecated 0.1.3+SVN Use OTS_RSA::P.
+ */
+    const P = self::OTSERV_P;
+/**
+ * @deprecated 0.1.3+SVN Use OTS_RSA::Q.
+ */
+    const Q = self::OTSERV_Q;
+/**
+ * @deprecated 0.1.3+SVN Use OTS_RSA::D.
+ */
+    const D = self::OTSERV_D;
 
 /**
  * Keys modulus.
@@ -67,16 +93,20 @@ class OTS_RSA implements IOTS_Cipher
 /**
  * Initializes new encryption session.
  * 
+ * <p>
  * If you won't pass any parameters default OTServ keys will be generated. It is recommended action for compatibility with oryginal Tibia servers and clients as well as default Open Tibia implementation.
+ * </p>
  * 
+ * <p>
  * Note: You must be sure your <i>p</i>, <i>q</i> and <i>d</i> values are proper for RSA keys generation as class won't change it for you.
+ * </p>
  * 
  * @param string $p Key part.
  * @param string $q Key part.
  * @param string $d Key part.
  * @throws LogicException When BCMath extension is not loaded.
  */
-    public function __construct($p = self::P, $q = self::Q, $d = self::D)
+    public function __construct($p = self::OTSERV_P, $q = self::OTSERV_Q, $d = self::OTSERV_D)
     {
         // checks if required BCMath library is loaded
         if( !extension_loaded('bcmath') )
@@ -128,7 +158,9 @@ class OTS_RSA implements IOTS_Cipher
 /**
  * Decrypts RSA-encrypted message.
  * 
+ * <p>
  * As OTServ clients use RSA encryption only for sending requests we don't need decryption here. If it will be needed, then this method will be implemented. At the moment it will throw exception.
+ * </p>
  * 
  * @param string $message RSA-encrypted message.
  * @return string Decrypted content.

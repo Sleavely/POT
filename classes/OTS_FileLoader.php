@@ -18,6 +18,14 @@
 /**
  * Universal OTServ binary formats reader.
  * 
+ * <p>
+ * This class is general class that handle node-based binary OTServ files. It provides no file format-related logic, only loading nodes from files. To open given file format you need to use proper class like {@link OTS_OTBMFile OTS_OTBMFile} or {@link OTS_ItemsList OTS_ItemsList} classes.
+ * </p>
+ * 
+ * <p>
+ * This class is mostly usefull when you create own extensions for POT code.
+ * </p>
+ * 
  * @package POT
  * @version 0.1.3+SVN
  * @property-write IOTS_FileCache $cacheDriver Cache driver.
@@ -61,7 +69,9 @@ class OTS_FileLoader
 /**
  * Magic PHP5 method.
  * 
+ * <p>
  * Allows object serialisation.
+ * </p>
  * 
  * @version 0.0.6
  * @since 0.0.6
@@ -75,7 +85,9 @@ class OTS_FileLoader
 /**
  * Creates clone of object.
  * 
+ * <p>
  * Copy of object needs to have different ID.
+ * </p>
  * 
  * @version 0.0.6
  * @since 0.0.6
@@ -89,7 +101,9 @@ class OTS_FileLoader
 /**
  * Magic PHP5 method.
  * 
+ * <p>
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
+ * </p>
  * 
  * @version 0.0.6
  * @since 0.0.6
@@ -110,6 +124,10 @@ class OTS_FileLoader
 
 /**
  * Sets cache handler.
+ * 
+ * <p>
+ * You have to set cache driver before loading/saving any file in order to apply it to that file.
+ * </p>
  * 
  * @param IOTS_FileCache $cache Cache handler (leave this parameter if you want to unset caching).
  */

@@ -16,7 +16,9 @@
 /**
  * Wrapper for 'info' respond's DOMDocument.
  * 
+ * <p>
  * Note: as this class extends DOMDocument class and contains exacly respond XML tree you can work on it as on normal DOM tree.
+ * </p>
  * 
  * @package POT
  * @version 0.1.0
@@ -48,6 +50,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns version of root element.
  * 
  * @return string TSPQ version.
+ * @throws DOMException On DOM operation error.
  */
     public function getTSPQVersion()
     {
@@ -58,6 +61,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns server uptime.
  * 
  * @return int Uptime.
+ * @throws DOMException On DOM operation error.
  */
     public function getUptime()
     {
@@ -68,6 +72,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns server IP.
  * 
  * @return string IP.
+ * @throws DOMException On DOM operation error.
  */
     public function getIP()
     {
@@ -78,6 +83,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns server name.
  * 
  * @return string Name.
+ * @throws DOMException On DOM operation error.
  */
     public function getName()
     {
@@ -88,6 +94,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns server port.
  * 
  * @return int Port.
+ * @throws DOMException On DOM operation error.
  */
     public function getPort()
     {
@@ -98,6 +105,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns server location.
  * 
  * @return string Location.
+ * @throws DOMException On DOM operation error.
  */
     public function getLocation()
     {
@@ -108,6 +116,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns server website.
  * 
  * @return string Website URL.
+ * @throws DOMException On DOM operation error.
  */
     public function getURL()
     {
@@ -120,6 +129,7 @@ class OTS_InfoRespond extends DOMDocument
  * I have no idea what the hell is it representing :P.
  * 
  * @return string Attribute value.
+ * @throws DOMException On DOM operation error.
  */
     public function getServer()
     {
@@ -130,6 +140,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns server version.
  * 
  * @return string Version.
+ * @throws DOMException On DOM operation error.
  */
     public function getServerVersion()
     {
@@ -140,6 +151,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns dedicated version of client.
  * 
  * @return string Version.
+ * @throws DOMException On DOM operation error.
  */
     public function getClientVersion()
     {
@@ -150,6 +162,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns owner name.
  * 
  * @return string Owner name.
+ * @throws DOMException On DOM operation error.
  */
     public function getOwner()
     {
@@ -160,6 +173,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns owner e-mail.
  * 
  * @return string Owner e-mail.
+ * @throws DOMException On DOM operation error.
  */
     public function getEMail()
     {
@@ -170,6 +184,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns current amount of players online.
  * 
  * @return int Count of players.
+ * @throws DOMException On DOM operation error.
  */
     public function getOnlinePlayers()
     {
@@ -180,6 +195,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns maximum amount of players online.
  * 
  * @return int Maximum allowed count of players.
+ * @throws DOMException On DOM operation error.
  */
     public function getMaxPlayers()
     {
@@ -190,6 +206,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns record of online players.
  * 
  * @return int Players online record.
+ * @throws DOMException On DOM operation error.
  */
     public function getPlayersPeak()
     {
@@ -200,6 +217,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns number of all monsters on map.
  * 
  * @return int Count of monsters.
+ * @throws DOMException On DOM operation error.
  */
     public function getMonstersCount()
     {
@@ -210,6 +228,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns map name.
  * 
  * @return string Map name.
+ * @throws DOMException On DOM operation error.
  */
     public function getMapName()
     {
@@ -221,6 +240,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns map author.
  * 
  * @return string Mapper name.
+ * @throws DOMException On DOM operation error.
  */
     public function getMapAuthor()
     {
@@ -231,6 +251,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns map width.
  * 
  * @return int Map width.
+ * @throws DOMException On DOM operation error.
  */
     public function getMapWidth()
     {
@@ -241,6 +262,7 @@ class OTS_InfoRespond extends DOMDocument
  * Returns map height.
  * 
  * @return int Map height.
+ * @throws DOMException On DOM operation error.
  */
     public function getMapHeight()
     {
@@ -252,6 +274,7 @@ class OTS_InfoRespond extends DOMDocument
  * 
  * @version 0.1.0
  * @return string Server MOTD.
+ * @throws DOMException On DOM operation error.
  */
     public function getMOTD()
     {
@@ -277,6 +300,7 @@ class OTS_InfoRespond extends DOMDocument
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
+ * @throws DOMException On DOM operation error.
  */
     public function __get($name)
     {

@@ -16,6 +16,10 @@
 /**
  * Single item representation.
  * 
+ * <p>
+ * This class represents item that player has. It has no information about item feature, just it's handle in database. To get information about item type and it's features you have to use {@link OTS_ItemType OTS_ItemType class} - you can get it's object by calling {@link OTS_Item::getItemType() getItemType() method}, however you need to have global item types list loaded.
+ * </p>
+ * 
  * @package POT
  * @version 0.1.0
  * @property int $count Amount of item.
@@ -112,6 +116,7 @@ class OTS_Item implements Countable
  * @version 0.1.0
  * @since 0.1.0
  * @return OTS_ItemType Returns item type of item (null if not exists).
+ * @throws E_OTS_NotLoaded If global items list wasn't loaded.
  */
     public function getItemType()
     {
@@ -136,6 +141,7 @@ class OTS_Item implements Countable
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
+ * @throws E_OTS_NotLoaded If global items list wasn't loaded.
  */
     public function __get($name)
     {

@@ -15,12 +15,28 @@
 /**
  * Base class for all single-row classes. It implements auto-loading constructors.
  * 
+ * <p>
+ * This class extends {@link OTS_Base_DAO basic DAO class} by initialising interface.
+ * </p>
+ * 
+ * <p>
+ * This class is mostly usefull when you create own extensions for POT code.
+ * </p>
+ * 
  * @package POT
  */
 abstract class OTS_Row_DAO extends OTS_Base_DAO
 {
 /**
  * Handles automatic loading for record.
+ * 
+ * <p>
+ * You can call class constructor with optional parameter which can be either of integer type (then it will be treated as primary key value) or string type (then it will be used as name identifier).
+ * </p>
+ * 
+ * <p>
+ * Note: Make sure that you pass <var>$id</var> argument of correct type. This method determinates action which should be taken based on variable type. It means that 1 is primary key value, but '1' is name value.
+ * </p>
  * 
  * @param int|string|null $id Row ID (or name identifier dependend on child class).
  */

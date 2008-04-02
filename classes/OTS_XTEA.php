@@ -17,7 +17,9 @@
 /**
  * XTEA encryption/decryption mechanism.
  * 
+ * <p>
  * This code bases in large part on Jeroen Derks'es Crypt_Xtea's source code.
+ * </p>
  * 
  * @package POT
  */
@@ -33,7 +35,9 @@ class OTS_XTEA implements IOTS_Cipher
 /**
  * Initializes new encryption session.
  * 
+ * <p>
  * Note: Your key must be exacly 128bit length (16 characters)! Class will not resize it for you.
+ * </p>
  * 
  * @param string $key Encryption key to be used.
  */
