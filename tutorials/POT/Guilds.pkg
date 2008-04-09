@@ -1,22 +1,31 @@
 <refentry id="{@id}">
     <refnamediv>
         <refname>Guilds</refname>
-        <refpurpose>Guilds system basics.</refpurpose>
+        <refpurpose>Guilds system tutorial.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
     </refsynopsisdiv>
     {@toc}
-    <refsect1 id="{@id basics}">
-        <title>Baiscs</title>
+    <refsect1 id="{@id ranks}">
+        <title>Guild ranks</title>
         <para>
-        Like for most other data types, for guilds and ranks there are two kinds of classes - single object class and list class. For guilds those are {@link OTS_Guild OTS_Guild} and {@link OTS_Guilds_List OTS_Guilds_List}, for ranks - {@link OTS_GuildRank OTS_GuildRank} and {@link OTS_GuildRanks_List OTS_GuildRanks_List}.
+        Members of each guild are grouped within ranks. There are three types of ranks - leader, vice-leader and regular member. Players have assigned guild ranks which have assigned guild with it. Player is member of that guild, to which his/her rank is assigned. Here is an example solution to list members in oryginal Tibia-like way: {@example examples/guild.php}
         </para>
     </refsect1>
-    <refsect1 id="{@id guilds}">
-        <title>Guild management</title>
+    <refsect1 id="{@id drivers}">
+        <title>Guild action drivers</title>
         <para>
-        Listing guilds is simple so there is no need to explain it more. More complex is listing guild members. Guild membership is not assigned directly - it is done throught guild ranks. To list guild members you first need to list it's ranks. Here is an example solution to list members in oryginal Tibia-like way: {@example examples/guild.php}
+        Mechanism known from oryginal Tibia to put new members into guild is based on invitations. However - OTServ and it's database doesn't provide such featue as it is quite abstract logic which has nothing to do with it's core code. So basicly you would need to write everything completly on your own. But in POT you can bind your logic layer with action driver - object which will handle guild operations and use your code to execute invitations.
         </para>
+        <para>
+        {@link OTS_Guild Guild class} contains methods to handle invitations: {@link OTS_Guild::listInvites() listInvites()}, {@link OTS_Guild::invite() invite()}, {@link OTS_Guild::deleteInvite() deleteInvite()} and {@link OTS_Guild::acceptInvite() acceptInvite()}. However remember, that those are only bindings for abstract logic - you have to implement driver for them. Here is an example class that will handle invitations: {@example examples/driver.php}
+        </para>
+        <refsect2 id="{@id actions}">
+            <title>Two ways</title>
+            <para>
+            {@link OTS_Guild OTS_Guild class} provides bindings for two kinds of actions - invitations and membership requests. They are both similar, they only differs direction in which actions are taken. Invitations are {@link OTS_Guild::invite() initiated} by guild leaders to give player possiblity to {@link OTS_Guild::acceptInvite() join} the guild. Requests are {@link OTS_Guild::request() sent} by player and after being {@link OTS_Guild::acceptRequest() accepted} by any of leaders player is included into the guild.
+            </para>
+        </refsect2>
     </refsect1>
 </refentry>

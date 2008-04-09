@@ -3,17 +3,11 @@
 // to not repeat all that stuff
 include('quickstart.php');
 
-// creates new OTS_Account object
+// creates new account object
 $account = new OTS_Account();
 
-// group for account
-$group = new OTS_Group();
-
-// loads group with id 1
-$group->load(1);
-
 // generates new account number
-$number = $account->createEx($group);
+$number = $account->create();
 
 // give user his number
 echo 'Your account number is: ', $number;

@@ -18,6 +18,7 @@
  * 
  * @package POT
  * @version 0.1.3+SVN
+ * @tutorial POT/data_directory.pkg#towns.houses
  */
 class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 {

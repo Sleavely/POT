@@ -7,9 +7,6 @@ include('quickstart.php');
     POT guilds invites driver.
 */
 
-/**
- * @ignore
- */
 class InvitesDriver implements IOTS_GuildAction
 {
     // assigned guild
@@ -69,7 +66,7 @@ class InvitesDriver implements IOTS_GuildAction
 }
 
 /*
-    Parts of this class driver has been taken from OTSCMS (http://otscms.sourceforge.net/) project source code.
+    Parts of this class driver has been taken from OTSCMS (http://otscms.com/) project source code.
 */
 
 // loads player wiht ID 1

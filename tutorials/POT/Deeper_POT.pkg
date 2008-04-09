@@ -1,0 +1,67 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>POT in depth</refname>
+        <refpurpose>More internal things about POT that you could use for extending/hacking toolkit.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id depth}">
+        <title>Internal things</title>
+        <para>
+        Many routines in POT are done to hide some inconviences from user. However they could be very interesting for advanced coders which might want to optimise their codes to use more internal POT mechanisms in order to speed up their extensions and reduce their resources usage. If you are not interested in such things - you don't have to know anything from this tutorial, don't worry.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id base}">
+        <title>OTS_Base_DAO</title>
+        <para>
+        {@link OTS_Base_DAO This class} contains basic object initialisatin for classes that work with database. If you create such class you won't have to worry about database handle fetching (it's constructor will load it into {@link OTS_Base_DAO $this->db} as well as object storing in session with __sleep() and __wakeup().
+        </para>
+        <refsect2 id="{@id row}">
+            <title>OTS_Row_DAO</title>
+            <para>
+            A bit more automation and interface logic is implemented in {@link OTS_Row_DAO OTS_Row_DAO class}. It declares loading load() (for ID-based loading) and find() (for name-based loading). It also defines {@link OTS_Row_DAO::__construct() constructor} to handle object initialisation with integer and string values.
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id list}">
+        <title>OTS_Base_List</title>
+        <para>
+        {@link OTS_Base_List Base list class} defines complete records set handling interface and mechanisms. If you want to create class to handle your table as list of records all you have to do is to define init() method (this method will be automaticly called on object creation) which will set two fields of list object: {@link OTS_Base_List::$table $this->table} which shows table name and {@link OTS_Base_List::$class $this->class} which defines class name for single record class (usualy {@tutorial POT/Deeper_POT.pkg#base.row OTS_Row_DAO} child class). However class name must start with OTS_ prefix and $this->class field must only contain it's next part.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id buffer}">
+        <title>OTS_Buffer</title>
+        <para>
+        PHP contains many {@link http://www.php.net/manual/en/ref.strings.php string functions} but unfortunately strings are not treated as character arrays (not completly) like in C++ for instance. {@link OTS_Buffer OTS_Buffer class} provides method to wrap string within read/write stream. It can be used also as stack since it's read and write pointers are separated.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id loader}">
+        <title>OTS_FileLoader</title>
+        <para>
+        Currently there are only two formats that bases on OTServ binary tree - {@link OTS_OTBMFile OTBM} for maps and {@link OTS_ItemsList OTB} for items.otb file. Both of them are supported by currently available POT classes. However POT has {@link OTS_FileLoader generic class for binary formats} so in case of any further formats or just a need to support custom format you can create child class that will handle loaded nodes tree - root node is available in {@link OTS_FileLoader::$root $this->root}.
+        </para>
+        <refsect2 id="{@id node}">
+            <title>OTS_FileNode</title>
+            <para>
+            Binary files are based on nodes - under root node there is child node which has siblings and possible other child nodes. Each node is represented by single object in POT - object of {@link OTS_FileNode OTS_FileNode class}. It is child class of {@link OTS_Buffer OTS_Buffer} - it's properties can be read directly from it using OTS_Buffer methods. It additionaly contains tree-relations methods - {@link OTS_FileNode::getNext() getNext()} for next sibling (node of same level) and {@link OTS_FileNode::getChild() getChild()} for first child node (to get next child nodes you just get first child's siblings).
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id database}">
+        <title>Database drivers</title>
+        <para>
+        POT supports all database engines supported by OTServ. However you might want to run OTServ on different database, or simply create some kind of extended driver that will handle some of operations different way. Base class for database driver is {@link OTS_Base_DB OTS_Base_DB} which defines default methods for SQL-standard way of methods which POT requires in addition to PDO layer (handling identifier names and LIMIT/OFFSET clauses).
+        </para>
+    </refsect1>
+    <refsect1 id="{@id cipher}">
+        <title>IOTS_Cipher</title>
+        <para>
+        There are also cipher (encryption/decryption) classes. They handles mainly {@tutorial POT/OTAdmin.pkg OTAdmin} connection but basicly they are independent and can simply encrypt/decrypt any message. They implements common {@link IOTS_Cipher cipher interface} which defines simple interface for cipher classes. In case of any other encryption you would want to use just implement that interface and it will be very simple to bind it with POT tools like {@link OTS_Admin OTAdmin client}.
+        </para>
+        <para>
+        Note: {@link OTS_RSA RSA cipher class} can only encrypt messages as POT is used only on client part. There is no need to provide RSA decryption, but in case you would need that, just rewrite it's {@link OTS_RSA::decrypt() decrypt() method}.
+        </para>
+    </refsect1>
+</refentry>

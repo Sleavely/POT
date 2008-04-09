@@ -1,0 +1,81 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Additional info</refname>
+        <refpurpose>Some not-fully-technical information about POT and not only.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id web}">
+        <title>POT in the Internet</title>
+        <para>
+        POT is official part of OpenTibia project. It's downloads are located on {@link http://sourceforge.net/projects/opentibia OpenTibia SourceForge.net project page}. There is also {@link http://otfans.net/forumdisplay.php?f=306 forum hosted by OTFans}.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id history}">
+        <title>Some words about history</title>
+        <para>
+        Thought most of tutorials are written in non-personal form, I will write this one as my private since it's mostly initiated by me (Wrzasq) and I simply want to write some words about POT, it's history, future and current stage.
+        </para>
+        <para>
+        Long time ago, few years ago, the only one {@tutorial POT/AAC_scripts.pkg AAC script} was the simple one with only two files - index.php and add.php (or something like that). In those days OTServ was far beyound it's current stage. Friend of mine, Exeranus, asked me to create a website for his OTServ, but soon he abandoned this project and my project lost it's purpose. I've decided to finish it and published as {@link http://otscms.com/ OTSCMS}. It was the very first AAC script that contained account logging, multiple characters on account, character search and many other features at once. After that mane people changed their view at AAC scripts and started to make more advanced scripts.
+        </para>
+        <para>
+        Many new scripts were developed, but together with them, came a big problem. OTServ had many things not strictly defines and many people started to handle it's resources in different way. Also many people started to write PHP scripts without experience and knowledge which effected for example in treating XML files as text files, creating buggy scripts, SQL-injection vulnerables and so on.
+        </para>
+        <para>
+        The first man who decided to create some kind of PHP library was Tliff. He didn't probably even start his project and I don't really know how exacly he wanted to do that, but his idea attracted me alot and I was about to start it after he left that. First I was about to create some kind of base platform for OTSCMS which I could extract (somehow similar way that GTK was extracted from GIMP) and had a talk with Pekay as we've decided to co-operate to make our AAC scripts (he is author of {@link http://smart.pekay.co.uk/wiki/ SmartAss}) compatible. But he wasn't interested much in following the development together and the idea failed again.
+        </para>
+        <para>
+        Finally I've decided to start something completly from scratch. Something not connected with neight OTSCMS, nor any other current script. Something that will be free of past habits and will provide completly flexible interface. Don't know if it succeeded, but I think POT is a pretty good toolkit which should be used for all AAC scripts to unify them and to allow all AAC scripts follow common development progress.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id development}">
+        <title>Development stage</title>
+        <para>
+        POT is currently in development stage. I try to think all things over before I start writing the code, but it's not easy mainly because POT is dependend on OTServ development process. Because of that it's state is still unstable. However I try to keep everything tight and even in case of changes old interfaces are usualy available so until POT will becomo stable every code written for old and current POT versions should still work fine.
+        </para>
+        <para>
+        Because of it's stage there is 0.x.x version notation. It is important! Don't try to think about this as "optional", "not important", or "misstake"! This is development stage. First releave was 0.0.1 not 1 and release 0.1.2 is not 1.2.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id todo}">
+        <title>Future steps</title>
+        <para>
+        At first I wanted POT to support all basic OTServ resources both those from database and from data/ directory. It is done in huge part. Currently most important future steps are to provide stable code, to optimise it and to create more attractive base for development, for example by creating documentation, packages in such formats like PHK and PHAR, or even coding additional C++ extension for PHP to speed POT up. If you have any wish about POT write on {@link http://otfans.net/forumdisplay.php?f=306 it's forum}.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id otscms}">
+        <title>Not OTSCMS</title>
+        <para>
+        Don't connect POT with OTSCMS! OTSCMS is my private project which has nothing to do with POT, except that OTSCMS has been moved to use POT. POT wasn't developed especialy for OTSCMS, does not contain OTSCMS code, is not mentioned to cause everyone to use OTSCMS, neither any other such things. I even stopped to work on OTSCMS a bit since I started POT development. Don't be afraid of POT only because OTSCMS uses it or because I am also the author of OTSCMS.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id credits}">
+        <title>Credits</title>
+        <para>
+        There are many people who helped in POT development:
+        </para>
+        <itemizedlist>
+            <listitem>Wrzasq - it's me :P.</listitem>
+            <listitem>Tliff - he had an idea...</listitem>
+            <listitem>Yorick, Nuker, Verkon - very friendly {@link http://otfans.net/ OTFans} admins :).</listitem>
+            <listitem>GriZzm0 - he is very handy for information exchange ;).</listitem>
+            <listitem>Pekay - don't know why, just feel that he should be on list ;).</listitem>
+            <listitem>Pedro B. and Nfries88 - they help alot in co-operation with OTServ resources.</listitem>
+            <listitem>mips and Sim0ne - help in OTServ co-operation also as they are admins of OpenTibia projects they opened way for POT.</listitem>
+            <listitem>Anto/Katen - he .</listitem>
+            <listitem>Kofel - he is very enthusiastic about POT and often motivates me :).</listitem>
+        </itemizedlist>
+        <para>
+        More information about OpenTibia developers you will find in {@link http://opentibia.svn.sourceforge.net/viewvc/opentibia/otserv/trunk/AUTHORS AUTHORS file}.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id cooperation}">
+        <title>Co-operation</title>
+        <para>
+        Currently only I (Wrzasq) actively develope POT, but it's not my private project. If you want to help, by coding, writing documentation or example just write on {@link http://otfans.net/forumdisplay.php?f=306 forum}.
+        </para>
+    </refsect1>
+</refentry>

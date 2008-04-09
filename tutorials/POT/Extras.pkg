@@ -1,0 +1,46 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Additional routines</refname>
+        <refpurpose>This tutorial describes some additional routines that might be useful for you.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id toolbox}">
+        <title>Toolbox</title>
+        <para>
+        Toolbox in toolbox - in POT there is additional class called {@link OTS_Toolbox OTS_Toolbox}. It contains some additional static methods that can help you developing OTServ-related applications. Baiscly there are two very simple methods.
+        </para>
+        <para>
+        First of them is {@link OTS_Toolbox::experienceForLevel experienceForLevel()} - it calculates how many experience points are needed to advance to given experience level. As second parameter you can optionaly pass current experience points so the method will then return only remaining part of result.
+        </para>
+        <para>
+        Second method is {@link OTS_Toolbox::levelForExperience() levelForExperience()} - it is reversed previous method which calculates which level player with given amount of experience points has. Note that this method unfortunately is not purely mathematical - in PHP there are no complex numbers (using complex number classes for this purpose would only complacate situation and even slow it down and use much more resources) which are needed to solve 3rd level polynomial equations.
+        </para>
+        <refsect2 id="{@id binary}">
+            <title>Binary toolbox</title>
+            <para>
+            There are also some routines to operate on binary numbers representation. They are not useful in OTServ however as PHP is very tolerant about variables there is a need to use some additional operations to force PHP to treat values as it should in binary operations. {@link OTS_BinaryTools OTS_BinaryTools class} contains some methods to make some bitwise operations possible in PHP but they won't be described as they are not OTServ-related and used only for internal encryption purposes. You can see {@link OTS_BinaryTools class documentation} for list of them and try them out.
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id bans}">
+        <title>Banning</title>
+        <para>
+        Another feature of POT, which is rather quite important for OTServ is bans support. Bans can apply to players, accounts and IP numbers. {@link OTS_Account Account} and {@link OTS_Player player} classes contains ban(), unban() and isBanned() methods useage of which is clear. A bit more difficult work is with IP bans. First of all, IP bans are done using both IP number and maks bits to define entire classes of IP numbers. Second thing: there is no abstraction for IP number - IP bans are handled by {@link POT POT class}.
+        </para>
+        <para>
+        To ban IP you have to use {@link POT::banIP() banIP()}, to unban - {@link POT::unbanIP() unbanIP()}, to check if particular IP is banned - {@link POT::isIPBanned() isIPBanned()} and to get list of bans - {@link POT::bannedIPs() bannedIPs()}. {@link POT::banIP() banIP()} and {@link POT::unbanIP() unbanIP()} can get masks as additional parameters, but it won't be described as it's more advanced - if you kwno what masks are then you will know how to use it. By default masks are set to empty masks so those methods will work only with single IP address which you give them. {@link POT::bannedIPs() bannedIPs()} check given IP so it checks all masked ranges - it means you don't have to worry about masks using this method, this method will simply give you a boolean answer if IP is banned or not.
+        </para>
+        <para>
+        {@tutorial POT/Extras.pkg#toolbox Toolbox class} contains also two useful methods to create already filtered lists of accounts and players that are banned: {@link OTS_Toolbox::bannedPlayers() bannedPlayers()} and {@link OTS_Toolbox::bannedAccounts() bannedAccounts()}.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id display}">
+        <title>Display drivers</title>
+        <para>
+        Next, quite exotic POT feature are display drivers. This toolkit contains two interfaces which you can implement: {@link IOTS_Display IOTS_Display} for database-based resources and {@link IOTS_DataDisplay IOTS_DataDisplay} for non-database resources. You can assign instances of such interfaces to global POT scope using {@link POT::setDisplayDriver() setDisplayDriver()} for IOTS_Display instance and {@link POT::setDataDisplayDriver() setDataDisplayDriver()} for IOTS_DataDisplay. It will change behaviours of objects that contains __toString() magic method (most of list, DAO and single resource representation classes). After attempt to output any of such objects directly to output, or using them as string variables, they will call display driver's method and can return content which you want to display for them. It can be used for example to create templates engine by biding it on low-level with POT objects basing on pure PHP magic calls.
+        </para>
+    </refsect1>
+</refentry>

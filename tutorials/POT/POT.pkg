@@ -19,7 +19,7 @@
             <listitem>To provide easy interface - people who write in PHP want to write in PHP, not using SQL, XML and many other languages. POT provides abstract PHP interface for data stored in database.</listitem>
         </itemizedlist>
         <para>
-        POT has been created for latest SVN release, it will work best with pure SVN servers. However it provides routines to access custom database structure elements. However it won't work with broken database - it ralies on database foreign key contraints, triggers etc.
+        POT is always kept up-to-date for latest SVN release, it will work best with pure SVN servers. However it provides routines to access custom database structure elements. Thought it won't work with broken database - it ralies on database foreign key contraints, triggers etc.
         </para>
         <refsect2 id="{@id requirements}">
             <title>System requirements</title>
@@ -36,7 +36,7 @@
         <refsect2 id="{@id what_is}">
             <title>What POT is</title>
             <para>
-            POT is a toolkit/library for accessing OTServ database from PHP. It provides PHP classes that represents OTServ database inforation as an objects.
+            POT is a toolkit/library for developing PHP scripts that work with OTServ resources like it's database, content, or more exotic tools like {@tutorial POT/OTAdmin.pkg OTAdmin protocol}. It provides objective enviroment to work with them.
             </para>
         </refsect2>
         <refsect2 id="{@id what_is_not}">
@@ -50,10 +50,10 @@
     <refsect1 id="{@id use}">
         <title>How to use</title>
         <para>
-        This is toolkit - set of classes/methods for OTServ database. It abstracts database mechanisms for you so you can work on "physical" PHP objects. But you must know how to use them. This documentation describes some basic steps and toolkit API, but you must know PHP in order to make use of them - the best place to get some knowledge is {@link http://www.php.net/manual/en/ PHP manual}.
+        This is toolkit - set of classes/methods for OTServ resources. It abstracts database mechanisms for you so you can work on "physical" PHP objects. But you must know how to use them. This documentation describes some basic steps and toolkit API, but you must know PHP in order to make use of them - the best place to get some knowledge is {@link http://www.php.net/manual/en/ PHP manual}.
         </para>
         <para>
-        Don't copy any of included examples, neither codes provided as examples - they probably won't work. Mainly it's because you have to put your database configuration into them and your script paths. But it's not enought. If you have your own __autoload() mechanism you won't be able to just inlude example codes - you would need to redefine __autoload() function, which PHP doesnt allow to (but you should know that very well). Example codes are examples - write your own (if you want them to work the best way for you).
+        Don't just copy-paste any of provided examples - they probably won't work for you. Mainly it's because you have to put your database configuration into them and your script paths. But it's not enought. If you have your own __autoload() mechanism you won't be able to just inlude example codes - you would need to redefine __autoload() function, which PHP doesnt allow to (but you should know that very well). Example codes are examples - write your own (if you want them to work the best way for you).
         </para>
     </refsect1>
     <refsect1 id="{@id link}">

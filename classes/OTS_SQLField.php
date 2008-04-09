@@ -20,6 +20,7 @@
  * @version 0.1.0
  * @property-read string $name Field name.
  * @property-read string $table Table name.
+ * @tutorial POT/List_objects.pkg#filters.field
  */
 class OTS_SQLField
 {

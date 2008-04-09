@@ -26,6 +26,7 @@
  * @property-read bool $loaded Loaded state.
  * @property-read OTS_Players_List $playersList Characters of this account.
  * @property-read int $access Access level.
+ * @tutorial POT/Accounts.pkg
  */
 class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 {
@@ -61,6 +62,9 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * @return int Created account number.
  * @throws E_OTS_Generic When there are no free account numbers.
  * @throws PDOException On PDO operation error.
+ * @example examples/create.php create.php
+ * @tutorial POT/Accounts.pkg#create
+ * @tutorial POT/Accounts.pkg#hack
  */
     public function create($min = 1, $max = 9999999)
     {

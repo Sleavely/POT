@@ -1,0 +1,79 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>data/ directory resources</refname>
+        <refpurpose>Everything about resources from files within data/ directory.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id general}">
+        <title>Resource handlers</title>
+        <para>
+        Except database resources, in OTServ you have another source of data - data/ directory. It contains all files essential for world content like map, spells, items definitions etc. which are stored in physical disk files (usualy XML, but sometimes also in binary format). POT provides classes to handle also those resources. Each kind of resource has it's list classes. Many of them also has single object classes but not every.
+        </para>
+        <para>
+        Note that unlike database resources, data/ directory resources lists doesnt contain underline (_) before "List" part of class name.
+        </para>
+        <refsect2 id="{@id arrays}">
+            <title>Interfaces</title>
+            <para>
+            All list classes (except {@link OTS_SpellsList OTS_SpellsList}) are simple aggregators for single items. All of those lists implements {@link http://www.php.net/manual/en/language.oop5.iterations.php Iterator}, {@link http://www.php.net/~helly/php/ext/spl/interfaceCountable.html Countable} and {@link http://www.php.net/~helly/php/ext/spl/interfaceArrayAccess.html ArrayAccess} interfaces. It means that they can be used nearly as pure arrays - you can use then in {@link http://www.php.net/manual/en/control-structures.foreach.php foreach loop}, count items within them using simple {@link http://www.php.net/manual/en/function.count.php count()} call and access items by using array acces operators (square brackets).
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id vocations}">
+        <title>Vocations</title>
+        <para>
+        {@link OTS_VocationsList Vocations list} is the most simple resource - vocations file contains just IDs-names pairs assignments. Vocations list only translates vocation ID into it's name and vice-versa: {@example examples/vocations.php}
+        </para>
+        <para>
+        Vocations are simple string names, there is no objective wrapper for it.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id monsters}">
+        <title>Monsters</title>
+        <para>
+        {@link OTS_MonstersList Monsters list class} is also not very complicated - only differences are that you put monsters directory path, not any particular file name; also monsters are represented by objects not by simple strings.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id items}">
+        <title>Items</title>
+        <para>
+        Next resource is items list. To load it you have to create instance of {@link OTS_ItemsList OTS_ItemsList class} and pass items directory path as constructor's parameter. It will load both items.xml file (definitions of item types) and items.otb (additional info and IDs mapping).
+        </para>
+        <para>
+        Warning - items are stored in both XML (items.xml) and binary (items.otb) files. Loading binary files in PHP is extremly slow as well as items.xml file is quite big usualy so loading it also takes much time. To speed it up you should use {@tutorial POT/Cache_drivers.pkg cache drivers}.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id spells}">
+        <title>Spells</title>
+        <para>
+        A bit different then other resource lists is {@link OTS_SpellsList spells list} - it does not implement any of interfaces mentiones in {@tutorial POT/data_directory.pkg#general.arrays previous paragraph}. It contains 3 sub-arrays which are groups of spells: {@link OTS_SpellsList::getConjuresList() conjures}, {@link OTS_SpellsList::getInstantsList() instants} and {@link OTS_SpellsList::getRunesList() runes}. Every spell is represented by {@link OTS_Spell OTS_Spell class} object.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id towns}">
+        <title>Map (towns list)</title>
+        <para>
+        POT can parse binary map format - OTBM (this is the only map format supported by POT as it is the only currently supported map format by OTServ). OTBM format is extended case of general OTB format. Map file can be loaded with {@link OTS_OTBMFile OTS_OTBMFile class}. Loaded map acts also as towns list: {@example examples/otbm.php}
+        </para>
+        <para>
+        Warning - loading binary OTBM files in PHP is extremly slow as well as map files are usualy quite big. To speed it up you should use {@tutorial POT/Cache_drivers.pkg cache drivers}.
+        </para>
+        <refsect2 id="{@id houses}">
+            <title>Houses</title>
+            <para>
+            When map is loaded it can also contain reference to external houses list - if so, then you can fetch this list by calling {@link OTS_OTBMFile::getHousesList getHousesList() method}.
+            </para>
+            <para>
+            Houses list is usualy connected with map file, but you can also load it directly by creating instance of {@link OTS_HousesList OTS_HousesList class}.
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id global}">
+        <title>Global resources</title>
+        <para>
+        All those resources are parts of entire POT enviroment. They are necessary for some routines - for example {@turorial POT/Players.pkg#items player's items managing} requires items list to be loaded. But created instances of those resources are only local. You can create them freely but they doesn't affect other parts of POT. In order to load those resources globaly into {@tutorial POT/Basics.pkg#basics.singleton POT instance} you will have to read about {@tutorial POT/Global_resources.pkg global resources}.
+        </para>
+    </refsect1>
+</refentry>

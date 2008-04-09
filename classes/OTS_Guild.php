@@ -27,6 +27,7 @@
  * @property-read array $requests List of players that requested invites.
  * @property-write IOTS_GuildAction $invitesDriver Invitations handler.
  * @property-write IOTS_GuildAction $requestsDriver Membership requests handler.
+ * @tutorial POT/Guilds.pkg
  */
 class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
 {

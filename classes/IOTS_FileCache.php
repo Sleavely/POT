@@ -17,6 +17,8 @@
  * This interface describes binary files cache control drivers.
  * 
  * @package POT
+ * @tutorial POT/Cache_drivers.pkg
+ * @example examples/cache.php cache.php
  */
 interface IOTS_FileCache
 {

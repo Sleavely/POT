@@ -13,7 +13,6 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.3: More detailed tutorials, also update examples and tutorials.
  * @todo 0.1.3: PHAR and PHK packages.
  * @todo 0.2.0: 0.0.x deprecations cleanup.
  * @todo 1.0.0: 0.x.x deprecations cleanup.
@@ -296,6 +295,7 @@ class POT
  * 
  * @return POT Global POT class instance.
  * @example examples/quickstart.php quickstart.php
+ * @tutorial POT/Basics.pkg#basics.instance
  */
     public static function getInstance()
     {
@@ -330,6 +330,7 @@ class POT
  * 
  * @param string $path POT files path.
  * @example examples/fakeroot.php fakeroot.php
+ * @tutorial POT/Basics.pkg#basics.fakeroot
  */
     public function setPOTPath($path)
     {
@@ -439,6 +440,7 @@ class POT
  * @throws LogicException When PDO extension is not loaded.
  * @throws PDOException On PDO operation error.
  * @example examples/quickstart.php quickstart.php
+ * @tutorial POT/Basics.pkg#basics.database
  */
     public function connect($driver, $params)
     {
@@ -520,6 +522,7 @@ class POT
  * @return OTS_InfoRespond|bool Respond content document (false when server is offline).
  * @throws DOMException On DOM operation error.
  * @example examples/info.php info.php
+ * @tutorial POT/Server_status.pkg
  */
     public function serverStatus($server, $port)
     {

@@ -1,0 +1,40 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Creating framework</refname>
+        <refpurpose>This is short description about how to prepare complete OTServ framework using POT.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id framework}">
+        <title>The toolkit and the framework</title>
+        <para>
+        Probably many of you have heard both about toolkits abd frameworks. What are they and thats the different?
+        </para>
+        <para>
+        Toolkit is set of routines (functions, classes, objects, variables etc.) defined and oriented for some problem. However toolkit provides only particular mechanisms. For example POT contains classes for many different resources of OTServ but it just gives you some abstraction for them, without defining any detailed way you should handle them. Framework, on the other hand, gives you entire enviroment. It defines connections between some parts of system and defines particular way you should follow developing software with given framework.
+        </para>
+        <para>
+        If you plan to use POT in your framework you should initialise it and load all required resources so it would be fully functional within your framework scope.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id initialisation}">
+        <title>Initialisation</title>
+        <para>
+        First of all your POT should be function - most important part is database handle. You should pre-load main POT file to make POT interface available and also make it's instance connected to database.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id data}">
+        <title>Resource handlers</title>
+        <para>
+        After that you should load all {@tutorial POT/data_directory.pkg data/ directory resource handlers} to make your POT enviroment complete - many features can't be used before all resources won't be loaded: {@example examples/framework.php}
+        </para>
+    </refsect1>
+    <refsect1 id="{@id drivers}">
+        <title>Interface drivers</title>
+        <para>
+        Last thing is to provide full features by creating drivers that implements interfaces for POT classes. Those are cache drivers, guild action drivers and display drivers. Display drivers are assigned to POT instance so you can somehow hide it since they will just reside inside POT class object.
+        </para>
+    </refsect1>
+</refentry>

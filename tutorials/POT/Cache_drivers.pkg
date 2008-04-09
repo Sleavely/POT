@@ -1,0 +1,43 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Cache drivers</refname>
+        <refpurpose>About caching binary file contents.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id cache}">
+        <title>Cache mechanism</title>
+        <para>
+        Loading binary formats in PHP is extramly slow. If you have big files it can take even few minutes! Of course such situation could be impossible to accept in case of for example standard website which should load many times for many users at once. To speed it up you should create cache drivers for data loaded from binary files.
+        </para>
+        <para>
+        Binary files are organised in nodes - each node in PHP is represented by {@link OTS_FileNode node class}. Nodes have their contents, can also have children and siblings. Cache handlers can compose such nodes faster and filter only those nodes which are essential for running application.
+        </para>
+        <para>
+        When object attempts to load file, it first tries to load it's content from cache. If it success then it's done. If no then it loads file normal way and after that it saves cache for newly loaded file for next loads.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id interface}">
+        <title>Driver interface</title>
+        <para>
+        Cache handler class must implement {@link IOTS_FileCache IOTS_FileCache interface}. It defines two methods - for {@link IOTS_FileCache::readCache() reading} and {@link IOTS_FileCache::writeCache() writing} cache. readCache() method takes one parameter - MD5 checksum of file to identify cache signature. Returns root node of cached content (entire file content should be bound with children and siblings) or null if cache doesn't exist. writeCache() method takes MD5 sum as first parameter and {@link OTS_FileNode root node} as second parameter and saves it with given sum signature.
+        </para>
+        <refsect2 id="{@id items}">
+            <title>Items cache</title>
+            <para>
+            Another problem with file-based resources are items - items definitions files (items.xml) is also usualy very big and contains many item elements. For items there are additional methods declared in extended {@link IOTS_ItemsCache cache driver interface} - {@link IOTS_ItemsCache::readItems() readItems()} and {@link IOTS_ItemsCache::writeItems() writeItems()}. They handle only items.xml cache saving. It means that your cache driver must separately implement caching mechanism for binary formats.
+            </para>
+            <para>
+            Note that you can assign basic {@link IOTS_FileCache IOTS_FileCache driver} to items list - then simply only binary content will be handled by cache, XML part will not be affected by cache.
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id example}">
+        <title>Example</title>
+        <para>
+        Cache can be stored in many ways - temporarily in session, or in some more constant ways - in SQL database, in text files, in some exported format... it's your way how to handle those mechanisms and how to code cache loading/saving methods. Here is very simple driver that stores everything in PHP notation in text file - it is very uneffective, but it's just an example to show how this all works: {@example examples/cache.php}
+        </para>
+    </refsect1>
+</refentry>

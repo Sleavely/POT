@@ -17,6 +17,7 @@
  * This interface defines items.xml cache handler as an standard file cache extender.
  * 
  * @package POT
+ * @tutorial POT/Cache_drivers.pkg#interface.items
  */
 interface IOTS_ItemsCache extends IOTS_FileCache
 {

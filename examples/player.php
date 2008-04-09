@@ -3,11 +3,14 @@
 // to not repeat all that stuff
 include('quickstart.php');
 
-// creates new OTS_Player object
+// creates new player object
 $player = new OTS_Player();
 
 // loads player
 $player->find('Wrzasq');
+
+// this does the same
+$player2 = new OTS_Player('Wrzasq');
 
 // checks if player exists
 if( $player->isLoaded() )
@@ -15,7 +18,7 @@ if( $player->isLoaded() )
     // prints character info
     echo 'Player \'' . $player->getName() . '\' has ' . $player->getLevel() . ' level.', "\n";
 
-    // example of associated objects retriving
+    // example of retriving associated objects
     echo 'Player \'' . $player->getName() . '\' is member of ' . $player->getGroup()->getName() . ' group.', "\n";
 }
 else

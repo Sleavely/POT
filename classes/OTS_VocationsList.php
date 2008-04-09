@@ -18,6 +18,8 @@
  * 
  * @package POT
  * @version 0.1.3+SVN
+ * @example examples/vocations.php vocations.php
+ * @tutorial POT/data_directory.pkg#vocations
  */
 class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 {

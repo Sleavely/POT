@@ -6,7 +6,7 @@ include('quickstart.php');
 // your non-random number
 $number = 123456;
 
-// creates new OTS_Account object
+// creates new account object
 $account = new OTS_Account();
 $account->load($number);
 

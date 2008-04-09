@@ -7,6 +7,9 @@ include('quickstart.php');
 $server = '127.0.0.1';
 $port = 7171;
 
+// gets POT class instance
+$ots = POT::getInstance();
+
 // queries server of status info
 $status = $ots->serverStatus($server, $port);
 

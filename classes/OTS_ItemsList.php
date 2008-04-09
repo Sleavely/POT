@@ -23,6 +23,7 @@
  * @property-read int $otbVersion OTB file version.
  * @property-read int $clientVersion Dedicated client version.
  * @property-read int $buildVersion File build version.
+ * @tutorial POT/data_directory.pkg#items
  */
 class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countable, ArrayAccess
 {

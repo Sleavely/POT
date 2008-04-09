@@ -18,6 +18,7 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
+ * @tutorial POT/PHP_5.0.pkg
  */
 
 // OutOfBoundsException class for 5.0.x

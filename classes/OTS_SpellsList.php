@@ -25,6 +25,7 @@
  * @property-read array $runesList List of rune spells.
  * @property-read array $instantsList List of instant spells.
  * @property-read array $conjuresList List of conjure spells.
+ * @tutorial POT/data_directory.pkg#spells
  */
 class OTS_SpellsList
 {

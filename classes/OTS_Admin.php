@@ -24,6 +24,8 @@
  * @property-read int $ping Ping time.
  * @property-write string $login Logs in with given password.
  * @property-write string $broadcast Sends given broadcast message.
+ * @tutorial POT/OTAdmin.pkg
+ * @example examples/admin.php admin.php
  */
 class OTS_Admin
 {

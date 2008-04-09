@@ -23,6 +23,9 @@
             <para>
             If you use PHP 5.0 you should include special {@link compat.php compatibility assurance library}. POT uses some mechanisms that exists since PHP 5.1 like {@link http://www.php.net/~helly/php/ext/spl/interfaceCountable.html Countable interface}. It doesn't disallow you using POT with PHP 5.0. Compatibility library will create unexisting interfaces, classes, functions, constants etc. However keep in mind that you won't be able to use PHP 5.1 and newer language mechanisms as it is not possible to redefine PHP behaviour. Here is an example: {@example examples/php50.php}
             </para>
+            <para>
+            It is important to note that you have to load compat.php library before loading POT toolkit itself. This library by itself is not connected with POT in any way and you can freely separate it.
+            </para>
             <refsect3 id="{@id nothing}">
                 <title>Nothin new</title>
                 <para>

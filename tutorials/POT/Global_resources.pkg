@@ -1,0 +1,64 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Global resources</refname>
+        <refpurpose>How to make your resources to be loaded everywhere.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id globals}">
+        <title>Globalisation</title>
+        <para>
+        POT creates some kind of enviroment within which all OTServ world information is loaded. You can create your loacal instances of some resources but they are completly independent. To make something accessible globaly you need to load it within global POT scope.
+        </para>
+        <para>
+        Sometimes it is required to create such instances before executing some operations like for example to read player's vocation name, or hes/her items information.
+        </para>
+        <para>
+        {@link POT POT class} contains methods to load all kind of resources globaly:
+        </para>
+        <itemizedlist>
+            <listitem>{@link POT::loadVocations() loadVocations()} - to load vocations names mapping.</listitem>
+            <listitem>{@link POT::loadMonsters() loadMonsters()} - to load monsters list.</listitem>
+            <listitem>{@link POT::loadItems() loadItems()} - to load items list.</listitem>
+            <listitem>{@link POT::loadSpells() loadSpells()} - to load spells list.</listitem>
+            <listitem>{@link POT::loadMap() loadMap()} - to load OTBM map (as spawns list mainly).</listitem>
+            <listitem>{@link POT::loadHouses() loadHouses()} - to load houses list. If you load map global resource and it has assigned external house information file, houses list will be automaticly loaded.</listitem>
+        </itemizedlist>
+        <para>
+        You can see some examples of global resources loading in tutorial about {@tutorial POT/Framework.pkg creating complete framework enviroment}.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id get}">
+        <title>Retriving resources</title>
+        <para>
+        While resources are loaded you can get them everywhere in the code by calling to {@tutorial POT/Basics.pkg#basics.singleton POT global instance}. To get resource handle you can use one of following methods:
+        </para>
+        <itemizedlist>
+            <listitem>{@link POT::getVocationsList() getVocationsList()} - to get vocations list.</listitem>
+            <listitem>{@link POT::getMonstersList() getMonstersList()} - to get monsters list.</listitem>
+            <listitem>{@link POT::getItemsList() getItemsList()} - to get items list.</listitem>
+            <listitem>{@link POT::getSpellsList() getSpellsList()} - to get spells list.</listitem>
+            <listitem>{@link POT::getMap() getMap()} - to get OTBM map instance.</listitem>
+            <listitem>{@link POT::getHousesList() getHousesList()} - to get houses list.</listitem>
+        </itemizedlist>
+        <refsect2 id="{@id check}">
+            <title>Checking state</title>
+            <para>
+            If you are not sure about working enviroment, to make sure that resource which you need is loaded you should use one of following methods before getting it:
+            </para>
+            <itemizedlist>
+                <listitem>{@link POT::areVocationsLoaded() areVocationsLoaded()} - to check vocations.</listitem>
+                <listitem>{@link POT::areMonstersLoaded() areMonstersLoaded()} - to check monsters.</listitem>
+                <listitem>{@link POT::areItemsLoaded() areItemsLoaded()} - to check items.</listitem>
+                <listitem>{@link POT::areSpellsLoaded() areSpellsLoaded()} - to check spells.</listitem>
+                <listitem>{@link POT::isMap() isMap()} - to check map.</listitem>
+                <listitem>{@link POT::areHousesLoaded() areHousesLoaded()} - to check houses.</listitem>
+            </itemizedlist>
+            <para>
+            Attempt to get not-loaded resource will cause {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} to be thrown.
+            </para>
+        </refsect2>
+    </refsect1>
+</refentry>

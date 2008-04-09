@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -21,8 +21,9 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @property-read array $tables List of tables used by this statement.
+ * @tutorial POT/List_objects.pkg#filters
  */
 class OTS_SQLFilter extends OTS_Base_DAO
 {
@@ -87,6 +88,20 @@ class OTS_SQLFilter extends OTS_Base_DAO
     public function __sleep()
     {
         return array('criteriums');
+    }
+
+/**
+ * Creates clone of object.
+ * 
+ * <p>
+ * This method is empty to override {@link OTS_Base_DAO::__clone() OTS_Base_DAO method}.
+ * </p>
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ */
+    public function __clone()
+    {
     }
 
 /**
@@ -241,6 +256,7 @@ class OTS_SQLFilter extends OTS_Base_DAO
  * @param mixed $value Literal value.
  * @param int $operator Operator used for comparsion (equal by default).
  * @param int $criterium Criterium merging method (AND by default).
+ * @example examples/filter.php filter.php
  */
     public function compareField($field, $value, $operator = self::OPERATOR_EQUAL, $criterium = self::CRITERIUM_AND)
     {

@@ -1,0 +1,55 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Players</refname>
+        <refpurpose>Tutorial for player-specific mechanisms.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id general}">
+        <title>Players extras</title>
+        <para>
+        Players are essential part of OTServ. They have the most additional things from all kind of objects and are connected with many other resources. Players belongs to accounts, groups, might belongs to guilds.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id skills}">
+        <title>Skills</title>
+        <para>
+        {@link OTS_Player OTS_Player class} contains everything you need to work with skills. You can get and set both skill values and skill advance tries. It is done with four methods:
+        </para>
+        <itemizedlist>
+            <listitem>{@link OTS_Player::getSkill() getSkill()}</listitem>
+            <listitem>{@link OTS_Player::setSkill() setSkill()}</listitem>
+            <listitem>{@link OTS_Player::getSkillTries() getSkillTries()}</listitem>
+            <listitem>{@link OTS_Player::setSkillTries() setSkillTries()}</listitem>
+        </itemizedlist>
+    </refsect1>
+    <refsect1 id="{@id storage}">
+        <title>Storage</title>
+        <para>
+        There are also methods to manage custom storage values: {@link OTS_Player::getStorage() getStorage()} and {@link OTS_Player::setStorage() setStorage()}. Sotrage values are custom integer values that are assigned to player - they act like flags.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id items}">
+        <title>Items managing</title>
+        <para>
+        POT provides also objective way for browsing/editing player items (body slots and depot items with all containers). You have {@link OTS_Item OTS_Item} and {@link OTS_Container OTS_Container} classes for that. OTS_Item represents single item, OTS_Container can contain sub-items (either OTS_Item objects, or next level OTS_Container objects).
+        </para>
+        <para>
+        There is important thing to mention - you have to have global {@link OTS_ItemsList items list} resource loaded. POT reads item info for every item loaded from player.
+        </para>
+        <para>
+        Detailed API for managing items tree you will find in documentation of those classes. Here are examples of how you use slot and depot items fetching and saving: {@example examples/items.php}
+        </para>
+        <para>
+        Important thing - OTS_Container class is subclass of OTS_Item. Each container is also an item.
+        </para>
+        <refsect2 id="{@id deleting}">
+            <title>Deleting</title>
+            <para>
+            One part that is important to describe separately is deleting items from tree. If you wan't to delete item from container you have to pass it's instance to {@link OTS_Container::removeItem() removeItem() method}. It's instance! It means a reference to exacly same object - there might be more then one similar objects within container, you must point exacly which one you want to remove.
+            </para>
+        </refsect2>
+    </refsect1>
+</refentry>

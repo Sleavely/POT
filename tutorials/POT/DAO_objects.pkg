@@ -1,7 +1,7 @@
 <refentry id="{@id}">
     <refnamediv>
         <refname>DAO objects</refname>
-        <refpurpose>Main part of POT are Data Access Objects objects</refpurpose>
+        <refpurpose>Main part of POT are Data Access Objects objects.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
         <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
@@ -19,22 +19,43 @@
             </para>
         </refsect2>
     </refsect1>
-    <refsect1 id="{@id basics}">
-        <title>Basic operations</title>
+    <refsect1 id="{@id load}">
+        <title>Loading data</title>
         <para>
-        Most basic operations are loading, editing and saving data. To see examples of this, see {@tutorial POT/Quick_start.pkg Quick start quide}.
+        First way of using DAO objects is loading data from database. Each row has integer primary key which means it is unique value that identifies that row in it's table. For accounts it is account number, for players, groups, guilds etc. it is ID. This is the most reliable way of identyfing database resources - whenever you can load object by it's ID - do that instead of operating on other identifiers (like name).
+        </para>
+        <para>
+        To load record you can use either load() method, or load it on object initialisation by passing ID as constructor parameter.
+        </para>
+        <para>
+        When object is already loaded you still can call load() method to re-load new record into object. Old data won't be changed in database unless you will {@tutorial POT/DAO_objects.pkg#save save it}. However it is higly recommended to make sure about what you are doing in such cases - you should watch variable references as object instance won't change so the same instance will now point to another record in database. At all it is strongly unrecommended unless you really know what you are doing. {@example examples/load.php}
+        </para>
+        <refsect2 id="{@id name}">
+            <title>Loading by name</title>
+            <para>
+            It is also possible to load records by their name identifiers (for accounts e-mail address is used in such case). This way is less reliable since it is possible to change name identifier of nearly all records while IDs are always same, but string identifiers are more friendly for people, for example for loading players by their names. To load record by it's name you have to use find() method. It is also possible to do that automaticly on object initialisation by passing string parameter to constructor. {@example examples/player.php}
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id save}">
+        <title>Saving data</title>
+        <para>
+        On the other hand you can save objects to database using save() method. If you work on loaded object calling save() will effect in updating row in database. If you created empty object, calling save() will create new row in database. Usualy objects after creating have some default field values, but remember that some resources needs another in order to be saved, for example to save player you first have to assign it to an account.
         </para>
     </refsect1>
-    <refsect1 id="{@id lists}">
-        <title>Lists objects</title>
+    <refsect1 id="{@id delete}">
+        <title>Deleting</title>
         <para>
-        For each table there exist single object class and objects list class. List classes implements {@link http://www.php.net/manual/en/language.oop5.iterations.php Iterator interface} so to list their's content you must use {@link http://www.php.net/manual/en/control-structures.foreach.php foreach() loop}. Each element returned for this loop will be instance of single DAO object. You also use lists to delete items.
+        You can also delete data. To achive this use delete() method - with caution of course. Good information is, that this operation is (during same script execution and under some other conditions) recoverable. This method only deletes data from database and resets object key ID but doesn't reset entire object so it is still stored in memory. Calling save() method will then insert data back into database. {@example examples/delete.php}
+        </para>
+        <para>
+        However there is important thing - it will be same data, but not the same record! Old player will be deleted and new player will be inserted. It will be only a copy and it will have different ID, so if anything was pointing to old player's ID, it won't find it after that.
         </para>
     </refsect1>
     <refsect1 id="{@id customs}">
         <title>Custom fields</title>
         <para>
-        POT was created for basic SVN database structure. However you can access custom fields with POT. You do that with getCustomField() and setCustomField() methods of DAO objects (single, not lists).
+        POT was created for basic SVN database structure. However you can access custom fields with POT. You do that with getCustomField() and setCustomField() methods of DAO objects.
         </para>
         <para>
         While accessing custom fields you have to remember about using proper PHP types of passed values. POT doesn't know anything about those fields so it uses value type to check the way it should serve it for a query. Don't worry about safety - it doesn't create any hole for SQL injections. But you must remember, that 1 (integer) is not same as '1' (string), or 1.0 (float). POT will quote strings to fit SQL query and to prevent from SQL injections so make sure you {@link http://www.php.net/manual/en/language.types.type-juggling.php cast} your values to type that represents field type to prevent (mainly) from quoting numeric fields.
@@ -43,22 +64,7 @@
         You should use those methods only to access custom fields that are not accessible throught standard POT API. Those methods executes SQL query each time you call them so it would be a huge effectivity loss to access standard fields with getCustomField()/setCustomField().
         </para>
         <para>
-        Also it is important that in difference to fields accessible with standard setters you can set custom field value on not loaded/saved object. You must either load object from database, or save standard record before using custom fields as they need record primary key assigned to object for queries. Here is an example: {@example examples/customs.php}
-        </para>
-    </refsect1>
-    <refsect1 id="{@id items}">
-        <title>Player items</title>
-        <para>
-        POT provides also objective way of browsing/editing player items (body slots and depot items with all containers). You have {@link OTS_Item OTS_Item} and {@link OTS_Container OTS_Container} classes for that. OTS_Item represents single item, OTS_Container can contain sub-items (either OTS_Item objects, or next level OTS_Container objects).
-        </para>
-        <para>
-        There is important thing to mention - POT doesn't know anything about item types! Items tree only contains item IDs from database, it doesn't load any information from items.otb, nor items.xml files.
-        </para>
-        <para>
-        Detailed API you will find in documentation of those classes. Here are examples of how you use slot and depot items fetching and saving: {@example examples/items.php}
-        </para>
-        <para>
-        Important thing - OTS_Container class is subclass of OTS_Item. Each container is also an item.
+        Also it is important that in difference to fields accessible with standard setters, you can't set custom field value on not loaded/saved object. You must either load object from database, or save standard record before using custom fields as they need record primary key assigned to object for queries. Here is an example: {@example examples/customs.php}
         </para>
     </refsect1>
 </refentry>

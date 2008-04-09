@@ -1,0 +1,31 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Database</refname>
+        <refpurpose>Here you will find information about operations on OTServ database.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id db}">
+        <title>OTServ database</title>
+        <para>
+        OTServ stores all user-related stuff (like accounts, players, guilds etc.) in SQL database. This is probably basic usage for POT. Connection to database is handled within POT instance. At first you have to {@link POT::connect() connect}.
+        </para>
+        <refsect2 id="{@id handle}">
+            <title>PDO handle</title>
+            <para>
+            POT uses PDO as it's database layer core. It is possible to get handle instance by calling {@link POT::getDBHandle() getDBHandle()} on POT instance. This method returns PDO connection extended by POT-specific driver routines like preparing identifier names.
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id dao}">
+        <title>Abstraction classes</title>
+        <para>
+        Main purpose of POT is to provide API abstraction for resources from OTServ. Nearly all essential data from database has {@tutorial POT/DAO_objects.pkg abstraction class} which provides programming interface for PHP scripts which usualy hide many uncomfortable operations.
+        </para>
+        <para>
+        For each kind of resources like players, accounts, guilds etc. there are two kind of classes - single row representation that contains many management routines; and list class which allows you to group, filter and sort more then one records. Everything is done using native PHP objects without need to use any additional technology like XML or even SQL.
+        </para>
+    </refsect1>
+</refentry>

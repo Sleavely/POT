@@ -62,6 +62,7 @@
  * @property-read bool $loaded Loaded state.
  * @property-read string $townName Name of town in which player residents.
  * @property-read OTS_House $house House which player rents.
+ * @tutorial POT/Players.pkg
  */
 class OTS_Player extends OTS_Row_DAO
 {
@@ -1791,7 +1792,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Returns value of storage record.
  * 
- * @version 0.1.2
+ * @version 0.1.3+SVN
  * @since 0.1.2
  * @param int $key Storage key.
  * @return int|null Stored value (null if not set).
@@ -1806,6 +1807,12 @@ class OTS_Player extends OTS_Row_DAO
         }
 
         $value = $this->db->query('SELECT ' . $this->db->fieldName('value') . ' FROM ' . $this->db->tableName('player_storage') . ' WHERE ' . $this->db->fieldName('key') . ' = ' . (int) $key . ' AND ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'])->fetch();
+
+        if($value !== false)
+        {
+            return null;
+        }
+
         return $value['value'];
     }
 

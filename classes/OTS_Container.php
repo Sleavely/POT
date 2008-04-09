@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -21,7 +21,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.1.3+SVN
  */
 class OTS_Container extends OTS_Item implements IteratorAggregate
 {
@@ -50,6 +50,7 @@ class OTS_Container extends OTS_Item implements IteratorAggregate
  * </p>
  * 
  * @param OTS_Item $item Item.
+ * @tutorial POT/Players.pkg#deleting
  */
     public function removeItem(OTS_Item $item)
     {
@@ -130,6 +131,20 @@ class OTS_Container extends OTS_Item implements IteratorAggregate
     public function getIterator()
     {
         return new ArrayIterator($this->items);
+    }
+
+/**
+ * Clones all contained items.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ */
+    public function __clone()
+    {
+        foreach($this->items as $index => $item)
+        {
+            $this->items[$index] = clone $item;
+        }
     }
 }
 

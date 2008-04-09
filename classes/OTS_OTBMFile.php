@@ -26,6 +26,8 @@
  * @property-read int $width Map width.
  * @property-read int $height Map height.
  * @property-read string $description Map description.
+ * @tutorial POT/data_directory.pkg#towns
+ * @example examples/otbm.php otbm.php
  */
 class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countable, ArrayAccess
 {

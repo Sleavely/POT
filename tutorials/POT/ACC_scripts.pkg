@@ -1,6 +1,6 @@
 <refentry id="{@id}">
     <refnamediv>
-        <refname>About OTServ AAC scripts</refname>
+        <refname>AAC scripts</refname>
         <refpurpose>This small article describes general info about OTServ AAC scripts.</refpurpose>
     </refnamediv>
     <refsynopsisdiv>
@@ -16,7 +16,7 @@
         Many people want to start using AAC scripts without knowledge. They spam forums, IRC channels and people IMs. If you dont know anything about AAC scripts, then this site is perfect for you. Before you will ask any question, read this website. If you will still dont know the answer, think before ask.
         </para>
         <para>
-        Mainly last times there went out planty new AAC scripts. Too bad they are very poor and people who make them dont know anything about their's job. People started to think that if they made "own AAC" (which usualy means to copy other script and sign with own nickname) they are cool - sorry guys - you only show how stupid your codes are. This website provides information about how to make good scripts and promotes ready solutions for safe and stable websites. We hope this website will change the situation and people who are creating accmakers will correct their's works or leave publishing bad scripts.
+        Mainly last times there went out planty new AAC scripts. Too bad they are very poor and people who make them don't know anything about their's job. People started to think that if they made "own AAC" (which usualy means to copy other script and sign with own nickname) they are cool - sorry guys - you only show how stupid your codes are. This website provides information about how to make good scripts and promotes ready solutions for safe and stable websites. We hope this website will change the situation and people who are creating accmakers will correct their's works or leave publishing bad scripts.
         </para>
         <refsect2 id="{@id what_aac_is}">
             <title>What is AAC?</title>
@@ -70,22 +70,25 @@
             <para>
             This website presents some ways of AAC script developement that should be followed. It is not just our wish, but we presents clever and considered ideas. Those are just real points of view.
             </para>
-            <para>
-            We want to promote "good scripts". If you have a script that fits our requirements you can contact us - we will add it to list of our recommended scripts.
-            </para>
         </refsect2>
     </refsect1>
-    <refsect1 id="{@id scripts}">
-        <title>Ready scripts</title>
+    <refsect1 id="{@id pot}">
+        <title>Scripts with POT</title>
         <para>
-        Here are links to some major AAC scripts:
+        If you plan to use AAC script it is good to check if the one you use is POT-based or at least provides POT enviroment. POT is standard way for PHP scripts to access database and other resources so if you will find any code that bases on POT it will surely work with your AAC if only it provides POT enviroment.
+        </para>
+        <para>
+        Here are some examples of POT in use:
         </para>
         <itemizedlist>
-            <listitem>{@link http://www.sourceforge.net/projects/otscms/ OTSCMS} - uses POT.</listitem>
-            <listitem>{@link http://sourceforge.net/project/showfiles.php?group_id=157979 SmartAss}.</listitem>
-            <listitem>{@link http://nicaw.net/ Nicaw CMS}.</listitem>
-            <listitem>{@link http://tauaccmaker.ovh.org/ TauAccmaker}.</listitem>
+            <listitem>{@link http://otscms.com/ OTSCMS} - AAC script that uses POT.</listitem>
+            <listitem>{@link http://http://tibia.one.cl/ uTibia}.</listitem>
+            <listitem>{@link http://drans.pl/ Dran OTS}.</listitem>
+            <listitem>{@link http://otfans.net/showthread.php?t=102927 Ranking randomizer} - the first published feature script (written by Arkilus) that based on POT.</listitem>
         </itemizedlist>
+        <para>
+        We want to promote "good scripts" and usage of POT. If you have a script that fits our requirements you can contact us - we will add it to list.
+        </para>
     </refsect1>
     <refsect1 id="{@id link}">
         <title>Link</title>

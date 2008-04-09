@@ -1,0 +1,58 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Deprecations</refname>
+        <refpurpose>List of calls, ways of development and codes that became deprecated from previous POT releases.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id into}">
+        <title>Deprecations</title>
+        <para>
+        POT is still being heavily developed and some of it's parts evolve to become more flexible or simply because OTServ changes and makes some parts of interface obsolete or useless. Of course POT will attempt to provide same interface so old codes should work fine, but it is important to track changes and avoind using deprecated codes.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id constructors}">
+        <title>Objects creation</title>
+        <para>
+        At first {@tutorial POT/Basics.pkg#singleton POT instance} handled everything had to call it's methods. It means that even {@tutorial POT/DAO_objects.pkg DAO objects} had to be created using createObject() method so they could be initialised with database connection handle. However since 0.1.0 version, database handle can be get using {@link POT::getDBHandle() getDBHandle() method}. As POT is a singleton it is possible to load database handle everything where is is possible silently without need for used to take any action. Now you just create objects using new keyword like all other clases - createObject() method is deprecated (and so createFilter() is since for short time before new way was available this method was added for {@link OTS_SQLFilter OTS_SQLFilter class}).
+        </para>
+    </refsect1>
+    <refsect1 id="{@id interfaces}">
+        <title>Deprecated interfaces</title>
+        <para>
+        Another relict of 0.x.x versions are two deprecated interfaces - IOTS_DB and IOTS_DAO. IOTS_DB was removed since in fact POT uses PDO as database layer, which already has stable and known interface. As well as you can check for PDO instance instead of IOTS_DB. IOTS_DAO was dropped since after enabling database connection handle fetching there is no need to mark any routines strictly for database parameters. Also basic parts of those classes were implemented and defined parrtialy in base classes so there is still a way to check instance of same base.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id delete}">
+        <title>Records deletion</title>
+        <para>
+        In first releases records deletion was implemented in list classes (for example to delete player you had to call $list->deletePlayer($player) method). It was chanched to be more intuitive by moving deleting code into record classes. You should now delete records by calling delete() method on object which represents record which you want to delete.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id constants}">
+        <title>POT class constants</title>
+        <para>
+        Each resources handler in POT was developed in stages. At first {@link POT POT class} handled everything and it was the only one class that defines constants. As with time, many resource handlers were extended and separated into another classes, many of POT class constants were moved to those classes as more suitable. Using POT class constants for constats that were moved to separated classes is deprecated (for example spell type constants). Another case are vocation ID constants - vocations are stored in their definition file which is loaded using {@link OTS_VocationsList vocations list class}. You should use it's mapping instead of constant values.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id iterators}">
+        <title>Iterators</title>
+        <para>
+        To save resources many classes, mainly {@tutorial POT/data_directory.pkg data/ directory list classes}, implemented {@link http://www.php.net/~helly/php/ext/spl/interfaceIteratorAggregate.html IteratorAggregate interface} instead of {@link http://www.php.net/manual/en/language.oop5.iterations.php Iterator} as they contain simple arrays and using internal mechanisms for them provides more reliable and effective resource useage and allows us to reduce our code. For backward compatibility Iterator methods are still implemented so they can still be used directly, but you should make your code relying on IteratorAggregate instead.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id dao}">
+        <title>Players and accounts (and other records)</title>
+        <para>
+        POT is strictly connected with OTServ development. Every time OTServ database is changed, it requires POT change. From since first release it happend many times, mainly accounts and players table were changed so you should make sure you are using new methods and avoid using deprecated ones on your DAO objects.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id bindings}">
+        <title>Global resources bindings</title>
+        <para>
+        {@link POT POT class} provided bindings to access {@tutorial POT/data_directory.pkg#global global data/ directory resource} handlers methods indirectly. Those bindings are now deprecated and you should call them directly on handler objects which you get from {@tutorial POT/Basics.pkg#basics.singleton POT instance}.
+        </para>
+    </refsect1>
+</refentry>

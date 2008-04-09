@@ -1,0 +1,77 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>List objects</refname>
+        <refpurpose>List objects allows you to group, filter and order sets of DAO objects.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id lists}">
+        <title>Records sets</title>
+        <para>
+        List objects contains DAO objects that are fetched from result set. However it is important to point, that list object does not contain all objects at once - it only has handle to results set from database and creates new instance every time you fetch next object, so you can freely modify filters, criteriums, limits etc. without worry about performance. Lists are mainly mentioned to work as {@tutorial POT/List_objects.pkg#lists.iterator iterators} so if you would want to fetch some objects directly you have to use {@link OTS_Base_List::rewind() rewind() method} first to initialise results cursor and then fetch single objects using {@link OTS_Base_List::current() current()} for fething and {@link OTS_Base_List::next() next()} for moving to next record. Here is example that shows basic usage of list object including parts explained in following paragraphs like limiting, iterators and counting: {@example examples/list.php}
+        </para>
+        <refsect2 id="{@id limits}">
+            <title>Setting limits and offsets</title>
+            <para>
+            You can limit set of selected rows by setting LIMIT and OFFSET clauses for SQL query. To reduce amount of selected rows use {@link OTS_Base_List::limit() limit() method}. To skip starting rows use {@link OTS_Base_List::offset() offset() method}. Note that you can use offset() only with limit() - if you don't use LIMIT clause, OFFSET is not applied! Also remember that rows are counted from 0, so setting OFFSET to 2 will skip 2 first rows starting from third. Another thing is to mention about limiting and skipping at once - if you set LIMIT to a and OFFSET to b, then query will select up to a rows starting from b + 1 - it means that OFFSET does not reduce number of selecting rows, but only moves starting pointer forward. LIMIT 10 OFFSET 2 will select rows from 3 to 12.
+            </para>
+        </refsect2>
+        <refsect2 id="{@id iterator}">
+            <title>Iterator interface</title>
+            <para>
+            As it was written in previous paragraphs the most natural way of using lists objects is {@link http://www.php.net/manual/en/control-structures.foreach.php foreach loop}. Lists classes implements {@link http://www.php.net/manual/en/language.oop5.iterations.php Iterator interface} which allows you to use it like an array in such case.
+            </para>
+        </refsect2>
+        <refsect2 id="{@id countable}">
+            <title>Countable interface</title>
+            <para>
+            Another implemented interface is {@link http://www.php.net/~helly/php/ext/spl/interfaceCountable.html Countable}. It means that you can also use {@link http://www.php.net/manual/en/function.count.php count()} on list object to get amount of rows selected by this list. Note that it uses COUNT() SQL structure so it is also very optimalised and doesn't need to fetch all rows before counting.
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id filters}">
+        <title>Filtering results</title>
+        <para>
+        Very powerful (and very advanced) option is list filtering. It filters selected rows to choose only those which you want to. It is highly flexible, but also quite difficult at first way. With {@link OTS_SQLFilter OTS_SQLFilter class} you can create nearly any possible WHERE clause based on fields, values and operators (sub-queries and SQL functions are not supported). Again - fitering also works directly on SQL layer so it is extremly fast - nothing is done by PHP, it's pure optimalisation of your work.
+        </para>
+        <para>
+        The most basic use is it's {@link OTS_SQLFilter::compareField() compareField() method}. It compares field of record with literal value: {@example examples/filter.php}
+        </para>
+        <refsect2 id="{@id operators}">
+            <title>Operators and criteriums</title>
+            <para>
+            By default using {@link OTS_SQLFilter::compareField() compareField() method} you execute simple equal comparsion. But you can of course change operator of relation to other - as third parameter you pass operator which you want to use (= by default). You use operator constants for that:
+            </para>
+            <itemizedlist>
+                <listitem>{@link OTS_SQLFilter::OPERATOR_EQUAL OTS_SQLFilter::OPERATOR_EQUAL} for = (equal).</listitem>
+                <listitem>{@link OTS_SQLFilter::OPERATOR_LOWER OTS_SQLFilter::OPERATOR_LOWER} for &lt; (lower).</listitem>
+                <listitem>{@link OTS_SQLFilter::OPERATOR_GREATER OTS_SQLFilter::OPERATOR_GREATER} for &gt; (greater).</listitem>
+                <listitem>{@link OTS_SQLFilter::OPERATOR_NEQUAL OTS_SQLFilter::OPERATOR_NEQUAL} for != (not equal).</listitem>
+                <listitem>{@link OTS_SQLFilter::OPERATOR_NLOWER OTS_SQLFilter::OPERATOR_NLOWER} for &gt;= (not lower).</listitem>
+                <listitem>{@link OTS_SQLFilter::OPERATOR_NGREATER OTS_SQLFilter::OPERATOR_NGREATER} for &lt;= (not greater).</listitem>
+                <listitem>{@link OTS_SQLFilter::OPERATOR_LIKE OTS_SQLFilter::OPERATOR_LIKE} for LIKE (SQL string wildcard comparsion - matching).</listitem>
+                <listitem>{@link OTS_SQLFilter::OPERATOR_NLIKE OTS_SQLFilter::OPERATOR_NLIKE} for NOT LIKE (SQL string wildcard comparsion - not matching).</listitem>
+            </itemizedlist>
+            <para>
+            Also by default all appended criteriums are obligatory - using AND to concat. You can of course change that to alternative possible criteriums - using OR to concat. Fourth parameter defines conditions relationship - to use OR you have to pass {@link OTS_SQLFilter::CRITERIUM_OR OTS_SQLFilter::CRITERIUM_OR} constant.
+            </para>
+        </refsect2>
+        <refsect2 id="{@id field}">
+            <title>Field representations</title>
+            <para>
+            As you noticed {@link OTS_SQLFilter::compareField() compareField()} allows only literal fields comparsion. This method is only a wrapper for default - more complex one: {@link OTS_SQLFilter::addFilter() addFilter()}. It accepts field identifiers as operands. It means you can compare fields with fields - using {@link OTS_SQLField OTS_SQLField class} (at all you can do simple fields comparsion using {@link OTS_SQLFilter::compareField() compareField()} - right operand can be instance of {@link OTS_SQLField OTS_SQLField}). Passing literal value in PHP effects as comparing to string. For example 'foo' will be used directly in SQL query. If you want to compare field values directly you have to create field identifier objects. For example to compare capacity field value with health field: {@example examples/conditions.php}
+            </para>
+            <para>
+            Also {@link OTS_SQLField OTS_SQLField class} allows you to create name identifiers of different table then listed table - it means you can for example compare fields of foreign keys: {@example examples/foreign.php}
+            </para>
+        </refsect2>
+        <refsect2 id="{@id sub}">
+            <title>Sub-criteriums</title>
+            <para>
+            As you noticed there is also one, probably the most advanced feature which you can use - sub-filters. It allows you to group OR-concated conditions with AND-concated groups. It is done by passing another {@link OTS_SQLFilter OTS_SQLFilter class} instance as parameter to {@link OTS_SQLFilter::addFilter() addFilter() method}.
+            </para>
+        </refsect2>
+    </refsect1>
+</refentry>

@@ -3,9 +3,8 @@
 // to not repeat all that stuff
 include('quickstart.php');
 
-// loads guild
-$guild = new OTS_Guild();
-$guild->load(1);
+// loads guild with ID 1
+$guild = new OTS_Guild(1);
 
 $color = '#FFFFCC';
 

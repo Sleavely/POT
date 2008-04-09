@@ -1,0 +1,43 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Accounts</refname>
+        <refpurpose>Specific accounts-only routines description.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id create}">
+        <title>Account creation</title>
+        <para>
+        Main difference between accounts and other {@tutorial POT/DAO_objects.pkg DAO objects} is that accounts, even if they don't exist, have to have their unique account number. So even when saving not-yet-existing account object you first have to create account number for it. You can't save empty account using save() method - you have to use {@link OTS_Account::create() create() method}. It will generate account number, save account stub in database and return saved number in database. {@example examples/create.php}
+        </para>
+        <para>
+        Remember - create method sets blocked flag on account! After setting all info for account remember to {@link OTS_Account::unblock() unblock} it in order to make it usable in game.
+        </para>
+        <refsect1 id="{@id random}">
+            <title>Random account number</title>
+            <para>
+            As you probably noticed create() method {@link http://otfans.net/showthread.php?t=8643 generates random account number}. It is done this way with a reason and {@link http://otfans.net/showthread.php?t=8643 you should always follow this way}! If you really need to use specified account number, read over to {@tutorial POT/Accounts.pkg#hack number hacking part}.
+            </para>
+        </refsect1>
+    </refsect1>
+    <refsect1 id="{@id password}">
+        <title>Password hashing</title>
+        <para>
+        Another important thing is password hashing. Many modern OTServs use MD5 (outdated) and SHA1 (newest - recommended) password hashing. It means passwords are not stored in RAW format, but only their hashes are stored in database. Thanks to that, even if hacked would get access to database he/she wouldn't know passwords, only useless strings - hashing functions are not to be missconfused with encryption - hashing functions generates only checksum which can't be used to reconstruct initial content (in theory, there currently exist ways like rainbow tables and MD5 has already been prooved to be easily collision-hackable, thats why we recommend to use SHA1).
+        </para>
+        <para>
+        How to deal with that in POT? Here is the trick - in fact you don't need to deal with that, but this is not always easy to understand for people. The key to understand mechanism is to find out when hashes are generated - at the begining. It means that for POT it doesn't matter if OTServ uses password hashes and if so, then what kind of hashes. In database they are always stored as strings. And after loading it doesn't matter if you compare password or it's hash. It's because of that string1 = string2 means that md5(string1) = md5(string2) and sha1(string1) = sha1(string2). So all you have to do is just generate the hash from password which user give (if your OTServ uses it). After that you operate on it like with normal password: {@example examples/hash.php}
+        </para>
+    </refsect1>
+    <refsect1 id="{@id hack}">
+        <title>Hacking random number</title>
+        <para>
+        This is a very simple walkaroud hack to save account with non-random number: {@example examples/hack.php}
+        </para>
+        <para>
+        Remember - you should never use this way without reason! New accounts should always have random account numbers.
+        </para>
+    </refsect1>
+</refentry>
