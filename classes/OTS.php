@@ -492,8 +492,8 @@ class POT
                 throw new E_OTS_Generic(E_OTS_Generic::CONNECT_INVALID_DRIVER);
         }
 
-        $this->db->setAttribute(PDO_ATTR_ERROMODE, PDO_ERRMODE_EXCEPTION);
-//        $this->db->setAttribute(PDO::ATTR_ERROMODE, PDO::ERRMODE_EXCEPTION);
+        $this->db->setAttribute(PDO_ATTR_ERRMODE, PDO_ERRMODE_EXCEPTION);
+//        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
 /**
