@@ -62,6 +62,7 @@
  * @property-read bool $loaded Loaded state.
  * @property-read string $townName Name of town in which player residents.
  * @property-read OTS_House $house House which player rents.
+ * @property-read OTS_Players_List $vipsList List of VIPs of player.
  * @tutorial POT/Players.pkg
  */
 class OTS_Player extends OTS_Row_DAO
@@ -2295,9 +2296,105 @@ class OTS_Player extends OTS_Row_DAO
     }
 
 /**
+ * Returns list of VIPs.
+ * 
+ * <p>
+ * It means list of players which this player have on his/her list.
+ * </p>
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @return OTS_Players_List List of VIPs.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ * @throws PDOException On PDO operation error.
+ */
+    public function getVIPsList()
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $list = new OTS_Players_List();
+
+        // foreign table fields identifiers
+        $field1 = new OTS_SQLField('player_id', 'player_viplist');
+        $field2 = new OTS_SQLField('vip_id', 'player_viplist');
+
+        // creates filter
+        $filter = new OTS_SQLFilter();
+        $filter->addFilter($field1, $this->data['id']);
+        $filter->compareField('id', $field2);
+
+        // puts filter onto list
+        $list->setFilter($filter);
+
+        return $list;
+    }
+
+/**
+ * Adds player to VIP list.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param OTS_Player $player Player to be added.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ * @throws PDOException On PDO operation error.
+ */
+    public function addVIP(OTS_Player $player)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $this->db->execute('INSERT INTO ' . $this->db->tableName('player_viplist') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('vip_id') . ') VALUES (' . $this->data['id'] . ', ' . $player->getId() . ')');
+    }
+
+/**
+ * Checks if given player is a VIP for current one.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param OTS_Player $player Player to check.
+ * @return bool True, if given player is on VIP list.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ * @throws PDOException On PDO operation error.
+ */
+    public function isVIP(OTS_Player $player)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $vip = $this->db->query('SELECT COUNT(' . $this->db->fieldName('vip_id') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('player_viplist') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('vip_id') . ' = ' . $player->getId() )->fetch();
+        return $vip['count'] > 0;
+    }
+
+/**
+ * Deletes player from VIP list.
+ * 
+ * @version 0.1.3+SVN
+ * @since 0.1.3+SVN
+ * @param OTS_Player $player Player to be deleted.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ * @throws PDOException On PDO operation error.
+ */
+    public function deleteVIP(OTS_Player $player)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $this->db->execute('DELETE FROM ' . $this->db->tableName('player_viplist') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('vip_id') . ' = ' . $player->getId() );
+    }
+
+/**
  * Magic PHP5 method.
  * 
- * @version 0.1.2
+ * @version 0.1.3+SVN
  * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
@@ -2440,6 +2537,9 @@ class OTS_Player extends OTS_Row_DAO
 
             case 'banned':
                 return $this->isBanned();
+
+            case 'vipsList':
+                return $this->getVIPsList();
 
             default:
                 throw new OutOfBoundsException();

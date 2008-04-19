@@ -1,0 +1,35 @@
+# adds compat library
+
+add /& compat.php
+
+# adds POT classes tree
+
+add /classes/& classes/*.php
+
+# adds info files
+
+add /info/& ../../otserv/trunk/AUTHORS CHANGELOG INSTALL LICENSE LICENSE.PEAR.CRYPT_RSA LICENSE.PEAR.CRYPT_XTEA NEWS README RULES
+
+# adds additional files
+
+add /bin/& phk/webinfo.php phk/cli.php
+
+# options array
+
+%options
+
+return array(
+    'author' => 'OpenTibia Team',
+    'copyright' => '2007 - 2008 (C) by Wrzasq',
+    'name' => 'PHP OTServ Toolkit',
+    'release' => '0.1.3+SVN',
+    'version' => '0.1.3+SVN',
+    'url' => 'http://otserv-aac.info/',
+    'distribution' => 'http://sourceforge.net/projects/opentibia/',
+    'help_prefix' => '/info/README',
+    'license_prefix' => '/info/LICENSE',
+    'info_script' => '/bin/webinfo.php',
+    'cli_run_script' => '/bin/cli.php',
+    'web_run_string' => '/bin/webinfo.php',
+    'lib_run_script' => '/classes/OTS.php'
+);

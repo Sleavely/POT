@@ -6,6 +6,10 @@ What's new in 0.1.3+SVN version?
 
     Also there are planty new tutorials, much better and more detailed then old ones. Using POT, as well, as starting using it, should be now easier then ever.
 
+* VIP list support.
+
+    Added support for VIP list - listing player VIPs, adding to VIP list, removing from VIP list and checking if player is a VIP for someone. Can be useful for instance to creating kind of community/social services for server websites.
+
 * Bans lists.
 
     It is possible now to fetch list of banned account, players and IP addresses. Accounts and players can be found at OTS_Toolbox ( bannedPlayers() and bannedAccount() methods). IPs list can be take by OTS::bannedIPs().

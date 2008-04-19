@@ -1,4 +1,4 @@
-all: clean check documentation pdf online test package manual
+all: clean check documentation pdf online test package manual phk
 
 clean:
 	find . -name "*~" -exec rm {} -v \;
@@ -7,20 +7,22 @@ clean:
 	rm -rf online
 	rm -rf pot
 	rm -f pot.tar.gz
+	rm -f manual.tar.gz
+	rm -f POT.phk
 
 check:
 	find . -name "*.php" -exec php -l {} \;
 
 documentation:
-	phpdoc -j on -t documentation -o HTML:Smarty:HandS -ti 'PHP OTServ Toolkit' -d . -i test.php,examples/ -ric CHANGELOG,INSTALL,LICENSE,NEWS,README,RULES
+	phpdoc -j on -t documentation -o HTML:Smarty:HandS -ti 'PHP OTServ Toolkit' -d . -i test.php,examples/,phk/ -ric CHANGELOG,INSTALL,LICENSE,NEWS,README,RULES
 
 pdf: documentation.pdf
 
 documentation.pdf:
-	phpdoc -j on -t . -o PDF:default:default -ti 'PHP OTServ Toolkit' -d . -i test.php,examples/ -ric CHANGELOG,INSTALL,LICENSE,NEWS,README,RULES
+	phpdoc -j on -t . -o PDF:default:default -ti 'PHP OTServ Toolkit' -d . -i test.php,examples/,phk/ -ric CHANGELOG,INSTALL,LICENSE,NEWS,README,RULES
 
 online:
-	phpdoc -j on -t online -o HTML:Smarty:OTServAAC -ti 'PHP OTServ Toolkit' -d . -i test.php,examples/ -ric CHANGELOG,INSTALL,LICENSE,NEWS,README,RULES
+	phpdoc -j on -t online -o HTML:Smarty:OTServAAC -ti 'PHP OTServ Toolkit' -d . -i test.php,examples/,phk/ -ric CHANGELOG,INSTALL,LICENSE,NEWS,README,RULES
 	find online -name "*.html" | sed s/"^online"/"http:\/\/otserv-aac.info"/ > online/sitemap
 
 test:
@@ -48,3 +50,8 @@ manual: documentation.tar.gz
 
 documentation.tar.gz: documentation.pdf
 	tar -zcf documentation.tar.gz documentation.pdf
+
+phk: POT.phk
+
+POT.phk:
+	php /usr/bin/PHK_Creator.phk build POT.phk POT.psf

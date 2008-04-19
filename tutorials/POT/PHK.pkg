@@ -1,0 +1,40 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>PHK package</refname>
+        <refpurpose>It will describe some basics about PHK packages and POT distribution packet.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id phk}">
+        <title>What is PHK</title>
+        <para>
+        PHK stands for PHp pacKages. It is file format that follows {@link http://en.wikipedia.org/wiki/JAR_(file_format) Java .jar files} idea - it allows to distribute multiple files in one package and load it at runtime as-it-is. You don't need to extract it like you do with .tar.gz package, but simply include like PHP file. You will find technical information about PHK format on {@link http://phk.tekwire.net/ it's homepage}.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id use}">
+        <title>How to use</title>
+        <para>
+        First of all - thought there is {@link compat.php compat.php library} included within POT.phk file you have to have PHP in version at least 5.1! It's just PHK requirement (you can find a {@link http://phk.tekwire.net/joomla/support/doc/users_guide.htm#p2.1 note about that on PHK homepage}).
+        </para>
+        <para>
+        In order to load POT from PHK archive you just need to include it. POT is still the same, so nothing changes in your codes. Here is an example startup script: {@example examples/phk.php}
+        </para>
+        <para>
+        You can compare it to {@tutorial POT/Basics.pgk#basics.database normal startup script}. As you can see only one file has been changed. But it allows you to keep POT in one file, without messing with all those files around.
+        </para>
+        <refsect2 id="{@id modes}">
+            <title>Other PHK modes</title>
+            <para>
+            As you have maybe read on project's page PHK supports multiple run modes: web, cli, lib and webinfo. But POT is just a toolkit - it has no user interface to allow direct usage in cli and web modes. At all only useful way is to use this packet as library packet (including it in your PHP code). All other calls to this file will cause redirecting to our page or displaying information about it.
+            </para>
+        </refsect2>
+    </refsect1>
+    <refsect1 id="{@id dev}">
+        <title>Development notes</title>
+        <para>
+        In order to create/modify POT.phk package you need {@link http://phk.tekwire.net/joomla/download PHK_Creator package}. On it's website you will find all required info about usage. In POT Makefile location of this file is set as /usr/bin/ but you should change it to your file location.
+        </para>
+    </refsect1>
+</refentry>

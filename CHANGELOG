@@ -1,5 +1,6 @@
 [0.1.3+SVN]
 * Updated documentation. <wrzasq>
+* VIP list support. <wrzasq>
 * Bans lists. <wrzasq>
 * Separated make targets for POT package and it's documentation. <wrzasq>
 * More stricted parameters and results types. <wrzasq>

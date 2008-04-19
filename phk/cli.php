@@ -1,0 +1,1 @@
+Welcome to POT - PHP OTServ Toolkit. This is a library toolkit which provides programming API for PHP scripts to work with OTServ database and other resources. For more info go to http://otserv-aac.info/.
