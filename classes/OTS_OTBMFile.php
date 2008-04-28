@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ OTBM format loading C++ code (iomapotbm.h, iomapotbm.cpp).
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -21,7 +21,7 @@
  * OTBM format reader.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @property-read OTS_HousesList $housesList Houses list loaded from associated houses file.
  * @property-read int $width Map width.
  * @property-read int $height Map height.
@@ -404,8 +404,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Checks if given town ID exists on list.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param int $id ID.
  * @return bool If town is set then true.
  */
@@ -417,7 +417,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Returns town's ID.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $name Town.
  * @return int ID.
  * @throws OutOfBoundsException If not found.
@@ -437,8 +437,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Checks if given town name exists on list.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param string $name Town.
  * @return bool If town is set then true.
  */
@@ -450,7 +450,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Returns name of given town's ID.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param int $id Town ID.
  * @return string Name.
  * @throws OutOfBoundsException If not found.
@@ -685,8 +685,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * If any display driver is currently loaded then it uses it's method.
  * </p>
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return string String representation of object.
  */
     public function __toString()

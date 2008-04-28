@@ -2,12 +2,11 @@
 
 /**#@+
  * @version 0.0.1
- * @since 0.0.1
  */
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +16,7 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @property string $name Character name.
  * @property OTS_Account $account Account to which character belongs.
  * @property OTS_Group $group Group of which character is member.
@@ -63,6 +62,7 @@
  * @property-read string $townName Name of town in which player residents.
  * @property-read OTS_House $house House which player rents.
  * @property-read OTS_Players_List $vipsList List of VIPs of player.
+ * @property-read string $vocationName String vocation representation.
  * @tutorial POT/Players.pkg
  */
 class OTS_Player extends OTS_Row_DAO
@@ -1793,7 +1793,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Returns value of storage record.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.2
  * @param int $key Storage key.
  * @return int|null Stored value (null if not set).
@@ -2302,8 +2302,8 @@ class OTS_Player extends OTS_Row_DAO
  * It means list of players which this player have on his/her list.
  * </p>
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return OTS_Players_List List of VIPs.
  * @throws E_OTS_NotLoaded If player is not loaded.
  * @throws PDOException On PDO operation error.
@@ -2335,8 +2335,8 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Adds player to VIP list.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param OTS_Player $player Player to be added.
  * @throws E_OTS_NotLoaded If player is not loaded.
  * @throws PDOException On PDO operation error.
@@ -2354,8 +2354,8 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Checks if given player is a VIP for current one.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param OTS_Player $player Player to check.
  * @return bool True, if given player is on VIP list.
  * @throws E_OTS_NotLoaded If player is not loaded.
@@ -2375,8 +2375,8 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Deletes player from VIP list.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param OTS_Player $player Player to be deleted.
  * @throws E_OTS_NotLoaded If player is not loaded.
  * @throws PDOException On PDO operation error.
@@ -2394,7 +2394,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
@@ -2540,6 +2540,9 @@ class OTS_Player extends OTS_Row_DAO
 
             case 'vipsList':
                 return $this->getVIPsList();
+
+            case 'vocationName':
+                return $this->getVocationName();
 
             default:
                 throw new OutOfBoundsException();
@@ -2753,7 +2756,7 @@ class OTS_Player extends OTS_Row_DAO
  * If any display driver is currently loaded then it uses it's method. Else it returns character name.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return string String representation of object.
  */

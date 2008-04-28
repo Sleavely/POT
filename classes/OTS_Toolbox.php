@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Toolbox for common operations.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  */
 class OTS_Toolbox
 {
@@ -60,8 +60,8 @@ class OTS_Toolbox
 /**
  * Returns list of banned players.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return OTS_Players_List Filtered list.
  */
     public static function bannedPlayers()
@@ -86,8 +86,8 @@ class OTS_Toolbox
 /**
  * Returns list of banned accounts.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return OTS_Accounts_List Filtered list.
  */
     public static function bannedAccounts()

@@ -53,7 +53,7 @@
                 <listitem>{@link POT::areMonstersLoaded() areMonstersLoaded()} - to check monsters.</listitem>
                 <listitem>{@link POT::areItemsLoaded() areItemsLoaded()} - to check items.</listitem>
                 <listitem>{@link POT::areSpellsLoaded() areSpellsLoaded()} - to check spells.</listitem>
-                <listitem>{@link POT::isMap() isMap()} - to check map.</listitem>
+                <listitem>{@link POT::isMapLoaded() isMapLoaded()} - to check map.</listitem>
                 <listitem>{@link POT::areHousesLoaded() areHousesLoaded()} - to check houses.</listitem>
             </itemizedlist>
             <para>

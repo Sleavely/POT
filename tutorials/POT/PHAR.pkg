@@ -1,0 +1,37 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>PHAR package</refname>
+        <refpurpose>Next distribution packet format.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id phar}">
+        <title>What is PHAR</title>
+        <para>
+        PHAR is another format of PHP distribution packages. Generaly, it's idea is very similar to {@tutorial POT/PHK.php PHK packages}, but it differs in many technical aspects. You can find more info about PHAR in {@link http://www.php.net/manual/en/book.phar.php PHP manual}.
+        </para>
+        <para>
+        The most important difference is, that PHAR requires additional binary extension (PHK packages work just as PHP files, you don't need any additional extensions) which means people who don't know how to use PECL or simply people who won't be able to compile own extensions will be unable to use PHAR archives.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id use}">
+        <title>How to use</title>
+        <para>
+        Unfortunately PHAR extension requires PHP in version 5.2 or newer so if you don't have such then you won't be able to work with PHAR archives.
+        </para>
+        <para>
+        The only difference between PHK and PHAR archives is that PHAR archives are transparently visible as files tree so you only change the location of OTS.php file. Rest of your code stays unaffected - nothing changes like with PHK archive. Here is simple startup script: {@example examples/phar.php}
+        </para>
+        <para>
+        As you can see it differes from {@tutorial POT/Basics.pkg#basics.database normal startup script} and {@tutorial POT/PHK.pkg PHK startup script} only with file inclusion line.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id dev}">
+        <title>Development notes</title>
+        <para>
+        To work with PHAR package, whether you want to modify it or only load, you need to have {@link http://pecl.php.net/package/phar PECL PHAR extension} installed in your PHP. You can install it by using 'pecl install phar' (recommended way).
+        </para>
+    </refsect1>
+</refentry>

@@ -23,7 +23,7 @@ $sub->compareField('maglevel', 5, OTS_SQLFilter::OPERATOR_NLOWER, OTS_SQLFilter:
 
 // final result is:
 // "cap" = "health" AND ("level" = 8 OR "maglevel" = 5)
-$filter->addFilter($sub)
+$filter->addFilter($sub);
 
 // sets filter on list
 $players->setFilter($filter);
@@ -31,7 +31,7 @@ $players->setFilter($filter);
 // iterates throught selected players
 foreach($players as $index => $player)
 {
-    $player->getName(), "\n";
+    echo $player->getName(), "\n";
 }
 
 ?>

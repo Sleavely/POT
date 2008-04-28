@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -25,7 +25,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @property string $buffer Properties binary string.
  * @property int $char {@link OTS_Buffer::getChar() getChar()}/{@link OTS_Buffer::putChar() putChar()} method wrapper.
  * @property int $short {@link OTS_Buffer::getShort() getShort()}/{@link OTS_Buffer::putShort() putShort()} method wrapper.
@@ -353,7 +353,7 @@ class OTS_Buffer
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws OutOfBoundsException For non-supported properties.

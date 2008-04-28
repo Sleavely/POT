@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Wrapper for spell info.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @property-read int $type Spell type.
  * @property-read string $name Spell name.
  * @property-read int $id Spell ID.
@@ -429,7 +429,7 @@ class OTS_Spell
  * If any display driver is currently loaded then it uses it's method. Otherwise just returns spell XML format.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return string String representation of object.
  */

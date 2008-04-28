@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -21,7 +21,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @property-read string $name Monster name.
  * @property-read string $race Monster race.
  * @property-read int $experience Experience for killing monster.
@@ -465,7 +465,7 @@ class OTS_Monster extends DOMDocument
  * If any display driver is currently loaded then it uses it's method. Otherwise just returns monster XML content.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return string String representation of object.
  */

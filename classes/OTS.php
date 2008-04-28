@@ -2,32 +2,31 @@
 
 /**#@+
  * @version 0.0.1
- * @since 0.0.1
  */
 
 /**
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.3: PHAR and PHK packages.
+ * @todo 0.1.4: Binary server status.
  * @todo 0.2.0: 0.0.x deprecations cleanup.
  * @todo 1.0.0: 0.x.x deprecations cleanup.
  * @todo future: Code as C++ extension (as an alternative to pure PHP library which of course would still be available).
  * @todo future: Implement POT namespace when it will be supported by PHP.
  * @todo future: Complete phpUnit test.
  * @todo future: Main POT class as database instance.
- * @todo future: E_* classes into *Exception, IOTS* into *Interface, change POT classes prefix from OTS_* into OT_*, unify *List and *_List naming into *List.
+ * @todo future: E_* classes into *Exception, IOTS_* into *Interface, change POT classes prefix from OTS_* into OT_*, unify *List and *_List naming into *List.
  */
 
 /**
  * Main POT class.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  */
 class POT
 {
@@ -433,7 +432,7 @@ class POT
  * Note: Since 0.1.2 version this method checks if PDO extension is loaded and if not, then throws LogicException. This exception class is part of SPL library and was introduced in PHP 5.1 so if you use PHP 5.0 you will need to load {@link compat.php compat.php library} first.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param int|null $driver Database driver type.
  * @param array $params Connection info.
  * @throws E_OTS_Generic When driver is not supported or not supported.
@@ -515,7 +514,7 @@ class POT
  * Sends 'info' packet to OTS server and return output. Returns {@link OTS_InfoRespond OTS_InfoRespond} (wrapper for XML data) with results or <var>false</var> if server is online.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.2
  * @param string $server Server IP/domain.
  * @param int $port OTServ port.
@@ -697,8 +696,8 @@ class POT
 /**
  * Returns list of banned IPs as list of pairs (ip => IP, mask => MASK).
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return array List of banned IPs.
  * @throws PDOException On PDO operation error.
  */
@@ -783,7 +782,7 @@ class POT
  * Note: Since 0.1.0 version this method returns loaded instance of {@link OTS_VocationsList OTS_VocationsList} instead of array. However {@link OTS_VocationsList OTS_VocationsList class} provides full array interface including Iterator, Countable and ArrayAccess interfaces so your code will work fine with it.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.5
  * @return OTS_VocationsList List of vocations.
  * @throws E_OTS_NotLoaded If vocations list is not loaded.
@@ -799,12 +798,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.5
  * @param string $name Vocation.
  * @return int ID.
  * @throws E_OTS_NotLoaded If vocations list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getVocationsList()->getVocationId().
+ * @deprecated 0.1.3 Use POT::getVocationsList()->getVocationId().
  */
     public function getVocationId($name)
     {
@@ -817,12 +816,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.5
  * @param int $id Vocation ID.
  * @return string Name.
  * @throws E_OTS_NotLoaded If vocations list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getVocationsList()->getVocationName().
+ * @deprecated 0.1.3 Use POT::getVocationsList()->getVocationName().
  */
     public function getVocationName($id)
     {
@@ -898,7 +897,7 @@ class POT
  * Note: Since 0.1.0 version this method returns loaded instance of {@link OTS_MonstersList OTS_MonstersList} instead of array. However {@link OTS_MonstersList OTS_MonstersList class} provides full array interface including Iterator, Countable and ArrayAccess interfaces so your code will work fine with it.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.6
  * @return OTS_MonstersList List of monsters.
  * @throws E_OTS_NotLoaded If monsters list is not loaded.
@@ -914,12 +913,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.6
  * @param string $name Monster name.
  * @return OTS_Monster Monster data.
  * @throws E_OTS_NotLoaded If monsters list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getMonstersList()->getMonster().
+ * @deprecated 0.1.3 Use POT::getMonstersList()->getMonster().
  */
     public function getMonster($name)
     {
@@ -991,7 +990,7 @@ class POT
 /**
  * Returns list of laoded spells.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return OTS_SpellsList List of spells.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
@@ -1007,11 +1006,11 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.7
  * @return array List of rune names.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getSpellsList()->getRunesList().
+ * @deprecated 0.1.3 Use POT::getSpellsList()->getRunesList().
  */
     public function getRunesList()
     {
@@ -1024,12 +1023,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.7
  * @param string $name Rune name.
  * @return OTS_Spell Rune spell wrapper (null if rune does not exist).
  * @throws E_OTS_NotLoaded If spells list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getSpellsList()->getRune().
+ * @deprecated 0.1.3 Use POT::getSpellsList()->getRune().
  */
     public function getRune($name)
     {
@@ -1042,11 +1041,11 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.7
  * @return array List of instant spells names.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getSpellsList()->getInstantsList().
+ * @deprecated 0.1.3 Use POT::getSpellsList()->getInstantsList().
  */
     public function getInstantsList()
     {
@@ -1059,12 +1058,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.7
  * @param string $name Spell name.
  * @return OTS_Spell Instant spell wrapper (null if rune does not exist).
  * @throws E_OTS_NotLoaded If spells list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getSpellsList()->getInstant().
+ * @deprecated 0.1.3 Use POT::getSpellsList()->getInstant().
  */
     public function getInstant($name)
     {
@@ -1077,11 +1076,11 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.7
  * @return array List of conjure spells names.
  * @throws E_OTS_NotLoaded If spells list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getSpellsList()->getConjuresList().
+ * @deprecated 0.1.3 Use POT::getSpellsList()->getConjuresList().
  */
     public function getConjuresList()
     {
@@ -1094,12 +1093,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.0.7
  * @param string $name Spell name.
  * @return OTS_Spell Conjure spell wrapper (null if rune does not exist).
  * @throws E_OTS_NotLoaded If spells list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getSpellsList()->getConjure().
+ * @deprecated 0.1.3 Use POT::getSpellsList()->getConjure().
  */
     public function getConjure($name)
     {
@@ -1167,7 +1166,7 @@ class POT
 /**
  * Returns list of laoded houses.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return OTS_HousesList List of houses.
  * @throws E_OTS_NotLoaded If houses list is not loaded.
@@ -1183,12 +1182,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @param int $id House ID.
  * @return OTS_House House information wrapper.
  * @throws E_OTS_NotLoaded If houses list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getHousesList()->getHouse().
+ * @deprecated 0.1.3 Use POT::getHousesList()->getHouse().
  */
     public function getHouse($id)
     {
@@ -1201,12 +1200,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @param string $name House name.
  * @return int House ID.
  * @throws E_OTS_NotLoaded If houses list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getHousesList()->getHouseId().
+ * @deprecated 0.1.3 Use POT::getHousesList()->getHouseId().
  */
     public function getHouseId($name)
     {
@@ -1305,7 +1304,7 @@ class POT
 /**
  * Returns list of laoded items.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return OTS_ItemsList List of items.
  * @throws E_OTS_NotLoaded If items list is not loaded.
@@ -1321,12 +1320,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @param int $id Item type ID.
  * @return OTS_ItemType Item type object.
  * @throws E_OTS_NotLoaded If items list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getItemsList()->getItemType().
+ * @deprecated 0.1.3 Use POT::getItemsList()->getItemType().
  */
     public function getItemType($id)
     {
@@ -1339,12 +1338,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @param string $name Item type name.
  * @return int Type ID.
  * @throws E_OTS_NotLoaded If items list is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getItemsList()->getItemTypeId().
+ * @deprecated 0.1.3 Use POT::getItemsList()->getItemTypeId().
  */
     public function getItemTypeId($name)
     {
@@ -1447,7 +1446,7 @@ class POT
 /**
  * Returns loaded map.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return OTS_OTBMFile Loaded OTBM file.
  * @throws E_OTS_NotLoaded If map is not loaded.
@@ -1463,11 +1462,11 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return int Map width.
  * @throws E_OTS_NotLoaded If map is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getMap()->getMapWidth().
+ * @deprecated 0.1.3 Use POT::getMap()->getMapWidth().
  */
     public function getMapWidth()
     {
@@ -1480,11 +1479,11 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return int Map height.
  * @throws E_OTS_NotLoaded If map is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getMap()->getMapHeight().
+ * @deprecated 0.1.3 Use POT::getMap()->getMapHeight().
  */
     public function getMapHeight()
     {
@@ -1497,11 +1496,11 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return string Map description.
  * @throws E_OTS_NotLoaded If map is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getMap()->getMapDescription().
+ * @deprecated 0.1.3 Use POT::getMap()->getMapDescription().
  */
     public function getMapDescription()
     {
@@ -1514,12 +1513,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @param string $name Town.
  * @return int ID.
  * @throws E_OTS_NotLoaded If map is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getMap()->getTownId().
+ * @deprecated 0.1.3 Use POT::getMap()->getTownId().
  */
     public function getTownId($name)
     {
@@ -1532,12 +1531,12 @@ class POT
     }
 
 /**
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @param int $id Town ID.
  * @return string Name.
  * @throws E_OTS_NotLoaded If map is not loaded.
- * @deprecated 0.1.3+SVN Use POT::getMap()->getTownName().
+ * @deprecated 0.1.3 Use POT::getMap()->getTownName().
  */
     public function getTownName($id)
     {
@@ -1604,7 +1603,7 @@ class POT
  * This method is mostly used internaly by POT classes.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return IOTS_Display Current display driver.
  * @throws E_OTS_NotLoaded If display driver is not loaded.
@@ -1622,8 +1621,8 @@ class POT
 /**
  * Display driver for non-database resources.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @var IOTS_DataDisplay
  */
     private $dataDisplay;
@@ -1631,8 +1630,8 @@ class POT
 /**
  * Sets display driver for non-database resources.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param IOTS_DataDisplay $dataDisplay Display driver.
  */
     public function setDataDisplayDriver(IOTS_DataDisplay $dataDisplay)
@@ -1647,8 +1646,8 @@ class POT
  * This method is mostly used internaly by POT classes.
  * </p>
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return bool True if driver is loaded.
  */
     public function isDataDisplayDriverLoaded()
@@ -1659,8 +1658,8 @@ class POT
 /**
  * Unloads display driver.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  */
     public function unloadDataDisplayDriver()
     {
@@ -1674,8 +1673,8 @@ class POT
  * This method is mostly used internaly by POT classes.
  * </p>
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return IOTS_DataDisplay Current display driver.
  * @throws E_OTS_NotLoaded If display driver is not loaded.
  */
@@ -1720,8 +1719,8 @@ if( !defined('PDO_ATTR_ERRMODE') )
 {
 /**
  * @ignore
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @deprecated Use PDO::ATTR_ERRMODE, this is for PHP 5.0 compatibility.
  */
     define('PDO_ATTR_ERRMODE', PDO::ATTR_ERRMODE);
@@ -1731,8 +1730,8 @@ if( !defined('PDO_ERRMODE_EXCEPTION') )
 {
 /**
  * @ignore
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @deprecated Use PDO::ERRMODE_EXCEPTION, this is for PHP 5.0 compatibility.
  */
     define('PDO_ERRMODE_EXCEPTION', PDO::ERRMODE_EXCEPTION);

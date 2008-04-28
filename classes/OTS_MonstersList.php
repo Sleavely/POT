@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Wrapper for monsters list.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @tutorial POT/data_directory.pkg#monsters
  */
 class OTS_MonstersList implements Iterator, Countable, ArrayAccess
@@ -90,8 +90,8 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
 /**
  * Checks if given monster ID exists on list.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param string $name Monster name.
  * @return bool If monster is set then true.
  */
@@ -103,7 +103,7 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
 /**
  * Returns loaded data of given monster.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $name Monster name.
  * @return OTS_Monster Monster data.
  * @throws OutOfBoundsException If not exists.
@@ -194,7 +194,7 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
 /**
  * Returns item from given position.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $offset Array key.
  * @return OTS_Monster Monster instance.
  * @throws DOMException On DOM operation error.
@@ -234,8 +234,8 @@ class OTS_MonstersList implements Iterator, Countable, ArrayAccess
  * If any display driver is currently loaded then it uses it's method.
  * </p>
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return string String representation of object.
  */
     public function __toString()

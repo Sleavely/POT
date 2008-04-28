@@ -22,7 +22,7 @@
         In order to load POT from PHK archive you just need to include it. POT is still the same, so nothing changes in your codes. Here is an example startup script: {@example examples/phk.php}
         </para>
         <para>
-        You can compare it to {@tutorial POT/Basics.pgk#basics.database normal startup script}. As you can see only one file has been changed. But it allows you to keep POT in one file, without messing with all those files around.
+        You can compare it to {@tutorial POT/Basics.pkg#basics.database normal startup script}. As you can see only one file has been changed. But it allows you to keep POT in one file, without messing with all those files around.
         </para>
         <refsect2 id="{@id modes}">
             <title>Other PHK modes</title>

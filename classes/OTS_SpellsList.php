@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -21,7 +21,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @property-read array $runesList List of rune spells.
  * @property-read array $instantsList List of instant spells.
  * @property-read array $conjuresList List of conjure spells.
@@ -129,8 +129,8 @@ class OTS_SpellsList
 /**
  * Checks if rune exists.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param string $name Rune name.
  * @return bool If rune is set then true.
  */
@@ -142,7 +142,7 @@ class OTS_SpellsList
 /**
  * Returns given rune spell.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $name Rune name.
  * @return OTS_Spell Rune spell wrapper.
  * @throws OutOfBoundsException If rune does not exist.
@@ -170,8 +170,8 @@ class OTS_SpellsList
 /**
  * Checks if instant exists.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param string $name Instant name.
  * @return bool If instant is set then true.
  */
@@ -183,7 +183,7 @@ class OTS_SpellsList
 /**
  * Returns given instant spell.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $name Spell name.
  * @return OTS_Spell Instant spell wrapper.
  * @throws OutOfBoundsException If instant does not exist.
@@ -211,8 +211,8 @@ class OTS_SpellsList
 /**
  * Checks if conjure exists.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param string $name Conjure name.
  * @return bool If conjure is set then true.
  */
@@ -224,7 +224,7 @@ class OTS_SpellsList
 /**
  * Returns given conjure spell.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $name Spell name.
  * @return OTS_Spell Conjure spell wrapper.
  * @throws OutOfBoundsException If conjure does not exist.
@@ -271,8 +271,8 @@ class OTS_SpellsList
  * If any display driver is currently loaded then it uses it's method.
  * </p>
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return string String representation of object.
  */
     public function __toString()

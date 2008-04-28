@@ -34,7 +34,8 @@ RULES - rules to be followed during developing contributed code.
 Makefile - make input, for documentation generation.
 POT.psf - PHK Package Specification File.
 documentation.pdf - phpDocumentor-generater documentation in PDF format.
-compat.php - Compatibility assurance library.
+compat.php - compatibility assurance library.
+phar.php - PHAR package build script.
 test.php - phpUnit test suite.
 
 
@@ -48,9 +49,11 @@ phpdoc: phpDocumentor.
 phpunit: PHPUnit testing framework.
 PHK_Creator.phk: this is file which you download from http://phk.tekwire.net/.
 
+To build PHAR package you will need PECL PHAR extension installed.
+
 Possible targets:
 
-all: default one, runs all other targets (in order: clean, check, documentation, pdf, online, test, package, manual, phk).
+all: default one, runs all other targets (in order: clean, check, documentation, pdf, online, test, package, manual, phk, phar).
 clean: deletes documentation.
 check: checks syntax of all PHP files.
 documentation: generates HTML documentation.
@@ -60,6 +63,7 @@ test: runs test suite.
 package: creates pot.tar.gz file for distribution purposes.
 manual: creates documentation.tar.gz file for distribution purposes.
 phk: creates POT.phk distribution package.
+phar: creates POT.phar distribution package.
 
 For more readable output of phpUnit test run:
 php test.php

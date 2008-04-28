@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ items loading C++ code (itemloader.h, items.cpp, items.h).
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -19,7 +19,7 @@
  * Items list loader.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @property-read int $otbVersion OTB file version.
  * @property-read int $clientVersion Dedicated client version.
  * @property-read int $buildVersion File build version.
@@ -134,7 +134,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * This method loads both items.xml and items.otb files. Both of them has to be in given directory.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $path Path to data/items directory.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  * @throws DOMException On DOM operation error.
@@ -409,8 +409,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Checks if given item type exists on list.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param string $name Name.
  * @return bool If item type is set then true.
  */
@@ -431,7 +431,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Returns given item type.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param int $id Item type (server) ID.
  * @return OTS_ItemType Returns item type of given ID.
  * @throws OutOfBoundsException If not exists.
@@ -449,8 +449,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Checks if given type ID exists on list.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param int $id ID.
  * @return bool If item type is set then true.
  */
@@ -466,7 +466,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * Note: If there are more then one items with same name this function will return first found server ID. It doesn't also mean that it will be the lowest ID - item types are ordered in order that they were loaded from items.xml file.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $name Item type name.
  * @return int Returns item type (server) ID.
  * @throws OutOfBoundsException If not found.
@@ -583,7 +583,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Returns item from given position.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @param string|int $offset Array key.
  * @return OTS_ItemType|int If key is an integer (type-sensitive!) then returns item type instance. If it's a string then return associated ID found by type name.
@@ -657,8 +657,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * If any display driver is currently loaded then it uses it's method.
  * </p>
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return string String representation of object.
  */
     public function __toString()

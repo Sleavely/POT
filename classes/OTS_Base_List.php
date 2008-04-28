@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -29,7 +29,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @property-write int $limit Sets LIMIT clause.
  * @property-write int $offset Sets OFFSET clause.
  * @property-write OTS_SQLFilter $filter Sets filter for list SQL query.
@@ -141,7 +141,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param array $properties List of object properties.
  */
     public static function __set_state($properties)
@@ -213,7 +213,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Returns object of class which handle single row representation. Object is initialised with ID of current position in result cursor.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @return OTS_Base_DAO Current row.
  */
     public function current()

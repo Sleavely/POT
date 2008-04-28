@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ items loading C++ code (items.cpp, items.h).
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -23,7 +23,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @property int $clientId Client ID.
  * @property string $name Item name.
  * @property int $group Group.
@@ -297,7 +297,7 @@ class OTS_ItemType
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param array $properties List of object properties.
  */
     public static function __set_state($properties)
@@ -368,8 +368,8 @@ class OTS_ItemType
 /**
  * Checks if this type has given attribute.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param string $attribyte Attribute name.
  * @return bool Attribute set state.
  */
@@ -381,7 +381,7 @@ class OTS_ItemType
 /**
  * Returns given attribute.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $attribyte Attribute name.
  * @return string Attribute value.
  * @throws OutOfBoundsException If not set.
@@ -723,8 +723,8 @@ class OTS_ItemType
  * If any display driver is currently loaded then it uses it's method. Otherwise just returns item ID.
  * </p>
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return string String representation of object.
  */
     public function __toString()

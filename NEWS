@@ -1,4 +1,4 @@
-What's new in 0.1.3+SVN version?
+What's new in 0.1.3 version?
 
 * Updated documentation.
 
@@ -13,6 +13,10 @@ What's new in 0.1.3+SVN version?
 * Bans lists.
 
     It is possible now to fetch list of banned account, players and IP addresses. Accounts and players can be found at OTS_Toolbox ( bannedPlayers() and bannedAccount() methods). IPs list can be take by OTS::bannedIPs().
+
+* PHK and PHAR packages.
+
+    PHK and PHAR are two distribution formats for PHP that allows putting multiple files within virtual tree and save in single package file in similar way to Java .jar files. POT contains now build targets for both of them and such packages will be available.
 
 * Separated make targets for POT package and it's documentation.
 

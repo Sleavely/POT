@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Wrapper for houses list.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @tutorial POT/data_directory.pkg#towns.houses
  */
 class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
@@ -32,7 +32,7 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Loads houses information.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $path Houses file.
  * @throws DOMException On DOM operation error.
  */
@@ -73,8 +73,8 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Checks if given house exists on list.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param string $name Name.
  * @return bool If house is set then true.
  */
@@ -95,7 +95,7 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns house information.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param int $id House ID.
  * @return OTS_House House information wrapper.
  * @throws OutOfBoundsException If house was not found.
@@ -113,8 +113,8 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Checks if given house ID exists on list.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param int $id ID.
  * @return bool If house is set then true.
  */
@@ -126,7 +126,7 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns ID of house with given name.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $name House name.
  * @return int House ID.
  * @throws OutOfBoundsException False if not found.
@@ -186,7 +186,7 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns item from given position.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string|int $offset Array key.
  * @return OTS_House|int If key is an integer (type-sensitive!) then returns house instance. If it's a string then return associated ID found by house name.
  */
@@ -232,8 +232,8 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
  * If any display driver is currently loaded then it uses it's method.
  * </p>
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @return string String representation of object.
  */
     public function __toString()

@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @author Alexander Valyalkin <valyala@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
@@ -23,42 +23,42 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  */
 class OTS_RSA implements IOTS_Cipher
 {
 /**
  * OTServ key part.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  */
     const OTSERV_P = '14299623962416399520070177382898895550795403345466153217470516082934737582776038882967213386204600674145392845853859217990626450972452084065728686565928113';
 /**
  * OTServ key part.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  */
     const OTSERV_Q = '7630979195970404721891201847792002125535401292779123937207447574596692788513647179235335529307251350570728407373705564708871762033017096809910315212884101';
 /**
  * OTServ key part.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  */
     const OTSERV_D = '46730330223584118622160180015036832148732986808519344675210555262940258739805766860224610646919605860206328024326703361630109888417839241959507572247284807035235569619173792292786907845791904955103601652822519121908367187885509270025388641700821735345222087940578381210879116823013776808975766851829020659073';
 
 /**
- * @deprecated 0.1.3+SVN Use OTS_RSA::P.
+ * @deprecated 0.1.3 Use OTS_RSA::P.
  */
     const P = self::OTSERV_P;
 /**
- * @deprecated 0.1.3+SVN Use OTS_RSA::Q.
+ * @deprecated 0.1.3 Use OTS_RSA::Q.
  */
     const Q = self::OTSERV_Q;
 /**
- * @deprecated 0.1.3+SVN Use OTS_RSA::D.
+ * @deprecated 0.1.3 Use OTS_RSA::D.
  */
     const D = self::OTSERV_D;
 

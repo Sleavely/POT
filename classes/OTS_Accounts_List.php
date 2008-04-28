@@ -1,12 +1,8 @@
 <?php
 
-/**#@+
- * @since 0.0.1
- */
-
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +12,7 @@
  * List of accounts.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  */
 class OTS_Accounts_List extends OTS_Base_List
 {
@@ -53,7 +49,7 @@ class OTS_Accounts_List extends OTS_Base_List
  * If any display driver is currently loaded then it uses it's method.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return string String representation of object.
  */
@@ -70,7 +66,5 @@ class OTS_Accounts_List extends OTS_Base_List
         return (string) $this->count();
     }
 }
-
-/**#@-*/
 
 ?>

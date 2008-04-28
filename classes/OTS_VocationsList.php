@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * Wrapper for vocations.xml file.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @example examples/vocations.php vocations.php
  * @tutorial POT/data_directory.pkg#vocations
  */
@@ -75,8 +75,8 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Checks if given vocation ID exists on list.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param int $id ID.
  * @return bool If vocation is set then true.
  */
@@ -88,7 +88,7 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns vocation's ID.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string $name Vocation.
  * @return int ID.
  * @throws OutOfBoundsException If not found.
@@ -109,8 +109,8 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Checks if given vocation name exists on list.
  * 
- * @version 0.1.3+SVN
- * @since 0.1.3+SVN
+ * @version 0.1.3
+ * @since 0.1.3
  * @param string $name Vocation.
  * @return bool If vocation is set then true.
  */
@@ -122,7 +122,7 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns name of given vocation's ID.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param int $id Vocation ID.
  * @return string Name.
  * @throws OutOfBoundsException If not found.
@@ -160,7 +160,7 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Checks if given element exists.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string|int $offset Array key.
  * @return bool True if it's set.
  */
@@ -179,7 +179,7 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns item from given position.
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param string|int $offset Array key.
  * @return string|int If key is an integer (type-sensitive!) then returns vocation name. If it's a string then return associated ID.
  */

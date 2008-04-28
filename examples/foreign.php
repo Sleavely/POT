@@ -19,7 +19,7 @@ $players->setFilter($filter);
 // iterates throught selected players
 foreach($players as $index => $player)
 {
-    $player->getName(), "\n";
+    echo $player->getName(), "\n";
 }
 
 ?>

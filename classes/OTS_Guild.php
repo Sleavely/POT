@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,11 +17,12 @@
  * OTServ guild abstraction.
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @property string $read Guild name.
  * @property OTS_Player $owner Guild founder.
  * @property int $creationData Guild creation data (mostly timestamp).
  * @property-read int $id Guild ID.
+ * @property-read bool $loaded Loaded state.
  * @property-read OTS_GuildRanks_List $guildRanksList Ranks in this guild.
  * @property-read array $invites List of invited players.
  * @property-read array $requests List of players that requested invites.
@@ -71,7 +72,7 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Copy of object needs to have different ID. Also invites and requests drivers are copied and assigned to object's copy.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  */
     public function __clone()
     {
@@ -691,7 +692,7 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0
+ * @version 0.1.3
  * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
@@ -702,6 +703,9 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
     {
         switch($name)
         {
+            case 'loaded':
+                return $this->isLoaded();
+
             case 'id':
                 return $this->getId();
 
@@ -774,7 +778,7 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  * If any display driver is currently loaded then it uses it's method. Else it returns guild name.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @since 0.1.0
  * @return string String representation of object.
  */

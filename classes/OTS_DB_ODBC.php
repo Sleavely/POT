@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -21,7 +21,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3+SVN
+ * @version 0.1.3
  */
 class OTS_DB_ODBC extends OTS_Base_DB
 {
@@ -46,10 +46,10 @@ class OTS_DB_ODBC extends OTS_Base_DB
  * </ul>
  * 
  * <p>
- * Note: Since 0.1.3+SVN version <var>source</var> parameter was added.
+ * Note: Since 0.1.3 version <var>source</var> parameter was added.
  * </p>
  * 
- * @version 0.1.3+SVN
+ * @version 0.1.3
  * @param array $params Connection parameters.
  * @throws PDOException On PDO operation error.
  */

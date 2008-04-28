@@ -18,12 +18,15 @@ add /bin/& phk/webinfo.php phk/cli.php
 
 %options
 
+preg_match('/^What\'s new in (.*?) version\?/', file_get_contents('NEWS'), $version);
+$version = $version[1];
+
 return array(
     'author' => 'OpenTibia Team',
     'copyright' => '2007 - 2008 (C) by Wrzasq',
     'name' => 'PHP OTServ Toolkit',
-    'release' => '0.1.3+SVN',
-    'version' => '0.1.3+SVN',
+    'release' => $version,
+    'version' => $version,
     'url' => 'http://otserv-aac.info/',
     'distribution' => 'http://sourceforge.net/projects/opentibia/',
     'help_prefix' => '/info/README',
