@@ -40,6 +40,7 @@
             <listitem>{@link OTS_Admin::close() close()} - closes server (this command only closes server for game disabling new players to log in, server itself will still be running).</listitem>
             <listitem>{@link OTS_Admin::payHouses() payHouses()} - takes rent fees for all rented houses.</listitem>
             <listitem>{@link OTS_Admin::shutdown() shutdown()} - this command closes server physicly be shuting down it's process.</listitem>
+            <listitem>{@link OTS_Admin::kick() kick()} - kicks given player from server.</listitem>
         </itemizedlist>
         <para>
         Here is very simple example client session: {@example examples/admin.php}

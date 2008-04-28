@@ -7,24 +7,24 @@
 
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.1.4+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.4: OTAdmin update.
  */
 
 /**
  * OTAdmin protocol client.
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.1.4+SVN
  * @property-read bool $requiresLogin {@link OTS_Admin::requiresLogin() requiresLogin()} wrapper.
  * @property-read bool $requiresEncryption {@link OTS_Admin::requiresEncryption() requiresEncryption()} wrapper.
  * @property-read bool $usesRSA1024XTEA {@link OTS_Admin::usesRSA1024XTEA() usesRSA1024XTEA()} wrapper.
  * @property-read int $ping Ping time.
  * @property-write string $login Logs in with given password.
  * @property-write string $broadcast Sends given broadcast message.
+ * @property-write string $kick Kicks player with given name from server.
  * @tutorial POT/OTAdmin.pkg
  * @example examples/admin.php admin.php
  */
@@ -433,7 +433,7 @@ class OTS_Admin
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.3
+ * @version 0.1.4+SVN
  * @since 0.1.3
  * @param string $name Property name.
  * @param mixed $value Property value.
@@ -451,6 +451,10 @@ class OTS_Admin
 
             case 'broadcast':
                 $this->broadcast($value);
+                break;
+
+            case 'kick':
+                $this->kick($value);
                 break;
 
             default:
@@ -628,6 +632,28 @@ class OTS_Admin
         // sends message
         $buffer = new OTS_Buffer();
         $buffer->putChar(self::COMMAND_SHUTDOWN_SERVER);
+        $this->sendCommand($buffer);
+    }
+
+/**
+ * Sends COMMAND_KICK command with given parameter.
+ * 
+ * <p>
+ * Kicks given player from server.
+ * </p>
+ * 
+ * @version 0.1.4+SVN
+ * @since 0.1.4+SVN
+ * @param string $name Name of player to be kicked.
+ * @throws E_OTS_ErrorCode If failure respond received.
+ * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
+ */
+    public function kick($name)
+    {
+        // sends message
+        $buffer = new OTS_Buffer();
+        $buffer->putChar(self::COMMAND_KICK);
+        $buffer->putString($name);
         $this->sendCommand($buffer);
     }
 

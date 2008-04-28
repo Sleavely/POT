@@ -17,6 +17,9 @@ echo 'Server ping: ', $admin->ping(), ' s', "\n";
 // sends broadcast message to all players
 $admin->broadcast('Server is going down for maintenance');
 
+// kicks player from server
+$admin->kick('Hurz');
+
 // closes server for new connections - server is still running
 $admin->close();
 
