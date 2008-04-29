@@ -12,14 +12,13 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.1.4: Binary server status.
- * @todo 0.2.0: 0.0.x deprecations cleanup.
- * @todo 1.0.0: 0.x.x deprecations cleanup.
+ * @todo future: Deprecations cleanup.
+ * @todo future: Drop PHP 5.0.x support (PDO:: constants, array type hinting).
  * @todo future: Code as C++ extension (as an alternative to pure PHP library which of course would still be available).
  * @todo future: Implement POT namespace when it will be supported by PHP.
  * @todo future: Complete phpUnit test.
  * @todo future: Main POT class as database instance.
- * @todo future: E_* classes into *Exception, IOTS_* into *Interface, change POT classes prefix from OTS_* into OT_*, unify *List and *_List naming into *List.
+ * @todo future: E_* classes into *Exception, IOTS_* into *Interface, change POT classes prefix from OTS_* into OT_*, unify *List and *_List naming into *List, remove prefix from filenames.
  */
 
 /**

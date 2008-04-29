@@ -33,6 +33,7 @@
  * @property-read int $mapWidth Map width.
  * @property-read int $mapHeight Map height.
  * @property-read string $motd Message Of The Day.
+ * @property-read array $players Online players list.
  */
 class OTS_ServerStatus
 {
@@ -85,6 +86,14 @@ class OTS_ServerStatus
  * Map respond.
  */
     const RESPOND_MAP_INFO = 0x30;
+/**
+ * Extended players info.
+ */
+    const RESPOND_EXT_PLAYERS_INFO = 0x21;
+/**
+ * Player status info.
+ */
+    const RESPOND_PLAYER_STATUS_INFO = 0x22;
 
 /**
  * Server name.
@@ -188,6 +197,12 @@ class OTS_ServerStatus
  * @var int
  */
     private $height;
+/**
+ * Players online list.
+ * 
+ * @var array
+ */
+    private $players = array();
 
 /**
  * Reads info from respond packet.
@@ -236,6 +251,16 @@ class OTS_ServerStatus
                     $this->author = $info->getString();
                     $this->width = $info->getShort();
                     $this->height = $info->getShort();
+                    break;
+
+                case self::RESPOND_EXT_PLAYERS_INFO:
+                    $count = $info->getLong();
+
+                    for($i = 0; $i < $count; $i++)
+                    {
+                        $name = $info->getString();
+                        $this->players[$name] = $info->getLong();
+                    }
                     break;
             }
         }
@@ -412,6 +437,15 @@ class OTS_ServerStatus
     }
 
 /**
+ * Returns list of players currently online.
+ * 
+ * @return array List of players in format 'name' => level.
+ */
+    public function getPlayers()
+    {
+    }
+
+/**
  * Magic PHP5 method.
  * 
  * @param string $name Property name.
@@ -472,6 +506,9 @@ class OTS_ServerStatus
 
             case 'motd':
                 return $this->getMOTD();
+
+            case 'players':
+                return $this->getPlayers();
 
             default:
                 throw new OutOfBoundsException();

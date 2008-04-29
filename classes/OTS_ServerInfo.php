@@ -17,7 +17,7 @@
  * 
  * @package POT
  * @property-read OTS_InfoRespond|bool $status status() method wrapper.
- * @property-read OTS_ServerStatus|bool $info info() method wrapper.
+ * @property-read OTS_ServerStatus|bool $info Full info() method wrapper.
  */
 class OTS_ServerInfo
 {
@@ -148,53 +148,7 @@ class OTS_ServerInfo
         $request = new OTS_Buffer();
         $request->putChar(255);
         $request->putChar(1);
-
-        // appends flags
-
-        if($flags & OTS_ServerStatus::REQUEST_BASIC_SERVER_INFO == OTS_ServerStatus::REQUEST_BASIC_SERVER_INFO)
-        {
-            $request->putChar(1);
-        }
-        else
-        {
-            $request->putChar(0);
-        }
-
-        if($flags & OTS_ServerStatus::REQUEST_OWNER_SERVER_INFO == OTS_ServerStatus::REQUEST_OWNER_SERVER_INFO)
-        {
-            $request->putChar(1);
-        }
-        else
-        {
-            $request->putChar(0);
-        }
-
-        if($flags & OTS_ServerStatus::REQUEST_MISC_SERVER_INFO == OTS_ServerStatus::REQUEST_MISC_SERVER_INFO)
-        {
-            $request->putChar(1);
-        }
-        else
-        {
-            $request->putChar(0);
-        }
-
-        if($flags & OTS_ServerStatus::REQUEST_PLAYERS_INFO == OTS_ServerStatus::REQUEST_PLAYERS_INFO)
-        {
-            $request->putChar(1);
-        }
-        else
-        {
-            $request->putChar(0);
-        }
-
-        if($flags & OTS_ServerStatus::REQUEST_MAP_INFO == OTS_ServerStatus::REQUEST_MAP_INFO)
-        {
-            $request->putChar(1);
-        }
-        else
-        {
-            $request->putChar(0);
-        }
+        $request->putShort($flags);
 
         $status = $this->send($request);
 
@@ -203,53 +157,6 @@ class OTS_ServerInfo
         {
             // loads respond
             return new OTS_ServerStatus($status);
-        }
-
-        // offline
-        return false;
-    }
-
-/**
- * Reads online players list.
- * 
- * <p>
- * This method uses binary info protocol.
- * </p>
- * 
- * @return array|bool List of players online with their levels (false when server is offline).
- * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
- * @example examples/server.php info.php
- * @tutorial POT/Server_status.pkg
- */
-    public function players()
-    {
-        // request packet
-        $request = new OTS_Buffer();
-        $request->putChar(255);
-        $request->putChar(1);
-
-        // appends flags
-
-        $request->putChar(0);
-        $request->putChar(0);
-        $request->putChar(0);
-        $request->putChar(0);
-        $request->putChar(0);
-        $request->putChar(1);
-
-        $status = $this->send($request);
-
-        // checks if server is online
-        if($status)
-        {
-            $list = array();
-            $count = $status->getLong();
-
-            for($i = 0; $i < $count; $i++)
-            {
-                $name = $status->getString();
-                $list[$name] = $status->getLong();
-            }
         }
 
         // offline
@@ -275,16 +182,7 @@ class OTS_ServerInfo
         $request = new OTS_Buffer();
         $request->putChar(255);
         $request->putChar(1);
-
-        // appends flags
-
-        $request->putChar(0);
-        $request->putChar(0);
-        $request->putChar(0);
-        $request->putChar(0);
-        $request->putChar(0);
-        $request->putChar(0);
-        $request->putChar(1);
+        $request->putShort(OTS_ServerStatus::REQUEST_PLAYER_STATUS_INFO);
         $request->putString($name);
 
         $status = $this->send($request);
@@ -292,6 +190,7 @@ class OTS_ServerInfo
         // checks if server is online
         if($status)
         {
+            $status->getChar();
             return (bool) $status->getChar();
         }
 
@@ -315,7 +214,7 @@ class OTS_ServerInfo
                 return $this->status();
 
             case 'info':
-                return $this->info();
+                return $this->info(OTS_ServerStatus::REQUEST_BASIC_SERVER_INFO | OTS_ServerStatus::REQUEST_OWNER_SERVER_INFO | OTS_ServerStatus::REQUEST_MISC_SERVER_INFO | OTS_ServerStatus::REQUEST_PLAYERS_INFO | OTS_ServerStatus::REQUEST_MAP_INFO | OTS_ServerStatus::REQUEST_PLAYER_STATUS_INFO);
 
             default:
                 throw new OutOfBoundsException();
