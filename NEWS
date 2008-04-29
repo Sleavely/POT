@@ -1,49 +1,13 @@
-What's new in 0.1.3 version?
+What's new in 0.1.4+SVN version?
 
-* Updated documentation.
+* Updated OTAdmin implementation.
 
-    Filled many undocumented methods, added many missing info, updated outdated parts.
+    Support for new COMMAND_KICK call. It is now possible to kick given player from server.
 
-    Also there are planty new tutorials, much better and more detailed then old ones. Using POT, as well, as starting using it, should be now easier then ever.
+* Binary information protocol support.
 
-* VIP list support.
+    It is now possible to use binary information protocol, which in new version provides such useful featuers like online players list.
 
-    Added support for VIP list - listing player VIPs, adding to VIP list, removing from VIP list and checking if player is a VIP for someone. Can be useful for instance to creating kind of community/social services for server websites.
+* Server status routines grouped.
 
-* Bans lists.
-
-    It is possible now to fetch list of banned account, players and IP addresses. Accounts and players can be found at OTS_Toolbox ( bannedPlayers() and bannedAccount() methods). IPs list can be take by OTS::bannedIPs().
-
-* PHK and PHAR packages.
-
-    PHK and PHAR are two distribution formats for PHP that allows putting multiple files within virtual tree and save in single package file in similar way to Java .jar files. POT contains now build targets for both of them and such packages will be available.
-
-* Separated make targets for POT package and it's documentation.
-
-    Documentation in PDF format is very huge and it used to oversize POT package. Now it is in separated package.
-
-* More stricted parameters and results types.
-
-    Many methods will now throw exceptions instead of returning mixed types of results.
-
-* Added display driver interface for non-database resources.
-
-    Except IOTS_Display there is now also IOTS_DataDisplay which defines interface for providing display information for OTS resources that are not loaded from database (mostly from data/ directory).
-
-* Added existence checking methods.
-
-    As fetching methods now throws exceptions, before using them you might need to check if item you want to fetch exists.
-
-* Added __get() and __set() methods to OTS_Admin.
-
-    I forgot to add that in previous release after finishing work on OTS_Admin class itself.
-
-* PDO connection is now set to throw exceptions on SQL errors instead of silence them.
-
-    This is the way we want our toolkit to work - throw an exception whenever something is wrong. If you don't want it you still can turn if off directly like you used to turn it on now.
-
-* Code optimalisation.
-
-    Removed some unrequired calls and dropped some blocks that was not required.
-
-* Bugfixes.
+    All routines related to server infromation protocols (both XML-based and binary) are now grouped within OTS_ServerInfo class.

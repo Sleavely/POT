@@ -235,7 +235,6 @@ class OTS_InfoRespond extends DOMDocument
         return $this->documentElement->getElementsByTagName('map')->item(0)->getAttribute('name');
     }
 
-
 /**
  * Returns map author.
  * 

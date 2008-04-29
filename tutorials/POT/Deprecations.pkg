@@ -55,4 +55,10 @@
         {@link POT POT class} provided bindings to access {@tutorial POT/data_directory.pkg#global global data/ directory resource} handlers methods indirectly. Those bindings are now deprecated and you should call them directly on handler objects which you get from {@tutorial POT/Basics.pkg#basics.singleton POT instance}.
         </para>
     </refsect1>
+    <refsect1 id="{@id status}">
+        <title>Server status quering</title>
+        <para>
+        From since 0.1.4 release {@link OTS_ServerInfo::status() status() method} was moved to {@link OTS_ServerInfo OTS_ServerInfo class}. Before that, it was available as POT::serverStatus().
+        </para>
+    </refsect1>
 </refentry>

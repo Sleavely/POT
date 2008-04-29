@@ -7,10 +7,16 @@
         <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
     </refsynopsisdiv>
     {@toc}
+    <refsect1 id="{@id class}">
+        <title>Server status class</title>
+        <para>
+        POT contains special class to work with OTServ informational protocols. It is named {@link OTS_ServerInfo OTS_ServerInfo}. It associates it's instance to server connection and provides methods to retrive status information.
+        </para>
+    </refsect1>
     <refsect1 id="{@id query}">
         <title>Sending request</title>
         <para>
-        {@link POT POT class} contains {@link POT::serverStatus() serverStatus() method} which sends 'info' packet to OTS and handles results. It returns object of class {@link OTS_InfoRespond OTS_InfoRespond} which provides access methods for all OTServ respond info. It will return false if server is offline. Here is a simple example of this method usage: {@example examples/info.php}
+        {@link OTS_ServerInfo OTS_ServerInfo class} contains {@link OTS_ServerInfo::status() status() method} which sends 'info' packet to OTS and handles results. It returns object of class {@link OTS_InfoRespond OTS_InfoRespond} which provides access methods for all OTServ respond info. It will return false if server is offline. Here is a simple example of this method usage: {@example examples/info.php}
         </para>
     </refsect1>
     <refsect1 id="{@id dom}">
@@ -18,5 +24,24 @@
         <para>
         In case you would want to use this method for some non-SVN server which contains custom fields in respond packet you can still use it. OTS_InfoRespond class is child of DOMDocument class and doesn't overwrite it's interface neither behaviour in any way. Returned object is standard DOM document so you can work with it in standard DOM-way.
         </para>
+    </refsect1>
+    <refsect1 id="{@id binary}">
+        <title>Binary protocol</title>
+        <para>
+        Many people don't know that OTServ actualy provides two information protocol and use only XML-based one. Second one was for a long time redundant so it was ommited in POT. But lastly it was extended and provides very powerful features. In the end it provides all features that XML-based protocol.
+        </para>
+        <refsect2 id="{@id list}">
+            <title>Online players list</title>
+            <para>
+            It is possible (eventualy) to retrive list of online players using binary protocol. You can do that using {@link OTS_ServerInfo::players() players() method}:
+            </para>
+            {@example examples/server.php}
+        </refsect2>
+        <refsect2 id="{@id status}">
+            <title>Online players list</title>
+            <para>
+            As you can see it is also possible to simply check state of single character. It doesn't require huge list, just responds single byte that represents player status.
+            </para>
+        </refsect2>
     </refsect1>
 </refentry>

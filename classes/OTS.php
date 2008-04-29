@@ -8,7 +8,7 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.1.4+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -26,7 +26,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.1.4+SVN
  */
 class POT
 {
@@ -514,7 +514,11 @@ class POT
  * Sends 'info' packet to OTS server and return output. Returns {@link OTS_InfoRespond OTS_InfoRespond} (wrapper for XML data) with results or <var>false</var> if server is online.
  * </p>
  * 
- * @version 0.1.3
+ * <p>
+ * Note: Since 0.1.4+SVN version this method is static so you can call it staticly, but it is also still possible to call it in dynamic context.
+ * </p>
+ * 
+ * @version 0.1.4+SVN
  * @since 0.0.2
  * @param string $server Server IP/domain.
  * @param int $port OTServ port.
@@ -522,44 +526,12 @@ class POT
  * @throws DOMException On DOM operation error.
  * @example examples/info.php info.php
  * @tutorial POT/Server_status.pkg
+ * @deprecated 0.1.4+SVN Use OTS_ServerInfo->status().
  */
-    public function serverStatus($server, $port)
+    public static function serverStatus($server, $port)
     {
-        // connects to server
-        // gives maximum 5 seconds to connect
-        $socket = fsockopen($server, $port, $error, $message, 5);
-
-        // if connected then checking statistics
-        if($socket)
-        {
-            // sets 5 second timeout for reading and writing
-            stream_set_timeout($socket, 5);
-
-            // sends packet with request
-            // 06 - length of packet, 255, 255 is the comamnd identifier, 'info' is a request
-            fwrite($socket, chr(6) . chr(0) . chr(255) . chr(255) . 'info');
-
-            // reads respond
-            $data = stream_get_contents($socket);
-
-            // closing connection to current server
-            fclose($socket);
-
-            // sometimes server returns empty info
-            if( empty($data) )
-            {
-                // returns offline state
-                return false;
-            }
-
-            // loads respond XML
-            $info = new OTS_InfoRespond();
-            $info->loadXML($data);
-            return $info;
-        }
-
-        // returns offline state
-        return false;
+        $status = new OTS_ServerInfo($server, $port);
+        return $status->status();
     }
 
 /**

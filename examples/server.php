@@ -9,7 +9,7 @@ $port = 7171;
 
 // queries server of status info
 $info = new OTS_ServerInfo($server, $port);
-$status = $info->status();
+$status = $info->info(OTS_ServerStatus::REQUEST_BASIC_SERVER_INFO | OTS_ServerStatus::REQUEST_OWNER_SERVER_INFO | OTS_ServerStatus::REQUEST_MISC_SERVER_INFO | OTS_ServerStatus::REQUEST_PLAYERS_INFO | OTS_ServerStatus::REQUEST_MAP_INFO);
 
 // offline
 if(!$status)
@@ -23,9 +23,23 @@ else
     echo 'Server owner: ', $status->getOwner(), "\n";
     echo 'Players online: ', $status->getOnlinePlayers(), "\n";
     echo 'Maximum allowed number of players: ', $status->getMaxPlayers(), "\n";
-    echo 'Required client version: ', $status->getClientVersion(), "\n";
-    echo 'All monsters: ', $status->getMonstersCount(), "\n";
     echo 'Server message: ', $status->getMOTD(), "\n";
+}
+
+// checks if given player is online
+if( $info->playerStatus('Hurz') )
+{
+    echo 'Hurz is online', "\n";
+}
+else
+{
+    echo 'Hurz is offline', "\n";
+}
+
+// list online players
+foreach( $info->players() as $player => $level)
+{
+    echo 'Player: ', $player, ' at level ', $level, "\n";
 }
 
 ?>
