@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.1.4
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ user group abstraction.
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.1.4
  * @property string $name Group name.
  * @property int $flags Access flags.
  * @property int $access Access level.
@@ -406,7 +406,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Note: Returned object is only prepared, but not initialised. When using as parameter in foreach loop it doesn't matter since it will return it's iterator, but if you will wan't to execute direct operation on that object you will need to call {@link OTS_Base_List::rewind() rewind() method} first.
  * </p>
  * 
- * @version 0.1.0
+ * @version 0.1.4
  * @since 0.0.5
  * @return OTS_Players_List List of players from current group.
  * @throws E_OTS_NotLoaded If group is not loaded.
@@ -417,8 +417,6 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
         {
             throw new E_OTS_NotLoaded();
         }
-
-        $ots = POT::getInstance();
 
         // creates filter
         $filter = new OTS_SQLFilter();

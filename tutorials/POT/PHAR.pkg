@@ -10,7 +10,7 @@
     <refsect1 id="{@id phar}">
         <title>What is PHAR</title>
         <para>
-        PHAR is another format of PHP distribution packages. Generaly, it's idea is very similar to {@tutorial POT/PHK.php PHK packages}, but it differs in many technical aspects. You can find more info about PHAR in {@link http://www.php.net/manual/en/book.phar.php PHP manual}.
+        PHAR is another format of PHP distribution packages. Generaly, it's idea is very similar to {@tutorial POT/PHK.pkg PHK packages}, but it differs in many technical aspects. You can find more info about PHAR in {@link http://www.php.net/manual/en/book.phar.php PHP manual}.
         </para>
         <para>
         The most important difference is, that PHAR requires additional binary extension (PHK packages work just as PHP files, you don't need any additional extensions) which means people who don't know how to use PECL or simply people who won't be able to compile own extensions will be unable to use PHAR archives.

@@ -1,4 +1,8 @@
-What's new in 0.1.4+SVN version?
+What's new in 0.1.4 version?
+
+* Updated for last database changes.
+
+    As always POT provides most up-to-date interface for database.
 
 * Updated OTAdmin implementation.
 
@@ -11,3 +15,7 @@ What's new in 0.1.4+SVN version?
 * Server status routines grouped.
 
     All routines related to server infromation protocols (both XML-based and binary) are now grouped within OTS_ServerInfo class.
+
+* Bigfixes.
+
+    Some bugfixes to previously implemented features like VIP list.

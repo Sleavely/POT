@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.4+SVN
+ * @version 0.1.4
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTAdmin protocol client.
  * 
  * @package POT
- * @version 0.1.4+SVN
+ * @version 0.1.4
  * @property-read bool $requiresLogin {@link OTS_Admin::requiresLogin() requiresLogin()} wrapper.
  * @property-read bool $requiresEncryption {@link OTS_Admin::requiresEncryption() requiresEncryption()} wrapper.
  * @property-read bool $usesRSA1024XTEA {@link OTS_Admin::usesRSA1024XTEA() usesRSA1024XTEA()} wrapper.
@@ -433,7 +433,7 @@ class OTS_Admin
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.4+SVN
+ * @version 0.1.4
  * @since 0.1.3
  * @param string $name Property name.
  * @param mixed $value Property value.
@@ -642,8 +642,8 @@ class OTS_Admin
  * Kicks given player from server.
  * </p>
  * 
- * @version 0.1.4+SVN
- * @since 0.1.4+SVN
+ * @version 0.1.4
+ * @since 0.1.4
  * @param string $name Name of player to be kicked.
  * @throws E_OTS_ErrorCode If failure respond received.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.

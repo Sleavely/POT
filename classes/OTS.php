@@ -8,7 +8,7 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.1.4+SVN
+ * @version 0.1.4
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -25,7 +25,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.1.4+SVN
+ * @version 0.1.4
  */
 class POT
 {
@@ -514,10 +514,10 @@ class POT
  * </p>
  * 
  * <p>
- * Note: Since 0.1.4+SVN version this method is static so you can call it staticly, but it is also still possible to call it in dynamic context.
+ * Note: Since 0.1.4 version this method is static so you can call it staticly, but it is also still possible to call it in dynamic context.
  * </p>
  * 
- * @version 0.1.4+SVN
+ * @version 0.1.4
  * @since 0.0.2
  * @param string $server Server IP/domain.
  * @param int $port OTServ port.
@@ -525,7 +525,7 @@ class POT
  * @throws DOMException On DOM operation error.
  * @example examples/info.php info.php
  * @tutorial POT/Server_status.pkg
- * @deprecated 0.1.4+SVN Use OTS_ServerInfo->status().
+ * @deprecated 0.1.4 Use OTS_ServerInfo->status().
  */
     public static function serverStatus($server, $port)
     {
