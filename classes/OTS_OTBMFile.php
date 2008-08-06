@@ -15,6 +15,7 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  * @todo future: Complete OTBM support: link tiles with items and spawns.
  * @todo future: Spawns support.
+ * @todo future: New map format support.
  */
 
 /**

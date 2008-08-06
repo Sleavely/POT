@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.1.5+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -21,13 +21,13 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.1.5+SVN
  * @property-read array $runesList List of rune spells.
  * @property-read array $instantsList List of instant spells.
  * @property-read array $conjuresList List of conjure spells.
  * @tutorial POT/data_directory.pkg#spells
  */
-class OTS_SpellsList
+class OTS_SpellsList implements IteratorAggregate, Countable
 {
 /**
  * Rune spell.
@@ -286,6 +286,38 @@ class OTS_SpellsList
         }
 
         return (string) $this->count();
+    }
+
+/**
+ * Iterator for all spells.
+ * 
+ * <p>
+ * Returned object will continousely iterate through all kind of spells.
+ * </p>
+ * 
+ * @version 0.1.5+SVN
+ * @since 0.1.5+SVN
+ * @return AppendIterator Iterator for all spells.
+ */
+    public function getIterator()
+    {
+        $iterator = new AppendIterator();
+        $iterator->append( new ArrayIterator($this->runes) );
+        $iterator->append( new ArrayIterator($this->instants) );
+        $iterator->append( new ArrayIterator($this->conjures) );
+        return $iterator;
+    }
+
+/**
+ * Number of all loaded spells.
+ * 
+ * @version 0.1.5+SVN
+ * @since 0.1.5+SVN
+ * @return int Amount of all spells.
+ */
+    public function count()
+    {
+        return count($this->runes) + count($this->instants) + count($this->conjures);
     }
 }
 

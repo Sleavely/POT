@@ -1,3 +1,7 @@
+[0.1.5+SVN]
+* Code optimalisation. <wrzasq>
+* Bugfixes. <wrzasq>
+
 [0.1.4]
 * Updated for last database changes. <wrzasq>
 * Updated OTAdmin implementation. <wrzasq>

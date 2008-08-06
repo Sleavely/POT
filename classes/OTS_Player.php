@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.1.4
+ * @version 0.1.5+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.1.4
+ * @version 0.1.5+SVN
  * @property string $name Character name.
  * @property OTS_Account $account Account to which character belongs.
  * @property OTS_Group $group Group of which character is member.
@@ -2213,7 +2213,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Checks if player is banned.
  * 
- * @version 0.0.5
+ * @version 0.1.5+SVN
  * @since 0.0.5
  * @return bool True if player is banned, false otherwise.
  * @throws PDOException On PDO operation error.
@@ -2226,8 +2226,7 @@ class OTS_Player extends OTS_Row_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $ban = $this->db->query('SELECT COUNT(' . $this->db->fieldName('type') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('player') . ' = ' . $this->data['id'] . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . POT::BAN_PLAYER)->fetch();
-        return $ban['count'] > 0;
+        return $this->db->query('SELECT COUNT(' . $this->db->fieldName('type') . ') FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('player') . ' = ' . $this->data['id'] . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . POT::BAN_PLAYER)->fetchColumn() > 0;
     }
 
 /**
@@ -2386,7 +2385,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Checks if given player is a VIP for current one.
  * 
- * @version 0.1.3
+ * @version 0.1.5+SVN
  * @since 0.1.3
  * @param OTS_Player $player Player to check.
  * @return bool True, if given player is on VIP list.
@@ -2400,8 +2399,7 @@ class OTS_Player extends OTS_Row_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $vip = $this->db->query('SELECT COUNT(' . $this->db->fieldName('vip_id') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('player_viplist') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('vip_id') . ' = ' . $player->getId() )->fetch();
-        return $vip['count'] > 0;
+        return $this->db->query('SELECT COUNT(' . $this->db->fieldName('vip_id') . ') FROM ' . $this->db->tableName('player_viplist') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('vip_id') . ' = ' . $player->getId() )->fetchColumn() > 0;
     }
 
 /**
@@ -2473,7 +2471,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Checks if player knows given spell.
  * 
- * @version 0.1.4
+ * @version 0.1.5+SVN
  * @since 0.1.4
  * @param OTS_Spell $spell Spell to be checked.
  * @return bool True if player knows given spell, false otherwise.
@@ -2487,8 +2485,7 @@ class OTS_Player extends OTS_Row_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $knows = $this->db->query('SELECT COUNT(' . $this->db->fieldName('name') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('player_spells') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('name') . ' = ' . $this->db->quote( $spell->getName() ) )->fetch();
-        return $knows['count'] > 0;
+        return $this->db->query('SELECT COUNT(' . $this->db->fieldName('name') . ') FROM ' . $this->db->tableName('player_spells') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'] . ' AND ' . $this->db->fieldName('name') . ' = ' . $this->db->quote( $spell->getName() ) )->fetchColumn() > 0;
     }
 
 /**

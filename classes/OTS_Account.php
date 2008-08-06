@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.1.4
+ * @version 0.1.5+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.1.4
+ * @version 0.1.5+SVN
  * @property string $password Password.
  * @property string $eMail Email address.
  * @property bool $blocked Blocked flag state.
@@ -560,7 +560,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Checks if account is banned.
  * 
- * @version 0.0.5
+ * @version 0.1.5+SVN
  * @since 0.0.5
  * @return bool True if account is banned, false otherwise.
  * @throws PDOException On PDO operation error.
@@ -573,8 +573,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
             throw new E_OTS_NotLoaded();
         }
 
-        $ban = $this->db->query('SELECT COUNT(' . $this->db->fieldName('type') . ') AS ' . $this->db->fieldName('count') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('account') . ' = ' . $this->data['id'] . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . POT::BAN_ACCOUNT)->fetch();
-        return $ban['count'] > 0;
+        return $this->db->query('SELECT COUNT(' . $this->db->fieldName('type') . ') FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('account') . ' = ' . $this->data['id'] . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . POT::BAN_ACCOUNT)->fetchColumn() > 0;
     }
 
 /**

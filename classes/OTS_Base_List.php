@@ -7,10 +7,12 @@
 
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.1.5+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
+ * @todo future: Use fetchObject() to reduce amount of SQL queries.
+ * @todo future: Iterator classes (to map id => name iterations).
  */
 
 /**
@@ -29,7 +31,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.1.5+SVN
  * @property-write int $limit Sets LIMIT clause.
  * @property-write int $offset Sets OFFSET clause.
  * @property-write OTS_SQLFilter $filter Sets filter for list SQL query.
@@ -265,14 +267,13 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Returns number of rows on list in current criterium.
  * 
- * @version 0.0.5
+ * @version 0.1.5+SVN
  * @return int Number of rows.
  * @throws PDOException On PDO operation error.
  */
     public function count()
     {
-        $count = $this->db->query( $this->getSQL(true) )->fetch();
-        return $count['count'];
+        return $this->db->query( $this->getSQL(true) )->fetchColumn();
     }
 
 /**
@@ -403,7 +404,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
         // fields list
         if($count)
         {
-            $fields = 'COUNT(' . $this->db->tableName($this->table) . '.' . $this->db->fieldName('id') . ') AS ' . $this->db->fieldName('count');
+            $fields = 'COUNT(' . $this->db->tableName($this->table) . '.' . $this->db->fieldName('id') . ')';
         }
         else
         {

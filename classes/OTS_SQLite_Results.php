@@ -5,6 +5,7 @@
  */
 
 /**
+ * @version 0.1.5+SVN
  * @package POT
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
@@ -14,6 +15,7 @@
 /**
  * This class will drop " quotes from field names in SQLite results.
  * 
+ * @version 0.1.5+SVN
  * @package POT
  * @ignore
  */
@@ -48,31 +50,33 @@ class OTS_SQLite_Results extends PDOStatement
 /**
  * Removes quoting delimiters from single row fields.
  * 
- * @param int $mode Optional fetch mode.
- * @param int $index Optional column index.
- * @param array $args Optional class constructor arguments.
- * @return array Record row.
+ * @version 0.1.5+SVN
+ * @param int $mode Not used, for PDO compatibility.
+ * @param int $orientation Not used, for PDO compatibility.
+ * @param int $offset Not used, for PDO compatibility.
+ * @return array Records set.
  */
-    public function fetch($mode = null, $index = null, $args = null)
+    public function fetch($mode = null, $orientation = null, $offset = null)
     {
         // standard output
-        return $this->strip( parent::fetch($mode, $index, $args) );
+        return $this->strip( parent::fetch() );
     }
 
 /**
  * Removes quotes from all result rows.
  * 
- * @param int $mode Optional fetch mode.
- * @param int $oreintation Optional cursor orientation.
- * @param int $offset Optional cursor offset.
- * @return array Records set.
+ * @version 0.1.5+SVN
+ * @param int $mode Not used, for PDO compatibility.
+ * @param int $index Not used, for PDO compatibility.
+ * @param array $args Not used, for PDO compatibility.
+ * @return array Record row.
  */
-    public function fetchAll($mode = null, $oreintation = null, $offset = null)
+    public function fetchAll($mode = null, $index = null, $args = array() )
     {
         $results = array();
 
         // fetches all results
-        foreach( parent::fetchAll($mode, $oreintation, $offset) as $index => $record)
+        foreach( parent::fetchAll() as $index => $record)
         {
             $results[$index] = $this->strip($record);
         }
