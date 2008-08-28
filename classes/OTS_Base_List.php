@@ -12,7 +12,7 @@
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  * @todo future: Use fetchObject() to reduce amount of SQL queries.
- * @todo future: Iterator classes (to map id => name iterations).
+ * @todo future: Iterator classes (to map id => name iterations) with tutorial.
  */
 
 /**

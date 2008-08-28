@@ -1,21 +1,5 @@
-What's new in 0.1.4 version?
+What's new in 0.1.5+SVN version?
 
-* Updated for last database changes.
+* OTS_SpellsList implements now IteratorAggregate and Countable interfaces.
 
-    As always POT provides most up-to-date interface for database.
-
-* Updated OTAdmin implementation.
-
-    Support for new COMMAND_KICK call. It is now possible to kick given player from server.
-
-* Binary information protocol support.
-
-    It is now possible to use binary information protocol, which in new version provides such useful featuers like online players list.
-
-* Server status routines grouped.
-
-    All routines related to server infromation protocols (both XML-based and binary) are now grouped within OTS_ServerInfo class.
-
-* Bigfixes.
-
-    Some bugfixes to previously implemented features like VIP list.
+    Thought this list contains three separated lists of different spell types it now implements both interfaces so you can use basic operations on it. However iterator mechanism for this class is available only with PHP 5.1+ as it uses AppendIterator class.

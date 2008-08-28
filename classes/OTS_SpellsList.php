@@ -17,7 +17,7 @@
  * Wrapper for spells list.
  * 
  * <p>
- * Note: Unlike other lists classes this one doesn't implement either Iterator/IteratorAggregate, Countable or ArrayAccess interfaces because it contains three kinds of spells grouped into pararell arrays.
+ * Note: Unlike other lists classes this one doesn't implement ArrayAccess interface because it contains three kinds of spells grouped into pararell arrays.
  * </p>
  * 
  * @package POT

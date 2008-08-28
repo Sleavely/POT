@@ -1,4 +1,5 @@
 [0.1.5+SVN]
+* OTS_SpellsList implements now IteratorAggregate and Countable interfaces. <wrzasq>
 * Code optimalisation. <wrzasq>
 * Bugfixes. <wrzasq>
 
