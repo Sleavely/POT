@@ -12,9 +12,6 @@
         <para>
         Main difference between accounts and other {@tutorial POT/DAO_objects.pkg DAO objects} is that accounts, even if they don't exist, have to have their unique account number. So even when saving not-yet-existing account object you first have to create account number for it. You can't save empty account using save() method - you have to use {@link OTS_Account::create() create() method}. It will generate account number, save account stub in database and return saved number in database. {@example examples/create.php}
         </para>
-        <para>
-        Remember - create method sets blocked flag on account! After setting all info for account remember to {@link OTS_Account::unblock() unblock} it in order to make it usable in game.
-        </para>
         <refsect1 id="{@id random}">
             <title>Random account number</title>
             <para>

@@ -568,12 +568,13 @@ class POT
  * Second parameter is mask which you can use to ban entire IP classes. Third parameter is time after which ban will expire. However - this is not lifetime - it is timestamp of moment, when ban should expire (and <var>0</var> means forever).
  * </p>
  * 
- * @version 0.0.5
+ * @version 0.1.5+SVN
  * @since 0.0.5
  * @param string $ip IP to ban.
  * @param string $mask Mask for ban (by default bans only given IP).
  * @param int $time Time for time until expires (0 - forever).
  * @throws PDOException On PDO operation error.
+ * @deprecated 0.1.5+SVN Use OTS_IPBan class.
  */
     public function banIP($ip, $mask = '255.255.255.255', $time = 0)
     {
@@ -597,7 +598,14 @@ class POT
             $mask = sprintf('%u', ip2long($mask) );
         }
 
-        $this->db->query('INSERT INTO ' . $this->db->tableName('bans') . ' (' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('ip') . ', ' . $this->db->fieldName('mask') . ', ' . $this->db->fieldName('time') . ') VALUES (' . self::BAN_IP . ', ' . $ip . ', ' . $mask . ', ' . (int) $time . ')');
+        // creates ban entry
+        $ban = new OTS_IPBan();
+        $ban->setValue($ip);
+        $ban->setParam($mask);
+        $ban->setExpires($time);
+        $ban->setAdded( time() );
+        $ban->activate();
+        $ban->save();
     }
 
 /**
@@ -607,11 +615,12 @@ class POT
  * Removes given IP/mask ban. Remember to specify also mask if you banned intire IP class.
  * </p>
  * 
- * @version 0.0.5
+ * @version 0.1.5+SVN
  * @since 0.0.5
  * @param string $ip IP to ban.
- * @param string $mask Mask for ban (by default 255.255.255.255).
+ * @param string $mask Mask for ban (by default 255.255.255.255) - not used thought.
  * @throws PDOException On PDO operation error.
+ * @deprecated 0.1.5+SVN Use OTS_IPBan class.
  */
     public function unbanIP($ip, $mask = '255.255.255.255')
     {
@@ -626,26 +635,23 @@ class POT
             $ip = sprintf('%u', ip2long($ip) );
         }
 
-        if($mask == '255.255.255.255')
-        {
-            $mask = 4294967295;
-        }
-        else
-        {
-            $mask = sprintf('%u', ip2long($mask) );
-        }
+        // mask is not used anymore
 
-        $this->db->query('DELETE FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP . ' AND ' . $this->db->fieldName('ip') . ' = ' . $ip . ' AND ' . $this->db->fieldName('mask') . ' = ' . $mask);
+        // deletes ban entry
+        $ban = new OTS_IPBan();
+        $ban->find($ip);
+        $ban->delete();
     }
 
 /**
  * Checks if given IP is banned.
  * 
- * @version 0.0.5
+ * @version 0.1.5+SVN
  * @since 0.0.5
  * @param string $ip IP to ban.
  * @return bool True if IP number is banned, false otherwise.
  * @throws PDOException On PDO operation error.
+ * @deprecated 0.1.5+SVN Use OTS_IPBan class.
  */
     public function isIPBanned($ip)
     {
@@ -660,20 +666,36 @@ class POT
             $ip = sprintf('%u', ip2long($ip) );
         }
 
-        return $this->db->query('SELECT COUNT(' . $this->db->fieldName('type') . ') FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('ip') . ' & ' . $this->db->fieldName('mask') . ' = ' . $ip . ' & ' . $this->db->fieldName('mask') . ' AND (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP)->fetchColumn() > 0;
+        // finds ban entry
+        $ban = new OTS_IPBan();
+        $ban->find($ip, $mask);
+        return $ban->isLoaded() && $ban->isActive() && ( $ban->getExpires() == 0 || $ban->getExpires() > time() );
     }
 
 /**
  * Returns list of banned IPs as list of pairs (ip => IP, mask => MASK).
  * 
- * @version 0.1.3
+ * @version 0.1.5+SVN
  * @since 0.1.3
  * @return array List of banned IPs.
  * @throws PDOException On PDO operation error.
+ * @deprecated 0.1.5+SVN Use OTS_IPBans_List class.
  */
     public function bannedIPs()
     {
-        return $this->db->query('SELECT ' . $this->db->fieldName('ip') . ', ' . $this->db->fieldName('mask') . ' FROM ' . $this->db->tableName('bans') . ' WHERE (' . $this->db->fieldName('time') . ' > ' . time() . ' OR ' . $this->db->fieldName('time') . ' = 0) AND ' . $this->db->fieldName('type') . ' = ' . self::BAN_IP)->fetchAll();
+        $list = array();
+
+        // generates bans array
+        foreach( new OTS_IPBans_List() as $ban)
+        {
+            // checks if ban is active
+            if( $ban->isActive() && ( $ban->getExpires() == 0 || $ban->getExpires() > time() ) )
+            {
+                $list[] = array('ip' => $ban->getValue(), 'mask' => $ban->getParam() );
+            }
+        }
+
+        return $list;
     }
 
 /**

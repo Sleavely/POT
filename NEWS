@@ -1,5 +1,13 @@
 What's new in 0.1.5+SVN version?
 
+* Updated for new (avesta branch) database structure.
+
+    As avesta became main branch POT fully supports it's database structure. Keep notice to behavior changes of some methods like OTS_Account::find(). Also note that from now bans are completle objects and therefore banning methods of other objects are deprecated.
+
+* Dropped automatic account blocking.
+
+    Until now accounts were always created as blocked and required implicit unblocking. It is considered useless so accounts are no longer created as blocked.
+
 * OTS_SpellsList implements now IteratorAggregate and Countable interfaces.
 
     Thought this list contains three separated lists of different spell types it now implements both interfaces so you can use basic operations on it. However iterator mechanism for this class is available only with PHP 5.1+ as it uses AppendIterator class.

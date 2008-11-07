@@ -42,8 +42,9 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Database connection.
  * 
  * @var PDO
+ * @version 0.1.5+SVN
  */
-    private $db;
+    protected $db;
 
 /**
  * Limit for SELECT query.
@@ -60,13 +61,6 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
     private $offset = false;
 
 /**
- * Query results.
- * 
- * @var array
- */
-    private $rows;
-
-/**
  * WHERE clause filter.
  * 
  * @var OTS_SQLFilter
@@ -79,6 +73,14 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * @var array
  */
     private $orderBy = array();
+
+/**
+ * Query results.
+ * 
+ * @var array
+ * @version 0.1.5+SVN
+ */
+    protected $rows;
 
 /**
  * Default table name for queries.
@@ -340,10 +342,34 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Returns SQL query for SELECT.
  * 
+ * @version 0.1.5+SVN
  * @param bool $count Shows if the SQL should be generated for COUNT() variant.
  * @return string SQL query part.
  */
-    private function getSQL($count = false)
+    protected function getSQL($count = false)
+    {
+        // fields list
+        if($count)
+        {
+            $fields = 'COUNT(' . $this->db->tableName($this->table) . '.' . $this->db->fieldName('id') . ')';
+        }
+        else
+        {
+            $fields = $this->db->tableName($this->table) . '.' . $this->db->fieldName('id') . ' AS ' . $this->db->fieldName('id');
+        }
+
+        return $this->prepareSQL( array($fields) );
+    }
+
+/**
+ * Returns generic SQL query that can be adaptated by child classes.
+ * 
+ * @version 0.1.5+SVN
+ * @since 0.1.5+SVN
+ * @param array $fields Fields to be selected.
+ * @return string SQL query.
+ */
+    protected function prepareSQL($fields)
     {
         $tables = array();
 
@@ -401,17 +427,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
             $orderBy = ' ORDER BY ' . implode(', ', $orderBy);
         }
 
-        // fields list
-        if($count)
-        {
-            $fields = 'COUNT(' . $this->db->tableName($this->table) . '.' . $this->db->fieldName('id') . ')';
-        }
-        else
-        {
-            $fields = $this->db->tableName($this->table) . '.' . $this->db->fieldName('id') . ' AS ' . $this->db->fieldName('id');
-        }
-
-        return 'SELECT ' . $fields . ' FROM ' . implode(', ', $tables) . $where . $orderBy . $this->db->limit($this->limit, $this->offset);
+        return 'SELECT ' . implode(', ', $fields) . ' FROM ' . implode(', ', $tables) . $where . $orderBy . $this->db->limit($this->limit, $this->offset);
     }
 
 /**
