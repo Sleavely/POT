@@ -186,7 +186,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
     public function find($name)
     {
         // finds player's ID
-        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($email) )->fetch();
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) )->fetch();
 
         // if anything was found
         if( isset($id['id']) )
