@@ -5,7 +5,7 @@
  */
 
 /**
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @package POT
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 (C) by Wrzasq
@@ -15,7 +15,7 @@
 /**
  * This class will drop " quotes from field names in SQLite results.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @package POT
  * @ignore
  */
@@ -50,7 +50,7 @@ class OTS_SQLite_Results extends PDOStatement
 /**
  * Removes quoting delimiters from single row fields.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @param int $mode Not used, for PDO compatibility.
  * @param int $orientation Not used, for PDO compatibility.
  * @param int $offset Not used, for PDO compatibility.
@@ -65,7 +65,7 @@ class OTS_SQLite_Results extends PDOStatement
 /**
  * Removes quotes from all result rows.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @param int $mode Not used, for PDO compatibility.
  * @param int $index Not used, for PDO compatibility.
  * @param array $args Not used, for PDO compatibility.

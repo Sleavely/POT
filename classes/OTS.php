@@ -8,7 +8,7 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -25,7 +25,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  */
 class POT
 {
@@ -568,13 +568,13 @@ class POT
  * Second parameter is mask which you can use to ban entire IP classes. Third parameter is time after which ban will expire. However - this is not lifetime - it is timestamp of moment, when ban should expire (and <var>0</var> means forever).
  * </p>
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.5
  * @param string $ip IP to ban.
  * @param string $mask Mask for ban (by default bans only given IP).
  * @param int $time Time for time until expires (0 - forever).
  * @throws PDOException On PDO operation error.
- * @deprecated 0.1.5+SVN Use OTS_IPBan class.
+ * @deprecated 0.1.5 Use OTS_IPBan class.
  */
     public function banIP($ip, $mask = '255.255.255.255', $time = 0)
     {
@@ -615,12 +615,12 @@ class POT
  * Removes given IP/mask ban. Remember to specify also mask if you banned intire IP class.
  * </p>
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.5
  * @param string $ip IP to ban.
  * @param string $mask Mask for ban (by default 255.255.255.255) - not used thought.
  * @throws PDOException On PDO operation error.
- * @deprecated 0.1.5+SVN Use OTS_IPBan class.
+ * @deprecated 0.1.5 Use OTS_IPBan class.
  */
     public function unbanIP($ip, $mask = '255.255.255.255')
     {
@@ -646,12 +646,12 @@ class POT
 /**
  * Checks if given IP is banned.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.5
  * @param string $ip IP to ban.
  * @return bool True if IP number is banned, false otherwise.
  * @throws PDOException On PDO operation error.
- * @deprecated 0.1.5+SVN Use OTS_IPBan class.
+ * @deprecated 0.1.5 Use OTS_IPBan class.
  */
     public function isIPBanned($ip)
     {
@@ -675,11 +675,11 @@ class POT
 /**
  * Returns list of banned IPs as list of pairs (ip => IP, mask => MASK).
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.1.3
  * @return array List of banned IPs.
  * @throws PDOException On PDO operation error.
- * @deprecated 0.1.5+SVN Use OTS_IPBans_List class.
+ * @deprecated 0.1.5 Use OTS_IPBans_List class.
  */
     public function bannedIPs()
     {

@@ -1,6 +1,7 @@
-[0.1.5+SVN]
+[0.1.5]
 * Updated for new (avesta branch) database structure. <wrzasq>
 * Dropped automatic account blocking. <wrzasq>
+* Accounts are now created by names, using OTS_Account::createNamed() method. <wrzasq>
 * OTS_SpellsList implements now IteratorAggregate and Countable interfaces. <wrzasq>
 * Code optimalisation. <wrzasq>
 * Bugfixes. <wrzasq>

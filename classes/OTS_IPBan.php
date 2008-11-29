@@ -2,8 +2,8 @@
 
 /**
  * @package POT
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -13,8 +13,8 @@
  * OTServ IP ban.
  * 
  * @package POT
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  */
 class OTS_IPBan extends OTS_Ban
 {
@@ -22,16 +22,16 @@ class OTS_IPBan extends OTS_Ban
  * Ban data.
  * 
  * @var array
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  */
     private $data = array('type' => POT::BAN_IP, 'param' => 0, 'active' => true, 'admin_id' => 0, 'comment' => '', 'reason' => 0);
 
 /**
  * Loads IP ban with given id.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param int $id Ban ID.
  * @throws PDOException On PDO operation error.
  */
@@ -48,8 +48,8 @@ class OTS_IPBan extends OTS_Ban
  * This method loads ban that matches given IP (including mask). To unban IP you should rather use {@link OTS_IPBan::load() load() method} to load exacly that ban that you are seeking for.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param int $ip IP.
  * @throws PDOException On PDO operation error.
  */

@@ -73,7 +73,7 @@
     <refsect1 id="{@id global}">
         <title>Global resources</title>
         <para>
-        All those resources are parts of entire POT enviroment. They are necessary for some routines - for example {@turorial POT/Players.pkg#items player's items managing} requires items list to be loaded. But created instances of those resources are only local. You can create them freely but they doesn't affect other parts of POT. In order to load those resources globaly into {@tutorial POT/Basics.pkg#basics.singleton POT instance} you will have to read about {@tutorial POT/Global_resources.pkg global resources}.
+        All those resources are parts of entire POT enviroment. They are necessary for some routines - for example {@tutorial POT/Players.pkg#items player's items managing} requires items list to be loaded. But created instances of those resources are only local. You can create them freely but they doesn't affect other parts of POT. In order to load those resources globaly into {@tutorial POT/Basics.pkg#basics.singleton POT instance} you will have to read about {@tutorial POT/Global_resources.pkg global resources}.
         </para>
     </refsect1>
 </refentry>

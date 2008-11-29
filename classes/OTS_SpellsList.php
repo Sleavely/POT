@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -21,7 +21,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @property-read array $runesList List of rune spells.
  * @property-read array $instantsList List of instant spells.
  * @property-read array $conjuresList List of conjure spells.
@@ -295,8 +295,8 @@ class OTS_SpellsList implements IteratorAggregate, Countable
  * Returned object will continousely iterate through all kind of spells.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return AppendIterator Iterator for all spells.
  */
     public function getIterator()
@@ -311,8 +311,8 @@ class OTS_SpellsList implements IteratorAggregate, Countable
 /**
  * Number of all loaded spells.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return int Amount of all spells.
  */
     public function count()

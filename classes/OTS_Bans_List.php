@@ -2,8 +2,8 @@
 
 /**
  * @package POT
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -13,8 +13,8 @@
  * List of all bans.
  * 
  * @package POT
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  */
 class OTS_Bans_List extends OTS_Base_List
 {
@@ -25,8 +25,8 @@ class OTS_Bans_List extends OTS_Base_List
  * This method is called at object creation.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  */
     public function init()
     {
@@ -36,8 +36,8 @@ class OTS_Bans_List extends OTS_Base_List
 /**
  * Overwrites generic query.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @throws PDOException On PDO operation error.
  */
     public function rewind()
@@ -48,8 +48,8 @@ class OTS_Bans_List extends OTS_Base_List
 /**
  * Returns SQL query for SELECT.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param bool $count Shows if the SQL should be generated for COUNT() variant.
  * @return string SQL query part.
  */
@@ -78,8 +78,8 @@ class OTS_Bans_List extends OTS_Base_List
  * Returns object of class which handle single row representation. Object is initialised with ID of current position in result cursor.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return OTS_Ban Current row.
  */
     public function current()

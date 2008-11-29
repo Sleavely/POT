@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ character abstraction.
  * 
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @property string $name Character name.
  * @property OTS_Account $account Account to which character belongs.
  * @property OTS_Group $group Group of which character is member.
@@ -322,11 +322,11 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Player's Premium Account expiration timestamp.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.3
  * @return int Player PACC expiration timestamp.
  * @throws E_OTS_NotLoaded If player is not loaded.
- * @deprecated 0.1.5+SVN Use OTS_Account->getPremiumEnd().
+ * @deprecated 0.1.5 Use OTS_Account->getPremiumEnd().
  */
     public function getPremiumEnd()
     {
@@ -345,10 +345,10 @@ class OTS_Player extends OTS_Row_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.3
  * @param int $premend PACC expiration timestamp.
- * @deprecated 0.1.5+SVN Use OTS_Account->setPremiumEnd().
+ * @deprecated 0.1.5 Use OTS_Account->setPremiumEnd().
  */
     public function setPremiumEnd($premend)
     {
@@ -2174,13 +2174,11 @@ class OTS_Player extends OTS_Row_DAO
     }
 
 /**
- * Bans current player.
- * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.5
  * @param int $time Time for time until expires (0 - forever).
  * @throws PDOException On PDO operation error.
- * @deprecated 0.1.5+SVN Use OTS_PlayerBan class.
+ * @deprecated 0.1.5 Use OTS_PlayerBan class.
  */
     public function ban($time = 0)
     {
@@ -2200,12 +2198,10 @@ class OTS_Player extends OTS_Row_DAO
     }
 
 /**
- * Deletes ban from current player.
- * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.5
  * @throws PDOException On PDO operation error.
- * @deprecated 0.1.5+SVN Use OTS_PlayerBan class.
+ * @deprecated 0.1.5 Use OTS_PlayerBan class.
  */
     public function unban()
     {
@@ -2222,13 +2218,11 @@ class OTS_Player extends OTS_Row_DAO
     }
 
 /**
- * Checks if player is banned.
- * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.5
  * @return bool True if player is banned, false otherwise.
  * @throws PDOException On PDO operation error.
- * @deprecated 0.1.5+SVN Use OTS_PlayerBan class.
+ * @deprecated 0.1.5 Use OTS_PlayerBan class.
  */
     public function isBanned()
     {
@@ -2400,7 +2394,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Checks if given player is a VIP for current one.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.1.3
  * @param OTS_Player $player Player to check.
  * @return bool True, if given player is on VIP list.
@@ -2486,7 +2480,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Checks if player knows given spell.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.1.4
  * @param OTS_Spell $spell Spell to be checked.
  * @return bool True if player knows given spell, false otherwise.
@@ -2544,7 +2538,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
@@ -2705,7 +2699,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.

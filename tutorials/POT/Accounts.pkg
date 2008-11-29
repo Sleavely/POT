@@ -10,14 +10,14 @@
     <refsect1 id="{@id create}">
         <title>Account creation</title>
         <para>
-        Main difference between accounts and other {@tutorial POT/DAO_objects.pkg DAO objects} is that accounts, even if they don't exist, have to have their unique account number. So even when saving not-yet-existing account object you first have to create account number for it. You can't save empty account using save() method - you have to use {@link OTS_Account::create() create() method}. It will generate account number, save account stub in database and return saved number in database. {@example examples/create.php}
+        Main difference between accounts and other {@tutorial POT/DAO_objects.pkg DAO objects} is that accounts, even if they don't exist, have to have their unique name. So even when saving not-yet-existing account object you first have to create account name for it. You can't save empty account using save() method - you have to use {@link OTS_Account::createNamed() createNamed() method}. It will generate account name, save account stub in database and return saved name. {@example examples/create.php}
         </para>
-        <refsect1 id="{@id random}">
-            <title>Random account number</title>
-            <para>
-            As you probably noticed create() method {@link http://otfans.net/showthread.php?t=8643 generates random account number}. It is done this way with a reason and {@link http://otfans.net/showthread.php?t=8643 you should always follow this way}! If you really need to use specified account number, read over to {@tutorial POT/Accounts.pkg#hack number hacking part}.
-            </para>
-        </refsect1>
+        <para>
+        It's done this was not without a reason. It's because you have to reserve account name that you try to work with. For instance if you would start creating account named 'Foo' for User1 and then before you would flush those changes to database User2 would request account with same name, that name would not be marked as used in database so you would think both users have their account created. So to avoid such situations you have to create empty account first.
+        </para>
+        <para>
+        If you won't specify account name (by calling {@link OTS_Account::createNamed() createNamed()} without parameters) account name will be generated randomly. This will be unique string. Account name is always returned after account creation.
+        </para>
     </refsect1>
     <refsect1 id="{@id password}">
         <title>Password hashing</title>
@@ -26,15 +26,6 @@
         </para>
         <para>
         How to deal with that in POT? Here is the trick - in fact you don't need to deal with that, but this is not always easy to understand for people. The key to understand mechanism is to find out when hashes are generated - at the begining. It means that for POT it doesn't matter if OTServ uses password hashes and if so, then what kind of hashes. In database they are always stored as strings. And after loading it doesn't matter if you compare password or it's hash. It's because of that string1 = string2 means that md5(string1) = md5(string2) and sha1(string1) = sha1(string2). So all you have to do is just generate the hash from password which user give (if your OTServ uses it). After that you operate on it like with normal password: {@example examples/hash.php}
-        </para>
-    </refsect1>
-    <refsect1 id="{@id hack}">
-        <title>Hacking random number</title>
-        <para>
-        This is a very simple walkaroud hack to save account with non-random number: {@example examples/hack.php}
-        </para>
-        <para>
-        Remember - you should never use this way without reason! New accounts should always have random account numbers.
         </para>
     </refsect1>
 </refentry>

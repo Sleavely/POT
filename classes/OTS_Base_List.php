@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -31,7 +31,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @property-write int $limit Sets LIMIT clause.
  * @property-write int $offset Sets OFFSET clause.
  * @property-write OTS_SQLFilter $filter Sets filter for list SQL query.
@@ -42,7 +42,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Database connection.
  * 
  * @var PDO
- * @version 0.1.5+SVN
+ * @version 0.1.5
  */
     protected $db;
 
@@ -78,7 +78,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Query results.
  * 
  * @var array
- * @version 0.1.5+SVN
+ * @version 0.1.5
  */
     protected $rows;
 
@@ -269,7 +269,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Returns number of rows on list in current criterium.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @return int Number of rows.
  * @throws PDOException On PDO operation error.
  */
@@ -342,7 +342,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Returns SQL query for SELECT.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @param bool $count Shows if the SQL should be generated for COUNT() variant.
  * @return string SQL query part.
  */
@@ -364,8 +364,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Returns generic SQL query that can be adaptated by child classes.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param array $fields Fields to be selected.
  * @return string SQL query.
  */

@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @property string $name Account name.
  * @property string $password Password.
  * @property string $eMail Email address.
@@ -37,9 +37,66 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Account data.
  * 
  * @var array
- * @version 0.1.5+SVN
+ * @version 0.1.5
  */
     private $data = array('email' => '', 'premend' => 0, 'blocked' => false, 'deleted' => false, 'warned' => false);
+
+/**
+ * Creates new account.
+ * 
+ * <p>
+ * This method creates new account with given name. Account number is generated automaticly and saved into {@link OTS_Account::getId() ID field}.
+ * </p>
+ * 
+ * <p>
+ * If you won't specify account name then random one will be generated.
+ * </p>
+ * 
+ * <p>
+ * If you use own account name then it will be returned after success, and exception will be generated if it will be alredy used as name will be simply used in query with account create attempt.
+ * </p>
+ * 
+ * @version 0.1.5
+ * @since 0.1.5
+ * @param string $name Account name.
+ * @return string Account name.
+ * @throws PDOException On PDO operation error.
+ * @example examples/create.php create.php
+ * @tutorial POT/Accounts.pkg#create
+ */
+    public function createNamed($name = null)
+    {
+        // if name is not passed then it will be generated randomly
+        if( !isset($name) )
+        {
+            // reads already existing names
+            foreach( $this->db->query('SELECT ' . $this->db->fieldName('name') . ' FROM ' . $this->db->tableName('accounts') )->fetchAll() as $account)
+            {
+                $exist[] = $account['name'];
+            }
+
+            // initial name
+            $name = uniqid();
+
+            // repeats until name is unique
+            while( in_array($name, $exist) )
+            {
+                $name .= '_';
+            }
+
+            // resets array for account numbers loop
+            $exist = array();
+        }
+
+        // saves blank account info
+        $this->db->query('INSERT INTO ' . $this->db->tableName('accounts') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ') VALUES (' . $this->db->quote($name) . ', \'\', \'\')');
+
+        // reads created account's ID
+        $this->data['id'] = $this->db->lastInsertId();
+
+        // return name of newly created account
+        return $name;
+    }
 
 /**
  * Creates new account.
@@ -57,23 +114,25 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * </p>
  * 
  * <p>
+ * Note: Since 0.1.5 version you should use {@link OTS_Account::createNamed() createNamed() method} since OTServ now uses account names.
+ * </p>
+ * 
+ * <p>
  * Note: Since 0.1.1 version this method throws {@link E_OTS_Generic E_OTS_Generic} exceptions instead of general Exception class objects. Since all exception classes are child classes of Exception class so your old code will still handle all exceptions.
  * </p>
  * 
  * <p>
- * Note: Since 0.1.5+SVN version this method no longer creates account as blocked.
+ * Note: Since 0.1.5 version this method no longer creates account as blocked.
  * </p>
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @param int $min Minimum number.
  * @param int $max Maximum number.
  * @param string $name Account name.
  * @return int Created account number.
  * @throws E_OTS_Generic When there are no free account numbers.
  * @throws PDOException On PDO operation error.
- * @example examples/create.php create.php
- * @tutorial POT/Accounts.pkg#create
- * @tutorial POT/Accounts.pkg#hack
+ * @deprecated 0.1.5 Use createNamed().
  */
     public function create($min = 1, $max = 9999999, $name = null)
     {
@@ -137,7 +196,6 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 
         // saves blank account info
         $this->data['id'] = $number;
-        $this->data['blocked'] = true;
 
         $this->db->query('INSERT INTO ' . $this->db->tableName('accounts') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ') VALUES (' . $number . ', ' . $this->db->quote($name) . ', \'\', \'\')');
 
@@ -175,10 +233,10 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Loads account by it's name.
  * 
  * <p>
- * Note: Since 0.1.5+SVN version this method loads account by it's name not by e-mail address. To find account by it's e-mail address use {@link OTS_Account::findByEMail() findByEMail() method}.
+ * Note: Since 0.1.5 version this method loads account by it's name not by e-mail address. To find account by it's e-mail address use {@link OTS_Account::findByEMail() findByEMail() method}.
  * </p>
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.2
  * @param string $name Account's name.
  * @throws PDOException On PDO operation error.
@@ -198,8 +256,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Loads account by it's e-mail address.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param string $email Account's e-mail address.
  * @throws PDOException On PDO operation error.
  */
@@ -229,15 +287,15 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Updates account in database.
  * 
  * <p>
- * Unlike other DAO objects account can't be saved without ID being set. It means that you can't just save unexisting account to automaticly create it. First you have to create record by using {@link OTS_Account::create() create() method}
+ * Unlike other DAO objects account can't be saved without ID being set. It means that you can't just save unexisting account to automaticly create it. First you have to create record by using {@link OTS_Account::createName() createNamed() method}
  * </p>
  * 
  * <p>
  * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @throws E_OTS_NotLoaded False if account doesn't have ID assigned.
+ * @version 0.1.5
+ * @throws E_OTS_NotLoaded If account doesn't have ID assigned.
  * @throws PDOException On PDO operation error.
  */
     public function save()
@@ -304,8 +362,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Name.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return string Name.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */
@@ -326,8 +384,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param string $name Account name.
  */
     public function setName($name)
@@ -416,8 +474,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Account's Premium Account expiration timestamp.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return int Account PACC expiration timestamp.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */
@@ -438,8 +496,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param int $premend PACC expiration timestamp.
  */
     public function setPremiumEnd($premend)
@@ -495,8 +553,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Checks if account is deleted (by flag setting).
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return bool Flag state.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */
@@ -517,8 +575,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  */
     public function unsetDeleted()
     {
@@ -532,8 +590,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  */
     public function setDeleted()
     {
@@ -543,8 +601,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Checks if account is warned.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return bool Flag state.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */
@@ -565,8 +623,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  */
     public function unwarn()
     {
@@ -580,8 +638,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  */
     public function warn()
     {
@@ -741,13 +799,11 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
     }
 
 /**
- * Bans current account.
- * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.5
  * @param int $time Time for time until expires (0 - forever).
  * @throws PDOException On PDO operation error.
- * @deprecated 0.1.5+SVN Use OTS_AccountBan class.
+ * @deprecated 0.1.5 Use OTS_AccountBan class.
  */
     public function ban($time = 0)
     {
@@ -767,12 +823,10 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
     }
 
 /**
- * Deletes ban from current account.
- * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.5
  * @throws PDOException On PDO operation error.
- * @deprecated 0.1.5+SVN Use OTS_AccountBan class.
+ * @deprecated 0.1.5 Use OTS_AccountBan class.
  */
     public function unban()
     {
@@ -789,13 +843,11 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
     }
 
 /**
- * Checks if account is banned.
- * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.0.5
  * @return bool True if account is banned, false otherwise.
  * @throws PDOException On PDO operation error.
- * @deprecated 0.1.5+SVN Use OTS_AccountBan class.
+ * @deprecated 0.1.5 Use OTS_AccountBan class.
  */
     public function isBanned()
     {
@@ -925,7 +977,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
@@ -981,7 +1033,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.

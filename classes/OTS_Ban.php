@@ -2,8 +2,8 @@
 
 /**
  * @package POT
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -13,8 +13,8 @@
  * OTServ ban generic class. For particular purpose use {@link OTS_AccountBan OTS_AccountBan}, {@link OTS_PlayerBan OTS_PlayerBan} or {@link OTS_IPBan OTS_IPBan} classes respectively.
  * 
  * @package POT
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @property int $value Banned target identifier.
  * @property int $param Additional parameter (usualy IP mask).
  * @property bool $active Activation state.
@@ -32,16 +32,16 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Ban data.
  * 
  * @var array
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  */
     private $data = array('param' => 0, 'active' => true, 'admin_id' => 0, 'comment' => '', 'reason' => 0);
 
 /**
  * Loads ban with given id.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param int $id Ban ID.
  * @throws PDOException On PDO operation error.
  */
@@ -54,8 +54,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Checks if object is loaded.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return bool Load state.
  */
     public function isLoaded()
@@ -70,8 +70,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * If object is not loaded to represent any existing ban it will create new row for it.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @throws PDOException On PDO operation error.
  */
     public function save()
@@ -95,8 +95,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Ban ID.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return int Ban ID.
  * @throws E_OTS_NotLoaded If ban is not loaded.
  */
@@ -113,8 +113,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Deletes ban.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @throws E_OTS_NotLoaded If ban is not loaded.
  * @throws PDOException On PDO operation error.
  */
@@ -135,8 +135,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Banned target.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return int Target identifier.
  * @throws E_OTS_NotLoaded If ban is not loaded.
  */
@@ -157,8 +157,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param int $value Banned target identifier.
  */
     public function setValue($value)
@@ -169,8 +169,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Additional parameter.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return int Parameter value (usualy used as IP mask).
  * @throws E_OTS_NotLoaded If ban is not loaded.
  */
@@ -191,8 +191,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param int $param Parameter value (usualy used as IP mask).
  */
     public function setParam($param)
@@ -203,8 +203,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Activation state.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return bool Is ban active.
  * @throws E_OTS_NotLoaded If ban is not loaded.
  */
@@ -225,8 +225,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  */
     public function activate()
     {
@@ -240,8 +240,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  */
     public function deactivate()
     {
@@ -251,8 +251,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Expiration time.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return int Ban expiration time (0 - forever).
  * @throws E_OTS_NotLoaded If ban is not loaded.
  */
@@ -273,8 +273,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param int $expires Ban expiration time (0 - forever).
  */
     public function setExpires($expires)
@@ -285,8 +285,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Banned time.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return int Ban creation time.
  * @throws E_OTS_NotLoaded If ban is not loaded.
  */
@@ -307,8 +307,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param int $added Ban creation time.
  */
     public function setAdded($added)
@@ -319,8 +319,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Ban creator.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return int ID of administrator who created ban entry.
  * @throws E_OTS_NotLoaded If ban is not loaded.
  */
@@ -341,8 +341,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param int $adminId ID of administrator who created ban entry.
  */
     public function setAdminId($adminId)
@@ -353,8 +353,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Explaination comment.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return string Ban description.
  * @throws E_OTS_NotLoaded If ban is not loaded.
  */
@@ -375,8 +375,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param string $comment Ban description.
  */
     public function setComment($comment)
@@ -387,8 +387,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Ban reason.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @return int Reason for which ban was created.
  * @throws E_OTS_NotLoaded If ban is not loaded.
  */
@@ -409,8 +409,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param int $reason Reason for which ban was created.
  */
     public function setReason($reason)
@@ -429,8 +429,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param string $field Field name.
  * @return string Field value.
  * @throws E_OTS_NotLoaded If ban is not loaded.
@@ -462,8 +462,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Note: Make sure that you pass $value argument of correct type. This method determinates whether to quote field name. It is safe - it makes you sure that no unproper queries that could lead to SQL injection will be executed, but it can make your code working wrong way. For example: $object->setCustomField('foo', '1'); will quote 1 as as string ('1') instead of passing it as a integer.
  * </p>
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param string $field Field name.
  * @param mixed $value Field value.
  * @throws E_OTS_NotLoaded If account is not loaded.
@@ -488,8 +488,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws E_OTS_NotLoaded If ban is not loaded.
@@ -538,8 +538,8 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.5+SVN
- * @since 0.1.5+SVN
+ * @version 0.1.5
+ * @since 0.1.5
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws OutOfBoundsException For non-supported properties.

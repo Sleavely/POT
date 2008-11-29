@@ -6,10 +6,10 @@ include('quickstart.php');
 // creates new account object
 $account = new OTS_Account();
 
-// generates new account number
-$number = $account->create();
+// generates new account
+$name = $account->createNamed();
 
-// give user his number
-echo 'Your account number is: ', $number;
+// give user his name
+echo 'Your account name is: ', $name;
 
 ?>
