@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.1.5
+ * @version 0.1.5+SVN
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.1.5
+ * @version 0.1.5+SVN
  * @property string $name Account name.
  * @property string $password Password.
  * @property string $eMail Email address.
@@ -56,7 +56,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * If you use own account name then it will be returned after success, and exception will be generated if it will be alredy used as name will be simply used in query with account create attempt.
  * </p>
  * 
- * @version 0.1.5
+ * @version 0.1.5+SVN
  * @since 0.1.5
  * @param string $name Account name.
  * @return string Account name.
@@ -69,6 +69,8 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
         // if name is not passed then it will be generated randomly
         if( !isset($name) )
         {
+            $exist = array();
+
             // reads already existing names
             foreach( $this->db->query('SELECT ' . $this->db->fieldName('name') . ' FROM ' . $this->db->tableName('accounts') )->fetchAll() as $account)
             {
@@ -83,9 +85,6 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
             {
                 $name .= '_';
             }
-
-            // resets array for account numbers loop
-            $exist = array();
         }
 
         // saves blank account info
