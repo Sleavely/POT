@@ -6,7 +6,7 @@
 
 /**
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -16,7 +16,7 @@
  * OTServ account abstraction.
  * 
  * @package POT
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @property string $name Account name.
  * @property string $password Password.
  * @property string $eMail Email address.
@@ -56,7 +56,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * If you use own account name then it will be returned after success, and exception will be generated if it will be alredy used as name will be simply used in query with account create attempt.
  * </p>
  * 
- * @version 0.1.5+SVN
+ * @version 0.1.5
  * @since 0.1.5
  * @param string $name Account name.
  * @return string Account name.
@@ -927,7 +927,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
         $access = 0;
 
         // finds ranks of all characters
-        foreach($account as $player)
+        foreach( $this->getPlayersList() as $player)
         {
             $rank = $player->getRank();
 
