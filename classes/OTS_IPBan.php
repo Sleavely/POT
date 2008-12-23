@@ -2,7 +2,7 @@
 
 /**
  * @package POT
- * @version 0.1.5
+ * @version 0.1.6+SVN
  * @since 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
@@ -13,7 +13,7 @@
  * OTServ IP ban.
  * 
  * @package POT
- * @version 0.1.5
+ * @version 0.1.6+SVN
  * @since 0.1.5
  */
 class OTS_IPBan extends OTS_Ban
@@ -22,10 +22,10 @@ class OTS_IPBan extends OTS_Ban
  * Ban data.
  * 
  * @var array
- * @version 0.1.5
+ * @version 0.1.6+SVN
  * @since 0.1.5
  */
-    private $data = array('type' => POT::BAN_IP, 'param' => 0, 'active' => true, 'admin_id' => 0, 'comment' => '', 'reason' => 0);
+    protected $data = array('type' => POT::BAN_IP, 'param' => 0, 'active' => true, 'admin_id' => 0, 'comment' => '', 'reason' => 0);
 
 /**
  * Loads IP ban with given id.
