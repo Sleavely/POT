@@ -358,7 +358,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
             $fields = $this->db->tableName($this->table) . '.' . $this->db->fieldName('id') . ' AS ' . $this->db->fieldName('id');
         }
 
-        return $this->prepareSQL( array($fields), $count );
+        return $this->prepareSQL( array($fields), $count);
     }
 
 /**
@@ -370,7 +370,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * @param bool $count Shows if the SQL should be generated for COUNT() variant.
  * @return string SQL query.
  */
-    protected function prepareSQL($fields, $count)
+    protected function prepareSQL($fields, $count = false)
     {
         $tables = array();
 
