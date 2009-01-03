@@ -1,0 +1,49 @@
+<refentry id="{@id}">
+    <refnamediv>
+        <refname>Troubleshooting</refname>
+        <refpurpose>Way of fixing most common problems with POT and scripts based on it.</refpurpose>
+    </refnamediv>
+    <refsynopsisdiv>
+        <author>{@link mailto:wrzasq@gmail.com Wrzasq}</author>
+    </refsynopsisdiv>
+    {@toc}
+    <refsect1 id="{@id loss_items}">
+        <title>SQL error: Column not found: 1054 Unknown column 'loss_items' in 'field list'</title>
+        <para>
+        You have outdated database structure - probably old OTServ release. `loss_items` field was added during development progress and is not available on older servers while POT is strictly connected with database structure of server which it is released for. You should always use POT version which is released for your OTServ version.
+        </para>
+        <para>
+        Note that POT does not provide database-inter-compatibility - it only provides compatible interface for each of it's release, but you have to update POT together with your database. And not updated it if your database isn't changed for newer one.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id account_name}">
+        <title>SQL error: Column not found: 1054 Unknown column 'name' in 'field list'</title>
+        <para>
+        Same reason as {@tutorial POT/Troubleshooting.pkg#loss_items above}, just different field name. This one however is relatively new as account names were added very lastly.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id fetch}">
+        <title>Fatal error: Call to a member function fetch()</title>
+        <para>
+        This should generaly not happens anymore in POT, so if you get such error it is either not caused by POT, but rather by script that uses it, or you are using ancient version of POT. Generaly such error is caused, like the two before, by incorrect database structure, but from a long time already, they were replaced with more descriptive error messages.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id pdo}">
+        <title>PDOException or other PDO related exception/error</title>
+        <para>
+        If you have any PDO-related problem, first fo all check the database structure as generaly it should never happend with correct database. Details are described {@tutorial POT/Troubleshooting.pkg#loss_items above}.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id domxml}">
+        <title>Fatal error: Call to undefined method domdocument::load()</title>
+        <para>
+        You have surely not read documentation, even {@tutorial POT/POT.pkg.html#purpose.requirements.domxml the introduction}, and you are just having troubles because of your laziness.
+        </para>
+    </refsect1>
+    <refsect1 id="{@id exception}">
+        <title>Fatal error: Uncaught exception</title>
+        <para>
+        It is not POT-related. If you see such message it's client script's author fault. POT uses exceptions to communicate errors to program so error handling mechanism can be done flexible and clean way. But many people who are making scripts based on POT don't even bother about catching exceptions. Such a shame...
+        </para>
+    </refsect1>
+</refentry>
