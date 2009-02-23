@@ -4,6 +4,10 @@ What's new in 0.1.6+SVN version?
 
     OTS_Admin::save() and OTS_Admin::open() methods are provided. It is now possible to executed full server saving cycle using POT.
 
+* Updated binay format support.
+
+    Updated OTBM loader for new file format. It now handles waypoints (literaly _handles_, not only _not breaks at them_). After loading map you can fetch map ways by OTS_OTBMFile::getWaypoints() which will result array of ways of OTS_Waypoint objects. Also added contants for new item attributes.
+
 * Bugfixes.
 
     As always.

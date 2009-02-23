@@ -9,9 +9,9 @@
  * Code in this file bases on oryginal OTServ OTBM format loading C++ code (iomapotbm.h, iomapotbm.cpp).
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.1.6+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  * @todo future: Complete OTBM support: link tiles with items and spawns.
  * @todo future: Spawns support.
@@ -21,12 +21,17 @@
 /**
  * OTBM format reader.
  * 
+ * <p>
+ * POT OTBM file parser is less strict then oryginal OTServ one. For instance it will read waypoints from version 1 OTBM file even that there were no waypoints in that format.
+ * </p>
+ * 
  * @package POT
- * @version 0.1.3
+ * @version 0.1.6+SVN
  * @property-read OTS_HousesList $housesList Houses list loaded from associated houses file.
  * @property-read int $width Map width.
  * @property-read int $height Map height.
  * @property-read string $description Map description.
+ * @property-read array $waypoints List of tracks on map.
  * @tutorial POT/data_directory.pkg#towns
  * @example examples/otbm.php otbm.php
  */
@@ -88,6 +93,62 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * ID of doors.
  */
     const OTBM_ATTR_HOUSEDOORID = 14;
+/**
+ * Amount.
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    const OTBM_ATTR_COUNT = 15;
+/**
+ * Time interval.
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    const OTBM_ATTR_DURATION = 16;
+/**
+ * Metamorphic stage.
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    const OTBM_ATTR_DECAYING_STATE = 17;
+/**
+ * Date of being written.
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    const OTBM_ATTR_WRITTENDATE = 18;
+/**
+ * Sign author.
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    const OTBM_ATTR_WRITTENBY = 19;
+/**
+ * Sleeping player ID.
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    const OTBM_ATTR_SLEEPERGUID = 20;
+/**
+ * Time of sleep started.
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    const OTBM_ATTR_SLEEPSTART = 21;
+/**
+ * Number of charges.
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    const OTBM_ATTR_WRITTENDATE = 22;
 
 /**
  * Root node.
@@ -145,6 +206,20 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * Tile of house.
  */
     const OTBM_NODE_HOUSETILE = 14;
+/**
+ * Waypoints list.
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    const OTBM_NODE_WAYPOINTS = 15;
+/**
+ * Waypoint.
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    const OTBM_NODE_WAYPOINTS = 16;
 
 /**
  * Map width.
@@ -194,6 +269,15 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * @var OTS_HousesList
  */
     private $housesList;
+
+/**
+ * List of map tracks.
+ * 
+ * @var array
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    protected $waypoints = array();
 
 /**
  * Magic PHP5 method.
@@ -247,7 +331,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
         $minorVersionItems = $this->root->getLong();
 
         // checks version of root node
-        if($version != 0)
+        if($version > 2 || $version <= 0)
         {
             throw new E_OTS_OTBMError(E_OTS_OTBMError::LOADMAPERROR_OUTDATEDHEADER);
         }
@@ -351,6 +435,36 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
                     }
                     break;
 
+                // waypoints list
+                case self::OTBM_NODE_WAYPOINTS:
+                    $waypoint = $node->getChild();
+                    $list = array();
+
+                    // reads all waypoints
+                    while($waypoint)
+                    {
+                        // checks if it's waypoint
+                        if( $town->getType() != self::OTBM_NODE_WAYPOINT)
+                        {
+                            throw new E_OTS_OTBMError(E_OTS_OTBMError::LOADMAPERROR_UNKNOWNNODETYPE);
+                        }
+
+                        // reads waypoint name
+                        $name = $town->getString();
+
+                        // point coords
+                        $x = $town->getShort();
+                        $y = $town->getShort();
+                        $z = $town->getChar();
+                        $list[] = new OTS_Waypoint($name, $x, $y, $z);
+
+                        $waypoint = $waypoint->getNext();
+                    }
+
+                    // adds track to waypoints list
+                    $this->waypoints[] = $list;
+                    break;
+
                 // unknown type
                 default:
                     throw new E_OTS_OTBMError(E_OTS_OTBMError::LOADMAPERROR_UNKNOWNNODETYPE);
@@ -400,6 +514,22 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
     public function getDescription()
     {
         return $this->description;
+    }
+
+/**
+ * Returns map waypoints list.
+ * 
+ * <p>
+ * Each item of returned array is sub-array with list of waypoints.
+ * </p>
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ * @return array List of tracks.
+ */
+    public function getWaypoints()
+    {
+        return $this->waypoints;
     }
 
 /**
@@ -673,6 +803,9 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 
             case 'description':
                 return $this->getDescription();
+
+            case 'waypoints':
+                return $this->getWaypoints();
 
             default:
                 throw new OutOfBoundsException();
