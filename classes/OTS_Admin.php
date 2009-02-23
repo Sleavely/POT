@@ -7,9 +7,9 @@
 
 /**
  * @package POT
- * @version 0.1.4
+ * @version 0.1.6+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -17,7 +17,7 @@
  * OTAdmin protocol client.
  * 
  * @package POT
- * @version 0.1.4
+ * @version 0.1.6+SVN
  * @property-read bool $requiresLogin {@link OTS_Admin::requiresLogin() requiresLogin()} wrapper.
  * @property-read bool $requiresEncryption {@link OTS_Admin::requiresEncryption() requiresEncryption()} wrapper.
  * @property-read bool $usesRSA1024XTEA {@link OTS_Admin::usesRSA1024XTEA() usesRSA1024XTEA()} wrapper.
@@ -27,6 +27,7 @@
  * @property-write string $kick Kicks player with given name from server.
  * @tutorial POT/OTAdmin.pkg
  * @example examples/admin.php admin.php
+ * @example examples/save.php save.php
  */
 class OTS_Admin
 {
@@ -113,7 +114,7 @@ class OTS_Admin
  */
     const COMMAND_PAY_HOUSES = 3;
 /**
- * Not supported in current OTAdmin imlpementation.
+ * Opens server for players.
  */
     const COMMAND_OPEN_SERVER = 4;
 /**
@@ -148,6 +149,13 @@ class OTS_Admin
  * Not supported in current OTAdmin imlpementation.
  */
     const COMMAND_GETHOUSE = 12;
+/**
+ * Calls server save.
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ */
+    const COMMAND_SAVE_SERVER = 13;
 
 /**
  * Server requires login.
@@ -582,6 +590,26 @@ class OTS_Admin
     }
 
 /**
+ * Sends COMMAND_OPEN_SERVER command.
+ * 
+ * <p>
+ * Opens server. This command enables server for connections.
+ * </p>
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ * @throws E_OTS_ErrorCode If failure respond received.
+ * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
+ */
+    public function open()
+    {
+        // sends message
+        $buffer = new OTS_Buffer();
+        $buffer->putChar(self::COMMAND_OPEN_SERVER);
+        $this->sendCommand($buffer);
+    }
+
+/**
  * Sends COMMAND_CLOSE_SERVER command.
  * 
  * <p>
@@ -654,6 +682,26 @@ class OTS_Admin
         $buffer = new OTS_Buffer();
         $buffer->putChar(self::COMMAND_KICK);
         $buffer->putString($name);
+        $this->sendCommand($buffer);
+    }
+
+/**
+ * Sends COMMAND_SAVE_SERVER command.
+ * 
+ * <p>
+ * Proceeds server save.
+ * </p>
+ * 
+ * @version 0.1.6+SVN
+ * @since 0.1.6+SVN
+ * @throws E_OTS_ErrorCode If failure respond received.
+ * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
+ */
+    public function save()
+    {
+        // sends message
+        $buffer = new OTS_Buffer();
+        $buffer->putChar(self::COMMAND_SAVE_SERVER);
         $this->sendCommand($buffer);
     }
 

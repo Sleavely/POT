@@ -1,5 +1,9 @@
 What's new in 0.1.6+SVN version?
 
-*  Bugfixes.
+* Updated OTAdmin client (server saving and opening).
+
+    OTS_Admin::save() and OTS_Admin::open() methods are provided. It is now possible to executed full server saving cycle using POT.
+
+* Bugfixes.
 
     As always.

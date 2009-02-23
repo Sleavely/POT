@@ -19,6 +19,8 @@
  * @todo future: Complete phpUnit test.
  * @todo future: Main POT class as database instance.
  * @todo future: E_* classes into *Exception, IOTS_* into *Interface, change POT classes prefix from OTS_* into OT_*, unify *List and *_List naming into *List, remove prefix from filenames.
+ * @todo future: Use prepared statements.
+ * @todo future: Interface for schema_info and map_store tables.
  */
 
 /**

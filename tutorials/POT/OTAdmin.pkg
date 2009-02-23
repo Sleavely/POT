@@ -49,4 +49,10 @@
         Curiosity: POT was the very first complete (for current protocol version) implementation of client API - it's version with the newest {@link OTS_Admin::COMMAND_PAY_HOUSES PAY_HOUSES command} was released the day before oryginal OTAdmin tool!
         </para>
     </refsect1>
+    <refsect1 id="{@id save}">
+        <title>Server save</title>
+        <para>
+        Since {@link OTS_Admin::save() saving} and {@link OTS_Admin::open() opening} server is implemented in OTAdmin protocol and POT client for it, it is possible to evaluate full server-save cycle in a very simple way: {@example examples/save.php}
+        </para>
+    </refsect1>
 </refentry>
