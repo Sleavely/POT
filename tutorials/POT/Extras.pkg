@@ -43,4 +43,10 @@
         Next, quite exotic POT feature are display drivers. This toolkit contains two interfaces which you can implement: {@link IOTS_Display IOTS_Display} for database-based resources and {@link IOTS_DataDisplay IOTS_DataDisplay} for non-database resources. You can assign instances of such interfaces to global POT scope using {@link POT::setDisplayDriver() setDisplayDriver()} for IOTS_Display instance and {@link POT::setDataDisplayDriver() setDataDisplayDriver()} for IOTS_DataDisplay. It will change behaviours of objects that contains __toString() magic method (most of list, DAO and single resource representation classes). After attempt to output any of such objects directly to output, or using them as string variables, they will call display driver's method and can return content which you want to display for them. It can be used for example to create templates engine by biding it on low-level with POT objects basing on pure PHP magic calls.
         </para>
     </refsect1>
+    <refsect id="{@id schema}">
+        <title>Schema information</title>
+        <para>
+        OTServ now stores some meta information about database in `schema_info` table. Currently it is only a database schema version, but it is suitable for further extended use. POT gives you easy access to all settings using {@link POT::getSchemaInfo() getSchemaInfo() method}: {@example examples/schema.php}
+        </para>
+    </refsect>
 </refentry>

@@ -1,4 +1,5 @@
 [0.1.6+SVN]
+* Schema info support. <wrzasq>
 * Updated OTAdmin client (server saving and opening). <wrzasq>
 * Updated binay format support. <wrzasq>
 * Bugfixes. <wrzasq>
