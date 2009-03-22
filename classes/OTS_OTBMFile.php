@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ OTBM format loading C++ code (iomapotbm.h, iomapotbm.cpp).
  * 
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -26,7 +26,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @property-read OTS_HousesList $housesList Houses list loaded from associated houses file.
  * @property-read int $width Map width.
  * @property-read int $height Map height.
@@ -96,59 +96,59 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Amount.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const OTBM_ATTR_COUNT = 15;
 /**
  * Time interval.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const OTBM_ATTR_DURATION = 16;
 /**
  * Metamorphic stage.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const OTBM_ATTR_DECAYING_STATE = 17;
 /**
  * Date of being written.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const OTBM_ATTR_WRITTENDATE = 18;
 /**
  * Sign author.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const OTBM_ATTR_WRITTENBY = 19;
 /**
  * Sleeping player ID.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const OTBM_ATTR_SLEEPERGUID = 20;
 /**
  * Time of sleep started.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const OTBM_ATTR_SLEEPSTART = 21;
 /**
  * Number of charges.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
-    const OTBM_ATTR_WRITTENDATE = 22;
+    const OTBM_ATTR_CHARGES = 22;
 
 /**
  * Root node.
@@ -209,17 +209,17 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Waypoints list.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const OTBM_NODE_WAYPOINTS = 15;
 /**
  * Waypoint.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
-    const OTBM_NODE_WAYPOINTS = 16;
+    const OTBM_NODE_WAYPOINT = 16;
 
 /**
  * Map width.
@@ -274,8 +274,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * List of map tracks.
  * 
  * @var array
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     protected $waypoints = array();
 
@@ -523,11 +523,11 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * Each item of returned array is sub-array with list of waypoints.
  * </p>
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  * @return array List of tracks.
  */
-    public function getWaypoints()
+    public function getWaypointsList()
     {
         return $this->waypoints;
     }

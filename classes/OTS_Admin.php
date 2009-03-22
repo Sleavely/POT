@@ -7,7 +7,7 @@
 
 /**
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +17,7 @@
  * OTAdmin protocol client.
  * 
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @property-read bool $requiresLogin {@link OTS_Admin::requiresLogin() requiresLogin()} wrapper.
  * @property-read bool $requiresEncryption {@link OTS_Admin::requiresEncryption() requiresEncryption()} wrapper.
  * @property-read bool $usesRSA1024XTEA {@link OTS_Admin::usesRSA1024XTEA() usesRSA1024XTEA()} wrapper.
@@ -152,8 +152,8 @@ class OTS_Admin
 /**
  * Calls server save.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const COMMAND_SAVE_SERVER = 13;
 
@@ -596,8 +596,8 @@ class OTS_Admin
  * Opens server. This command enables server for connections.
  * </p>
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  * @throws E_OTS_ErrorCode If failure respond received.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
  */
@@ -692,8 +692,8 @@ class OTS_Admin
  * Proceeds server save.
  * </p>
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  * @throws E_OTS_ErrorCode If failure respond received.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
  */

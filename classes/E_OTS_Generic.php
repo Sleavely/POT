@@ -30,7 +30,7 @@ class E_OTS_Generic extends E_OTS_ErrorCode
 /**
  * No free account numbers to create account.
  * 
- * @deprecated 0.1.5.+SVN This case won't be used anymore since we use named accounts now.
+ * @deprecated 0.1.5. This case won't be used anymore since we use named accounts now.
  */
     const CREATE_ACCOUNT_IMPOSSIBLE = 3;
 }

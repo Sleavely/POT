@@ -9,7 +9,7 @@
  * Code in this file bases on oryginal OTServ items loading C++ code (itemloader.h, items.cpp, items.h).
  * 
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -19,7 +19,7 @@
  * Items list loader.
  * 
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @property-read int $otbVersion OTB file version.
  * @property-read int $clientVersion Dedicated client version.
  * @property-read int $buildVersion File build version.
@@ -67,36 +67,36 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Tibia client 8.1 version.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const CLIENT_VERSION_810 = 8;
 /**
  * Tibia client 8.1.1 version.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const CLIENT_VERSION_811 = 9;
 /**
  * Tibia client 8.2 version.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const CLIENT_VERSION_820 = 10;
 /**
  * Tibia client 8.3 version.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const CLIENT_VERSION_830 = 11;
 /**
  * Tibia client 8.4 version.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  */
     const CLIENT_VERSION_840 = 12;
 

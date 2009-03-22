@@ -2,7 +2,7 @@
 
 /**
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @since 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
@@ -13,7 +13,7 @@
  * OTServ ban generic class. For particular purpose use {@link OTS_AccountBan OTS_AccountBan}, {@link OTS_PlayerBan OTS_PlayerBan} or {@link OTS_IPBan OTS_IPBan} classes respectively.
  * 
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @since 0.1.5
  * @property int $value Banned target identifier.
  * @property int $param Additional parameter (usualy IP mask).
@@ -32,7 +32,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Ban data.
  * 
  * @var array
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @since 0.1.5
  */
     protected $data = array('param' => 0, 'active' => true, 'admin_id' => 0, 'comment' => '', 'reason' => 0);

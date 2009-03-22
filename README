@@ -56,6 +56,7 @@ Possible targets:
 all: default one, runs all other targets (in order: clean, check, documentation, pdf, online, test, package, manual, phk, phar).
 clean: deletes documentation.
 check: checks syntax of all PHP files.
+release: prepares files for release.
 documentation: generates HTML documentation.
 pdf: generates PDF documentation.
 online: OTServ-AAC website documentation template used.

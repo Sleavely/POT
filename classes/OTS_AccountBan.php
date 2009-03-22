@@ -2,7 +2,7 @@
 
 /**
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @since 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
@@ -13,7 +13,7 @@
  * OTServ account ban.
  * 
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @since 0.1.5
  */
 class OTS_AccountBan extends OTS_Ban
@@ -22,7 +22,7 @@ class OTS_AccountBan extends OTS_Ban
  * Ban data.
  * 
  * @var array
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @since 0.1.5
  */
     protected $data = array('type' => POT::BAN_ACCOUNT, 'param' => 0, 'active' => true, 'admin_id' => 0, 'comment' => '', 'reason' => 0);

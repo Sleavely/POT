@@ -4,8 +4,8 @@
  * Code in this file bases on oryginal OTServ OTBM format loading C++ code (iomapotbm.h, iomapotbm.cpp).
  * 
  * @package POT
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -15,8 +15,8 @@
  * Map track waypoint.
  * 
  * @package POT
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  * @property-read string $name Waypoint name.
  */
 class OTS_Waypoint extends OTS_MapCoords
@@ -24,8 +24,8 @@ class OTS_Waypoint extends OTS_MapCoords
 /**
  * Name.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  * @var string
  */
     protected $x;
@@ -33,8 +33,8 @@ class OTS_Waypoint extends OTS_MapCoords
 /**
  * Sets waypoint info.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  * @param string $name Name.
  * @param int $x X.
  * @param int $y Y.
@@ -53,8 +53,8 @@ class OTS_Waypoint extends OTS_MapCoords
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * </p>
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  * @param array $properties List of object properties.
  */
     public static function __set_state($properties)
@@ -65,8 +65,8 @@ class OTS_Waypoint extends OTS_MapCoords
 /**
  * Returns name.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  * @return stirng Name.
  */
     public function getName()
@@ -77,8 +77,8 @@ class OTS_Waypoint extends OTS_MapCoords
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.

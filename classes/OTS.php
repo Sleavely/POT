@@ -8,14 +8,13 @@
  * This file contains main toolkit class. Please read README file for quick startup guide and/or tutorials for more info.
  * 
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  * @todo future: Code as C++ extension (as an alternative to pure PHP library which of course would still be available).
  * @todo future: Implement POT namespace when it will be supported by PHP.
  * @todo future: Complete phpUnit test.
- * @todo 0.1.6: Interface for map_store table.
  * @todo 0.2.0: Make POT static class (this won't break compatibility because static methods can be called from dynamic context - however getInstance() method should be left).
  * @todo 0.2.0: Use prepared statements.
  * @todo 0.2.0: Drop PHP 5.0.x support (PDO:: constants, array type hinting).
@@ -29,7 +28,7 @@
  * Main POT class.
  * 
  * @package POT
- * @version 0.1.6+SVN
+ * @version 0.1.6
  */
 class POT
 {
@@ -582,26 +581,10 @@ class POT
  */
     public function banIP($ip, $mask = '255.255.255.255', $time = 0)
     {
-        // long2ip( ip2long('255.255.255.255') ) != '255.255.255.255' -.-'
         // it's because that PHP integer types are signed
-        if($ip == '255.255.255.255')
-        {
-            $ip = 4294967295;
-        }
-        else
-        {
-            $ip = sprintf('%u', ip2long($ip) );
-        }
-
-        if($mask == '255.255.255.255')
-        {
-            $mask = 4294967295;
-        }
-        else
-        {
-            $mask = sprintf('%u', ip2long($mask) );
-        }
-
+        $ip = sprintf('%u', ip2long($ip) );
+        $mask = sprintf('%u', ip2long($mask) );
+        
         // creates ban entry
         $ban = new OTS_IPBan();
         $ban->setValue($ip);
@@ -628,17 +611,9 @@ class POT
  */
     public function unbanIP($ip, $mask = '255.255.255.255')
     {
-        // long2ip( ip2long('255.255.255.255') ) != '255.255.255.255' -.-'
         // it's because that PHP integer types are signed
-        if($ip == '255.255.255.255')
-        {
-            $ip = 4294967295;
-        }
-        else
-        {
-            $ip = sprintf('%u', ip2long($ip) );
-        }
-
+        $ip = sprintf('%u', ip2long($ip) );
+        
         // mask is not used anymore
 
         // deletes ban entry
@@ -659,17 +634,9 @@ class POT
  */
     public function isIPBanned($ip)
     {
-        // long2ip( ip2long('255.255.255.255') ) != '255.255.255.255' -.-'
         // it's because that PHP integer types are signed
-        if($ip == '255.255.255.255')
-        {
-            $ip = 4294967295;
-        }
-        else
-        {
-            $ip = sprintf('%u', ip2long($ip) );
-        }
-
+        $ip = sprintf('%u', ip2long($ip) );
+        
         // finds ban entry
         $ban = new OTS_IPBan();
         $ban->find($ip, $mask);
@@ -1691,8 +1658,8 @@ class POT
  * Especialy currently only schema version is available (via <i>'version'</i> key).
  * </p>
  * 
- * @version 0.1.6+SVN
- * @since 0.1.6+SVN
+ * @version 0.1.6
+ * @since 0.1.6
  * @return array List of schema settings.
  * @throws PDOException On PDO operation error.
  * @example examples/schema.php schema.php

@@ -23,7 +23,7 @@ $version = $version[1];
 
 return array(
     'author' => 'OpenTibia Team',
-    'copyright' => '2007 - 2008 (C) by Wrzasq',
+    'copyright' => '2007 - 2009 (C) by Wrzasq',
     'name' => 'PHP OTServ Toolkit',
     'release' => $version,
     'version' => $version,

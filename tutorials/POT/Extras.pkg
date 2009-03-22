@@ -13,7 +13,7 @@
         Toolbox in toolbox - in POT there is additional class called {@link OTS_Toolbox OTS_Toolbox}. It contains some additional static methods that can help you developing OTServ-related applications. Baiscly there are two very simple methods.
         </para>
         <para>
-        First of them is {@link OTS_Toolbox::experienceForLevel experienceForLevel()} - it calculates how many experience points are needed to advance to given experience level. As second parameter you can optionaly pass current experience points so the method will then return only remaining part of result.
+        First of them is {@link OTS_Toolbox::experienceForLevel() experienceForLevel()} - it calculates how many experience points are needed to advance to given experience level. As second parameter you can optionaly pass current experience points so the method will then return only remaining part of result.
         </para>
         <para>
         Second method is {@link OTS_Toolbox::levelForExperience() levelForExperience()} - it is reversed previous method which calculates which level player with given amount of experience points has. Note that this method unfortunately is not purely mathematical - in PHP there are no complex numbers (using complex number classes for this purpose would only complacate situation and even slow it down and use much more resources) which are needed to solve 3rd level polynomial equations.

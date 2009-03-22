@@ -1,4 +1,4 @@
-all: clean check documentation pdf online test package manual phk phar
+all: clean check release documentation pdf online test package manual phk phar
 
 clean:
 	find . -name "*~" -exec rm {} -v \;
@@ -15,6 +15,9 @@ clean:
 
 check:
 	find . -name "*.php" -exec php -l {} \;
+
+release:
+	find \( -name '*.php' -or -name '*.pkg' \) -exec sed -i 's/\+SVN//g' {} \;
 
 documentation:
 	phpdoc -j on -t documentation -o HTML:Smarty:HandS -ti 'PHP OTServ Toolkit' -d . -i test.php,examples/,phk/,phar.php -ric CHANGELOG,INSTALL,LICENSE,NEWS,README,RULES
