@@ -1,17 +1,13 @@
 <?php
 
-/**#@+
- * @version 0.0.6
- * @since 0.0.6
- */
-
 /**
  * Code in this file bases on oryginal OTServ binary format loading C++ code (fileloader.h, fileloader.cpp).
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.0.6
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -27,27 +23,39 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.0.6
  * @property-write IOTS_FileCache $cacheDriver Cache driver.
  */
 class OTS_FileLoader
 {
 /**
  * Start of node.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const NODE_START = 0xFE;
 /**
  * End of node.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const NODE_END = 0xFF;
 /**
  * Escape another special byte.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const ESCAPE_CHAR = 0xFD;
 
 /**
  * File handle.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @var resource
  */
     private $file;
@@ -55,6 +63,8 @@ class OTS_FileLoader
 /**
  * Root node.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @var OTS_FileNode
  */
     protected $root;
@@ -62,6 +72,8 @@ class OTS_FileLoader
 /**
  * Cache handler.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @var IOTS_FileCache
  */
     protected $cache;
@@ -105,11 +117,11 @@ class OTS_FileLoader
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * </p>
  * 
- * @version 0.0.6
+ * @version 0.2.0+SVN
  * @since 0.0.6
  * @param array $properties List of object properties.
  */
-    public static function __set_state($properties)
+    public static function __set_state(array $properties)
     {
         $object = new self();
 
@@ -129,6 +141,8 @@ class OTS_FileLoader
  * You have to set cache driver before loading/saving any file in order to apply it to that file.
  * </p>
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @param IOTS_FileCache $cache Cache handler (leave this parameter if you want to unset caching).
  */
     public function setCacheDriver(IOTS_FileCache $cache = null)
@@ -140,6 +154,7 @@ class OTS_FileLoader
  * Opens file.
  * 
  * @version 0.1.3
+ * @since 0.0.6
  * @param string $file Filepath.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  */
@@ -199,6 +214,8 @@ class OTS_FileLoader
 /**
  * Loades node from file.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @param OTS_FileNode $node Node into which file fragment should be parsed.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  */
@@ -281,6 +298,8 @@ class OTS_FileLoader
 /**
  * Reads single byte from file.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @return int Read value.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  */
@@ -300,6 +319,8 @@ class OTS_FileLoader
 /**
  * Seeks file pointer into given position.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @param int $pos Seek position.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  */
@@ -315,6 +336,8 @@ class OTS_FileLoader
 /**
  * Returns current position in file.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @return int Position in file.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  */
@@ -355,7 +378,5 @@ class OTS_FileLoader
         }
     }
 }
-
-/**#@-*/
 
 ?>

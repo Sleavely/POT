@@ -4,7 +4,7 @@
 include('quickstart.php');
 
 // fetches schema info
-$info = $ots->getSchemaInfo();
+$info = POT::getSchemaInfo();
 
 // displays database version
 echo 'Your database structure version is: ', $info['version'];

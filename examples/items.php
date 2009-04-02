@@ -4,7 +4,8 @@
 include('quickstart.php');
 
 // loads item typing information
-POT::getInstance()->loadItems('/path/to/your/ots/data/items');
+// dont use POT::getInstance() anymore
+POT::loadItems('/path/to/your/ots/data/items');
 
 // creates new player object
 $player = new OTS_Player();

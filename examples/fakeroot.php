@@ -4,8 +4,8 @@
 include('path/to/OTS.php');
 
 // dont use 'new POT()'!!!
-$ots = POT::getInstance();
-$ots->setPOTPath('classes');
+// dont use POT::getInstance() anymore
+POT::setPOTPath('classes');
 
 /*
     here comes your stuff...

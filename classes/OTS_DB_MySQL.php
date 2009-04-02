@@ -1,14 +1,10 @@
 <?php
 
-/**#@+
- * @version 0.0.1
- */
-
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -20,7 +16,7 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
  */
 class OTS_DB_MySQL extends OTS_Base_DB
 {
@@ -43,11 +39,11 @@ class OTS_DB_MySQL extends OTS_Base_DB
  * <li><var>password</var> - user password.</li>
  * </ul>
  * 
- * @version 0.0.6
+ * @version 0.2.0+SVN
  * @param array $params Connection parameters.
  * @throws PDOException On PDO operation error.
  */
-    public function __construct($params)
+    public function __construct(array $params)
     {
         $user = null;
         $password = null;
@@ -94,12 +90,13 @@ class OTS_DB_MySQL extends OTS_Base_DB
 
         // PDO constructor
         parent::__construct('mysql:' . implode(';', $dns), $user, $password);
-/// FIXME: 0.2.0        $this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+        $this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
     }
 
 /**
  * Query-quoted field name.
  * 
+ * @version 0.0.1
  * @param string $name Field name.
  * @return string Quoted name.
  */
@@ -111,6 +108,7 @@ class OTS_DB_MySQL extends OTS_Base_DB
 /**
  * LIMIT/OFFSET clause for queries.
  * 
+ * @version 0.0.1
  * @param int|bool $limit Limit of rows to be affected by query (false if no limit).
  * @param int|bool $offset Number of rows to be skipped before applying query effects (false if no offset).
  * @return string LIMIT/OFFSET SQL clause for query.
@@ -136,7 +134,5 @@ class OTS_DB_MySQL extends OTS_Base_DB
         return $sql;
     }
 }
-
-/**#@-*/
 
 ?>

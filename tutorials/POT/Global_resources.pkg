@@ -33,7 +33,7 @@
     <refsect1 id="{@id get}">
         <title>Retriving resources</title>
         <para>
-        While resources are loaded you can get them everywhere in the code by calling to {@tutorial POT/Basics.pkg#basics.singleton POT global instance}. To get resource handle you can use one of following methods:
+        While resources are loaded you can get them everywhere in the code by calling to {@tutorial POT/Basics.pkg#basics.static POT static calls}. To get resource handle you can use one of following methods:
         </para>
         <itemizedlist>
             <listitem>{@link POT::getVocationsList() getVocationsList()} - to get vocations list.</listitem>

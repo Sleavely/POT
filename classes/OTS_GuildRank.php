@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.0.4
- * @since 0.0.4
- */
-
 /**
  * @package POT
- * @version 0.1.4
+ * @version 0.2.0+SVN
+ * @since 0.0.4
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -17,7 +13,8 @@
  * OTServ guild rank abstraction.
  * 
  * @package POT
- * @version 0.1.4
+ * @version 0.2.0+SVN
+ * @since 0.0.4
  * @property string $name Rank title.
  * @property OTS_Guild $guild Guild in which rank exists.
  * @property int $level Guild access level.
@@ -30,6 +27,8 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Rank data.
  * 
+ * @version 0.0.4
+ * @since 0.0.4
  * @var array
  */
     private $data = array();
@@ -38,6 +37,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Loads rank with given id.
  * 
  * @version 0.0.5
+ * @since 0.0.4
  * @param int $id Rank's ID.
  * @throws PDOException On PDO operation error.
  */
@@ -55,6 +55,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * </p>
  * 
  * @version 0.0.5
+ * @since 0.0.4
  * @param string $name Rank's name.
  * @param OTS_Guild $guild Guild in which rank should be found.
  * @throws PDOException On PDO operation error.
@@ -83,6 +84,8 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Checks if object is loaded.
  * 
+ * @version 0.0.4
+ * @since 0.0.4
  * @return bool Load state.
  */
     public function isLoaded()
@@ -98,6 +101,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * </p>
  * 
  * @version 0.0.8
+ * @since 0.0.4
  * @throws PDOException On PDO operation error.
  */
     public function save()
@@ -121,6 +125,8 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Rank ID.
  * 
+ * @version 0.0.4
+ * @since 0.0.4
  * @return int Rank ID.
  * @throws E_OTS_NotLoaded If rank is not loaded.
  */
@@ -137,6 +143,8 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Rank name.
  * 
+ * @version 0.0.4
+ * @since 0.0.4
  * @return string Rank's name.
  * @throws E_OTS_NotLoaded If rank is not loaded.
  */
@@ -157,6 +165,8 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changed to database.
  * </p>
  * 
+ * @version 0.0.4
+ * @since 0.0.4
  * @param string $name Name.
  */
     public function setName($name)
@@ -168,6 +178,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Returns guild of this rank.
  * 
  * @version 0.1.0
+ * @since 0.0.4
  * @return OTS_Guild Guild of this rank.
  * @throws E_OTS_NotLoaded If rank is not loaded.
  * @throws PDOException On PDO operation error.
@@ -191,6 +202,8 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changed to database.
  * </p>
  * 
+ * @version 0.0.4
+ * @since 0.0.4
  * @param OTS_Guild $guild Owning guild.
  * @throws E_OTS_NotLoaded If given <var>$guild</var> object is not loaded.
  */
@@ -202,6 +215,8 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Rank's access level.
  * 
+ * @version 0.0.4
+ * @since 0.0.4
  * @return int Rank access level within guild.
  * @throws E_OTS_NotLoaded If rank is not loaded.
  */
@@ -222,6 +237,8 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changed to database.
  * </p>
  * 
+ * @version 0.0.4
+ * @since 0.0.4
  * @param int $level access level within guild.
  */
     public function setLevel($level)
@@ -241,6 +258,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * </p>
  * 
  * @version 0.0.5
+ * @since 0.0.4
  * @param string $field Field name.
  * @return string Field value.
  * @throws E_OTS_NotLoaded If rank is not loaded.
@@ -273,6 +291,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * </p>
  * 
  * @version 0.0.5
+ * @since 0.0.4
  * @param string $field Field name.
  * @param mixed $value Field value.
  * @throws E_OTS_NotLoaded If rank is not loaded.
@@ -292,32 +311,6 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
         }
 
         $this->db->query('UPDATE ' . $this->db->tableName('guild_ranks') . ' SET ' . $this->db->fieldName($field) . ' = ' . $value . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
-    }
-
-/**
- * @version 0.1.0
- * @return array List of members.
- * @throws E_OTS_NotLoaded If rank is not loaded.
- * @deprecated 0.0.5 Use getPlayersList().
- */
-    public function getPlayers()
-    {
-        if( !isset($this->data['id']) )
-        {
-            throw new E_OTS_NotLoaded();
-        }
-
-        $players = array();
-
-        foreach( $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('rank_id') . ' = ' . $this->data['id'])->fetchAll() as $player)
-        {
-            // creates new object
-            $object = new OTS_Player();
-            $object->load($player['id']);
-            $players[] = $object;
-        }
-
-        return $players;
     }
 
 /**
@@ -483,24 +476,20 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * If any display driver is currently loaded then it uses it's method. Else it returns rank name.
  * </p>
  * 
- * @version 0.1.3
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @return string String representation of object.
  */
     public function __toString()
     {
-        $ots = POT::getInstance();
-
         // checks if display driver is loaded
-        if( $ots->isDisplayDriverLoaded() )
+        if( POT::isDisplayDriverLoaded() )
         {
-            return $ots->getDisplayDriver()->displayGuildRank($this);
+            return POT::getDisplayDriver()->displayGuildRank($this);
         }
 
         return $this->getName();
     }
 }
-
-/**#@-*/
 
 ?>

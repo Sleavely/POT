@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.0.8
- * @since 0.0.8
- */
-
 /**
  * Code in this file bases on oryginal OTServ items loading C++ code (itemloader.h, items.cpp, items.h).
  * 
  * @package POT
- * @version 0.1.6
+ * @version 0.2.0+SVN
+ * @since 0.0.8
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -19,7 +15,8 @@
  * Items list loader.
  * 
  * @package POT
- * @version 0.1.6
+ * @version 0.2.0+SVN
+ * @since 0.0.8
  * @property-read int $otbVersion OTB file version.
  * @property-read int $clientVersion Dedicated client version.
  * @property-read int $buildVersion File build version.
@@ -29,39 +26,66 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 {
 /**
  * Root file attribute.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ROOT_ATTR_VERSION = 1;
 
 /**
  * Tibia client 7.5 version.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const CLIENT_VERSION_750 = 1;
 /**
  * Tibia client 7.55 version.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const CLIENT_VERSION_755 = 2;
 /**
  * Tibia client 7.6 version.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const CLIENT_VERSION_760 = 3;
 /**
  * Tibia client 7.7 version.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const CLIENT_VERSION_770 = 3;
 /**
  * Tibia client 7.8 version.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const CLIENT_VERSION_780 = 4;
 /**
  * Tibia client 7.9 version.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const CLIENT_VERSION_790 = 5;
 /**
  * Tibia client 7.92 version.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const CLIENT_VERSION_792 = 6;
 /**
  * Tibia client 8.0 version.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const CLIENT_VERSION_800 = 7;
 /**
@@ -102,28 +126,45 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 
 /**
  * Server ID.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_ATTR_SERVERID = 16;
 /**
  * Client ID.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_ATTR_CLIENTID = 17;
 /**
  * Speed.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_ATTR_SPEED = 20;
 /**
  * Light.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_ATTR_LIGHT2 = 42;
 /**
  * Always-on-top order.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_ATTR_TOPORDER = 43;
 
 /**
  * Temple positions.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @var array
  */
     private $items = array();
@@ -131,6 +172,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * OTB version.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @var int
  */
     private $otbVersion;
@@ -138,6 +181,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Client version.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @var int
  */
     private $clientVersion;
@@ -145,6 +190,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Build version.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @var int
  */
     private $buildVersion;
@@ -155,6 +202,9 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * <p>
  * Allows object unserialisation.
  * </p>
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     public function __wakeup()
     {
@@ -170,6 +220,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * </p>
  * 
  * @version 0.1.3
+ * @since 0.0.8
  * @param string $path Path to data/items directory.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  * @throws DOMException On DOM operation error.
@@ -228,6 +279,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * Parses loaded file.
  * 
  * @version 0.1.0
+ * @since 0.0.8
  * @throws E_OTS_FileLoaderError If file has invalid format.
  */
     private function parse()
@@ -414,6 +466,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Returns OTB file version.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return int OTB format version.
  */
     public function getOTBVersion()
@@ -424,6 +478,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Returns client version.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return int Client version.
  */
     public function getClientVersion()
@@ -434,6 +490,8 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
 /**
  * Returns build version.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return int Build version.
  */
     public function getBuildVersion()
@@ -467,6 +525,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * Returns given item type.
  * 
  * @version 0.1.3
+ * @since 0.0.8
  * @param int $id Item type (server) ID.
  * @return OTS_ItemType Returns item type of given ID.
  * @throws OutOfBoundsException If not exists.
@@ -502,6 +561,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * </p>
  * 
  * @version 0.1.3
+ * @since 0.0.8
  * @param string $name Item type name.
  * @return int Returns item type (server) ID.
  * @throws OutOfBoundsException If not found.
@@ -522,65 +582,15 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     }
 
 /**
- * @return array List of item types.
- * @deprecated 0.1.0 Use this class object as array for iterations, counting and methods for field fetching.
- */
-    public function getItemTypesList()
-    {
-        return $this->items;
-    }
-
-/**
  * Returns amount of items loaded.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return int Count of types.
  */
     public function count()
     {
         return count($this->items);
-    }
-
-/**
- * @return string Item name.
- * @deprecated 0.1.0 Use getIterator().
- */
-    public function current()
-    {
-        return current($this->items);
-    }
-
-/**
- * @deprecated 0.1.0 Use getIterator().
- */
-    public function next()
-    {
-        next($this->items);
-    }
-
-/**
- * @return int Current position key.
- * @deprecated 0.1.0 Use getIterator().
- */
-    public function key()
-    {
-        return key($this->items);
-    }
-
-/**
- * @return bool If iterator has anything more.
- * @deprecated 0.1.0 Use getIterator().
- */
-    public function valid()
-    {
-        return key($this->items) !== null;
-    }
-
-/**
- * @deprecated 0.1.0 Use getIterator().
- */
-    public function rewind()
-    {
-        reset($this->items);
     }
 
 /**
@@ -692,24 +702,20 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * If any display driver is currently loaded then it uses it's method.
  * </p>
  * 
- * @version 0.1.3
+ * @version 0.2.0+SVN
  * @since 0.1.3
  * @return string String representation of object.
  */
     public function __toString()
     {
-        $ots = POT::getInstance();
-
         // checks if display driver is loaded
-        if( $ots->isDataDisplayDriverLoaded() )
+        if( POT::isDataDisplayDriverLoaded() )
         {
-            return $ots->getDataDisplayDriver()->displayItemsList($this);
+            return POT::getDataDisplayDriver()->displayItemsList($this);
         }
 
         return (string) $this->count();
     }
 }
-
-/**#@-*/
 
 ?>

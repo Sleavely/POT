@@ -10,15 +10,15 @@
     <refsect1 id="{@id basics}">
         <title>POT basics</title>
         <para>
-        Most important is to understand how it all works. POT provides classes to abstract many OTServ resources. Main class of toolkit is named {@link POT POT}. Many resource handlers are assigned to POT instance.
+        Most important is to understand how it all works. POT provides classes to abstract many OTServ resources. Main class of toolkit is named {@link POT POT}. Many resource handlers are assigned to it's fields and available throught it's calls.
         </para>
-        <refsect2 id="{@id singleton}">
-            <title>POT class instance</title>
+        <refsect2 id="{@id static}">
+            <title>Static POT class</title>
             <para>
-            POT class implements {@link http://www.phppatterns.com/docs/design/singleton_pattern singleton pattern}. It means you should use only one instance of this class everywhere. Thanks to PHP5 and methods access definers, it's constructor was restricted to private so you won't even be able to create more instances. This might seem quite odd for you - you won't create object directly. To get POT class instance you have to use {@link POT::getInstance() getInstance() method}. In next section you will see example how to call this method.
+            POT class is just a set of static method and fields. It means you call each of them staticly, by accessing class members, without need to create class instance.
             </para>
             <para>
-            What is it for? POT class defines entire enviroment for working with OTServ. In single instance you define all resources needed to work with given server. And now imagine you would want to move that enviroment into another scope, for example into function. Since singleton is a static instance, there is no problem with that. You just fetch the very same enviroment every time you call {@link POT::getInstance() POT::getInstance()}.
+            What is it for? POT class defines entire enviroment for working with OTServ. It wraps all infromation using by other classes, defines entire environment for working with database, data resources and so on. And now imagine you would want to move that enviroment into another scope, for example into function. Since {@link POT POT class} is static, there is no problem with that.
             </para>
         </refsect2>
         <refsect2 id="{@id database}">
@@ -32,7 +32,7 @@
             <refsect3 id="{@id pdo}">
                 <title>PDO</title>
                 <para>
-                As a core for database handle {@link http://www.php.net/manual/en/ref.pdo.php PDO} instance is used. You can get pure connection handle which will enable you to execute SQL queries directly by calling {@link POT::getDBHandle() getDBHandle() method} on connected POT instance.
+                As a core for database handle {@link http://www.php.net/manual/en/ref.pdo.php PDO} instance is used. You can get pure connection handle which will enable you to execute SQL queries directly by calling {@link POT::getDBHandle() getDBHandle() method} after connecting to database.
                 </para>
             </refsect3>
         </refsect2>
@@ -50,7 +50,6 @@
         </para>
         <orderedlist>
             <listitem>Load main toolkit file (OTS.php).</listitem>
-            <listitem>Create POT instance by calling {@link POT::getInstance() POT::getInstance()} first time.</listitem>
             <listitem>Connect to database.</listitem>
         </orderedlist>
         <para>

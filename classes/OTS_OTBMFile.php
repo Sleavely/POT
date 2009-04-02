@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.0.6
- * @since 0.0.6
- */
-
 /**
  * Code in this file bases on oryginal OTServ OTBM format loading C++ code (iomapotbm.h, iomapotbm.cpp).
  * 
  * @package POT
- * @version 0.1.6
+ * @version 0.2.0+SVN
+ * @since 0.0.6
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -26,7 +22,8 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.6
+ * @version 0.2.0+SVN
+ * @since 0.0.6
  * @property-read OTS_HousesList $housesList Houses list loaded from associated houses file.
  * @property-read int $width Map width.
  * @property-read int $height Map height.
@@ -39,58 +36,100 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 {
 /**
  * Description attribute.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_DESCRIPTION = 1;
 /**
  * External file.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_EXT_FILE = 2;
 /**
  * Tile flags.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_TILE_FLAGS = 3;
 /**
  * Action ID.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_ACTION_ID = 4;
 /**
  * Unique ID.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_UNIQUE_ID = 5;
 /**
  * Text.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_TEXT = 6;
 /**
  * Description.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_DESC = 7;
 /**
  * Teleport destination.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_TELE_DEST = 8;
 /**
  * Item.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_ITEM = 9;
 /**
  * Depot ID.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_DEPOT_ID = 10;
 /**
  * External spawns file.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_EXT_SPAWN_FILE = 11;
 /**
  * Rune changes amount.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_RUNE_CHARGES = 12;
 /**
  * External houses file.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_EXT_HOUSE_FILE = 13;
 /**
  * ID of doors.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_ATTR_HOUSEDOORID = 14;
 /**
@@ -152,58 +191,100 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 
 /**
  * Root node.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_ROOTV1 = 1;
 /**
  * Map data container.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_MAP_DATA = 2;
 /**
  * Item definition.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_ITEM_DEF = 3;
 /**
  * Map tiles fragment.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_TILE_AREA = 4;
 /**
  * Single tile.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_TILE = 5;
 /**
  * Item.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_ITEM = 6;
 /**
  * Tile.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_TILE_SQUARE = 7;
 /**
  * Tile reference.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_TILE_REF = 8;
 /**
  * Spawns container.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_SPAWNS = 9;
 /**
  * Spawn.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_SPAWN_AREA = 10;
 /**
  * Monster.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_MONSTER = 11;
 /**
  * Towns container.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_TOWNS = 12;
 /**
  * Town.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_TOWN = 13;
 /**
  * Tile of house.
+ * 
+ * @version 0.0.6
+ * @since 0.0.6
  */
     const OTBM_NODE_HOUSETILE = 14;
 /**
@@ -224,6 +305,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Map width.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @var int
  */
     private $width;
@@ -231,6 +314,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Map height.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @var int
  */
     private $height;
@@ -238,6 +323,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Map description.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @var string
  */
     private $description = '';
@@ -245,6 +332,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * List of towns.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @var array
  */
     private $towns = array();
@@ -252,6 +341,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Temple positions.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @var array
  */
     private $temples = array();
@@ -259,6 +350,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Directory path.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @var string
  */
     private $directory;
@@ -266,6 +359,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * External houses file.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @var OTS_HousesList
  */
     private $housesList;
@@ -286,6 +381,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * Allows object unserialisation.
  * </p>
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  */
     public function __wakeup()
@@ -298,6 +395,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * Loads OTBM file content.
  * 
  * @version 0.1.0
+ * @since 0.0.6
  * @param string $file Filename.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
@@ -318,6 +416,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * Parses loaded file.
  * 
  * @version 0.1.0
+ * @since 0.0.6
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -489,6 +588,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Returns map width.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @return int Map width.
  */
     public function getWidth()
@@ -499,6 +600,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Returns map height.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @return int Map height.
  */
     public function getHeight()
@@ -509,6 +612,8 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 /**
  * Returns map description.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @return string Map description.
  */
     public function getDescription()
@@ -549,6 +654,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * Returns town's ID.
  * 
  * @version 0.1.3
+ * @since 0.0.6
  * @param string $name Town.
  * @return int ID.
  * @throws OutOfBoundsException If not found.
@@ -582,6 +688,7 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * Returns name of given town's ID.
  * 
  * @version 0.1.3
+ * @since 0.0.6
  * @param int $id Town ID.
  * @return string Name.
  * @throws OutOfBoundsException If not found.
@@ -597,17 +704,10 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
     }
 
 /**
- * @return array List of towns.
- * @deprecated 0.1.0 Use this class object as array for iterations, counting and methods for field fetching.
- */
-    public function getTownsList()
-    {
-        return $this->towns;
-    }
-
-/**
  * Returns town's temple position.
  * 
+ * @version 0.0.6
+ * @since 0.0.6
  * @param int $id Town id.
  * @return OTS_MapCoords|bool Point on map (false if not found).
  */
@@ -633,59 +733,6 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
     public function count()
     {
         return count($this->towns);
-    }
-
-/**
- * @version 0.0.8
- * @since 0.0.8
- * @return string Town name.
- * @deprecated 0.1.0 Use getIterator().
- */
-    public function current()
-    {
-        return current($this->towns);
-    }
-
-/**
- * @version 0.0.8
- * @since 0.0.8
- * @deprecated 0.1.0 Use getIterator().
- */
-    public function next()
-    {
-        next($this->towns);
-    }
-
-/**
- * @version 0.0.8
- * @since 0.0.8
- * @return int Current position key.
- * @deprecated 0.1.0 Use getIterator().
- */
-    public function key()
-    {
-        return key($this->towns);
-    }
-
-/**
- * @version 0.0.8
- * @since 0.0.8
- * @return bool If iterator has anything more.
- * @deprecated 0.1.0 Use getIterator().
- */
-    public function valid()
-    {
-        return key($this->towns) !== null;
-    }
-
-/**
- * @version 0.0.8
- * @since 0.0.8
- * @deprecated 0.1.0 Use getIterator().
- */
-    public function rewind()
-    {
-        reset($this->towns);
     }
 
 /**
@@ -819,24 +866,20 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
  * If any display driver is currently loaded then it uses it's method.
  * </p>
  * 
- * @version 0.1.3
+ * @version 0.2.0+SVN
  * @since 0.1.3
  * @return string String representation of object.
  */
     public function __toString()
     {
-        $ots = POT::getInstance();
-
         // checks if display driver is loaded
-        if( $ots->isDataDisplayDriverLoaded() )
+        if( POT::isDataDisplayDriverLoaded() )
         {
-            return $ots->getDataDisplayDriver()->displayOTBMMap($this);
+            return POT::getDataDisplayDriver()->displayOTBMMap($this);
         }
 
         return (string) $this->count();
     }
 }
-
-/**#@-*/
 
 ?>

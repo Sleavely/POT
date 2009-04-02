@@ -1,16 +1,12 @@
 <?php
 
-/**#@+
- * @version 0.1.2
- * @since 0.1.2
- */
-
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.2
  * @author Wrzasq <wrzasq@gmail.com>
  * @author Alexander Valyalkin <valyala@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  * @license http://www.php.net/license/3_0.txt PHP License, Version 3.0
  */
@@ -23,7 +19,8 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.2
  */
 class OTS_RSA implements IOTS_Cipher
 {
@@ -50,21 +47,10 @@ class OTS_RSA implements IOTS_Cipher
     const OTSERV_D = '46730330223584118622160180015036832148732986808519344675210555262940258739805766860224610646919605860206328024326703361630109888417839241959507572247284807035235569619173792292786907845791904955103601652822519121908367187885509270025388641700821735345222087940578381210879116823013776808975766851829020659073';
 
 /**
- * @deprecated 0.1.3 Use OTS_RSA::OTSERV_P.
- */
-    const P = self::OTSERV_P;
-/**
- * @deprecated 0.1.3 Use OTS_RSA::OTSERV_Q.
- */
-    const Q = self::OTSERV_Q;
-/**
- * @deprecated 0.1.3 Use OTS_RSA::OTSERV_D.
- */
-    const D = self::OTSERV_D;
-
-/**
  * Keys modulus.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var string
  */
     private $n;
@@ -72,6 +58,8 @@ class OTS_RSA implements IOTS_Cipher
 /**
  * Private key exponent.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var string
  */
     private $d;
@@ -79,6 +67,8 @@ class OTS_RSA implements IOTS_Cipher
 /**
  * Public key exponent.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var string
  */
     private $e = '65537';
@@ -86,6 +76,8 @@ class OTS_RSA implements IOTS_Cipher
 /**
  * Length of keys modulus.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var int
  */
     private $length;
@@ -101,6 +93,8 @@ class OTS_RSA implements IOTS_Cipher
  * Note: You must be sure your <i>p</i>, <i>q</i> and <i>d</i> values are proper for RSA keys generation as class won't change it for you.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param string $p Key part.
  * @param string $q Key part.
  * @param string $d Key part.
@@ -143,6 +137,8 @@ class OTS_RSA implements IOTS_Cipher
 /**
  * Ecnrypts message with RSA algorithm.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param string $message Message to be encrypted.
  * @return string Encrypted message.
  */
@@ -162,6 +158,8 @@ class OTS_RSA implements IOTS_Cipher
  * As OTServ clients use RSA encryption only for sending requests we don't need decryption here. If it will be needed, then this method will be implemented. At the moment it will throw exception.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param string $message RSA-encrypted message.
  * @return string Decrypted content.
  * @throws LogicException Always as this method is not implemented.
@@ -171,7 +169,5 @@ class OTS_RSA implements IOTS_Cipher
         throw new LogicException();
     }
 }
-
-/**#@-*/
 
 ?>

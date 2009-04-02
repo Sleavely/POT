@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.0.6
- * @since 0.0.6
- */
-
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -21,7 +17,8 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.0
  * @property-read string $name Monster name.
  * @property-read string $race Monster race.
  * @property-read int $experience Experience for killing monster.
@@ -42,6 +39,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns monster name.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return string Name.
  * @throws DOMException On DOM operation error.
  */
@@ -53,6 +52,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns monster race.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return string Race.
  * @throws DOMException On DOM operation error.
  */
@@ -64,6 +65,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns amount of experience for killing this monster.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int Experience points.
  * @throws DOMException On DOM operation error.
  */
@@ -75,6 +78,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns monster speed.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int Speed.
  * @throws DOMException On DOM operation error.
  */
@@ -86,6 +91,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns amount of mana required to summon this monster.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int|bool Mana required (false if not possible).
  * @throws DOMException On DOM operation error.
  */
@@ -105,6 +112,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns monster HP.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int Hit points.
  * @throws DOMException On DOM operation error.
  */
@@ -116,6 +125,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns all monster flags (in format flagname => value).
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return array Flags.
  * @throws DOMException On DOM operation error.
  */
@@ -137,6 +148,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns specified flag value.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $flag Flag.
  * @return int|bool Flag value (false if not set).
  * @throws DOMException On DOM operation error.
@@ -160,6 +173,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns voices that monster can sound.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return array List of voices.
  * @throws DOMException On DOM operation error.
  */
@@ -183,42 +198,13 @@ class OTS_Monster extends DOMDocument
     }
 
 /**
- * @return array List of item IDs.
- * @deprecated 0.1.0 Use getItems().
- */
-    public function getLoot()
-    {
-        $loot = array();
-
-        $element = $this->documentElement->getElementsByTagName('loot')->item(0);
-
-        // checks if it has any loot
-        if( isset($element) )
-        {
-            // adds all items
-            foreach( $element->getElementsByTagName('item') as $item)
-            {
-                $id = $item->getAttribute('id');
-
-                // avoid redundancy
-                if( !in_array($id, $loot) )
-                {
-                    $loot[] = $id;
-                }
-            }
-        }
-
-        return $loot;
-    }
-
-/**
  * Returns all possible loot.
  * 
  * <p>
  * In order to use this method you have to have global items list loaded.
  * </p>
  * 
- * @version 0.1.0
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @return array List of item types.
  * @throws E_OTS_NotLoaded When there is no items list available in global POT instance.
@@ -228,7 +214,7 @@ class OTS_Monster extends DOMDocument
     {
         $loot = array();
         $keys = array();
-        $items = POT::getInstance()->getItemsList();
+        $items = POT::getItemsList();
 
         $element = $this->documentElement->getElementsByTagName('loot')->item(0);
 
@@ -255,6 +241,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns all monster immunities.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return array Immunities.
  * @throws DOMException On DOM operation error.
  */
@@ -286,6 +274,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Checks if monster has given immunity.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Immunity to check.
  * @return bool Immunity state.
  * @throws DOMException On DOM operation error.
@@ -314,6 +304,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns monster defense rate.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int Defense rate.
  * @throws DOMException On DOM operation error.
  */
@@ -333,6 +325,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns monster armor.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int Armor rate.
  * @throws DOMException On DOM operation error.
  */
@@ -352,6 +346,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns list of special defenses.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return array List of defense effects.
  * @throws DOMException On DOM operation error.
  */
@@ -376,6 +372,8 @@ class OTS_Monster extends DOMDocument
 /**
  * Returns list of monster attacks.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return array List of attafck effects.
  * @throws DOMException On DOM operation error.
  */
@@ -465,24 +463,20 @@ class OTS_Monster extends DOMDocument
  * If any display driver is currently loaded then it uses it's method. Otherwise just returns monster XML content.
  * </p>
  * 
- * @version 0.1.3
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @return string String representation of object.
  */
     public function __toString()
     {
-        $ots = POT::getInstance();
-
         // checks if display driver is loaded
-        if( $ots->isDataDisplayDriverLoaded() )
+        if( POT::isDataDisplayDriverLoaded() )
         {
-            return $ots->getDataDisplayDriver()->displayMonster($this);
+            return POT::getDataDisplayDriver()->displayMonster($this);
         }
 
         return $this->saveXML();
     }
 }
-
-/**#@-*/
 
 ?>

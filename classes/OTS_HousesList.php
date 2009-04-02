@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.1.0
- * @since 0.1.0
- */
-
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -17,7 +13,8 @@
  * Wrapper for houses list.
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.0
  * @tutorial POT/data_directory.pkg#towns.houses
  */
 class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
@@ -25,6 +22,8 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * List of houses elements.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @var array
  */
     private $houses = array();
@@ -33,6 +32,7 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
  * Loads houses information.
  * 
  * @version 0.1.3
+ * @since 0.1.0
  * @param string $path Houses file.
  * @throws DOMException On DOM operation error.
  */
@@ -54,10 +54,12 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * </p>
  * 
+ * @version 0.2.0+SVN
+ * @since 0.1.0
  * @param array $properties List of object properties.
  * @throws DOMException On DOM operation error.
  */
-    public function __set_state($properties)
+    public function __set_state(array $properties)
     {
         $object = new self();
 
@@ -96,6 +98,7 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
  * Returns house information.
  * 
  * @version 0.1.3
+ * @since 0.1.0
  * @param int $id House ID.
  * @return OTS_House House information wrapper.
  * @throws OutOfBoundsException If house was not found.
@@ -127,6 +130,7 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
  * Returns ID of house with given name.
  * 
  * @version 0.1.3
+ * @since 0.1.0
  * @param string $name House name.
  * @return int House ID.
  * @throws OutOfBoundsException False if not found.
@@ -148,6 +152,8 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns amount of houses.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int Count of houses.
  */
     public function count()
@@ -158,6 +164,8 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns iterator handle for loops.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return ArrayIterator Houses list iterator.
  */
     public function getIterator()
@@ -168,6 +176,8 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Checks if given element exists.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @return bool True if it's set.
  */
@@ -187,6 +197,7 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
  * Returns item from given position.
  * 
  * @version 0.1.3
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @return OTS_House|int If key is an integer (type-sensitive!) then returns house instance. If it's a string then return associated ID found by house name.
  */
@@ -205,6 +216,8 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * This method is implemented for ArrayAccess interface. In fact you can't write/append to houses list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @param mixed $value Field value.
  * @throws E_OTS_ReadOnly Always - this class is read-only.
@@ -217,6 +230,8 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * This method is implemented for ArrayAccess interface. In fact you can't write/append to houses list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @throws E_OTS_ReadOnly Always - this class is read-only.
  */
@@ -232,24 +247,20 @@ class OTS_HousesList implements IteratorAggregate, Countable, ArrayAccess
  * If any display driver is currently loaded then it uses it's method.
  * </p>
  * 
- * @version 0.1.3
+ * @version 0.2.0+SVN
  * @since 0.1.3
  * @return string String representation of object.
  */
     public function __toString()
     {
-        $ots = POT::getInstance();
-
         // checks if display driver is loaded
-        if( $ots->isDataDisplayDriverLoaded() )
+        if( POT::isDataDisplayDriverLoaded() )
         {
-            return $ots->getDataDisplayDriver()->displayHousesList($this);
+            return POT::getDataDisplayDriver()->displayHousesList($this);
         }
 
         return (string) $this->count();
     }
 }
-
-/**#@-*/
 
 ?>

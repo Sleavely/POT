@@ -4,7 +4,7 @@
  * Code in this file bases on oryginal OTServ OTBM format loading C++ code (iomapotbm.h, iomapotbm.cpp).
  * 
  * @package POT
- * @version 0.1.6
+ * @version 0.2.0+SVN
  * @since 0.1.6
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2009 (C) by Wrzasq
@@ -15,7 +15,7 @@
  * Map track waypoint.
  * 
  * @package POT
- * @version 0.1.6
+ * @version 0.2.0+SVN
  * @since 0.1.6
  * @property-read string $name Waypoint name.
  */
@@ -53,11 +53,11 @@ class OTS_Waypoint extends OTS_MapCoords
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * </p>
  * 
- * @version 0.1.6
+ * @version 0.2.0+SVN
  * @since 0.1.6
  * @param array $properties List of object properties.
  */
-    public static function __set_state($properties)
+    public static function __set_state(array $properties)
     {
         return new self($properties['name'], $properties['x'], $properties['y'], $properties['z']);
     }

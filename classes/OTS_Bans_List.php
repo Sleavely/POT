@@ -90,13 +90,13 @@ class OTS_Bans_List extends OTS_Base_List
         switch($row['type'])
         {
             case POT::BAN_IP:
-                return new OTS_IPBan( (int) $id['id']);
+                return new OTS_IPBan( (int) $row['id']);
 
             case POT::BAN_ACCOUNT:
-                return new OTS_AccountBan( (int) $id['id']);
+                return new OTS_AccountBan( (int) $row['id']);
 
             case POT::BAN_PLAYER:
-                return new OTS_PlayerBan( (int) $id['id']);
+                return new OTS_PlayerBan( (int) $row['id']);
         }
     }
 }

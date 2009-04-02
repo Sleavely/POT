@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.1.2
- * @since 0.1.2
- */
-
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.2
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -25,7 +21,8 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.2
  * @property string $buffer Properties binary string.
  * @property int $char {@link OTS_Buffer::getChar() getChar()}/{@link OTS_Buffer::putChar() putChar()} method wrapper.
  * @property int $short {@link OTS_Buffer::getShort() getShort()}/{@link OTS_Buffer::putShort() putShort()} method wrapper.
@@ -40,12 +37,16 @@ class OTS_Buffer
 /**
  * Node properties stream.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var string
  */
     protected $buffer;
 /**
  * Properties stream pointer.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var int
  */
     protected $pos;
@@ -53,6 +54,8 @@ class OTS_Buffer
 /**
  * Initializes new buffered reader.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param string $buffer Buffer content.
  */
     public function __construct($buffer = '')
@@ -68,9 +71,11 @@ class OTS_Buffer
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * </p>
  * 
+ * @version 0.2.0+SVN
+ * @since 0.1.2
  * @param array $properties List of object properties.
  */
-    public static function __set_state($properties)
+    public static function __set_state(array $properties)
     {
         $object = new self();
 
@@ -86,6 +91,8 @@ class OTS_Buffer
 /**
  * Returs properties stream.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return string Properties stream.
  */
     public function getBuffer()
@@ -96,6 +103,8 @@ class OTS_Buffer
 /**
  * Sets properties stream.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param string Properties stream.
  */
     public function setBuffer($buffer)
@@ -107,6 +116,8 @@ class OTS_Buffer
 /**
  * Checks if there is anything left in stream.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return bool False if pointer is at the end of stream.
  */
     public function isValid()
@@ -117,6 +128,8 @@ class OTS_Buffer
 /**
  * Checks stream end state.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param int $size Amount of bytes that are going to be read.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -131,6 +144,8 @@ class OTS_Buffer
 /**
  * Returns single byte.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return int Byte (char) value.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -147,6 +162,8 @@ class OTS_Buffer
 /**
  * Appends single byte to buffer.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param int $char Byte (char) value.
  */
     public function putChar($char)
@@ -157,6 +174,8 @@ class OTS_Buffer
 /**
  * Returns double byte.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return int Word (short) value.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -173,6 +192,8 @@ class OTS_Buffer
 /**
  * Appends double byte to buffer.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param int $short Word (short) value.
  */
     public function putShort($short)
@@ -183,6 +204,8 @@ class OTS_Buffer
 /**
  * Returns quater byte.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return int Double word (long) value.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -199,6 +222,8 @@ class OTS_Buffer
 /**
  * Appends quater byte to buffer.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param int $long Double word (long) value.
  */
     public function putLong($long)
@@ -213,6 +238,8 @@ class OTS_Buffer
  * If length is not given then treats first short value from current buffer as string length.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param int|bool $length String length.
  * @return string First substring.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
@@ -237,6 +264,8 @@ class OTS_Buffer
 /**
  * Appends string to buffer.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param string $string Binary length.
  * @param bool $dynamic Whether if string length is fixed or not (if it is dynamic then length will be inserted as short before string chunk).
  */
@@ -253,6 +282,9 @@ class OTS_Buffer
 
 /**
  * Empties buffer.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     public function reset()
     {
@@ -262,6 +294,8 @@ class OTS_Buffer
 /**
  * Returns current read position.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return int Read position.
  */
     public function getPos()
@@ -272,6 +306,8 @@ class OTS_Buffer
 /**
  * Seeks current reading position.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param int $pos Read position.
  */
     public function setPos($pos)
@@ -282,6 +318,8 @@ class OTS_Buffer
 /**
  * Returns buffer size.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return int Buffer length.
  */
     public function getSize()
@@ -292,6 +330,8 @@ class OTS_Buffer
 /**
  * Skips given amount of bytes.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param int $n Bytes to skip.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of stream.
  */
@@ -304,6 +344,8 @@ class OTS_Buffer
 /**
  * Magic PHP5 method.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -354,6 +396,7 @@ class OTS_Buffer
  * Magic PHP5 method.
  * 
  * @version 0.1.3
+ * @since 0.1.2
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws OutOfBoundsException For non-supported properties.
@@ -400,6 +443,8 @@ class OTS_Buffer
 /**
  * Returns string representation of buffer object.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return string Object's buffer.
  */
     public function __toString()
@@ -409,13 +454,14 @@ class OTS_Buffer
 
 /**
  * Resets pointer of cloned object.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     public function __clone()
     {
         $this->pos = 0;
     }
 }
-
-/**#@-*/
 
 ?>

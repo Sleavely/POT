@@ -3,17 +3,17 @@
 // includes POT main file
 include_once('classes/OTS.php');
 
-$ots = POT::getInstance();
+// dont use POT::getInstance() anymore
 
 // connects to database
-$ots->connect(POT::DB_MYSQL, array('host' => 'localhost', 'user' => 'wrzasq', 'database' => 'otserv') );
+POT::connect(POT::DB_MYSQL, array('host' => 'localhost', 'user' => 'wrzasq', 'database' => 'otserv') );
 
 // load all resources
-$ots->loadVocations('/home/wrzasq/.otserv/data/vocations.xml');
-$ots->loadMonsters('/home/wrzasq/.otserv/data/monster/');
-$ots->loadSpells('/home/wrzasq/.otserv/data/spells/spells.xml');
-$ots->loadItems('/home/wrzasq/.otserv/data/items/');
-$ots->loadMap('/home/wrzasq/.otserv/data/world/map.otbm');
+POT::loadVocations('/home/wrzasq/.otserv/data/vocations.xml');
+POT::loadMonsters('/home/wrzasq/.otserv/data/monster/');
+POT::loadSpells('/home/wrzasq/.otserv/data/spells/spells.xml');
+POT::loadItems('/home/wrzasq/.otserv/data/items/');
+POT::loadMap('/home/wrzasq/.otserv/data/world/map.otbm');
 
 /*
     Invites handling driver.
@@ -70,7 +70,7 @@ class DataDisplayDriver implements IOTS_DataDisplay
 }
 
 // sets display drivers for current enviroment
-$ots->setDisplayDriver( new DisplayDriver() );
-$ots->setDataDisplayDriver( new DataDisplayDriver() );
+POT::setDisplayDriver( new DisplayDriver() );
+POT::setDataDisplayDriver( new DataDisplayDriver() );
 
 ?>

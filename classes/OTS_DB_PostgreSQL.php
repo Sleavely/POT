@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.0.4
- * @since 0.0.4
- */
-
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.0.4
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -21,7 +17,8 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.0.4
  */
 class OTS_DB_PostgreSQL extends OTS_Base_DB
 {
@@ -44,11 +41,12 @@ class OTS_DB_PostgreSQL extends OTS_Base_DB
  * <li><var>password</var> - user password.</li>
  * </ul>
  * 
- * @version 0.0.6
+ * @version 0.2.0+SVN
+ * @since 0.0.4
  * @param array $params Connection parameters.
  * @throws PDOException On PDO operation error.
  */
-    public function __construct($params)
+    public function __construct(array $params)
     {
         $user = null;
         $password = null;
@@ -97,7 +95,5 @@ class OTS_DB_PostgreSQL extends OTS_Base_DB
         parent::__construct('pgsql:' . implode(' ', $dns), $user, $password);
     }
 }
-
-/**#@-*/
 
 ?>

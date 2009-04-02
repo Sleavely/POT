@@ -1,21 +1,17 @@
 <?php
 
-/**#@+
- * @version 0.0.1
- */
-
 /**
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @package POT
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
 /**
  * This class will drop " quotes from field names in SQLite results.
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @package POT
  * @ignore
  */
@@ -24,10 +20,11 @@ class OTS_SQLite_Results extends PDOStatement
 /**
  * Stripping single array keys.
  * 
+ * @version 0.2.0+SVN
  * @param array $record Record row.
  * @return array Record with dropped quotes from field names.
  */
-    private function strip($record)
+    private function strip(array $record)
     {
         // if it's end of results
         if(!( is_array($record) || is_object($record) ))
@@ -71,7 +68,7 @@ class OTS_SQLite_Results extends PDOStatement
  * @param array $args Not used, for PDO compatibility.
  * @return array Record row.
  */
-    public function fetchAll($mode = null, $index = null, $args = array() )
+    public function fetchAll($mode = null, $index = null, array $args = array() )
     {
         $results = array();
 
@@ -84,7 +81,5 @@ class OTS_SQLite_Results extends PDOStatement
         return $results;
     }
 }
-
-/**#@-*/
 
 ?>

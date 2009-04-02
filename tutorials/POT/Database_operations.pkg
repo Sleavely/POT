@@ -10,12 +10,12 @@
     <refsect1 id="{@id db}">
         <title>OTServ database</title>
         <para>
-        OTServ stores all user-related stuff (like accounts, players, guilds etc.) in SQL database. This is probably basic usage for POT. Connection to database is handled within POT instance. At first you have to {@link POT::connect() connect}.
+        OTServ stores all user-related stuff (like accounts, players, guilds etc.) in SQL database. This is probably basic usage for POT. Connection to database is handled within POT class. At first you have to {@link POT::connect() connect}.
         </para>
         <refsect2 id="{@id handle}">
             <title>PDO handle</title>
             <para>
-            POT uses PDO as it's database layer core. It is possible to get handle instance by calling {@link POT::getDBHandle() getDBHandle()} on POT instance. This method returns PDO connection extended by POT-specific driver routines like preparing identifier names.
+            POT uses PDO as it's database layer core. It is possible to get handle instance by calling {@link POT::getDBHandle() POT::getDBHandle()}. This method returns PDO connection extended by POT-specific driver routines like preparing identifier names.
             </para>
         </refsect2>
     </refsect1>

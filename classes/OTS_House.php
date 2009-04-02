@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.1.0
- * @since 0.1.0
- */
-
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -21,7 +17,8 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.0
  * @property OTS_Player $owner House owner.
  * @property int $paid Paid time.
  * @property int $warnings Warnings message.
@@ -39,6 +36,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * House rent info.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @var array
  */
     private $data = array();
@@ -46,6 +45,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Information handler.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @var DOMElement
  */
     private $element;
@@ -53,6 +54,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Tiles list.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @var array
  */
     private $tiles = array();
@@ -60,6 +63,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Creates wrapper for given house element.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param DOMElement $element House information.
  * @throws PDOException On PDO operation error.
  */
@@ -79,6 +84,8 @@ class OTS_House extends OTS_Base_DAO
  * Allows object serialisation.
  * </p>
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return array List of properties that should be saved.
  */
     public function __sleep()
@@ -89,6 +96,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Saves info in database.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @throws PDOException On PDO operation error.
  */
     public function save()
@@ -108,6 +117,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Deletes house info from database.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @throws PDOException On PDO operation error.
  */
     public function delete()
@@ -122,6 +133,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Returns house's ID.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int House ID.
  * @throws DOMException On DOM operation error.
  */
@@ -133,6 +146,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Return house's name.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return string House name.
  * @throws DOMException On DOM operation error.
  */
@@ -144,6 +159,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Returns town ID in which house is located.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int Town ID.
  * @throws DOMException On DOM operation error.
  */
@@ -155,17 +172,21 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Returns town name.
  * 
+ * @version 0.2.0+SVN
+ * @since 0.1.0
  * @return string Town name.
  * @throws E_OTS_NotLoaded When map file is not loaded to fetch towns names.
  */
     public function getTownName()
     {
-        return POT::getInstance()->getMap()->getTownName( $this->getTownId() );
+        return POT::getMap()->getTownName( $this->getTownId() );
     }
 
 /**
  * Returns house rent cost.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int Rent cost.
  * @throws DOMException On DOM operation error.
  */
@@ -177,6 +198,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Returns house size.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int House size.
  * @throws DOMException On DOM operation error.
  */
@@ -188,6 +211,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Returns entry position.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_MapCoords Entry coordinations on map.
  */
     public function getEntry()
@@ -198,6 +223,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Returns current house owner.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return OTS_Player|null Player that currently owns house (null if there is no owner).
  */
     public function getOwner()
@@ -222,6 +249,8 @@ class OTS_House extends OTS_Base_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changed to database.
  * </p>
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param OTS_Player $player House owner to be set.
  * @throws E_OTS_NotLoaded If given <var>$player</var> object is not loaded.
  */
@@ -233,6 +262,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Returns paid date.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int|false Date timestamp until which house is rent (false if none).
  */
     public function getPaid()
@@ -255,6 +286,8 @@ class OTS_House extends OTS_Base_DAO
  * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changed to database.
  * </p>
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param int $paid Sets paid timestamp to passed one.
  */
     public function setPaid($paid)
@@ -266,6 +299,7 @@ class OTS_House extends OTS_Base_DAO
  * Returns house warnings.
  * 
  * @version 0.1.2
+ * @since 0.1.0
  * @return int|false Warnings text (false if none).
  */
     public function getWarnings()
@@ -289,6 +323,7 @@ class OTS_House extends OTS_Base_DAO
  * </p>
  * 
  * @version 0.1.2
+ * @since 0.1.0
  * @param int $warnings Sets house warnings.
  */
     public function setWarnings($warnings)
@@ -299,6 +334,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Adds tile to house.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param OTS_MapCoords $tile Tile to be added.
  */
     public function addTile(OTS_MapCoords $tile)
@@ -313,6 +350,8 @@ class OTS_House extends OTS_Base_DAO
  * This returns list of coords of tiles used by this house on map. It will succeed only if house object was created during map loading with houses file opened to assign loaded tiles.
  * </p>
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return array List of tiles.
  */
     public function getTiles()
@@ -323,6 +362,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Magic PHP5 method.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
  * @throws E_OTS_NotLoaded When atempt to read info about map while map not being loaded.
@@ -374,6 +415,8 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Magic PHP5 method.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.
  * @throws E_OTS_NotLoaded If passed parameter for owner field won't be loaded.
@@ -407,24 +450,20 @@ class OTS_House extends OTS_Base_DAO
  * If any display driver is currently loaded then it uses it's method. Otherwise just returns house ID.
  * </p>
  * 
- * @version 0.1.3
+ * @version 0.2.0+SVN
  * @since 0.1.3
  * @return string String representation of object.
  */
     public function __toString()
     {
-        $ots = POT::getInstance();
-
         // checks if display driver is loaded
-        if( $ots->isDataDisplayDriverLoaded() )
+        if( POT::isDataDisplayDriverLoaded() )
         {
-            return $ots->getDataDisplayDriver()->displayHouse($this);
+            return POT::getDataDisplayDriver()->displayHouse($this);
         }
 
         return $this->getId();
     }
 }
-
-/**#@-*/
 
 ?>

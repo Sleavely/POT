@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.0.5
- * @since 0.0.5
- */
-
 /**
  * @package POT
- * @version 0.1.0
+ * @version 0.2.0+SVN
+ * @since 0.0.5
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -17,7 +13,8 @@
  * SQL identifier representation.
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.2.0+SVN
+ * @since 0.0.5
  * @property-read string $name Field name.
  * @property-read string $table Table name.
  * @tutorial POT/List_objects.pkg#filters.field
@@ -27,12 +24,16 @@ class OTS_SQLField
 /**
  * Field name.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @var string
  */
     private $name;
 /**
  * Table name.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @var string
  */
     private $table;
@@ -40,6 +41,8 @@ class OTS_SQLField
 /**
  * Creates new field representation.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @param string $name Field name.
  * @param string $table Table name.
  */
@@ -52,6 +55,8 @@ class OTS_SQLField
 /**
  * Returns field name.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @return string Field name.
  */
     public function getName()
@@ -62,6 +67,8 @@ class OTS_SQLField
 /**
  * Returns table name.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @return string Table name.
  */
     public function getTable()
@@ -98,14 +105,14 @@ class OTS_SQLField
  * Returned string can be easily inserted into SQL query.
  * </p>
  * 
- * @version 0.1.0
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @return string String WHERE clause.
  */
     public function __toString()
     {
         // database handle
-        $db = POT::getInstance()->getDBHandle();
+        $db = POT::getDBHandle();
 
         // basic name
         $name = $db->fieldName($this->name);
@@ -119,7 +126,5 @@ class OTS_SQLField
         return $name;
     }
 }
-
-/**#@-*/
 
 ?>

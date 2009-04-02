@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.0.3
- * @since 0.0.3
- */
-
 /**
  * @package POT
- * @version 0.1.0
+ * @version 0.2.0+SVN
+ * @since 0.0.3
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -21,7 +17,8 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.0
+ * @version 0.2.0+SVN
+ * @since 0.0.3
  * @property int $count Amount of item.
  * @property string $attributes Attributes binary string.
  * @property-read int $id Item type ID.
@@ -32,6 +29,8 @@ class OTS_Item implements Countable
 /**
  * Item ID.
  * 
+ * @version 0.0.3
+ * @since 0.0.3
  * @var int
  */
     private $id;
@@ -39,6 +38,8 @@ class OTS_Item implements Countable
 /**
  * Item count.
  * 
+ * @version 0.0.3
+ * @since 0.0.3
  * @var int
  */
     private $count = 0;
@@ -46,6 +47,8 @@ class OTS_Item implements Countable
 /**
  * Additional attributes.
  * 
+ * @version 0.0.3
+ * @since 0.0.3
  * @var string
  */
     private $attributes;
@@ -53,6 +56,8 @@ class OTS_Item implements Countable
 /**
  * Creates item of given ID.
  * 
+ * @version 0.0.3
+ * @since 0.0.3
  * @param int $id Item ID.
  */
     public function __construct($id)
@@ -63,6 +68,8 @@ class OTS_Item implements Countable
 /**
  * Returns item type.
  * 
+ * @version 0.0.3
+ * @since 0.0.3
  * @return int Item ID.
  */
     public function getId()
@@ -73,6 +80,8 @@ class OTS_Item implements Countable
 /**
  * Returns count of item.
  * 
+ * @version 0.0.3
+ * @since 0.0.3
  * @return int Count of item.
  */
     public function getCount()
@@ -83,6 +92,8 @@ class OTS_Item implements Countable
 /**
  * Sets count of item.
  * 
+ * @version 0.0.3
+ * @since 0.0.3
  * @param int $count Count.
  */
     public function setCount($count)
@@ -93,6 +104,8 @@ class OTS_Item implements Countable
 /**
  * Returns item custom attributes.
  * 
+ * @version 0.0.3
+ * @since 0.0.3
  * @return string Attributes.
  */
     public function getAttributes()
@@ -103,6 +116,8 @@ class OTS_Item implements Countable
 /**
  * Sets item attributes.
  * 
+ * @version 0.0.3
+ * @since 0.0.3
  * @param string $attributes Item Attributes.
  */
     public function setAttributes($attributes)
@@ -113,19 +128,21 @@ class OTS_Item implements Countable
 /**
  * Returns type of item.
  * 
- * @version 0.1.0
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @return OTS_ItemType Returns item type of item (null if not exists).
  * @throws E_OTS_NotLoaded If global items list wasn't loaded.
  */
     public function getItemType()
     {
-        return POT::getInstance()->getItemsList()->getItemType($this->id);
+        return POT::getItemsList()->getItemType($this->id);
     }
 
 /**
  * Count value for current item.
  * 
+ * @version 0.0.3
+ * @since 0.0.3
  * @return int Count of item.
  */
     public function count()
@@ -190,7 +207,5 @@ class OTS_Item implements Countable
         }
     }
 }
-
-/**#@-*/
 
 ?>

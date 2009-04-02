@@ -1,21 +1,21 @@
-What's new in 0.1.6 version?
+What's new in 0.2.0+SVN version?
 
-* Support for new player properties.
+* Dropped 0.0.x and 0.1.x deprecations.
 
-    Added support for lastlogout and stamina fields.
+    There were many elements that lasted from the very first release of PHP OTServ Toolkit and they caused big mess in code. All of them have been dropped out (code that used deprecated methods/constants will not work!).
 
-* Schema info support.
+* Dropped PHP 5.0 support.
 
-    It is possible to fetch all schema_info settings via POT::getSchemaInfo().
+    PHP 5.0 is ancient. Does anyone still uses it? If so then POT won't run there. Not a big loss anyway - PHP 5.0 lacked many new capabilities like array typehinting, PDO, improved SPL library and many many more.
 
-* Updated OTAdmin client (server saving and opening).
+* Made POT class static.
 
-    OTS_Admin::save() and OTS_Admin::open() methods are provided. It is now possible to executed full server saving cycle using POT.
+    POT main class is now set of static methods - no need to instantize it and/or using it's singleton. You in fact should not do that anymore.
 
-* Updated binay format support.
+* Fixed loading instants in player spells.
 
-    Updated OTBM loader for new file format. It now handles waypoints (literaly _handles_, not only _not breaks at them_). After loading map you can fetch map ways by OTS_OTBMFile::getWaypointsList() which will result array of ways of OTS_Waypoint objects. Also added contants for new item attributes.
+    Just a typo in code.
 
-* Bugfixes.
+* Lots of bugs reported by Junkfood fixed.
 
-    As always.
+    Great thanks to Junkfood for reporting them.

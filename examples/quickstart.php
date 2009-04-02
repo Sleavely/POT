@@ -14,8 +14,8 @@ $config = array(
 );
 
 // creates POT instance (or get existing one)
-$ots = POT::getInstance();
-$ots->connect(null, $config);
-// could be: $ots->connect(POT::DB_MYSQL, $config);
+// dont use POT::getInstance() anymore
+POT::connect(null, $config);
+// could be: POT::connect(POT::DB_MYSQL, $config);
 
 ?>

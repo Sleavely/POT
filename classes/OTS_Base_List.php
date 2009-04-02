@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.0.5
- * @since 0.0.5
- */
-
 /**
  * @package POT
- * @version 0.1.5
+ * @version 0.2.0+SVN
+ * @since 0.0.5
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  * @todo future: Iterator classes (to map id => name iterations) with tutorial.
  * @todo 0.2.0: Use fetchObject() to reduce amount of SQL queries.
@@ -31,7 +27,8 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.5
+ * @version 0.2.0+SVN
+ * @since 0.0.5
  * @property-write int $limit Sets LIMIT clause.
  * @property-write int $offset Sets OFFSET clause.
  * @property-write OTS_SQLFilter $filter Sets filter for list SQL query.
@@ -43,12 +40,15 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * 
  * @var PDO
  * @version 0.1.5
+ * @since 0.0.5
  */
     protected $db;
 
 /**
  * Limit for SELECT query.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @var int
  */
     private $limit = false;
@@ -56,6 +56,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Offset for SELECT query.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @var int
  */
     private $offset = false;
@@ -63,6 +65,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * WHERE clause filter.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @var OTS_SQLFilter
  */
     private $filter = null;
@@ -70,6 +74,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * List of sorting criteriums.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @var array
  */
     private $orderBy = array();
@@ -77,6 +83,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Query results.
  * 
+ * @since 0.0.5
  * @var array
  * @version 0.1.5
  */
@@ -85,6 +92,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Default table name for queries.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @var string
  */
     protected $table;
@@ -92,6 +101,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Class of generated objects.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @var string
  */
     protected $class;
@@ -99,16 +110,20 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Sets database connection handler.
  * 
- * @version 0.1.0
+ * @version 0.2.0+SVN
+ * @since 0.0.5
  */
     public function __construct()
     {
-        $this->db = POT::getInstance()->getDBHandle();
+        $this->db = POT::getDBHandle();
         $this->init();
     }
 
 /**
  * Sets list parameters.
+ * 
+ * @version 0.0.5
+ * @since 0.0.5
  */
     abstract public function init();
 
@@ -119,6 +134,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Allows object serialisation.
  * </p>
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @return array List of properties that should be saved.
  */
     public function __sleep()
@@ -132,10 +149,13 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * <p>
  * Allows object unserialisation.
  * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.0.5
  */
     public function __wakeup()
     {
-        $this->db = POT::getInstance()->getDBHandle();
+        $this->db = POT::getDBHandle();
     }
 
 /**
@@ -146,6 +166,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * </p>
  * 
  * @version 0.1.3
+ * @since 0.0.5
  * @param array $properties List of object properties.
  */
     public static function __set_state($properties)
@@ -175,6 +196,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Reduces amount of seleced rows up to given number.
  * </p>
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @param int|bool $limit Limit for SELECT (false to reset).
  */
     public function setLimit($limit = false)
@@ -196,6 +219,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Moves starting rows of selected set to given position.
  * </p>
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @param int|bool $offset Offset for SELECT (false to reset).
  */
     public function setOffset($offset = false)
@@ -218,6 +243,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * </p>
  * 
  * @version 0.1.3
+ * @since 0.0.5
  * @return OTS_Base_DAO Current row.
  */
     public function current()
@@ -231,6 +257,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Select rows from database.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @throws PDOException On PDO operation error.
  */
     public function rewind()
@@ -240,6 +268,9 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 
 /**
  * Moves to next row.
+ * 
+ * @version 0.0.5
+ * @since 0.0.5
  */
     public function next()
     {
@@ -249,6 +280,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Current cursor position.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @return mixed Array key.
  */
     public function key()
@@ -259,6 +292,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 /**
  * Checks if there are any rows left.
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @return bool Does next row exist.
  */
     public function valid()
@@ -270,6 +305,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Returns number of rows on list in current criterium.
  * 
  * @version 0.1.5
+ * @since 0.0.5
  * @return int Number of rows.
  * @throws PDOException On PDO operation error.
  */
@@ -285,6 +321,8 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Call without argument to reset filter.
  * </p>
  * 
+ * @version 0.0.5
+ * @since 0.0.5
  * @param OTS_SQLFilter|null $filter Filter for list.
  */
     public function setFilter(OTS_SQLFilter $filter = null)
@@ -294,6 +332,9 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
 
 /**
  * Clears ORDER BY clause.
+ * 
+ * @version 0.0.5
+ * @since 0.0.5
  */
     public function resetOrder()
     {
@@ -312,6 +353,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * </p>
  * 
  * @version 0.0.7
+ * @since 0.0.5
  * @param OTS_SQLField|string $field Field name.
  * @param int $order Sorting order (ascending by default).
  */
@@ -343,6 +385,7 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
  * Returns SQL query for SELECT.
  * 
  * @version 0.1.5
+ * @since 0.0.5
  * @param bool $count Shows if the SQL should be generated for COUNT() variant.
  * @return string SQL query part.
  */
@@ -461,7 +504,5 @@ abstract class OTS_Base_List implements IOTS_DAO, Iterator, Countable
         }
     }
 }
-
-/**#@-*/
 
 ?>

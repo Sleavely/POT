@@ -24,7 +24,7 @@
         <refsect2 id="{@id requirements}">
             <title>System requirements</title>
             <para>
-            To use POT you need {@link http://www.php.net/ PHP} version at least 5.0 with {@link http://www.php.net/manual/en/ref.pdo.php PDO extension installed} (so it means you will mostly need PHP 5.1, but it is possible to download PDO as external libraries for PHP 5.0.x).
+            To use POT you need {@link http://www.php.net/ PHP} version at least 5.1 with {@link http://www.php.net/manual/en/ref.pdo.php PDO extension installed}.
             </para>
             <refsect3 id="{@id domxml}">
                 <title>DOM XML</title>

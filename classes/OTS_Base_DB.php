@@ -1,14 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.1.3
- * @since 0.1.3
- */
-
 /**
  * @package POT
+ * @version 0.2.0+SVN
+ * @since 0.1.3
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -20,12 +17,16 @@
  * </p>
  * 
  * @package POT
+ * @version 0.2.0+SVN
+ * @since 0.1.3
  */
-abstract class OTS_Base_DB extends PDO implements IOTS_DB
+abstract class OTS_Base_DB extends PDO
 {
 /**
  * Tables prefix.
  * 
+ * @version 0.1.3
+ * @since 0.1.3
  * @var string
  */
     private $prefix = '';
@@ -33,6 +34,8 @@ abstract class OTS_Base_DB extends PDO implements IOTS_DB
 /**
  * Query-quoted field name.
  * 
+ * @version 0.1.3
+ * @since 0.1.3
  * @param string $name Field name.
  * @return string Quoted name.
  */
@@ -44,6 +47,8 @@ abstract class OTS_Base_DB extends PDO implements IOTS_DB
 /**
  * Query-quoted table name.
  * 
+ * @version 0.1.3
+ * @since 0.1.3
  * @param string $name Table name.
  * @return string Quoted name.
  */
@@ -53,29 +58,10 @@ abstract class OTS_Base_DB extends PDO implements IOTS_DB
     }
 
 /**
- * @param stirng $string String to be quoted.
- * @return string Quoted string.
- * @deprecated 0.0.5 Use PDO::quote().
- * @version 0.0.7
- */
-    public function SQLquote($string)
-    {
-        return parent::quote($string, PDO_PARAM_STR);
-    }
-
-/**
- * @param string $query SQL query.
- * @return PDOStatement|bool Query results.
- * @deprecated 0.0.5 Use PDO::query().
- */
-    public function SQLquery($query)
-    {
-        return parent::query($query);
-    }
-
-/**
  * LIMIT/OFFSET clause for queries.
  * 
+ * @version 0.1.3
+ * @since 0.1.3
  * @param int|bool $limit Limit of rows to be affected by query (false if no limit).
  * @param int|bool $offset Number of rows to be skipped before applying query effects (false if no offset).
  * @return string LIMIT/OFFSET SQL clause for query.
@@ -99,7 +85,5 @@ abstract class OTS_Base_DB extends PDO implements IOTS_DB
         return $sql;
     }
 }
-
-/**#@-*/
 
 ?>

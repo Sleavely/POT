@@ -119,7 +119,6 @@ class POTTest extends PHPUnit_Framework_TestCase {
      * @access protected
      */
     protected function setUp() {
-        $this->ots = POT::getInstance();
     }
 
     /**

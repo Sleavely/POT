@@ -1,13 +1,9 @@
 <?php
 
-/**#@+
- * @version 0.1.2
- * @since 0.1.2
- */
-
 /**
  * @package POT
- * @version 0.1.6
+ * @version 0.2.0+SVN
+ * @since 0.1.2
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
@@ -17,7 +13,8 @@
  * OTAdmin protocol client.
  * 
  * @package POT
- * @version 0.1.6
+ * @version 0.2.0+SVN
+ * @since 0.1.2
  * @property-read bool $requiresLogin {@link OTS_Admin::requiresLogin() requiresLogin()} wrapper.
  * @property-read bool $requiresEncryption {@link OTS_Admin::requiresEncryption() requiresEncryption()} wrapper.
  * @property-read bool $usesRSA1024XTEA {@link OTS_Admin::usesRSA1024XTEA() usesRSA1024XTEA()} wrapper.
@@ -33,120 +30,207 @@ class OTS_Admin
 {
 /**
  * User login.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const REQUEST_LOGIN = 1;
 /**
  * Encryption packet.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const REQUEST_ENCRYPTION = 2;
 /**
  * RSA key exchange.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const REQUEST_KEY_EXCHANGE = 3;
 /**
  * OTAdmin commnd.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const REQUEST_COMMAND = 4;
 /**
  * Ping.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const REQUEST_PING = 5;
 
 /**
  * Hello respond.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_HELLO = 1;
 /**
  * Keys exchange success.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_KEY_EXCHANGE_OK = 2;
 /**
  * Keys exchange failed.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_KEY_EXCHANGE_FAILED = 3;
 /**
  * Login success.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_LOGIN_OK = 4;
 /**
  * Login incorrect.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_LOGIN_FAILED = 5;
 /**
  * Command success.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_COMMAND_OK = 6;
 /**
  * Command failed.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_COMMAND_FAILED = 7;
 /**
  * Encryption initialization success.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_ENCRYPTION_OK = 8;
 /**
  * Encryption initialization failed.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_ENCRYPTION_FAILED = 9;
 /**
  * Ping success.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_PING_OK = 10;
 /**
  * Message.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_MESSAGE = 11;
 /**
  * Error.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const RESPOND_ERROR = 12;
 
 /**
  * Broadcast message.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_BROADCAST = 1;
 /**
  * Closes server.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_CLOSE_SERVER = 2;
 /**
  * Pays all rented shouses.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_PAY_HOUSES = 3;
 /**
  * Opens server for players.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_OPEN_SERVER = 4;
 /**
  * Shutdowns the server.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_SHUTDOWN_SERVER = 5;
 /**
  * Not supported in current OTAdmin imlpementation.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_RELOAD_SCRIPTS = 6;
 /**
  * Not supported in current OTAdmin imlpementation.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_PLAYER_INFO = 7;
 /**
  * Not supported in current OTAdmin imlpementation.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_GETONLINE = 8;
 /**
- * Not supported in current OTAdmin imlpementation.
+ * Kicks player.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_KICK = 9;
 /**
  * Not supported in current OTAdmin imlpementation.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_BAN_MANAGER = 10;
 /**
  * Not supported in current OTAdmin imlpementation.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_SERVER_INFO = 11;
 /**
  * Not supported in current OTAdmin imlpementation.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const COMMAND_GETHOUSE = 12;
 /**
@@ -159,21 +243,32 @@ class OTS_Admin
 
 /**
  * Server requires login.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const REQUIRE_LOGIN = 1;
 /**
  * Server requires encryption.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const REQUIRE_ENCRYPTION = 2;
 
 /**
  * Server uses XTEA encryption, XTEA key is being sent in 1024bit RSA encrypted packet.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     const ENCRYPTION_RSA1024XTEA = 1;
 
 /**
  * Socket handle.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var resource
  */
     private $socket;
@@ -181,6 +276,8 @@ class OTS_Admin
 /**
  * Server security policy.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var int
  */
     private $policy;
@@ -188,6 +285,8 @@ class OTS_Admin
 /**
  * Protocol options.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var int
  */
     private $options;
@@ -195,6 +294,8 @@ class OTS_Admin
 /**
  * Packets cipher.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var IOTS_Cipher
  */
     private $cipher;
@@ -202,6 +303,8 @@ class OTS_Admin
 /**
  * Host address for session sleep/wakeup.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var string
  */
     private $host;
@@ -209,6 +312,8 @@ class OTS_Admin
 /**
  * Port number for session sleep/wakeup.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @var int
  */
     private $port;
@@ -224,6 +329,8 @@ class OTS_Admin
  * After connecting you should check {@link OTS_Admin::requiresLogin() if server requires login}.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param string $host Target server.
  * @param int $port Port (7171 by default).
  * @throws E_OTS_ErrorCode When receive failed respond or unexpected message.
@@ -325,6 +432,8 @@ class OTS_Admin
 /**
  * Checks if protocol requires login.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return bool True if protocol requires user login.
  */
     public function requiresLogin()
@@ -335,6 +444,8 @@ class OTS_Admin
 /**
  * Checks if protocol requires encryption.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return bool True if protocol requires encryption.
  */
     public function requiresEncryption()
@@ -345,6 +456,8 @@ class OTS_Admin
 /**
  * Checks if protocol requires XTEA encryption with RSA-encrypted key.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return bool True if protocol requires that encryption.
  */
     public function usesRSA1024XTEA()
@@ -355,6 +468,8 @@ class OTS_Admin
 /**
  * Sends OTAdmin packet.
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param OTS_Buffer $message Packet to be sent.
  * @return OTS_Buffer Server respond.
  * @throws E_OTS_ErrorCode When receive RESPOND_ERROR message.
@@ -400,6 +515,9 @@ class OTS_Admin
 
 /**
  * Closes connection.
+ * 
+ * @version 0.1.2
+ * @since 0.1.2
  */
     public function __destruct()
     {
@@ -477,6 +595,8 @@ class OTS_Admin
  * Call this method if after connection is established login required flag is set.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param string $password Admin password.
  * @throws E_OTS_ErrorCode When receive failed respond or unexpected message.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
@@ -507,6 +627,8 @@ class OTS_Admin
  * Note: This methods calculates ping time based on {@link OTS_Admin::send() OTS_Admin::send()} sub-call. This means ping time will be time used for entire seding operation including packet encryption, packing, unpacking and decryption.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return int Ping time.
  * @throws E_OTS_ErrorCode When receive failed respond or unexpected message.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
@@ -542,6 +664,8 @@ class OTS_Admin
  * This method wraps another buffer within command byte and also checks for command success.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param OTS_Buffer $message Command to be send.
  * @return OTS_Buffer Respond.
  * @throws E_OTS_ErrorCode If failure respond received.
@@ -576,6 +700,8 @@ class OTS_Admin
  * Sends broadcast message to all players.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @param string $message Broadcast to be sent.
  * @throws E_OTS_ErrorCode If failure respond received.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
@@ -616,6 +742,8 @@ class OTS_Admin
  * Closes server. This command closes server for connections to enable maintenance but doesn't shut it down.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @throws E_OTS_ErrorCode If failure respond received.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
  */
@@ -634,6 +762,8 @@ class OTS_Admin
  * Takes fees for all rented houses.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @throws E_OTS_ErrorCode If failure respond received.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
  */
@@ -652,6 +782,8 @@ class OTS_Admin
  * Shutdowns server. This command closes server thread.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @throws E_OTS_ErrorCode If failure respond received.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
  */
@@ -712,11 +844,13 @@ class OTS_Admin
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * </p>
  * 
+ * @version 0.2.0+SVN
+ * @since 0.1.2
  * @param array $properties List of object properties.
  * @throws E_OTS_ErrorCode When receive failed respond or unexpected message.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
  */
-    public static function __set_state($properties)
+    public static function __set_state(array $properties)
     {
         return new self($properties['host'], $properties['port']);
     }
@@ -728,6 +862,8 @@ class OTS_Admin
  * Creates new socket connection to server.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @throws E_OTS_ErrorCode When receive failed respond or unexpected message.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
  */
@@ -743,6 +879,8 @@ class OTS_Admin
  * Allows object serialisation.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @return array List of properties that should be saved.
  */
     public function __sleep()
@@ -757,6 +895,8 @@ class OTS_Admin
  * Allows object unserialisation.
  * </p>
  * 
+ * @version 0.1.2
+ * @since 0.1.2
  * @throws E_OTS_ErrorCode When receive failed respond or unexpected message.
  * @throws E_OTS_OutOfBuffer When there is read attemp after end of packet stream.
  */
@@ -765,7 +905,5 @@ class OTS_Admin
         $this->__construct($this->host, $this->port);
     }
 }
-
-/**#@-*/
 
 ?>

@@ -1,17 +1,13 @@
 <?php
 
-/**#@+
- * @version 0.0.8
- * @since 0.0.8
- */
-
 /**
  * Code in this file bases on oryginal OTServ items loading C++ code (items.cpp, items.h).
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.0.8
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -23,7 +19,8 @@
  * </p>
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.0.8
  * @property int $clientId Client ID.
  * @property string $name Item name.
  * @property int $group Group.
@@ -48,58 +45,100 @@ class OTS_ItemType
 {
 /**
  * No group speciffied.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_NONE = 0;
 /**
  * Ground tile.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_GROUND = 1;
 /**
  * Container.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_CONTAINER = 2;
 /**
  * Weapon.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_WEAPON = 3;
 /**
  * Ammunition.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_AMMUNITION = 4;
 /**
  * Armor.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_ARMOR = 5;
 /**
  * Rune.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_RUNE = 6;
 /**
  * Teleport field.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_TELEPORT = 7;
 /**
  * Magic field.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_MAGICFIELD = 8;
 /**
  * Item that can store editable sign.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_WRITEABLE = 9;
 /**
  * Key.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_KEY = 10;
 /**
  * Splash effect.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_SPLASH = 11;
 /**
  * Liquid thing.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_FLUID = 12;
 /**
  * Door.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_GROUP_DOOR = 13;
 /**
@@ -112,30 +151,51 @@ class OTS_ItemType
 
 /**
  * No special type.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_TYPE_NONE = 0;
 /**
  * Depot locker.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_TYPE_DEPOT = 1;
 /**
  * Mailbox.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_TYPE_MAILBOX = 2;
 /**
  * Trash can.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_TYPE_TRASHHOLDER = 3;
 /**
  * Container.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_TYPE_CONTAINER = 4;
 /**
  * Door.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_TYPE_DOOR = 5;
 /**
  * Magic field.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const ITEM_TYPE_MAGICFIELD = 6;
 /**
@@ -148,92 +208,157 @@ class OTS_ItemType
 
 /**
  * Can block characters from walking.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_BLOCK_SOLID = 1;
 /**
  * BLOCK_PROJECTILE flag(?).
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_BLOCK_PROJECTILE = 2;
 /**
  * Can block searching for path.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_BLOCK_PATHFIND = 4;
 /**
  * Does item rises stack height on it's field.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_HAS_HEIGHT = 8;
 /**
  * Can be used by players.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_USEABLE = 16;
 /**
  * Can be picked up by player.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_PICKUPABLE = 32;
 /**
  * Can be moved by player.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_MOVEABLE = 64;
 /**
  * Can be grouped with another items.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_STACKABLE = 128;
 /**
  * Changes floor under it.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_FLOORCHANGEDOWN = 256;
 /**
  * Changes floor north from it's position.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_FLOORCHANGENORTH = 512;
 /**
  * Changes floor east from it's position.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_FLOORCHANGEEAST = 1024;
 /**
  * Changes floor south from it's position.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_FLOORCHANGESOUTH = 2048;
 /**
  * Changes floor west from it's position.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_FLOORCHANGEWEST = 4096;
 /**
  * Is always over other items in stack.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_ALWAYSONTOP = 8192;
 /**
  * Has readable sign.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_READABLE = 16384;
 /**
  * Can be rotated by player.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_ROTABLE = 32768;
 /**
- * Can be hang(?).
+ * Can be hanged(?).
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_HANGABLE = 65536;
 /**
  * Is oriented verticaly.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_VERTICAL = 131072;
 /**
  * Is oriented horizontaly.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_HORIZONTAL = 262144;
 /**
  * Doesn't decay.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_CANNOTDECAY = 524288;
 /**
  * Can be read from distance.
+ * 
+ * @version 0.0.8
+ * @since 0.0.8
  */
     const FLAG_ALLOWDISTREAD = 1048576;
 
 /**
  * Item type (server) ID.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @var int
  */
     private $id;
@@ -241,6 +366,8 @@ class OTS_ItemType
 /**
  * Item client mask ID.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @var int
  */
     private $clientId;
@@ -248,6 +375,8 @@ class OTS_ItemType
 /**
  * Item name.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @var string
  */
     private $name;
@@ -255,6 +384,8 @@ class OTS_ItemType
 /**
  * Attributes.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @var array
  */
     private $attributes;
@@ -262,6 +393,8 @@ class OTS_ItemType
 /**
  * Item group.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @var int
  */
     private $group = self::ITEM_GROUP_NONE;
@@ -269,6 +402,8 @@ class OTS_ItemType
 /**
  * Item type.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @var int
  */
     private $type = self::ITEM_TYPE_NONE;
@@ -276,6 +411,8 @@ class OTS_ItemType
 /**
  * Type flags.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @var int
  */
     private $flags;
@@ -283,6 +420,8 @@ class OTS_ItemType
 /**
  * Initializes new item type object.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @param int $id Server ID.
  */
     public function __construct($id)
@@ -297,10 +436,11 @@ class OTS_ItemType
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * </p>
  * 
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.0.8
  * @param array $properties List of object properties.
  */
-    public static function __set_state($properties)
+    public static function __set_state(array $properties)
     {
         $object = new self($properties['id']);
 
@@ -318,6 +458,8 @@ class OTS_ItemType
 /**
  * Returns item type server ID.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return int ID.
  */
     public function getId()
@@ -328,6 +470,8 @@ class OTS_ItemType
 /**
  * Returns item type client ID.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return int Cient ID.
  */
     public function getClientId()
@@ -338,6 +482,8 @@ class OTS_ItemType
 /**
  * Sets client side ID.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @param int $clientId Client ID.
  */
     public function setClientId($clientId)
@@ -348,6 +494,8 @@ class OTS_ItemType
 /**
  * Returns item name.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return string Item type name.
  */
     public function getName()
@@ -358,6 +506,8 @@ class OTS_ItemType
 /**
  * Sets item type name.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @param string $name Name.
  */
     public function setName($name)
@@ -382,6 +532,7 @@ class OTS_ItemType
  * Returns given attribute.
  * 
  * @version 0.1.3
+ * @since 0.0.8
  * @param string $attribyte Attribute name.
  * @return string Attribute value.
  * @throws OutOfBoundsException If not set.
@@ -399,6 +550,8 @@ class OTS_ItemType
 /**
  * Sets given attribute.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @param string $attribute Attribute name.
  * @param string $value Attribute value.
  */
@@ -410,6 +563,8 @@ class OTS_ItemType
 /**
  * Returns all attributes list.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return array List of attributes.
  */
     public function getAttributesList()
@@ -420,6 +575,8 @@ class OTS_ItemType
 /**
  * Returns group.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return int Item group.
  */
     public function getGroup()
@@ -430,6 +587,8 @@ class OTS_ItemType
 /**
  * Sets item group.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @param int $group Group.
  */
     public function setGroup($group)
@@ -440,6 +599,8 @@ class OTS_ItemType
 /**
  * Returns item type.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return int Item type.
  */
     public function getType()
@@ -450,6 +611,8 @@ class OTS_ItemType
 /**
  * Sets item type.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @param int $type Type.
  */
     public function setType($type)
@@ -460,6 +623,8 @@ class OTS_ItemType
 /**
  * Sets type flags.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @param int $flags Flags.
  */
     public function setFlags($flags)
@@ -470,6 +635,8 @@ class OTS_ItemType
 /**
  * Checks if item is blocking.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Is item blocking.
  */
     public function isBlocking()
@@ -480,6 +647,8 @@ class OTS_ItemType
 /**
  * Checks if item has height.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Has item height.
  */
     public function hasHeight()
@@ -490,6 +659,8 @@ class OTS_ItemType
 /**
  * Checks if item is usable.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Is item usable.
  */
     public function isUsable()
@@ -500,6 +671,8 @@ class OTS_ItemType
 /**
  * Checks if item is pickupable.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Is item pickuable.
  */
     public function isPickupable()
@@ -510,6 +683,8 @@ class OTS_ItemType
 /**
  * Checks if item is movable.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Is item movable.
  */
     public function isMovable()
@@ -520,6 +695,8 @@ class OTS_ItemType
 /**
  * Checks if item is stackable.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Is item stackable.
  */
     public function isStackable()
@@ -530,6 +707,8 @@ class OTS_ItemType
 /**
  * Checks if item is always on top.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Is item always on top.
  */
     public function isAlwaysOnTop()
@@ -540,6 +719,8 @@ class OTS_ItemType
 /**
  * Checks if item is readable.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Is item readable.
  */
     public function isReadable()
@@ -550,6 +731,8 @@ class OTS_ItemType
 /**
  * Checks if item can be rotated.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Is item can be rotated.
  */
     public function isRotable()
@@ -560,6 +743,8 @@ class OTS_ItemType
 /**
  * Checks if item can be hanged.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Is item can be hanged.
  */
     public function isHangable()
@@ -570,6 +755,8 @@ class OTS_ItemType
 /**
  * Checks if item is vertical.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Is item vertical.
  */
     public function isVertical()
@@ -580,6 +767,8 @@ class OTS_ItemType
 /**
  * Checks if item is horizontal.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return bool Is item horizontal.
  */
     public function isHorizontal()
@@ -590,6 +779,8 @@ class OTS_ItemType
 /**
  * Creates instance of this type.
  * 
+ * @version 0.0.8
+ * @since 0.0.8
  * @return OTS_Item Item instance.
  */
     public function createItem()
@@ -723,24 +914,20 @@ class OTS_ItemType
  * If any display driver is currently loaded then it uses it's method. Otherwise just returns item ID.
  * </p>
  * 
- * @version 0.1.3
+ * @version 0.2.0+SVN
  * @since 0.1.3
  * @return string String representation of object.
  */
     public function __toString()
     {
-        $ots = POT::getInstance();
-
         // checks if display driver is loaded
-        if( $ots->isDataDisplayDriverLoaded() )
+        if( POT::isDataDisplayDriverLoaded() )
         {
-            return $ots->getDataDisplayDriver()->displayItemType($this);
+            return POT::getDataDisplayDriver()->displayItemType($this);
         }
 
         return $this->getId();
     }
 }
-
-/**#@-*/
 
 ?>

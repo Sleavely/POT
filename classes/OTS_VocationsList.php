@@ -1,15 +1,11 @@
 <?php
 
-/**#@+
- * @version 0.1.0
- * @since 0.1.0
- */
-
 /**
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.0
  * @author Wrzasq <wrzasq@gmail.com>
- * @copyright 2007 - 2008 (C) by Wrzasq
+ * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
  */
 
@@ -17,7 +13,8 @@
  * Wrapper for vocations.xml file.
  * 
  * @package POT
- * @version 0.1.3
+ * @version 0.2.0+SVN
+ * @since 0.1.0
  * @example examples/vocations.php vocations.php
  * @tutorial POT/data_directory.pkg#vocations
  */
@@ -26,6 +23,8 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * List of vocations.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @var array
  */
     private $vocations = array();
@@ -33,6 +32,8 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Loads vocations list from given file.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string $file vocations.xml file location.
  * @throws DOMException On DOM operation error.
  */
@@ -56,10 +57,12 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
  * Allows object importing from {@link http://www.php.net/manual/en/function.var-export.php var_export()}.
  * </p>
  * 
+ * @version 0.2.0+SVN
+ * @since 0.1.0
  * @param array $properties List of object properties.
  * @throws DOMException On DOM operation error.
  */
-    public function __set_state($properties)
+    public function __set_state(array $properties)
     {
         $object = new self();
 
@@ -89,6 +92,7 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
  * Returns vocation's ID.
  * 
  * @version 0.1.3
+ * @since 0.1.0
  * @param string $name Vocation.
  * @return int ID.
  * @throws OutOfBoundsException If not found.
@@ -123,6 +127,7 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
  * Returns name of given vocation's ID.
  * 
  * @version 0.1.3
+ * @since 0.1.0
  * @param int $id Vocation ID.
  * @return string Name.
  * @throws OutOfBoundsException If not found.
@@ -140,6 +145,8 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns amount of vocations loaded.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return int Count of vocations.
  */
     public function count()
@@ -150,6 +157,8 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * Returns iterator handle for loops.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @return ArrayIterator Vocations list iterator.
  */
     public function getIterator()
@@ -161,6 +170,7 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
  * Checks if given element exists.
  * 
  * @version 0.1.3
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @return bool True if it's set.
  */
@@ -180,6 +190,7 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
  * Returns item from given position.
  * 
  * @version 0.1.3
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @return string|int If key is an integer (type-sensitive!) then returns vocation name. If it's a string then return associated ID.
  */
@@ -198,6 +209,8 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * This method is implemented for ArrayAccess interface. In fact you can't write/append to vocations list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @param mixed $value Field value.
  * @throws E_OTS_ReadOnly Always - this class is read-only.
@@ -210,6 +223,8 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
 /**
  * This method is implemented for ArrayAccess interface. In fact you can't write/append to vocations list. Any call to this method will cause {@link E_OTS_ReadOnly E_OTS_ReadOnly} raise.
  * 
+ * @version 0.1.0
+ * @since 0.1.0
  * @param string|int $offset Array key.
  * @throws E_OTS_ReadOnly Always - this class is read-only.
  */
@@ -218,7 +233,5 @@ class OTS_VocationsList implements IteratorAggregate, Countable, ArrayAccess
         throw new E_OTS_ReadOnly();
     }
 }
-
-/**#@-*/
 
 ?>
