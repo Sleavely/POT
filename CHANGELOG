@@ -2,6 +2,7 @@
 * Dropped 0.0.x and 0.1.x deprecations. <wrzasq>
 * Dropped PHP 5.0 support. <wrzasq>
 * Made POT class static. <wrzasq>
+* Updated for new database structure. <wrzasq>
 * Fixed loading instants in player spells. <wrzasq>
 * Lots of bugs reported by Junkfood fixed. <wrzasq>
 
