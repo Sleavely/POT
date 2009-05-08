@@ -16,6 +16,7 @@
  * @property string $name Group name.
  * @property int $flags Access flags.
  * @property int $access Access level.
+ * @property int $violation Violation level.
  * @property int $maxDepotItems Maximum count of items in depot.
  * @property int $maxVIPList Maximum count of entries in VIP list.
  * @property-read bool $loaded Loaded state check.
@@ -27,22 +28,26 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Group data.
  * 
- * @version 0.0.1
+ * <p>
+ * Note: Since 0.2.0+SVN this field is protected instead of private.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
  * @var array
  */
-    private $data = array('flags' => 0);
+    protected $data = array('flags' => 0, 'access' => 0, 'violation' => 0);
 
 /**
  * Loads group with given id.
  * 
- * @version 0.0.5
+ * @version 0.2.0+SVN
  * @param int $id Group number.
  * @throws PDOException On PDO operation error.
  */
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('flags') . ', ' . $this->db->fieldName('access') . ', ' . $this->db->fieldName('maxdepotitems') . ', ' . $this->db->fieldName('maxviplist') . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('flags') . ', ' . $this->db->fieldName('access') . ', ' . $this->db->fieldName('violation') . ', ' . $this->db->fieldName('maxdepotitems') . ', ' . $this->db->fieldName('maxviplist') . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
     }
 
 /**
@@ -83,7 +88,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
  * If group is not loaded to represent any existing group it will create new row for it.
  * </p>
  * 
- * @version 0.0.5
+ * @version 0.2.0+SVN
  * @throws PDOException On PDO operation error.
  */
     public function save()
@@ -92,13 +97,13 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
         if( isset($this->data['id']) )
         {
             // UPDATE query on database
-            $this->db->query('UPDATE ' . $this->db->tableName('groups') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($this->data['name']) . ', ' . $this->db->fieldName('flags') . ' = ' . $this->data['flags'] . ', ' . $this->db->fieldName('access') . ' = ' . $this->data['access'] . ', ' . $this->db->fieldName('maxdepotitems') . ' = ' . $this->data['maxdepotitems'] . ', ' . $this->db->fieldName('maxviplist') . ' = ' . $this->data['maxviplist'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+            $this->db->query('UPDATE ' . $this->db->tableName('groups') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($this->data['name']) . ', ' . $this->db->fieldName('flags') . ' = ' . $this->data['flags'] . ', ' . $this->db->fieldName('access') . ' = ' . $this->data['access'] . ', ' . $this->db->fieldName('violation') . ' = ' . $this->data['violation'] . ', ' . $this->db->fieldName('maxdepotitems') . ' = ' . $this->data['maxdepotitems'] . ', ' . $this->db->fieldName('maxviplist') . ' = ' . $this->data['maxviplist'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
         }
         // creates new group
         else
         {
             // INSERT query on database
-            $this->db->query('INSERT INTO ' . $this->db->tableName('groups') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('flags') . ', ' . $this->db->fieldName('access') . ', ' . $this->db->fieldName('maxdepotitems') . ', ' . $this->db->fieldName('maxviplist') . ') VALUES (' . $this->db->quote($this->data['name']) . ', ' . $this->data['flags'] . ', ' . $this->data['access'] . ', ' . $this->data['maxdepotitems'] . ', ' . $this->data['maxviplist'] . ')');
+            $this->db->query('INSERT INTO ' . $this->db->tableName('groups') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('flags') . ', ' . $this->db->fieldName('access') . ', ' . $this->db->fieldName('violation') . ', ' . $this->db->fieldName('maxdepotitems') . ', ' . $this->db->fieldName('maxviplist') . ') VALUES (' . $this->db->quote($this->data['name']) . ', ' . $this->data['flags'] . ', ' . $this->data['access'] . ', ' . $this->data['violation'] . ', ' . $this->data['maxdepotitems'] . ', ' . $this->data['maxviplist'] . ')');
             // ID of new group
             $this->data['id'] = $this->db->lastInsertId();
         }
@@ -231,6 +236,40 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
     public function setAccess($access)
     {
         $this->data['access'] = (int) $access;
+    }
+
+/**
+ * Violation level.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @return int Violation level.
+ * @throws E_OTS_NotLoaded If group is not loaded.
+ */
+    public function getViolation()
+    {
+        if( !isset($this->data['violation']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        return $this->data['violation'];
+    }
+
+/**
+ * Sets violation level.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @param int $violation Violation level.
+ */
+    public function setViolation($violation)
+    {
+        $this->data['violation'] = (int) $violation;
     }
 
 /**
@@ -463,7 +502,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
@@ -490,6 +529,9 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
             case 'access':
                 return $this->getAccess();
 
+            case 'violation':
+                return $this->getViolation();
+
             case 'maxDepotItems':
                 return $this->getMaxDepotItems();
 
@@ -507,7 +549,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.
@@ -528,6 +570,10 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
 
             case 'access':
                 $this->setAccess($value);
+                break;
+
+            case 'violation':
+                $this->setViolation($value);
                 break;
 
             case 'maxDepotItems':

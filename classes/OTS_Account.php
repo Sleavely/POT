@@ -18,8 +18,9 @@
  * @property string $eMail Email address.
  * @property int $premiumEnd Timestamp of PACC end.
  * @property bool $blocked Blocked flag state.
- * @property bool $deleted Deleted flag state.
- * @property bool $warned Warned flag state.
+ * @property int $warnings Warnings level.
+ * @property bool $deleted Deleted flag state - deprecated.
+ * @property bool $warned Warned flag state - deprecated.
  * @property-read int $id Account number.
  * @property-read bool $loaded Loaded state.
  * @property-read OTS_Players_List $playersList Characters of this account.
@@ -31,10 +32,14 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Account data.
  * 
+ * <p>
+ * Note: Since 0.2.0+SVN this field is protected instead of private.
+ * </p>
+ * 
  * @var array
- * @version 0.1.5
+ * @version 0.2.0+SVN
  */
-    private $data = array('email' => '', 'premend' => 0, 'blocked' => false, 'deleted' => false, 'warned' => false);
+    protected $data = array('email' => '', 'premend' => 0, 'blocked' => false, 'warnings' => 0);
 
 /**
  * Creates new account.
@@ -95,14 +100,14 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Loads account with given number.
  * 
- * @version 0.0.6
+ * @version 0.2.0+SVN
  * @param int $id Account number.
  * @throws PDOException On PDO operation error.
  */
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('premend') . ', ' . $this->db->fieldName('blocked') . ', ' . $this->db->fieldName('deleted') . ', ' . $this->db->fieldName('warned') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('password') . ', ' . $this->db->fieldName('email') . ', ' . $this->db->fieldName('premend') . ', ' . $this->db->fieldName('blocked') . ', ' . $this->db->fieldName('warnings') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
     }
 
 /**
@@ -171,7 +176,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded exception} instead of triggering E_USER_WARNING.
  * </p>
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @throws E_OTS_NotLoaded If account doesn't have ID assigned.
  * @throws PDOException On PDO operation error.
  */
@@ -183,7 +188,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
         }
 
         // UPDATE query on database
-        $this->db->query('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName('password') . ' = ' . $this->db->quote($this->data['password']) . ', ' . $this->db->fieldName('email') . ' = ' . $this->db->quote($this->data['email']) . ', ' . $this->db->fieldName('premend') . ' = ' . $this->data['premend'] . ', ' . $this->db->fieldName('blocked') . ' = ' . (int) $this->data['blocked'] . ', ' . $this->db->fieldName('deleted') . ' = ' . (int) $this->data['deleted'] . ', ' . $this->db->fieldName('warned') . ' = ' . (int) $this->data['warned'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+        $this->db->query('UPDATE ' . $this->db->tableName('accounts') . ' SET ' . $this->db->fieldName('password') . ' = ' . $this->db->quote($this->data['password']) . ', ' . $this->db->fieldName('email') . ' = ' . $this->db->quote($this->data['email']) . ', ' . $this->db->fieldName('premend') . ' = ' . $this->data['premend'] . ', ' . $this->db->fieldName('blocked') . ' = ' . (int) $this->data['blocked'] . ', ' . $this->db->fieldName('warnings') . ' = ' . $this->data['warnings'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
     }
 
 /**
@@ -405,12 +410,47 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
     }
 
 /**
+ * Warnings count.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @return int Warnings.
+ * @throws E_OTS_NotLoaded If account is not loaded.
+ */
+    public function getEMail()
+    {
+        if( !isset($this->data['warnings']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        return $this->data['warnings'];
+    }
+
+/**
+ * Sets account's warnings level.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @param int $warnings Warnings count.
+ */
+    public function setWarnings($warnings)
+    {
+        $this->data['warnings'] = (int) $warnings;
+    }
+
+/**
  * Checks if account is deleted (by flag setting).
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
  * @return bool Flag state.
  * @throws E_OTS_NotLoaded If account is not loaded.
+ * @deprecated 0.2.0+SVN Delete and warn flags were replaced by warnings level: use {@link OTS_Account::getWarnings() getWarnings()} and {@link OTS_Account::setWarnings() setWarnings()}.
  */
     public function isDeleted()
     {
@@ -419,7 +459,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
             throw new E_OTS_NotLoaded();
         }
 
-        return $this->data['blocked'];
+        return false;
     }
 
 /**
@@ -429,12 +469,12 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
+ * @deprecated 0.2.0+SVN Delete and warn flags were replaced by warnings level: use {@link OTS_Account::getWarnings() getWarnings()} and {@link OTS_Account::setWarnings() setWarnings()}.
  */
     public function unsetDeleted()
     {
-        $this->data['deleted'] = false;
     }
 
 /**
@@ -444,21 +484,22 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
+ * @deprecated 0.2.0+SVN Delete and warn flags were replaced by warnings level: use {@link OTS_Account::getWarnings() getWarnings()} and {@link OTS_Account::setWarnings() setWarnings()}.
  */
     public function setDeleted()
     {
-        $this->data['deleted'] = true;
     }
 
 /**
  * Checks if account is warned.
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
  * @return bool Flag state.
  * @throws E_OTS_NotLoaded If account is not loaded.
+ * @deprecated 0.2.0+SVN Delete and warn flags were replaced by warnings level: use {@link OTS_Account::getWarnings() getWarnings()} and {@link OTS_Account::setWarnings() setWarnings()}.
  */
     public function isWarned()
     {
@@ -467,7 +508,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
             throw new E_OTS_NotLoaded();
         }
 
-        return $this->data['warned'];
+        return $this->data['warnings'] > 0;
     }
 
 /**
@@ -477,12 +518,12 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
+ * @deprecated 0.2.0+SVN Delete and warn flags were replaced by warnings level: use {@link OTS_Account::getWarnings() getWarnings()} and {@link OTS_Account::setWarnings() setWarnings()}.
  */
     public function unwarn()
     {
-        $this->data['warned'] = false;
     }
 
 /**
@@ -492,12 +533,12 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
  * </p>
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
+ * @deprecated 0.2.0+SVN Delete and warn flags were replaced by warnings level: use {@link OTS_Account::getWarnings() getWarnings()} and {@link OTS_Account::setWarnings() setWarnings()}.
  */
     public function warn()
     {
-        $this->data['warned'] = true;
     }
 
 /**
@@ -753,6 +794,9 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
             case 'blocked':
                 return $this->isBlocked();
 
+            case 'warnings':
+                return $this->getWarnings();
+
             case 'deleted':
                 return $this->isDeleted();
 
@@ -807,6 +851,10 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
                 {
                     $this->unblock();
                 }
+                break;
+
+            case 'warnings':
+                $this->setWarnings($value);
                 break;
 
             case 'deleted':

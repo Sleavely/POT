@@ -2,7 +2,7 @@
 
 /**
  * @package POT
- * @version 0.1.6
+ * @version 0.2.0+SVN
  * @since 0.1.5
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2008 (C) by Wrzasq
@@ -13,7 +13,7 @@
  * OTServ ban generic class. For particular purpose use {@link OTS_AccountBan OTS_AccountBan}, {@link OTS_PlayerBan OTS_PlayerBan} or {@link OTS_IPBan OTS_IPBan} classes respectively.
  * 
  * @package POT
- * @version 0.1.6
+ * @version 0.2.0+SVN
  * @since 0.1.5
  * @property int $value Banned target identifier.
  * @property int $param Additional parameter (usualy IP mask).
@@ -21,8 +21,10 @@
  * @property int $expires Expiration time.
  * @property int $added Creation time.
  * @property int $adminId ID of admin who created ban.
- * @property string $command Additional comment.
+ * @property string $comment Additional comment.
  * @property int $reason Reason identifier.
+ * @property int $action Action.
+ * @property string $statement Statement.
  * @property-read bool $loaded Loaded state check.
  * @property-read int $id Row ID.
  */
@@ -32,15 +34,15 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Ban data.
  * 
  * @var array
- * @version 0.1.6
+ * @version 0.2.0+SVN
  * @since 0.1.5
  */
-    protected $data = array('param' => 0, 'active' => true, 'admin_id' => 0, 'comment' => '', 'reason' => 0);
+    protected $data = array('param' => 0, 'active' => true, 'admin_id' => 0, 'comment' => '', 'reason' => 0, 'action' => 0, 'statement' => '');
 
 /**
  * Loads ban with given id.
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
  * @param int $id Ban ID.
  * @throws PDOException On PDO operation error.
@@ -48,7 +50,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ', ' . $this->db->fieldName('action') . ', ' . $this->db->fieldName('statement') . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
     }
 
 /**
@@ -70,7 +72,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * If object is not loaded to represent any existing ban it will create new row for it.
  * </p>
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
  * @throws PDOException On PDO operation error.
  */
@@ -80,13 +82,13 @@ abstract class OTS_Ban extends OTS_Row_DAO
         if( isset($this->data['id']) )
         {
             // UPDATE query on database
-            $this->db->query('UPDATE ' . $this->db->tableName('bans') . ' SET ' . $this->db->fieldName('type') . ' = ' . $this->data['type'] . ', ' . $this->db->fieldName('value') . ' = ' . $this->data['value'] . ', ' . $this->db->fieldName('param') . ' = ' . $this->data['param'] . ', ' . $this->db->fieldName('active') . ' = ' . (int) $this->data['active'] . ', ' . $this->db->fieldName('expires') . ' = ' . $this->data['expires'] . ', ' . $this->db->fieldName('added') . ' = ' . $this->data['added'] . ', ' . $this->db->fieldName('admin_id') . ' = ' . $this->data['admin_id'] . ', ' . $this->db->fieldName('comment') . ' = ' . $this->db->quote($this->data['comment']) . ', ' . $this->db->fieldName('reason') . ' = ' . $this->data['reason'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+            $this->db->query('UPDATE ' . $this->db->tableName('bans') . ' SET ' . $this->db->fieldName('type') . ' = ' . $this->data['type'] . ', ' . $this->db->fieldName('value') . ' = ' . $this->data['value'] . ', ' . $this->db->fieldName('param') . ' = ' . $this->data['param'] . ', ' . $this->db->fieldName('active') . ' = ' . (int) $this->data['active'] . ', ' . $this->db->fieldName('expires') . ' = ' . $this->data['expires'] . ', ' . $this->db->fieldName('added') . ' = ' . $this->data['added'] . ', ' . $this->db->fieldName('admin_id') . ' = ' . $this->data['admin_id'] . ', ' . $this->db->fieldName('comment') . ' = ' . $this->db->quote($this->data['comment']) . ', ' . $this->db->fieldName('reason') . ' = ' . $this->data['reason'] . ', ' . $this->db->fieldName('action') . ' = ' . $this->data['action'] . ', ' . $this->db->fieldName('statement') . ' = ' . $this->db->quote($this->data['statement']) . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
         }
         // creates new ban
         else
         {
             // INSERT query on database
-            $this->db->query('INSERT INTO ' . $this->db->tableName('bans') . ' (' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ') VALUES (' . $this->data['type'] . ', ' . $this->data['value'] . ', ' . $this->data['param'] . ', ' . (int) $this->data['active'] . ', ' . $this->data['expires'] . ', ' . $this->data['added'] . ', ' . $this->data['admin_id'] . ', ' . $this->db->quote($this->data['comment']) . ', ' . $this->data['reason'] . ')');
+            $this->db->query('INSERT INTO ' . $this->db->tableName('bans') . ' (' . $this->db->fieldName('type') . ', ' . $this->db->fieldName('value') . ', ' . $this->db->fieldName('param') . ', ' . $this->db->fieldName('active') . ', ' . $this->db->fieldName('expires') . ', ' . $this->db->fieldName('added') . ', ' . $this->db->fieldName('admin_id') . ', ' . $this->db->fieldName('comment') . ', ' . $this->db->fieldName('reason') . ', ' . $this->db->fieldName('action') . ', ' . $this->db->fieldName('statement') . ') VALUES (' . $this->data['type'] . ', ' . $this->data['value'] . ', ' . $this->data['param'] . ', ' . (int) $this->data['active'] . ', ' . $this->data['expires'] . ', ' . $this->data['added'] . ', ' . $this->data['admin_id'] . ', ' . $this->db->quote($this->data['comment']) . ', ' . $this->data['reason'] . ', ' . $this->data['action'] . ', ' . $this->db->quote($this->data['statement']) . ')');
             // ID of new ban
             $this->data['id'] = $this->db->lastInsertId();
         }
@@ -419,6 +421,74 @@ abstract class OTS_Ban extends OTS_Row_DAO
     }
 
 /**
+ * Ban action.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @return int Action.
+ * @throws E_OTS_NotLoaded If ban is not loaded.
+ */
+    public function getAction()
+    {
+        if( !isset($this->data['action']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        return $this->data['action'];
+    }
+
+/**
+ * Sets ban action.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @param int $action Action.
+ */
+    public function setAction($action)
+    {
+        $this->data['action'] = (int) $action;
+    }
+
+/**
+ * Statement.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @return string Statement.
+ * @throws E_OTS_NotLoaded If ban is not loaded.
+ */
+    public function getStatement()
+    {
+        if( !isset($this->data['statement']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        return $this->data['statement'];
+    }
+
+/**
+ * Sets ban statement.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @param string $statement Statement.
+ */
+    public function setStatement($statement)
+    {
+        $this->data['statement'] = (string) $statement;
+    }
+
+/**
  * Reads custom field.
  * 
  * <p>
@@ -488,7 +558,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
  * @param string $name Property name.
  * @return mixed Property value.
@@ -530,6 +600,12 @@ abstract class OTS_Ban extends OTS_Row_DAO
             case 'reason':
                 return $this->getReason();
 
+            case 'action':
+                return $this->getAction();
+
+            case 'statement':
+                return $this->getStatement();
+
             default:
                 throw new OutOfBoundsException();
         }
@@ -538,7 +614,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
  * @param string $name Property name.
  * @param mixed $value Property value.
@@ -586,6 +662,14 @@ abstract class OTS_Ban extends OTS_Row_DAO
 
             case 'reason':
                 $this->setReason($value);
+                break;
+
+            case 'action':
+                $this->setAction($value);
+                break;
+
+            case 'statement':
+                $this->setStatement($value);
                 break;
 
             default:

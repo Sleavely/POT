@@ -47,10 +47,9 @@ pot.tar.gz:
 	cp NEWS pot
 	cp README pot
 	cp RULES pot
-	cp compat.php pot
-	cp -r classes pot/pot
+	svn export classes pot/pot
 	rm -rf pot/pot/.svn
-	tar -zcf pot.tar.gz pot/*
+	tar -C pot -zcf pot.tar.gz .
 
 manual: documentation.tar.gz
 
