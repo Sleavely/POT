@@ -153,23 +153,21 @@ class OTS_FileLoader
 /**
  * Opens file.
  * 
- * @version 0.1.3
+ * @version 0.2.0+SVN
  * @since 0.0.6
  * @param string $file Filepath.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
  */
     public function loadFile($file)
     {
-        // attemts to read from cache
-        if( isset($this->cache) )
-        {
-            $this->root = $this->cache->readCache( md5_file($file) );
+        // checksum for cache driver
+        $md5 = md5_file($file);
 
-            // checks if cache was loaded
-            if( isset($this->root) )
-            {
-                return;
-            }
+        // attemts to read from cache
+        if( isset($this->cache) && $this->cache->hasCache($md5) )
+        {
+            $this->root = $this->cache->readCache($md5);
+            return;
         }
 
         // opens for read in binary mode
@@ -201,7 +199,7 @@ class OTS_FileLoader
             // writes new cache
             if( isset($this->cache) )
             {
-                $this->cache->writeCache( md5_file($file), $this->root);
+                $this->cache->writeCache($md5, $this->root);
             }
         }
         // failed to open the file

@@ -43,7 +43,7 @@
     <refsect1 id="{@id exception}">
         <title>Fatal error: Uncaught exception</title>
         <para>
-        It is not POT-related. If you see such message it's client script's author fault. POT uses exceptions to communicate errors to program so error handling mechanism can be done flexible and clean way. But many people who are making scripts based on POT don't even bother about catching exceptions. Such a shame...
+        It is not POT-related. If you see such message it's client script's author fault. POT uses exceptions to communicate errors to program so error handling mechanism can be done flexible and clean way. But many people who are making scripts based on POT don't even bother about catching exceptions. Such a shame…
         </para>
     </refsect1>
 </refentry>

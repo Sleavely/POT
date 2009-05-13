@@ -12,6 +12,10 @@ What's new in 0.2.0+SVN version?
 
     POT main class is now set of static methods - no need to instantize it and/or using it's singleton. You in fact should not do that anymore.
 
+* More strictive cache drivers interface.
+
+    From now cache driver must throw exception when request for unexisting cache was called. To check if cache exists new methods IOTS_FileCache::hasCache() and IOTS_ItemsCache::hasItems() are introduced.
+
 * Updated for new database structure.
 
     As always :).

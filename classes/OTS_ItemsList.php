@@ -219,7 +219,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  * This method loads both items.xml and items.otb files. Both of them has to be in given directory.
  * </p>
  * 
- * @version 0.1.3
+ * @version 0.2.0+SVN
  * @since 0.0.8
  * @param string $path Path to data/items directory.
  * @throws E_OTS_FileLoaderError When error occurs during file operation.
@@ -227,12 +227,15 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  */
     public function loadItems($path)
     {
+        // checksum for cache driver
+        $md5 = md5_file($path . '/items.xml');
+
         $empty = false;
 
         // loads items.xml cache
-        if( isset($this->cache) && $this->cache instanceof IOTS_ItemsCache)
+        if( isset($this->cache) && $this->cache instanceof IOTS_ItemsCache && $this->cache->hasItems($md5) )
         {
-            $this->items = $this->cache->readItems( md5_file($path . '/items.xml') );
+            $this->items = $this->cache->readItems($md5);
         }
 
         // checks if cache is loaded
@@ -269,9 +272,9 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
         $this->parse();
 
         // saves cache
-        if($empty && isset($this->cache) && $this->cache instanceof IOTS_ItemsCache)
+        if($empty && isset($this->cache) && $this->cache instanceof IOTS_ItemsCache && !$this->cache->hasItems($md5) )
         {
-            $this->cache->writeItems( md5_file($path . '/items.xml'), $this->items);
+            $this->cache->writeItems($md5, $this->items);
         }
     }
 

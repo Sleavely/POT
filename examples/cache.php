@@ -24,13 +24,21 @@ class CacheDriver implements IOTS_FileCache
         file_put_contents('.cache', serialize($this->cache) );
     }
 
+    // checks if cache exists
+    public function hasCache($md5)
+    {
+        return isset($this->cache[$md5]);
+    }
+
     // returns cached content
     public function readCache($md5)
     {
-        if( isset($this->cache[$md5]) )
+        if( !isset($this->cache[$md5]) )
         {
-            return $this->cache[$md5];
+            throw new E_OTS_NoCache();
         }
+
+        return $this->cache[$md5];
     }
 
     // saves cache for new file

@@ -7,7 +7,6 @@
  * @author Wrzasq <wrzasq@gmail.com>
  * @copyright 2007 - 2009 (C) by Wrzasq
  * @license http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License, Version 3
- * @todo 0.2.0: Add hasItems() instead of mixed result type in readItems().
  */
 
 /**
@@ -21,12 +20,22 @@
 interface IOTS_ItemsCache extends IOTS_FileCache
 {
 /**
+ * Checks if cache for given file exists.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @param string $md5 MD5 hash of file.
+ * @return bool Whether cache for given file exists or not.
+ */
+    public function hasItems($md5);
+/**
  * Returns cache.
  * 
- * @version 0.0.8
+ * @version 0.2.0+SVN
  * @since 0.0.8
  * @param string $md5 MD5 hash of file.
- * @return array|null List of items (null if file cache is not valid).
+ * @return array List of items.
+ * @throws E_OTS_NoCache When cache for given file does not exist.
  */
     public function readItems($md5);
 /**
