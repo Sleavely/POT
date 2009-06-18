@@ -117,7 +117,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Note: Since 0.1.5 version this method loads account by it's name not by e-mail address. To find account by it's e-mail address use {@link OTS_Account::findByEMail() findByEMail() method}.
  * </p>
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.0.2
  * @param string $name Account's name.
  * @throws PDOException On PDO operation error.
@@ -125,19 +125,19 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
     public function find($name)
     {
         // finds player's ID
-        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) )->fetch();
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) )->fetchColumn();
 
         // if anything was found
-        if( isset($id['id']) )
+        if($id !== false)
         {
-            $this->load($id['id']);
+            $this->load($id);
         }
     }
 
 /**
  * Loads account by it's e-mail address.
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
  * @param string $email Account's e-mail address.
  * @throws PDOException On PDO operation error.
@@ -145,12 +145,12 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
     public function findByEMail($email)
     {
         // finds player's ID
-        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('email') . ' = ' . $this->db->quote($email) )->fetch();
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('email') . ' = ' . $this->db->quote($email) )->fetchColumn();
 
         // if anything was found
-        if( isset($id['id']) )
+        if($id !== false)
         {
-            $this->load($id['id']);
+            $this->load($id);
         }
     }
 
@@ -234,7 +234,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets account's name.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.5
@@ -275,7 +275,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets account's password.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changes to database.
  * </p>
  * 
  * <p>
@@ -315,7 +315,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets account's email.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -348,7 +348,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets account's Premium Account expiration timestamp.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.5
@@ -385,7 +385,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Unblocks account.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -399,7 +399,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Blocks account.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -431,7 +431,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets account's warnings level.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.2.0+SVN
@@ -466,7 +466,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Unsets account's deleted flag.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.2.0+SVN
@@ -481,7 +481,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Deletes account (only by setting flag state, not physicly).
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.2.0+SVN
@@ -515,7 +515,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Unwarns account.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.2.0+SVN
@@ -530,7 +530,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Warns account.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Account::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.2.0+SVN
@@ -552,7 +552,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * </p>
  * 
- * @version 0.0.5
+ * @version 0.2.0+SVN
  * @since 0.0.3
  * @param string $field Field name.
  * @return string Field value.
@@ -566,8 +566,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
             throw new E_OTS_NotLoaded();
         }
 
-        $value = $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
-        return $value[$field];
+        return $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('accounts') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetchColumn();
     }
 
 /**
@@ -612,10 +611,6 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * List of characters on account.
  * 
  * <p>
- * In difference to {@link OTS_Account::getPlayers() getPlayers() method} this method returns filtered {@link OTS_Players_List OTS_Players_List} object instead of array of {@link OTS_Player OTS_Player} objects. It is more effective since OTS_Player_List doesn't perform all rows loading at once.
- * </p>
- * 
- * <p>
  * Note: Returned object is only prepared, but not initialised. When using as parameter in foreach loop it doesn't matter since it will return it's iterator, but if you will wan't to execute direct operation on that object you will need to call {@link OTS_Base_List::rewind() rewind() method} first.
  * </p>
  * 
@@ -644,10 +639,6 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
 
 /**
  * Deletes account.
- * 
- * <p>
- * This method physicly deletes account from database! To set <i>deleted</i> flag use {@link OTS_Account::setDeleted() setDeleted() method}.
- * </p>
  * 
  * @version 0.0.5
  * @since 0.0.5
@@ -827,7 +818,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
         switch($name)
         {
             case 'name':
-                $this->setName($name);
+                $this->setName($value);
                 break;
 
             case 'password':

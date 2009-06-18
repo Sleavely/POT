@@ -53,7 +53,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Loads group by it's name.
  * 
- * @version 0.1.1
+ * @version 0.2.0+SVN
  * @since 0.1.1
  * @param string $name Group name.
  * @throws PDOException On PDO operation error.
@@ -61,12 +61,12 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
     public function find($name)
     {
         // finds group's ID
-        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) )->fetch();
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) )->fetchColumn();
 
         // if anything was found
-        if( isset($id['id']) )
+        if($id !== false)
         {
-            $this->load($id['id']);
+            $this->load($id);
         }
     }
 
@@ -155,7 +155,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets group's name.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -191,7 +191,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets rights flags.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -227,7 +227,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets access level.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -260,7 +260,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets violation level.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.2.0+SVN
@@ -297,7 +297,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets maximum count of items in depot.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -333,7 +333,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets maximum count of players in VIP list.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Group::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -355,7 +355,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * </p>
  * 
- * @version 0.0.5
+ * @version 0.2.0+SVN
  * @since 0.0.3
  * @param string $field Field name.
  * @return string Field value.
@@ -369,8 +369,7 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
             throw new E_OTS_NotLoaded();
         }
 
-        $value = $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
-        return $value[$field];
+        return $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('groups') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetchColumn();
     }
 
 /**

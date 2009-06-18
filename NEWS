@@ -20,9 +20,17 @@ What's new in 0.2.0+SVN version?
 
     As always :).
 
+* Deaths list support.
+
+    One of biggest new feature is support for deaths list done in great objective way which allows to easy fetching both killers and victims, checking environment hits etc.
+
 * Fixed loading instants in player spells.
 
     Just a typo in code.
+
+* Fixed name magic property setting in account.
+
+    It was bugged and now is fixed.
 
 * Lots of bugs reported by Junkfood fixed.
 

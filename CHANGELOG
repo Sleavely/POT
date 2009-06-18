@@ -4,7 +4,9 @@
 * Made POT class static. <wrzasq>
 * More strictive cache drivers interface. <wrzasq>
 * Updated for new database structure. <wrzasq>
+* Deaths list support. <wrzasq>
 * Fixed loading instants in player spells. <wrzasq>
+* Fixed name magic property setting in account. <wrzasq>
 * Lots of bugs reported by Junkfood fixed. <wrzasq>
 
 [0.1.6]

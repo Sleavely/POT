@@ -22,6 +22,10 @@
  * @property OTS_Player $owner House owner.
  * @property int $paid Paid time.
  * @property int $warnings Warnings message.
+ * @property bool $guildHall Guild hall type.
+ * @property int $door Doors.
+ * @property int $beds Beds.
+ * @property int $lastWarning Last warning.
  * @property-read int $id House ID.
  * @property-read string $name House name.
  * @property-read int $townId ID of town where house is located.
@@ -63,7 +67,7 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Creates wrapper for given house element.
  * 
- * @version 0.1.0
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @param DOMElement $element House information.
  * @throws PDOException On PDO operation error.
@@ -74,7 +78,7 @@ class OTS_House extends OTS_Base_DAO
         $this->element = $element;
 
         // loads SQL part - `id` field is not needed as we have it from XML
-        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('owner') . ', ' . $this->db->fieldName('paid') . ', ' . $this->db->fieldName('warnings') . ' FROM ' . $this->db->tableName('houses') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->getId() )->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('townid') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('rent') . ', ' . $this->db->fieldName('guildhall') . ', ' . $this->db->fieldName('doors') . ', ' . $this->db->fieldName('beds') . ', ' . $this->db->fieldName('lastwarning') . ', ' . $this->db->fieldName('paid') . ', ' . $this->db->fieldName('owner') . ', ' . $this->db->fieldName('warnings') . ' FROM ' . $this->db->tableName('houses') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->getId() )->fetch();
     }
 
 /**
@@ -96,7 +100,7 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Saves info in database.
  * 
- * @version 0.1.0
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @throws PDOException On PDO operation error.
  */
@@ -105,12 +109,12 @@ class OTS_House extends OTS_Base_DAO
         // inserts new record
         if( empty($this->data) )
         {
-            $this->db->query('INSERT INTO ' . $this->db->tableName('houses') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('owner') . ', ' . $this->db->fieldName('paid') . ', ' . $this->db->fieldName('warnings') . ') VALUES (' . $this->getId() . ', ' . $this->data['owner'] . ', ' . $this->data['paid'] . ', ' . $this->data['warnings'] . ')');
+            $this->db->query('INSERT INTO ' . $this->db->tableName('houses') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('guildhall') . ', ' . $this->db->fieldName('doors') . ', ' . $this->db->fieldName('beds') . ', ' . $this->db->fieldName('lastwarning') . ', ' . $this->db->fieldName('owner') . ', ' . $this->db->fieldName('paid') . ', ' . $this->db->fieldName('warnings') . ') VALUES (' . $this->getId() . ', ' . $this->data['owner'] . ', ' . (int) $this->data['guildhall'] . ', ' . $this->data['doors'] . ', ' . $this->data['beds'] . ', ' . $this->data['lastwarning'] . ', ' . $this->data['paid'] . ', ' . $this->data['warnings'] . ')');
         }
         // updates previous one
         else
         {
-            $this->db->query('UPDATE ' . $this->db->tableName('houses') . ' SET ' . $this->db->fieldName('id') . ' = ' . $this->getId() . ', ' . $this->db->fieldName('owner') . ' = ' . $this->data['owner'] . ', ' . $this->db->fieldName('paid') . ' = ' . $this->data['paid'] . ', ' . $this->db->fieldName('warnings') . ' = ' . $this->data['warnings'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->getId() );
+            $this->db->query('UPDATE ' . $this->db->tableName('houses') . ' SET ' . $this->db->fieldName('id') . ' = ' . $this->getId() . ', ' . $this->db->fieldName('owner') . ' = ' . $this->data['owner'] . ', ' . $this->db->fieldName('guildhall') . ' = ' . (int) $this->data['guildhall'] . ', ' . $this->db->fieldName('doors') . ' = ' . $this->data['doors'] . ', ' . $this->db->fieldName('beds') . ' = ' . $this->data['beds'] . ', ' . $this->db->fieldName('lastwarning') . ' = ' . $this->data['lastwarning'] . ', ' . $this->db->fieldName('paid') . ' = ' . $this->data['paid'] . ', ' . $this->db->fieldName('warnings') . ' = ' . $this->data['warnings'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->getId() );
         }
     }
 
@@ -246,7 +250,7 @@ class OTS_House extends OTS_Base_DAO
  * Sets house owner.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.0
@@ -257,6 +261,48 @@ class OTS_House extends OTS_Base_DAO
     public function setOwner(OTS_Player $player)
     {
         $this->data['owner'] = $player->getId();
+    }
+
+/**
+ * Checks if house is guildhall.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @return bool Guildhall type flag.
+ */
+    public function isGuildHall()
+    {
+        return isset($this->data['guildhall']) && $this->data['guildhall'];
+    }
+
+/**
+ * Unsets guildhall type.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changes to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ */
+    public function unsetGuildHall()
+    {
+        $this->data['guildhall'] = false;
+    }
+
+/**
+ * Sets guildhall type.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changes to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ */
+    public function setGuildHall()
+    {
+        $this->data['guildhall'] = true;
     }
 
 /**
@@ -283,7 +329,7 @@ class OTS_House extends OTS_Base_DAO
  * Sets paid date.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.0
@@ -319,7 +365,7 @@ class OTS_House extends OTS_Base_DAO
  * Sets house warnings.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.2
@@ -329,6 +375,114 @@ class OTS_House extends OTS_Base_DAO
     public function setWarnings($warnings)
     {
         $this->data['warnings'] = (int) $warnings;
+    }
+
+/**
+ * Returns house doors.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @return int|false House doors (false if none).
+ */
+    public function getDoors()
+    {
+        if( isset($this->data['doors']) )
+        {
+            return $this->data['doors'];
+        }
+        // not set
+        else
+        {
+            return false;
+        }
+    }
+
+/**
+ * Sets house doors.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changes to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @param int $doors Sets house doors.
+ */
+    public function setDoors($doors)
+    {
+        $this->data['doors'] = (int) $doors;
+    }
+
+/**
+ * Returns house beds.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @return int|false House beds (false if none).
+ */
+    public function getBeds()
+    {
+        if( isset($this->data['beds']) )
+        {
+            return $this->data['beds'];
+        }
+        // not set
+        else
+        {
+            return false;
+        }
+    }
+
+/**
+ * Sets house beds.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changes to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @param int $beds Sets house beds.
+ */
+    public function setBeds($beds)
+    {
+        $this->data['beds'] = (int) $beds;
+    }
+
+/**
+ * Returns house last warning.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @return int|false House last warning text (false if none).
+ */
+    public function getLastWarning()
+    {
+        if( isset($this->data['lastwarning']) )
+        {
+            return $this->data['lastwarning'];
+        }
+        // not rent
+        else
+        {
+            return false;
+        }
+    }
+
+/**
+ * Sets house last warning.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changes to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @param int $lastWarning Sets house last warning.
+ */
+    public function setLastWarning($lastWarning)
+    {
+        $this->data['lastwarning'] = (int) $lastWarning;
     }
 
 /**
@@ -362,7 +516,7 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
@@ -398,6 +552,18 @@ class OTS_House extends OTS_Base_DAO
             case 'owner':
                 return $this->getOwner();
 
+            case 'guildHall':
+                return $this->isGuildHall();
+
+            case 'doors':
+                return $this->getDoors();
+
+            case 'beds':
+                return $this->getBeds();
+
+            case 'lastWarning':
+                return $this->getLastWarning();
+
             case 'paid':
                 return $this->getPaid();
 
@@ -415,7 +581,7 @@ class OTS_House extends OTS_Base_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.0
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.
@@ -436,6 +602,29 @@ class OTS_House extends OTS_Base_DAO
 
             case 'warnings':
                 $this->setWarnings($values);
+                break;
+
+            case 'guildHall':
+                if($value)
+                {
+                    $this->setGuildHall();
+                }
+                else
+                {
+                    $this->unsetGuildHall();
+                }
+                break;
+
+            case 'doors':
+                $this->setDoors($values);
+                break;
+
+            case 'beds':
+                $this->setBeds($values);
+                break;
+
+            case 'lastWarning':
+                $this->setLastWarning($values);
                 break;
 
             default:

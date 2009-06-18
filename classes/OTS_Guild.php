@@ -138,7 +138,7 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
 /**
  * Loads guild by it's name.
  * 
- * @version 0.0.5
+ * @version 0.2.0+SVN
  * @since 0.0.4
  * @param string $name Guild's name.
  * @throws PDOException On PDO operation error.
@@ -146,12 +146,12 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
     public function find($name)
     {
         // finds player's ID
-        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('guilds') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) )->fetch();
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('guilds') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) )->fetchColumn();
 
         // if anything was found
-        if( isset($id['id']) )
+        if($id['id'] !== false)
         {
-            $this->load($id['id']);
+            $this->load($id);
         }
     }
 
@@ -236,7 +236,7 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets guild's name.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Guild::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Guild::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.4
@@ -273,7 +273,7 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Assigns guild to owner.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Guild::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Guild::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.4
@@ -308,7 +308,7 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets guild creation data.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Guild::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Guild::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.4
@@ -331,7 +331,7 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * </p>
  * 
- * @version 0.0.8
+ * @version 0.2.0+SVN
  * @since 0.0.4
  * @param string $field Field name.
  * @return string Field value.
@@ -345,8 +345,7 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
             throw new E_OTS_NotLoaded();
         }
 
-        $value = $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('guilds') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
-        return $value[$field];
+        return $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('guilds') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetchColumn();
     }
 
 /**

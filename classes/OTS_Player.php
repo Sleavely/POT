@@ -55,6 +55,7 @@
  * @property int $stamina Stamina miliseconds.
  * @property bool $save Player save flag.
  * @property bool $redSkull Player red skull flag.
+ * @property bool $online Player online state.
  * @property-read int $id Player ID.
  * @property-read bool $loaded Loaded state.
  * @property-read string $townName Name of town in which player residents.
@@ -62,17 +63,23 @@
  * @property-read OTS_Players_List $vipsList List of VIPs of player.
  * @property-read string $vocationName String vocation representation.
  * @property-read array $spellsList List of known spells.
+ * @property-read OTS_Deaths_List $deathsList List of player deaths.
+ * @property-read OTS_Kills_List $killsList List of player frags.
  * @tutorial POT/Players.pkg
  */
-class OTS_Player extends OTS_Row_DAO
+class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
 {
 /**
  * Player data.
  * 
- * @version 0.1.6
+ * <p>
+ * Note: Since 0.2.0+SVN this field is protected instead of private.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
  * @var array
  */
-    private $data = array('sex' => POT::SEX_FEMALE, 'vocation' => 0, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'healthmax' => 100, 'mana' => 100, 'manamax' => 100, 'manaspent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastlogout' => 0, 'lastip' => 0, 'save' => true, 'redskulltime' => 0, 'redskull' => false, 'guildnick' => '', 'loss_experience' => 100, 'loss_mana' => 100, 'loss_skills' => 100, 'loss_items' => 10, 'loss_containers' => 100, 'balance' => 0, 'stamina' => 151200000);
+    protected $data = array('sex' => POT::SEX_FEMALE, 'vocation' => 0, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'healthmax' => 100, 'mana' => 100, 'manamax' => 100, 'manaspent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastlogout' => 0, 'lastip' => 0, 'save' => true, 'redskulltime' => 0, 'redskull' => false, 'guildnick' => '', 'loss_experience' => 100, 'loss_mana' => 100, 'loss_skills' => 100, 'loss_items' => 10, 'loss_containers' => 100, 'balance' => 0, 'stamina' => 151200000, 'online' => false);
 
 /**
  * Player skills.
@@ -107,7 +114,7 @@ class OTS_Player extends OTS_Row_DAO
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastlogout') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('redskulltime') . ', ' . $this->db->fieldName('redskull') . ', ' . $this->db->fieldName('guildnick') . ', ' . $this->db->fieldName('rank_id') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ', ' . $this->db->fieldName('loss_items') . ', ' . $this->db->fieldName('loss_containers') . ', ' . $this->db->fieldName('balance') . ', ' . $this->db->fieldName('stamina') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastlogout') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('redskulltime') . ', ' . $this->db->fieldName('redskull') . ', ' . $this->db->fieldName('guildnick') . ', ' . $this->db->fieldName('rank_id') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ', ' . $this->db->fieldName('loss_items') . ', ' . $this->db->fieldName('loss_containers') . ', ' . $this->db->fieldName('balance') . ', ' . $this->db->fieldName('stamina') . ', ' . $this->db->fieldName('online') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
 
         // loads skills
         if( $this->isLoaded() )
@@ -122,7 +129,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Loads player by it's name.
  * 
- * @version 0.0.5
+ * @version 0.2.0+SVN
  * @since 0.0.2
  * @param string $name Player's name.
  * @throws PDOException On PDO operation error.
@@ -130,12 +137,12 @@ class OTS_Player extends OTS_Row_DAO
     public function find($name)
     {
         // finds player's ID
-        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) )->fetch();
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) )->fetchColumn();
 
         // if anything was found
-        if( isset($id['id']) )
+        if($id !== false)
         {
-            $this->load($id['id']);
+            $this->load($id);
         }
     }
 
@@ -154,7 +161,7 @@ class OTS_Player extends OTS_Row_DAO
  * Saves player in database.
  * 
  * <p>
- * If player is not loaded to represent any existing group it will create new row for it.
+ * If player is not loaded to represent any existing row it will create new row for it.
  * </p>
  * 
  * @version 0.1.6
@@ -166,13 +173,13 @@ class OTS_Player extends OTS_Row_DAO
         if( isset($this->data['id']) )
         {
             // UPDATE query on database
-            $this->db->query('UPDATE ' . $this->db->tableName('players') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($this->data['name']) . ', ' . $this->db->fieldName('account_id') . ' = ' . $this->data['account_id'] . ', ' . $this->db->fieldName('group_id') . ' = ' . $this->data['group_id'] . ', ' . $this->db->fieldName('sex') . ' = ' . $this->data['sex'] . ', ' . $this->db->fieldName('vocation') . ' = ' . $this->data['vocation'] . ', ' . $this->db->fieldName('experience') . ' = ' . $this->data['experience'] . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ', ' . $this->db->fieldName('maglevel') . ' = ' . $this->data['maglevel'] . ', ' . $this->db->fieldName('health') . ' = ' . $this->data['health'] . ', ' . $this->db->fieldName('healthmax') . ' = ' . $this->data['healthmax'] . ', ' . $this->db->fieldName('mana') . ' = ' . $this->data['mana'] . ', ' . $this->db->fieldName('manamax') . ' = ' . $this->data['manamax'] . ', ' . $this->db->fieldName('manaspent') . ' = ' . $this->data['manaspent'] . ', ' . $this->db->fieldName('soul') . ' = ' . $this->data['soul'] . ', ' . $this->db->fieldName('direction') . ' = ' . $this->data['direction'] . ', ' . $this->db->fieldName('lookbody') . ' = ' . $this->data['lookbody'] . ', ' . $this->db->fieldName('lookfeet') . ' = ' . $this->data['lookfeet'] . ', ' . $this->db->fieldName('lookhead') . ' = ' . $this->data['lookhead'] . ', ' . $this->db->fieldName('looklegs') . ' = ' . $this->data['looklegs'] . ', ' . $this->db->fieldName('looktype') . ' = ' . $this->data['looktype'] . ', ' . $this->db->fieldName('lookaddons') . ' = ' . $this->data['lookaddons'] . ', ' . $this->db->fieldName('posx') . ' = ' . $this->data['posx'] . ', ' . $this->db->fieldName('posy') . ' = ' . $this->data['posy'] . ', ' . $this->db->fieldName('posz') . ' = ' . $this->data['posz'] . ', ' . $this->db->fieldName('cap') . ' = ' . $this->data['cap'] . ', ' . $this->db->fieldName('lastlogin') . ' = ' . $this->data['lastlogin'] . ', ' . $this->db->fieldName('lastlogout') . ' = ' . $this->data['lastlogout'] . ', ' . $this->db->fieldName('lastip') . ' = ' . $this->data['lastip'] . ', ' . $this->db->fieldName('save') . ' = ' . (int) $this->data['save'] . ', ' . $this->db->fieldName('conditions') . ' = ' . $this->db->quote($this->data['conditions']) . ', ' . $this->db->fieldName('redskulltime') . ' = ' . $this->data['redskulltime'] . ', ' . $this->db->fieldName('redskull') . ' = ' . (int) $this->data['redskull'] . ', ' . $this->db->fieldName('guildnick') . ' = ' . $this->db->quote($this->data['guildnick']) . ', ' . $this->db->fieldName('rank_id') . ' = ' . $this->data['rank_id'] . ', ' . $this->db->fieldName('town_id') . ' = ' . $this->data['town_id'] . ', ' . $this->db->fieldName('loss_experience') . ' = ' . $this->data['loss_experience'] . ', ' . $this->db->fieldName('loss_mana') . ' = ' . $this->data['loss_mana'] . ', ' . $this->db->fieldName('loss_skills') . ' = ' . $this->data['loss_skills'] . ', ' . $this->db->fieldName('loss_items') . ' = ' . $this->data['loss_items'] . ', ' . $this->db->fieldName('loss_containers') . ' = ' . $this->data['loss_containers'] . ', ' . $this->db->fieldName('balance') . ' = ' . $this->data['balance'] . ', ' . $this->db->fieldName('stamina') . ' = ' . $this->data['stamina'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+            $this->db->query('UPDATE ' . $this->db->tableName('players') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($this->data['name']) . ', ' . $this->db->fieldName('account_id') . ' = ' . $this->data['account_id'] . ', ' . $this->db->fieldName('group_id') . ' = ' . $this->data['group_id'] . ', ' . $this->db->fieldName('sex') . ' = ' . $this->data['sex'] . ', ' . $this->db->fieldName('vocation') . ' = ' . $this->data['vocation'] . ', ' . $this->db->fieldName('experience') . ' = ' . $this->data['experience'] . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ', ' . $this->db->fieldName('maglevel') . ' = ' . $this->data['maglevel'] . ', ' . $this->db->fieldName('health') . ' = ' . $this->data['health'] . ', ' . $this->db->fieldName('healthmax') . ' = ' . $this->data['healthmax'] . ', ' . $this->db->fieldName('mana') . ' = ' . $this->data['mana'] . ', ' . $this->db->fieldName('manamax') . ' = ' . $this->data['manamax'] . ', ' . $this->db->fieldName('manaspent') . ' = ' . $this->data['manaspent'] . ', ' . $this->db->fieldName('soul') . ' = ' . $this->data['soul'] . ', ' . $this->db->fieldName('direction') . ' = ' . $this->data['direction'] . ', ' . $this->db->fieldName('lookbody') . ' = ' . $this->data['lookbody'] . ', ' . $this->db->fieldName('lookfeet') . ' = ' . $this->data['lookfeet'] . ', ' . $this->db->fieldName('lookhead') . ' = ' . $this->data['lookhead'] . ', ' . $this->db->fieldName('looklegs') . ' = ' . $this->data['looklegs'] . ', ' . $this->db->fieldName('looktype') . ' = ' . $this->data['looktype'] . ', ' . $this->db->fieldName('lookaddons') . ' = ' . $this->data['lookaddons'] . ', ' . $this->db->fieldName('posx') . ' = ' . $this->data['posx'] . ', ' . $this->db->fieldName('posy') . ' = ' . $this->data['posy'] . ', ' . $this->db->fieldName('posz') . ' = ' . $this->data['posz'] . ', ' . $this->db->fieldName('cap') . ' = ' . $this->data['cap'] . ', ' . $this->db->fieldName('lastlogin') . ' = ' . $this->data['lastlogin'] . ', ' . $this->db->fieldName('lastlogout') . ' = ' . $this->data['lastlogout'] . ', ' . $this->db->fieldName('lastip') . ' = ' . $this->data['lastip'] . ', ' . $this->db->fieldName('save') . ' = ' . (int) $this->data['save'] . ', ' . $this->db->fieldName('conditions') . ' = ' . $this->db->quote($this->data['conditions']) . ', ' . $this->db->fieldName('redskulltime') . ' = ' . $this->data['redskulltime'] . ', ' . $this->db->fieldName('redskull') . ' = ' . (int) $this->data['redskull'] . ', ' . $this->db->fieldName('guildnick') . ' = ' . $this->db->quote($this->data['guildnick']) . ', ' . $this->db->fieldName('rank_id') . ' = ' . $this->data['rank_id'] . ', ' . $this->db->fieldName('town_id') . ' = ' . $this->data['town_id'] . ', ' . $this->db->fieldName('loss_experience') . ' = ' . $this->data['loss_experience'] . ', ' . $this->db->fieldName('loss_mana') . ' = ' . $this->data['loss_mana'] . ', ' . $this->db->fieldName('loss_skills') . ' = ' . $this->data['loss_skills'] . ', ' . $this->db->fieldName('loss_items') . ' = ' . $this->data['loss_items'] . ', ' . $this->db->fieldName('loss_containers') . ' = ' . $this->data['loss_containers'] . ', ' . $this->db->fieldName('balance') . ' = ' . $this->data['balance'] . ', ' . $this->db->fieldName('stamina') . ' = ' . $this->data['stamina'] . ', ' . $this->db->fieldName('online') . ' = ' . (int) $this->data['online'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
         }
         // creates new player
         else
         {
             // INSERT query on database
-            $this->db->query('INSERT INTO ' . $this->db->tableName('players') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastlogout') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('redskulltime') . ', ' . $this->db->fieldName('redskull') . ', ' . $this->db->fieldName('guildnick') . ', ' . $this->db->fieldName('rank_id') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ', ' . $this->db->fieldName('loss_items') . ', ' . $this->db->fieldName('loss_containers') . ', ' . $this->db->fieldName('balance') . ', ' . $this->db->fieldName('stamina') . ') VALUES (' . $this->db->quote($this->data['name']) . ', ' . $this->data['account_id'] . ', ' . $this->data['group_id'] . ', ' . $this->data['sex'] . ', ' . $this->data['vocation'] . ', ' . $this->data['experience'] . ', ' . $this->data['level'] . ', ' . $this->data['maglevel'] . ', ' . $this->data['health'] . ', ' . $this->data['healthmax'] . ', ' . $this->data['mana'] . ', ' . $this->data['manamax'] . ', ' . $this->data['manaspent'] . ', ' . $this->data['soul'] . ', ' . $this->data['direction'] . ', ' . $this->data['lookbody'] . ', ' . $this->data['lookfeet'] . ', ' . $this->data['lookhead'] . ', ' . $this->data['looklegs'] . ', ' . $this->data['looktype'] . ', ' . $this->data['lookaddons'] . ', ' . $this->data['posx'] . ', ' . $this->data['posy'] . ', ' . $this->data['posz'] . ', ' . $this->data['cap'] . ', ' . $this->data['lastlogin'] . ', ' . $this->data['lastlogout'] . ', ' . $this->data['lastip'] . ', ' . (int) $this->data['save'] . ', ' . $this->db->quote($this->data['conditions']) . ', ' . $this->data['redskulltime'] . ', ' . (int) $this->data['redskull'] . ', ' . $this->db->quote($this->data['guildnick']) . ', ' . $this->data['rank_id'] . ', ' . $this->data['town_id'] . ', ' . $this->data['loss_experience'] . ', ' . $this->data['loss_mana'] . ', ' . $this->data['loss_skills'] . ', ' . $this->data['loss_items'] . ', ' . $this->data['loss_containers'] . ', ' . $this->data['balance'] . ', ' . $this->data['stamina'] . ')');
+            $this->db->query('INSERT INTO ' . $this->db->tableName('players') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastlogout') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('redskulltime') . ', ' . $this->db->fieldName('redskull') . ', ' . $this->db->fieldName('guildnick') . ', ' . $this->db->fieldName('rank_id') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ', ' . $this->db->fieldName('loss_items') . ', ' . $this->db->fieldName('loss_containers') . ', ' . $this->db->fieldName('balance') . ', ' . $this->db->fieldName('stamina') . ', ' . $this->db->fieldName('online') . ') VALUES (' . $this->db->quote($this->data['name']) . ', ' . $this->data['account_id'] . ', ' . $this->data['group_id'] . ', ' . $this->data['sex'] . ', ' . $this->data['vocation'] . ', ' . $this->data['experience'] . ', ' . $this->data['level'] . ', ' . $this->data['maglevel'] . ', ' . $this->data['health'] . ', ' . $this->data['healthmax'] . ', ' . $this->data['mana'] . ', ' . $this->data['manamax'] . ', ' . $this->data['manaspent'] . ', ' . $this->data['soul'] . ', ' . $this->data['direction'] . ', ' . $this->data['lookbody'] . ', ' . $this->data['lookfeet'] . ', ' . $this->data['lookhead'] . ', ' . $this->data['looklegs'] . ', ' . $this->data['looktype'] . ', ' . $this->data['lookaddons'] . ', ' . $this->data['posx'] . ', ' . $this->data['posy'] . ', ' . $this->data['posz'] . ', ' . $this->data['cap'] . ', ' . $this->data['lastlogin'] . ', ' . $this->data['lastlogout'] . ', ' . $this->data['lastip'] . ', ' . (int) $this->data['save'] . ', ' . $this->db->quote($this->data['conditions']) . ', ' . $this->data['redskulltime'] . ', ' . (int) $this->data['redskull'] . ', ' . $this->db->quote($this->data['guildnick']) . ', ' . $this->data['rank_id'] . ', ' . $this->data['town_id'] . ', ' . $this->data['loss_experience'] . ', ' . $this->data['loss_mana'] . ', ' . $this->data['loss_skills'] . ', ' . $this->data['loss_items'] . ', ' . $this->data['loss_containers'] . ', ' . $this->data['balance'] . ', ' . $this->data['stamina'] . ', ' . (int) $this->data['online'] . ')');
             // ID of new group
             $this->data['id'] = $this->db->lastInsertId();
         }
@@ -230,7 +237,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets players's name.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -269,7 +276,7 @@ class OTS_Player extends OTS_Row_DAO
  * Assigns character to account.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -309,7 +316,7 @@ class OTS_Player extends OTS_Row_DAO
  * Assigns character to group.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -346,7 +353,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets player gender.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -382,7 +389,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets player proffesion.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -418,7 +425,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets experience points.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -454,7 +461,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets experience level.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -490,7 +497,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets magic level.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -526,7 +533,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets current HP.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -562,7 +569,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets maximum HP.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -598,7 +605,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets current mana.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -634,7 +641,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets maximum mana.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -670,7 +677,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets mana spent.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -706,7 +713,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets soul points.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -742,7 +749,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets looking direction.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -778,7 +785,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets body color.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -814,7 +821,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets boots color.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -850,7 +857,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets hair color.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -886,7 +893,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets legs color.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -922,7 +929,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets outfit.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -958,7 +965,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets addons.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -994,7 +1001,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets X map coordinate.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1030,7 +1037,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets Y map coordinate.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1066,7 +1073,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets Z map coordinate.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1102,7 +1109,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets capacity.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1138,7 +1145,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets last login timestamp.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1171,7 +1178,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets last logout timestamp.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1207,7 +1214,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets last login IP.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1226,7 +1233,7 @@ class OTS_Player extends OTS_Row_DAO
  * </p>
  * 
  * @version 0.0.7
- * @return bool PACC days.
+ * @return bool Save flag state.
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function isSaveSet()
@@ -1243,7 +1250,7 @@ class OTS_Player extends OTS_Row_DAO
  * Unsets save flag.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.7
@@ -1257,11 +1264,11 @@ class OTS_Player extends OTS_Row_DAO
  * Sets save flag.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * <p>
- * Note: Since 0.2.0+SVN version this method throws takes no parameters.
+ * Note: Since 0.2.0+SVN version this method takes no parameters.
  * </p>
  * 
  * @version 0.2.0+SVN
@@ -1269,6 +1276,54 @@ class OTS_Player extends OTS_Row_DAO
     public function setSave()
     {
         $this->data['save'] = true;
+    }
+
+/**
+ * Checks if player is online.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @return bool Online status.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function isOnline()
+    {
+        if( !isset($this->data['online']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        return $this->data['online'];
+    }
+
+/**
+ * Marks player offline.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ */
+    public function setOffline()
+    {
+        $this->data['online'] = false;
+    }
+
+/**
+ * Marks player online.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ */
+    public function setOnline()
+    {
+        $this->data['online'] = true;
     }
 
 /**
@@ -1296,7 +1351,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets conditions.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1332,7 +1387,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets red skulled time remained.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1368,7 +1423,7 @@ class OTS_Player extends OTS_Row_DAO
  * Unsets red skull flag.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1382,7 +1437,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets red skull flag.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1417,7 +1472,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets guild nick.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1461,23 +1516,35 @@ class OTS_Player extends OTS_Row_DAO
  * Assigns guild rank.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
- * @version 0.0.1
- * @param OTS_GuildRank|null Guild rank (null to clear assign).
+ * <p>
+ * Note: Since 0.2.0+SVN version this method only assigns rank. To clear rank assignment use {@link OTS_Player::unsetRank() unsetRank() method}.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @param OTS_GuildRank Guild rank.
  * @throws E_OTS_NotLoaded If passed <var>$guildRank</var> parameter is not loaded.
  */
-    public function setRank(OTS_GuildRank $guildRank = null)
+    public function setRank(OTS_GuildRank $guildRank)
     {
-        if( isset($guildRank) )
-        {
-            $this->data['rank_id'] = $guildRank->getId();
-        }
-        else
-        {
-            $this->data['rank_id'] = 0;
-        }
+        $this->data['rank_id'] = $guildRank->getId();
+    }
+
+/**
+ * Unassigns guild rank.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ */
+    public function unsetRank()
+    {
+        $this->data['rank_id'] = 0;
     }
 
 /**
@@ -1505,7 +1572,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets residence town's ID.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1541,7 +1608,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets percentage of experience lost after dead.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1577,7 +1644,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets percentage of used mana lost after dead.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1613,7 +1680,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets percentage of skills lost after dead.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.1
@@ -1706,7 +1773,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets bank balance value.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.2
@@ -1740,7 +1807,7 @@ class OTS_Player extends OTS_Row_DAO
  * Sets stamina time left.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.6
@@ -1763,7 +1830,7 @@ class OTS_Player extends OTS_Row_DAO
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * </p>
  * 
- * @version 0.0.5
+ * @version 0.2.0+SVN
  * @since 0.0.3
  * @param string $field Field name.
  * @return string Field value.
@@ -1777,8 +1844,7 @@ class OTS_Player extends OTS_Row_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $value = $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
-        return $value[$field];
+        return $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetchColumn();
     }
 
 /**
@@ -1886,7 +1952,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Returns value of storage record.
  * 
- * @version 0.1.3
+ * @version 0.2.0+SVN
  * @since 0.1.2
  * @param int $key Storage key.
  * @return int|null Stored value (null if not set).
@@ -1900,14 +1966,14 @@ class OTS_Player extends OTS_Row_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $value = $this->db->query('SELECT ' . $this->db->fieldName('value') . ' FROM ' . $this->db->tableName('player_storage') . ' WHERE ' . $this->db->fieldName('key') . ' = ' . (int) $key . ' AND ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'])->fetch();
+        $value = $this->db->query('SELECT ' . $this->db->fieldName('value') . ' FROM ' . $this->db->tableName('player_storage') . ' WHERE ' . $this->db->fieldName('key') . ' = ' . (int) $key . ' AND ' . $this->db->fieldName('player_id') . ' = ' . $this->data['id'])->fetchColumn();
 
         if($value === false)
         {
             return null;
         }
 
-        return $value['value'];
+        return $value;
     }
 
 /**
@@ -2029,11 +2095,10 @@ class OTS_Player extends OTS_Row_DAO
  * @since 0.0.3
  * @param int $slot Slot to save items.
  * @param OTS_Item $item Item (can be a container with content) for given slot. Leave this parameter blank to clear slot.
- * @param int $pid Deprecated, not used anymore.
  * @throws E_OTS_NotLoaded If player is not loaded.
  * @throws PDOException On PDO operation error.
  */
-    public function setSlot($slot, OTS_Item $item = null, $pid = 0)
+    public function setSlot($slot, OTS_Item $item = null)
     {
         static $sid;
 
@@ -2168,24 +2233,16 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Sets depot content.
  * 
- * @version 0.1.2
+ * @version 0.2.0+SVN
  * @since 0.0.3
  * @param int $depot Depot ID to save items.
  * @param OTS_Item $item Item (can be a container with content) for given depot. Leave this parameter blank to clear depot.
- * @param int $pid Deprecated, not used anymore.
- * @param int $depot_id Internal, for further use.
  * @throws E_OTS_NotLoaded If player is not loaded.
  * @throws PDOException On PDO operation error.
  */
-    public function setDepot($depot, OTS_Item $item = null, $pid = 0, $depot_id = 0)
+    public function setDepot($depot, OTS_Item $item = null)
     {
         static $sid;
-
-        // if no depot_id is specified then it is same as depot slot
-        if($depot_id == 0)
-        {
-            $depot_id = $depot;
-        }
 
         if( !isset($this->data['id']) )
         {
@@ -2212,7 +2269,7 @@ class OTS_Player extends OTS_Row_DAO
             $sid++;
 
             // inserts given item
-            $this->db->query('INSERT INTO ' . $this->db->tableName('player_depotitems') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('depot_id') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('pid') . ', ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ') VALUES (' . $this->data['id'] . ', ' . $depot_id . ', ' . $sid . ', ' . (int) $depot . ', ' . $item->getId() . ', ' . $item->getCount() . ', ' . $this->db->quote( $item->getAttributes() ) . ')');
+            $this->db->query('INSERT INTO ' . $this->db->tableName('player_depotitems') . ' (' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('sid') . ', ' . $this->db->fieldName('pid') . ', ' . $this->db->fieldName('itemtype') . ', ' . $this->db->fieldName('count') . ', ' . $this->db->fieldName('attributes') . ') VALUES (' . $this->data['id'] . ', ' . $sid . ', ' . (int) $depot . ', ' . $item->getId() . ', ' . $item->getCount() . ', ' . $this->db->quote( $item->getAttributes() ) . ')');
 
             // checks if this is container
             if($item instanceof OTS_Container)
@@ -2222,7 +2279,7 @@ class OTS_Player extends OTS_Row_DAO
                 // inserts all contained items
                 foreach($item as $sub)
                 {
-                    $this->setDepot($pid, $sub, 0, $depot_id);
+                    $this->setDepot($pid, $sub);
                 }
             }
         }
@@ -2532,9 +2589,123 @@ class OTS_Player extends OTS_Row_DAO
     }
 
 /**
+ * List of character deaths.
+ * 
+ * <p>
+ * Note: Returned object is only prepared, but not initialised. When using as parameter in foreach loop it doesn't matter since it will return it's iterator, but if you will wan't to execute direct operation on that object you will need to call {@link OTS_Base_List::rewind() rewind() method} first.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @return OTS_Deaths_List List of player deaths.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ */
+    public function getDeathsList()
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        // creates filter
+        $filter = new OTS_SQLFilter();
+        $filter->compareField('player_id', (int) $this->data['id']);
+
+        // creates list object
+        $list = new OTS_Deaths_List();
+        $list->setFilter($filter);
+
+        return $list;
+    }
+
+/**
+ * Returns list of player frags.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @return OTS_Kills_List List of frags.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ * @throws PDOException On PDO operation error.
+ */
+    public function getKillsList()
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $list = new OTS_Kills_List();
+
+        // foreign table fields identifiers
+        $field1 = new OTS_SQLField('player_id', 'player_killers');
+        $field2 = new OTS_SQLField('kill_id', 'player_killers');
+
+        // creates filter
+        $filter = new OTS_SQLFilter();
+        $filter->addFilter($field1, $this->data['id']);
+        $filter->compareField('id', $field2);
+
+        // puts filter onto list
+        $list->setFilter($filter);
+
+        return $list;
+    }
+
+/**
+ * Adds kill log.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @param OTS_Kill $kill Kill to be added.
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ * @throws PDOException On PDO operation error.
+ */
+    public function addKill(OTS_Kill $kill)
+    {
+        if( !isset($this->data['id']) )
+        {
+            throw new E_OTS_NotLoaded();
+        }
+
+        $this->db->query('INSERT INTO ' . $this->db->tableName('player_killers') . ' (' . $this->db->fieldName('kill_id') . ', ' . $this->db->fieldName('player_id') . ') VALUES (' . $kill->getId() . ', ' . $this->data['id'] . ')');
+    }
+
+/**
+ * Returns players iterator.
+ * 
+ * <p>
+ * There is no need to implement entire Iterator interface since we have {@link OTS_Deaths_List deaths list class} for it.
+ * </p>
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ * @throws PDOException On PDO operation error.
+ * @return Iterator List of deaths.
+ */
+    public function getIterator()
+    {
+        return $this->getDeathsList();
+    }
+
+/**
+ * Returns number of deaths.
+ * 
+ * @version 0.2.0+SVN
+ * @since 0.2.0+SVN
+ * @throws E_OTS_NotLoaded If player is not loaded.
+ * @throws PDOException On PDO operation error.
+ * @return int Count of deaths.
+ */
+    public function count()
+    {
+        return $this->getDeathsList()->count();
+    }
+
+/**
  * Magic PHP5 method.
  * 
- * @version 0.1.6
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @param string $name Property name.
  * @return mixed Property value.
@@ -2685,6 +2856,9 @@ class OTS_Player extends OTS_Row_DAO
             case 'loaded':
                 return $this->isLoaded();
 
+            case 'online':
+                return $this->isOnline();
+
             case 'vipsList':
                 return $this->getVIPsList();
 
@@ -2694,6 +2868,12 @@ class OTS_Player extends OTS_Row_DAO
             case 'spellsList':
                 return $this->getSpellsList();
 
+            case 'deathsList':
+                return $this->getDeathsList();
+
+            case 'killsList':
+                return $this->getKillsList();
+
             default:
                 throw new OutOfBoundsException();
         }
@@ -2702,7 +2882,7 @@ class OTS_Player extends OTS_Row_DAO
 /**
  * Magic PHP5 method.
  * 
- * @version 0.1.6
+ * @version 0.2.0+SVN
  * @since 0.1.0
  * @param string $name Property name.
  * @param mixed $value Property value.
@@ -2838,7 +3018,14 @@ class OTS_Player extends OTS_Row_DAO
                 break;
 
             case 'rank':
-                $this->setRank($value);
+                if( isset($value) )
+                {
+                    $this->setRank($value);
+                }
+                else
+                {
+                    $this->unsetRank();
+                }
                 break;
 
             case 'townId':
@@ -2892,6 +3079,17 @@ class OTS_Player extends OTS_Row_DAO
                 else
                 {
                     $this->unsetSave();
+                }
+                break;
+
+            case 'online':
+                if($value)
+                {
+                    $this->setOnline();
+                }
+                else
+                {
+                    $this->setOffline();
                 }
                 break;
 

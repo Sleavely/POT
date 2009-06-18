@@ -156,7 +156,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Sets banned target.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.5
@@ -190,7 +190,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Sets additional parameter.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.5
@@ -224,7 +224,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Activates ban.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.5
@@ -239,7 +239,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Deactivates ban.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.5
@@ -272,7 +272,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Sets expiration time.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.5
@@ -306,7 +306,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Sets banned time.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.5
@@ -340,7 +340,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Sets ban creator.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.5
@@ -374,7 +374,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Sets explaination comment.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.5
@@ -408,7 +408,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Sets ban reason.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.1.5
@@ -442,7 +442,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Sets ban action.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.2.0+SVN
@@ -476,7 +476,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Sets ban statement.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_Ban::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.2.0+SVN
@@ -499,7 +499,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * </p>
  * 
- * @version 0.1.5
+ * @version 0.2.0+SVN
  * @since 0.1.5
  * @param string $field Field name.
  * @return string Field value.
@@ -513,8 +513,7 @@ abstract class OTS_Ban extends OTS_Row_DAO
             throw new E_OTS_NotLoaded();
         }
 
-        $value = $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
-        return $value[$field];
+        return $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('bans') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetchColumn();
     }
 
 /**

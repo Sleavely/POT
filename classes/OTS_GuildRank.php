@@ -54,7 +54,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * As there can be several ranks with same name in different guilds you can pass optional second parameter to specify in which guild script should look for rank.
  * </p>
  * 
- * @version 0.0.5
+ * @version 0.2.0+SVN
  * @since 0.0.4
  * @param string $name Rank's name.
  * @param OTS_Guild $guild Guild in which rank should be found.
@@ -72,12 +72,12 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
         }
 
         // finds player's ID
-        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('guilds') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) . $where)->fetch();
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('guilds') . ' WHERE ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($name) . $where)->fetchColumn();
 
         // if anything was found
-        if( isset($id['id']) )
+        if($id['id'] !== false)
         {
-            $this->load($id['id']);
+            $this->load($id);
         }
     }
 
@@ -162,7 +162,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets rank's name.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.4
@@ -199,7 +199,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Assigns rank to guild.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.4
@@ -234,7 +234,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Sets rank's access level within guild.
  * 
  * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changed to database.
+ * This method only updates object state. To save changes in database you need to use {@link OTS_GuildRank::save() save() method} to flush changes to database.
  * </p>
  * 
  * @version 0.0.4
@@ -257,7 +257,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
  * Note: You should use this method only for fields that are not provided in standard setters/getters (SVN fields). This method runs SQL query each time you call it so it highly overloads used resources.
  * </p>
  * 
- * @version 0.0.5
+ * @version 0.2.0+SVN
  * @since 0.0.4
  * @param string $field Field name.
  * @return string Field value.
@@ -271,8 +271,7 @@ class OTS_GuildRank extends OTS_Row_DAO implements IteratorAggregate, Countable
             throw new E_OTS_NotLoaded();
         }
 
-        $value = $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('guild_ranks') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetch();
-        return $value[$field];
+        return $this->db->query('SELECT ' . $this->db->fieldName($field) . ' FROM ' . $this->db->tableName('guild_ranks') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id'])->fetchColumn();
     }
 
 /**
