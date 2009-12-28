@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * @package POT
@@ -195,11 +195,11 @@ class OTS_Group extends OTS_Row_DAO implements IteratorAggregate, Countable
  * </p>
  * 
  * @version 0.0.1
- * @param int $flags Flags.
+ * @param double $flags Flags.
  */
     public function setFlags($flags)
     {
-        $this->data['flags'] = (int) $flags;
+        $this->data['flags'] = (double) $flags;
     }
 
 /**
