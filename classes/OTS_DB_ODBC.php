@@ -99,7 +99,15 @@ class OTS_DB_ODBC extends OTS_Base_DB
         }
 
         // PDO constructor
-        parent::__construct('odbc:' . $dns, $user, $password);
+        try
+        {
+            parent::__construct('odbc:' . $dns, $user, $password);
+        }
+        catch(PDOException $error)
+        {
+            echo 'Cannot connect to ODBC database.';
+            exit;
+        }
     }
 }
 

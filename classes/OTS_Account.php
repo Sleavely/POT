@@ -417,7 +417,7 @@ class OTS_Account extends OTS_Row_DAO implements IteratorAggregate, Countable
  * @return int Warnings.
  * @throws E_OTS_NotLoaded If account is not loaded.
  */
-    public function getEMail()
+    public function getWarnings()
     {
         if( !isset($this->data['warnings']) )
         {

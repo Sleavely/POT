@@ -37,9 +37,9 @@ else
 }
 
 // list online players
-foreach($info->players as $player => $level)
+foreach($status->players as $player => $level)
 {
     echo 'Player: ', $player, ' at level ', $level, "\n";
 }
-
+*/
 ?>

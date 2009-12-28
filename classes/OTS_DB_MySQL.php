@@ -89,8 +89,16 @@ class OTS_DB_MySQL extends OTS_Base_DB
         }
 
         // PDO constructor
-        parent::__construct('mysql:' . implode(';', $dns), $user, $password);
-        $this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+        try
+        {
+            parent::__construct('mysql:' . implode(';', $dns), $user, $password);
+            $this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+        }
+        catch(PDOException $error)
+        {
+            echo 'Cannot connect to MySQL database.';
+            exit;
+        }
     }
 
 /**

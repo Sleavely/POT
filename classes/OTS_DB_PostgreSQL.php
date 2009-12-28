@@ -92,7 +92,15 @@ class OTS_DB_PostgreSQL extends OTS_Base_DB
         }
 
         // PDO constructor
-        parent::__construct('pgsql:' . implode(' ', $dns), $user, $password);
+        try
+        {
+            parent::__construct('pgsql:' . implode(' ', $dns), $user, $password);
+        }
+        catch(PDOException $error)
+        {
+            echo 'Cannot connect to PostgreSQL database.';
+            exit;
+        }
     }
 }
 

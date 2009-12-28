@@ -684,12 +684,13 @@ class OTS_ServerStatus
 /**
  * Returns list of players currently online.
  * 
- * @version 0.1.4
+ * @version 0.1.5
  * @since 0.1.4
  * @return array List of players in format 'name' => level.
  */
     public function getPlayers()
     {
+        return $this->players;
     }
 
 /**
