@@ -62,7 +62,7 @@ class OTS_House extends OTS_Base_DAO
  * @since 0.1.0
  * @var array
  */
-    private $tiles = array();
+    //private $tiles = array();
 
 /**
  * Creates wrapper for given house element.
@@ -78,7 +78,7 @@ class OTS_House extends OTS_Base_DAO
         $this->element = $element;
 
         // loads SQL part - `id` field is not needed as we have it from XML
-        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('townid') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('rent') . ', ' . $this->db->fieldName('guildhall') . ', ' . $this->db->fieldName('doors') . ', ' . $this->db->fieldName('beds') . ', ' . $this->db->fieldName('lastwarning') . ', ' . $this->db->fieldName('paid') . ', ' . $this->db->fieldName('owner') . ', ' . $this->db->fieldName('warnings') . ' FROM ' . $this->db->tableName('houses') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->getId() )->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('townid') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('rent') . ', ' . $this->db->fieldName('guildhall') . ', ' . $this->db->fieldName('tiles') . ', ' . $this->db->fieldName('doors') . ', ' . $this->db->fieldName('beds') . ', ' . $this->db->fieldName('lastwarning') . ', ' . $this->db->fieldName('paid') . ', ' . $this->db->fieldName('owner') . ', ' . $this->db->fieldName('warnings') . ' FROM ' . $this->db->tableName('houses') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->getId() )->fetch();
     }
 
 /**
@@ -109,12 +109,12 @@ class OTS_House extends OTS_Base_DAO
         // inserts new record
         if( empty($this->data) )
         {
-            $this->db->query('INSERT INTO ' . $this->db->tableName('houses') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('guildhall') . ', ' . $this->db->fieldName('doors') . ', ' . $this->db->fieldName('beds') . ', ' . $this->db->fieldName('lastwarning') . ', ' . $this->db->fieldName('owner') . ', ' . $this->db->fieldName('paid') . ', ' . $this->db->fieldName('warnings') . ') VALUES (' . $this->getId() . ', ' . $this->data['owner'] . ', ' . (int) $this->data['guildhall'] . ', ' . $this->data['doors'] . ', ' . $this->data['beds'] . ', ' . $this->data['lastwarning'] . ', ' . $this->data['paid'] . ', ' . $this->data['warnings'] . ')');
+            $this->db->query('INSERT INTO ' . $this->db->tableName('houses') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('guildhall') . ', ' . $this->db->fieldName('tiles') . ', ' . $this->db->fieldName('doors') . ', ' . $this->db->fieldName('beds') . ', ' . $this->db->fieldName('lastwarning') . ', ' . $this->db->fieldName('owner') . ', ' . $this->db->fieldName('paid') . ', ' . $this->db->fieldName('warnings') . ') VALUES (' . $this->getId() . ', ' . $this->data['owner'] . ', ' . (int) $this->data['guildhall'] . ', ' . $this->data['doors'] . ', ' . $this->data['beds'] . ', ' . $this->data['lastwarning'] . ', ' . $this->data['paid'] . ', ' . $this->data['warnings'] . ')');
         }
         // updates previous one
         else
         {
-            $this->db->query('UPDATE ' . $this->db->tableName('houses') . ' SET ' . $this->db->fieldName('id') . ' = ' . $this->getId() . ', ' . $this->db->fieldName('owner') . ' = ' . $this->data['owner'] . ', ' . $this->db->fieldName('guildhall') . ' = ' . (int) $this->data['guildhall'] . ', ' . $this->db->fieldName('doors') . ' = ' . $this->data['doors'] . ', ' . $this->db->fieldName('beds') . ' = ' . $this->data['beds'] . ', ' . $this->db->fieldName('lastwarning') . ' = ' . $this->data['lastwarning'] . ', ' . $this->db->fieldName('paid') . ' = ' . $this->data['paid'] . ', ' . $this->db->fieldName('warnings') . ' = ' . $this->data['warnings'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->getId() );
+            $this->db->query('UPDATE ' . $this->db->tableName('houses') . ' SET ' . $this->db->fieldName('id') . ' = ' . $this->getId() . ', ' . $this->db->fieldName('owner') . ' = ' . $this->data['owner'] . ', ' . $this->db->fieldName('guildhall') . ' = ' . (int) $this->data['guildhall'] . ', ' . $this->db->fieldName('tiles') . ' = ' . $this->data['tiles'] . ', ' . $this->db->fieldName('doors') . ' = ' . $this->data['doors'] . ', ' . $this->db->fieldName('beds') . ' = ' . $this->data['beds'] . ', ' . $this->db->fieldName('lastwarning') . ' = ' . $this->data['lastwarning'] . ', ' . $this->db->fieldName('paid') . ' = ' . $this->data['paid'] . ', ' . $this->db->fieldName('warnings') . ' = ' . $this->data['warnings'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->getId() );
         }
     }
 
@@ -484,6 +484,42 @@ class OTS_House extends OTS_Base_DAO
     {
         $this->data['lastwarning'] = (int) $lastWarning;
     }
+    
+/**
+ * Returns house tiles.
+ * 
+ * @version 0.2.0b+SVN
+ * @since 0.2.0b+SVN
+ * @return int House tiles.
+ */
+    public function getTiles()
+    {
+        if( isset($this->data['tiles']) )
+        {
+            return $this->data['tiles'];
+        }
+        // not set
+        else
+        {
+            return false;
+        }
+    }
+
+/**
+ * Sets house tiles.
+ * 
+ * <p>
+ * This method only updates object state. To save changes in database you need to use {@link OTS_House::save() save() method} to flush changes to database.
+ * </p>
+ * 
+ * @version 0.2.0b+SVN
+ * @since 0.2.0b+SVN
+ * @param int $lastWarning Sets house last warning.
+ */
+    public function setTile($tile)
+    {
+        $this->data['tiles'] = (int) $tile;
+    }
 
 /**
  * Adds tile to house.
@@ -491,10 +527,11 @@ class OTS_House extends OTS_Base_DAO
  * @version 0.1.0
  * @since 0.1.0
  * @param OTS_MapCoords $tile Tile to be added.
+ * @deprecated Use setTile() for that
  */
     public function addTile(OTS_MapCoords $tile)
     {
-        $this->tiles[] = $tile;
+        //$this->tiles[] = $tile;
     }
 
 /**
@@ -508,10 +545,12 @@ class OTS_House extends OTS_Base_DAO
  * @since 0.1.0
  * @return array List of tiles.
  */
+ /*
     public function getTiles()
     {
         return $this->tiles;
     }
+*/
 
 /**
  * Magic PHP5 method.
@@ -613,6 +652,10 @@ class OTS_House extends OTS_Base_DAO
                 {
                     $this->unsetGuildHall();
                 }
+                break;
+                
+            case 'tiles':
+                $this->setTiles($values);
                 break;
 
             case 'doors':
