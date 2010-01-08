@@ -42,7 +42,7 @@
  * @property int $lastLogout Last logout timestamp.
  * @property int $lastIP Last login IP number.
  * @property string $conditions Binary conditions.
- * @property int $redSkullTime Timestamp for which red skull will last.
+ * @property int $skullTime Timestamp for which skull will last.
  * @property string $guildNick Guild title.
  * @property OTS_GuildRank $rank Guild rank.
  * @property int $townId Residence town.
@@ -54,7 +54,7 @@
  * @property int $balance Bank balance.
  * @property int $stamina Stamina miliseconds.
  * @property bool $save Player save flag.
- * @property bool $redSkull Player red skull flag.
+ * @property bool $skull Player skull flag.
  * @property bool $online Player online state.
  * @property-read int $id Player ID.
  * @property-read bool $loaded Loaded state.
@@ -1384,7 +1384,7 @@ class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
 	}
  
 /**
- * Sets red skulled time remained.
+ * Sets skulled time remained.
  * 
  * <p>
  * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
@@ -1412,9 +1412,9 @@ class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
  * @throws E_OTS_NotLoaded If player is not loaded.
  */
     public function hasSkull()
+	{
         if( !isset($this->data['skull_type']) )
 		{
-        {
             throw new E_OTS_NotLoaded();
         }
 
@@ -2812,11 +2812,11 @@ class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
             case 'conditions':
                 return $this->getConditions();
 
-            case 'redSkullTime':
-                return $this->getRedSkullTime();
+            case 'skullTime':
+                return $this->getSkullTime();
 
-            case 'redSkull':
-                return $this->hasRedSkull();
+            case 'skull':
+                return $this->hasSkull();
 
             case 'guildNick':
                 return $this->getGuildNick();
@@ -3011,8 +3011,8 @@ class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
                 $this->setConditions($value);
                 break;
 
-            case 'redSkullTime':
-                $this->setRedSkullTime($value);
+            case 'skullTime':
+                $this->setSkullTime($value);
                 break;
 
             case 'guildNick':
@@ -3062,14 +3062,14 @@ class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
                 $this->setStamina($value);
                 break;
 
-            case 'redSkull':
+            case 'skull':
                 if($value)
                 {
-                    $this->setRedSkull();
+                    $this->setSkull();
                 }
                 else
                 {
-                    $this->unsetRedSkull();
+                    $this->unsetSkull();
                 }
                 break;
 
