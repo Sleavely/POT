@@ -32,6 +32,14 @@ class E_OTS_Generic extends E_OTS_ErrorCode
  * @since 0.1.1
  */
     const CONNECT_INVALID_DRIVER = 2;
+/**
+ * Invalid database id.
+ *
+ * @version 0.2.0b+SVN
+ * @since 0.2.0b+SVN
+ */
+    const DB_INVALID_ID = 3;
+	
 }
 
 ?>

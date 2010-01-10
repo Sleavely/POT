@@ -2,6 +2,7 @@
 * Updated to the last database structure. <Nostradamus>
 * Critical security bug fixed. <Nostradamus/fightingelf>
 * Bugfixes. <Nostradamus>
+* Multi database support. <Nostradamus>
 
 [0.2.0+SVN]
 * Dropped 0.0.x and 0.1.x deprecations. <wrzasq>

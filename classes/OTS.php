@@ -51,6 +51,15 @@ class POT
  * @since 0.0.4
  */
     const DB_ODBC = 4;
+	
+/**
+ * DB default id.
+ *
+ * @version 0.2.0b+SVN
+ * @since 0.2.0b+SVN
+ */
+    const DB_DEFAULT_ID = 1;
+
 
 /**
  * Female gender.
@@ -358,24 +367,29 @@ class POT
     }
 
 /**
- * Database connection.
+ * Database connection pool.
  * 
- * <p>
- * OTServ database connection object.
- * </p>
  * 
- * <p>
- * Note: Since 0.2.0+SVN this field is static.
- * </p>
+ * OTServ database connection pool. 
+ *
  * 
- * <p>
- * Note: Since 0.2.0+SVN this field is protected instead of private.
- * </p>
+ * 
+ * Note: Since 0.2.0+SVN this field is static. 
+ * Note: Since 0.2.0+SVN this field is protected instead of private. 
  * 
  * @version 0.2.0+SVN
- * @var PDO
+ * @var PDO array
  */
-    protected static $db;
+    protected static $db_pool = array();
+
+/**
+ * Database's index currently being used.
+ *
+ * @version 0.2.0b+SVN
+ * @var integer
+ */
+    protected static $db_cur = self::DB_DEFAULT_ID;
+
 
 /**
  * Connects to database.
@@ -409,7 +423,7 @@ class POT
  * Note: Since 0.2.0+SVN this method is static.
  * </p>
  * 
- * @version 0.2.0+SVN
+ * @version 0.2.0b+SVN
  * @param int|null $driver Database driver type.
  * @param array $params Connection info.
  * @throws E_OTS_Generic When driver is not supported or not supported.
@@ -426,6 +440,10 @@ class POT
             throw new LogicException();
         }
 
+		// checks if id is already in use
+		if( self::getDBHandle() != null )
+			throw new E_OTS_Generic(E_OTS_Generic::CONNECT_INVALID_ID);
+
         // $params['driver'] option instead of $driver
         if( !isset($driver) )
         {
@@ -440,27 +458,30 @@ class POT
         }
         unset($params['driver']);
 
+		//
+		$db = null;
+
         // switch() structure provides us further flexibility
         switch($driver)
         {
             // MySQL database
             case self::DB_MYSQL:
-                self::$db = new OTS_DB_MySQL($params);
+                $db = new OTS_DB_MySQL($params);
                 break;
 
             // SQLite database
             case self::DB_SQLITE:
-                self::$db = new OTS_DB_SQLite($params);
+                $db = new OTS_DB_SQLite($params);
                 break;
 
-            // SQLite database
+            // PGSQL database
             case self::DB_PGSQL:
-                self::$db = new OTS_DB_PostgreSQL($params);
+                $db = new OTS_DB_PostgreSQL($params);
                 break;
 
             // SQLite database
             case self::DB_ODBC:
-                self::$db = new OTS_DB_ODBC($params);
+                $db = new OTS_DB_ODBC($params);
                 break;
 
             // unsupported driver
@@ -468,8 +489,12 @@ class POT
                 throw new E_OTS_Generic(E_OTS_Generic::CONNECT_INVALID_DRIVER);
         }
 
-        self::$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+		// Add db connection to pool
+		self::$db_pool[self::$db_cur] = $db;
     }
+
 
 /**
  * Returns database connection handle.
@@ -490,15 +515,37 @@ class POT
  * Note: Since 0.2.0+SVN this method is static.
  * </p>
  * 
- * @version 0.2.0+SVN
+ * @version 0.2.0b+SVN
  * @since 0.0.4
  * @return PDO Database connection handle.
  */
     public static function getDBHandle()
     {
-        return self::$db;
+		// DB is not set?
+		if ( !isset(self::$db_cur) || self::$db_cur < 0 )
+			throw new E_OTS_Generic(E_OTS_Generic::DB_INVALID_ID);
+
+        return self::$db_pool[self::$db_cur];
+    }
+	
+	
+/**
+ * Sets current database's index.
+ * 
+ * 
+ * You may use this function to select the database you want to use. 
+ *
+ * @version 0.2.0b+SVN
+ * @since 0.2.0b+SVN
+ * @set current database handle.
+ */
+    public static function setCurrentDB($db_id = self::DB_DEFAULT_ID)
+    {
+	if( isset($db_id) && $db_id >= 0 )
+		self::$db_cur = $db_id;
     }
 
+	
 /**
  * List of vocations.
  * 
