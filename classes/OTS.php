@@ -441,8 +441,8 @@ class POT
         }
 
 		// checks if id is already in use
-		if( self::getDBHandle() != null )
-			throw new E_OTS_Generic(E_OTS_Generic::CONNECT_INVALID_ID);
+			if( self::getDBHandle() != null )
+				throw new E_OTS_Generic(E_OTS_Generic::DB_INVALID_ID);
 
         // $params['driver'] option instead of $driver
         if( !isset($driver) )
