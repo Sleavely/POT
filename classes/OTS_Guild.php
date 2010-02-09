@@ -17,7 +17,7 @@
  * @since 0.0.4
  * @property string $read Guild name.
  * @property OTS_Player $owner Guild founder.
- * @property int $creationData Guild creation data (mostly timestamp).
+ * @property int $creationDate Guild creation data (mostly timestamp).
  * @property-read int $id Guild ID.
  * @property-read bool $loaded Loaded state.
  * @property-read OTS_GuildRanks_List $guildRanksList Ranks in this guild.
@@ -132,7 +132,7 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('ownerid') . ', ' . $this->db->fieldName('creationdata') . ' FROM ' . $this->db->tableName('guilds') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('owner_id') . ', ' . $this->db->fieldName('creationdate') . ' FROM ' . $this->db->tableName('guilds') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
     }
 
 /**
@@ -184,13 +184,13 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
         if( isset($this->data['id']) )
         {
             // UPDATE query on database
-            $this->db->query('UPDATE ' . $this->db->tableName('guilds') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($this->data['name']) . ', ' . $this->db->fieldName('ownerid') . ' = ' . $this->data['ownerid'] . ', ' . $this->db->fieldName('creationdata') . ' = ' . $this->data['creationdata'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+            $this->db->query('UPDATE ' . $this->db->tableName('guilds') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($this->data['name']) . ', ' . $this->db->fieldName('owner_id') . ' = ' . $this->data['owner_id'] . ', ' . $this->db->fieldName('creationdate') . ' = ' . $this->data['creationdate'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
         }
         // creates new guild
         else
         {
             // INSERT query on database
-            $this->db->query('INSERT INTO ' . $this->db->tableName('guilds') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('ownerid') . ', ' . $this->db->fieldName('creationdata') . ') VALUES (' . $this->db->quote($this->data['name']) . ', ' . $this->data['ownerid'] . ', ' . $this->data['creationdata'] . ')');
+            $this->db->query('INSERT INTO ' . $this->db->tableName('guilds') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('owner_id') . ', ' . $this->db->fieldName('creationdate') . ') VALUES (' . $this->db->quote($this->data['name']) . ', ' . $this->data['owner_id'] . ', ' . $this->data['creationdate'] . ')');
             // ID of new group
             $this->data['id'] = $this->db->lastInsertId();
         }
@@ -259,13 +259,13 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  */
     public function getOwner()
     {
-        if( !isset($this->data['ownerid']) )
+        if( !isset($this->data['owner_id']) )
         {
             throw new E_OTS_NotLoaded();
         }
 
         $owner = new OTS_Player();
-        $owner->load($this->data['ownerid']);
+        $owner->load($this->data['owner_id']);
         return $owner;
     }
 
@@ -283,7 +283,7 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  */
     public function setOwner(OTS_Player $owner)
     {
-        $this->data['ownerid'] = $owner->getId();
+        $this->data['owner_id'] = $owner->getId();
     }
 
 /**
@@ -294,14 +294,14 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  * @return int Guild creation data.
  * @throws E_OTS_NotLoaded If guild is not loaded.
  */
-    public function getCreationData()
+    public function getCreationDate()
     {
-        if( !isset($this->data['creationdata']) )
+        if( !isset($this->data['creationdate']) )
         {
             throw new E_OTS_NotLoaded();
         }
 
-        return $this->data['creationdata'];
+        return $this->data['creationdate'];
     }
 
 /**
@@ -313,11 +313,11 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
  * 
  * @version 0.0.4
  * @since 0.0.4
- * @param int $creationdata Guild creation data.
+ * @param int $creationdate Guild creation data.
  */
-    public function setCreationData($creationdata)
+    public function setCreationDate($creationdate)
     {
-        $this->data['creationdata'] = (int) $creationdata;
+        $this->data['creationdate'] = (int) $creationdate;
     }
 
 /**
@@ -732,8 +732,8 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
             case 'owner':
                 return $this->getOwner();
 
-            case 'creationData':
-                return $this->getCreationData();
+            case 'creationDate':
+                return $this->getCreationDate();
 
             case 'guildRanksList':
                 return $this->getGuildRanksList();
@@ -771,8 +771,8 @@ class OTS_Guild extends OTS_Row_DAO implements IteratorAggregate, Countable
                 $this->setOwner($value);
                 break;
 
-            case 'creationData':
-                $this->setCreationData($value);
+            case 'creationDate':
+                $this->setCreationDate($value);
                 break;
 
             case 'invitesDriver':

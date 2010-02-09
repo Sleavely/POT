@@ -43,7 +43,6 @@
  * @property int $lastIP Last login IP number.
  * @property string $conditions Binary conditions.
  * @property int $skullTime Timestamp for which skull will last.
- * @property string $guildNick Guild title.
  * @property OTS_GuildRank $rank Guild rank.
  * @property int $townId Residence town.
  * @property int $lossExperience Experience loosing rate.
@@ -79,7 +78,7 @@ class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
  * @version 0.2.0+SVN
  * @var array
  */
-    protected $data = array('sex' => POT::SEX_FEMALE, 'vocation' => 0, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'healthmax' => 100, 'mana' => 100, 'manamax' => 100, 'manaspent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastlogout' => 0, 'lastip' => 0, 'save' => true, 'skull_type' => 0, 'skull_time' => 0, 'guildnick' => '', 'loss_experience' => 100, 'loss_mana' => 100, 'loss_skills' => 100, 'loss_items' => 10, 'loss_containers' => 100, 'rank_id' => 0, 'town_id' => 1, 'balance' => 0, 'stamina' => 151200000, 'online' => 0);
+    protected $data = array('sex' => POT::SEX_FEMALE, 'vocation' => 0, 'experience' => 0, 'level' => 1, 'maglevel' => 0, 'health' => 100, 'healthmax' => 100, 'mana' => 100, 'manamax' => 100, 'manaspent' => 0, 'soul' => 0, 'direction' => POT::DIRECTION_NORTH, 'lookbody' => 10, 'lookfeet' => 10, 'lookhead' => 10, 'looklegs' => 10, 'looktype' => 136, 'lookaddons' => 0, 'posx' => 0, 'posy' => 0, 'posz' => 0, 'cap' => 0, 'lastlogin' => 0, 'lastlogout' => 0, 'lastip' => 0, 'save' => true, 'skull_type' => 0, 'skull_time' => 0, 'loss_experience' => 100, 'loss_mana' => 100, 'loss_skills' => 100, 'loss_items' => 10, 'loss_containers' => 100, 'town_id' => 1, 'balance' => 0, 'stamina' => 151200000, 'online' => 0);
 
 /**
  * Player skills.
@@ -114,7 +113,7 @@ class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
     public function load($id)
     {
         // SELECT query on database
-        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastlogout') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('skull_type') . ', ' . $this->db->fieldName('skull_time') . ', ' . $this->db->fieldName('guildnick') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ', ' . $this->db->fieldName('loss_items') . ', ' . $this->db->fieldName('loss_containers') . ', ' . $this->db->fieldName('rank_id') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('balance') . ', ' . $this->db->fieldName('stamina') . ', ' . $this->db->fieldName('online') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
+        $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastlogout') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('skull_type') . ', ' . $this->db->fieldName('skull_time') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ', ' . $this->db->fieldName('loss_items') . ', ' . $this->db->fieldName('loss_containers') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('balance') . ', ' . $this->db->fieldName('stamina') . ', ' . $this->db->fieldName('online') . ' FROM ' . $this->db->tableName('players') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
 
         // loads skills
         if( $this->isLoaded() )
@@ -173,13 +172,13 @@ class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
         if( isset($this->data['id']) )
         {
             // UPDATE query on database
-            $this->db->query('UPDATE ' . $this->db->tableName('players') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($this->data['name']) . ', ' . $this->db->fieldName('account_id') . ' = ' . $this->data['account_id'] . ', ' . $this->db->fieldName('group_id') . ' = ' . $this->data['group_id'] . ', ' . $this->db->fieldName('sex') . ' = ' . $this->data['sex'] . ', ' . $this->db->fieldName('vocation') . ' = ' . $this->data['vocation'] . ', ' . $this->db->fieldName('experience') . ' = ' . $this->data['experience'] . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ', ' . $this->db->fieldName('maglevel') . ' = ' . $this->data['maglevel'] . ', ' . $this->db->fieldName('health') . ' = ' . $this->data['health'] . ', ' . $this->db->fieldName('healthmax') . ' = ' . $this->data['healthmax'] . ', ' . $this->db->fieldName('mana') . ' = ' . $this->data['mana'] . ', ' . $this->db->fieldName('manamax') . ' = ' . $this->data['manamax'] . ', ' . $this->db->fieldName('manaspent') . ' = ' . $this->data['manaspent'] . ', ' . $this->db->fieldName('soul') . ' = ' . $this->data['soul'] . ', ' . $this->db->fieldName('direction') . ' = ' . $this->data['direction'] . ', ' . $this->db->fieldName('lookbody') . ' = ' . $this->data['lookbody'] . ', ' . $this->db->fieldName('lookfeet') . ' = ' . $this->data['lookfeet'] . ', ' . $this->db->fieldName('lookhead') . ' = ' . $this->data['lookhead'] . ', ' . $this->db->fieldName('looklegs') . ' = ' . $this->data['looklegs'] . ', ' . $this->db->fieldName('looktype') . ' = ' . $this->data['looktype'] . ', ' . $this->db->fieldName('lookaddons') . ' = ' . $this->data['lookaddons'] . ', ' . $this->db->fieldName('posx') . ' = ' . $this->data['posx'] . ', ' . $this->db->fieldName('posy') . ' = ' . $this->data['posy'] . ', ' . $this->db->fieldName('posz') . ' = ' . $this->data['posz'] . ', ' . $this->db->fieldName('cap') . ' = ' . $this->data['cap'] . ', ' . $this->db->fieldName('lastlogin') . ' = ' . $this->data['lastlogin'] . ', ' . $this->db->fieldName('lastlogout') . ' = ' . $this->data['lastlogout'] . ', ' . $this->db->fieldName('lastip') . ' = ' . $this->data['lastip'] . ', ' . $this->db->fieldName('save') . ' = ' . (int) $this->data['save'] . ', ' . $this->db->fieldName('conditions') . ' = ' . $this->db->quote($this->data['conditions']) . ', ' . $this->db->fieldName('skull_type') . ' = ' . $this->data['skull_type'] . ', ' . $this->db->fieldName('skull_time') . ' = ' . (int) $this->data['skull_time'] . ', ' . $this->db->fieldName('guildnick') . ' = ' . $this->db->quote($this->data['guildnick']) . ', ' . $this->db->fieldName('loss_experience') . ' = ' . $this->data['loss_experience'] . ', ' . $this->db->fieldName('loss_mana') . ' = ' . $this->data['loss_mana'] . ', ' . $this->db->fieldName('loss_skills') . ' = ' . $this->data['loss_skills'] . ', ' . $this->db->fieldName('loss_items') . ' = ' . $this->data['loss_items'] . ', ' . $this->db->fieldName('loss_containers') . ' = ' . $this->data['loss_containers'] . ', ' . $this->db->fieldName('rank_id') . ' = ' . $this->data['rank_id'] . ', ' . $this->db->fieldName('town_id') . ' = ' . $this->data['town_id'] . ', ' . $this->db->fieldName('balance') . ' = ' . $this->data['balance'] . ', ' . $this->db->fieldName('stamina') . ' = ' . $this->data['stamina'] . ', ' . $this->db->fieldName('online') . ' = ' . (int) $this->data['online'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
+            $this->db->query('UPDATE ' . $this->db->tableName('players') . ' SET ' . $this->db->fieldName('name') . ' = ' . $this->db->quote($this->data['name']) . ', ' . $this->db->fieldName('account_id') . ' = ' . $this->data['account_id'] . ', ' . $this->db->fieldName('group_id') . ' = ' . $this->data['group_id'] . ', ' . $this->db->fieldName('sex') . ' = ' . $this->data['sex'] . ', ' . $this->db->fieldName('vocation') . ' = ' . $this->data['vocation'] . ', ' . $this->db->fieldName('experience') . ' = ' . $this->data['experience'] . ', ' . $this->db->fieldName('level') . ' = ' . $this->data['level'] . ', ' . $this->db->fieldName('maglevel') . ' = ' . $this->data['maglevel'] . ', ' . $this->db->fieldName('health') . ' = ' . $this->data['health'] . ', ' . $this->db->fieldName('healthmax') . ' = ' . $this->data['healthmax'] . ', ' . $this->db->fieldName('mana') . ' = ' . $this->data['mana'] . ', ' . $this->db->fieldName('manamax') . ' = ' . $this->data['manamax'] . ', ' . $this->db->fieldName('manaspent') . ' = ' . $this->data['manaspent'] . ', ' . $this->db->fieldName('soul') . ' = ' . $this->data['soul'] . ', ' . $this->db->fieldName('direction') . ' = ' . $this->data['direction'] . ', ' . $this->db->fieldName('lookbody') . ' = ' . $this->data['lookbody'] . ', ' . $this->db->fieldName('lookfeet') . ' = ' . $this->data['lookfeet'] . ', ' . $this->db->fieldName('lookhead') . ' = ' . $this->data['lookhead'] . ', ' . $this->db->fieldName('looklegs') . ' = ' . $this->data['looklegs'] . ', ' . $this->db->fieldName('looktype') . ' = ' . $this->data['looktype'] . ', ' . $this->db->fieldName('lookaddons') . ' = ' . $this->data['lookaddons'] . ', ' . $this->db->fieldName('posx') . ' = ' . $this->data['posx'] . ', ' . $this->db->fieldName('posy') . ' = ' . $this->data['posy'] . ', ' . $this->db->fieldName('posz') . ' = ' . $this->data['posz'] . ', ' . $this->db->fieldName('cap') . ' = ' . $this->data['cap'] . ', ' . $this->db->fieldName('lastlogin') . ' = ' . $this->data['lastlogin'] . ', ' . $this->db->fieldName('lastlogout') . ' = ' . $this->data['lastlogout'] . ', ' . $this->db->fieldName('lastip') . ' = ' . $this->data['lastip'] . ', ' . $this->db->fieldName('save') . ' = ' . (int) $this->data['save'] . ', ' . $this->db->fieldName('conditions') . ' = ' . $this->db->quote($this->data['conditions']) . ', ' . $this->db->fieldName('skull_type') . ' = ' . $this->data['skull_type'] . ', ' . $this->db->fieldName('skull_time') . ' = ' . (int) $this->data['skull_time'] . ', ' . $this->db->fieldName('loss_experience') . ' = ' . $this->data['loss_experience'] . ', ' . $this->db->fieldName('loss_mana') . ' = ' . $this->data['loss_mana'] . ', ' . $this->db->fieldName('loss_skills') . ' = ' . $this->data['loss_skills'] . ', ' . $this->db->fieldName('loss_items') . ' = ' . $this->data['loss_items'] . ', ' . $this->db->fieldName('loss_containers') . ' = ' . $this->data['loss_containers'] . ', ' . $this->db->fieldName('town_id') . ' = ' . $this->data['town_id'] . ', ' . $this->db->fieldName('balance') . ' = ' . $this->data['balance'] . ', ' . $this->db->fieldName('stamina') . ' = ' . $this->data['stamina'] . ', ' . $this->db->fieldName('online') . ' = ' . (int) $this->data['online'] . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->data['id']);
         }
         // creates new player
         else
         {
             // INSERT query on database
-            $this->db->query('INSERT INTO ' . $this->db->tableName('players') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastlogout') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('skull_type') . ', ' . $this->db->fieldName('skull_time') . ', ' . $this->db->fieldName('guildnick') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ', ' . $this->db->fieldName('loss_items') . ', ' . $this->db->fieldName('loss_containers') . ', ' . $this->db->fieldName('rank_id') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('balance') . ', ' . $this->db->fieldName('stamina') . ', ' . $this->db->fieldName('online') . ') VALUES (' . $this->db->quote($this->data['name']) . ', ' . $this->data['account_id'] . ', ' . $this->data['group_id'] . ', ' . $this->data['sex'] . ', ' . $this->data['vocation'] . ', ' . $this->data['experience'] . ', ' . $this->data['level'] . ', ' . $this->data['maglevel'] . ', ' . $this->data['health'] . ', ' . $this->data['healthmax'] . ', ' . $this->data['mana'] . ', ' . $this->data['manamax'] . ', ' . $this->data['manaspent'] . ', ' . $this->data['soul'] . ', ' . $this->data['direction'] . ', ' . $this->data['lookbody'] . ', ' . $this->data['lookfeet'] . ', ' . $this->data['lookhead'] . ', ' . $this->data['looklegs'] . ', ' . $this->data['looktype'] . ', ' . $this->data['lookaddons'] . ', ' . $this->data['posx'] . ', ' . $this->data['posy'] . ', ' . $this->data['posz'] . ', ' . $this->data['cap'] . ', ' . $this->data['lastlogin'] . ', ' . $this->data['lastlogout'] . ', ' . $this->data['lastip'] . ', ' . (int) $this->data['save'] . ', ' . $this->db->quote($this->data['conditions']) . ', ' . $this->data['skull_type'] . ', ' . (int) $this->data['skull_time'] . ', ' . $this->db->quote($this->data['guildnick']) . ', ' . $this->data['loss_experience'] . ', ' . $this->data['loss_mana'] . ', ' . $this->data['loss_skills'] . ', ' . $this->data['loss_items'] . ', ' . $this->data['loss_containers'] . ', ' . $this->data['rank_id'] . ', ' . $this->data['town_id'] . ', ' . $this->data['balance'] . ', ' . $this->data['stamina'] . ', ' . (int) $this->data['online'] . ')');
+            $this->db->query('INSERT INTO ' . $this->db->tableName('players') . ' (' . $this->db->fieldName('name') . ', ' . $this->db->fieldName('account_id') . ', ' . $this->db->fieldName('group_id') . ', ' . $this->db->fieldName('sex') . ', ' . $this->db->fieldName('vocation') . ', ' . $this->db->fieldName('experience') . ', ' . $this->db->fieldName('level') . ', ' . $this->db->fieldName('maglevel') . ', ' . $this->db->fieldName('health') . ', ' . $this->db->fieldName('healthmax') . ', ' . $this->db->fieldName('mana') . ', ' . $this->db->fieldName('manamax') . ', ' . $this->db->fieldName('manaspent') . ', ' . $this->db->fieldName('soul') . ', ' . $this->db->fieldName('direction') . ', ' . $this->db->fieldName('lookbody') . ', ' . $this->db->fieldName('lookfeet') . ', ' . $this->db->fieldName('lookhead') . ', ' . $this->db->fieldName('looklegs') . ', ' . $this->db->fieldName('looktype') . ', ' . $this->db->fieldName('lookaddons') . ', ' . $this->db->fieldName('posx') . ', ' . $this->db->fieldName('posy') . ', ' . $this->db->fieldName('posz') . ', ' . $this->db->fieldName('cap') . ', ' . $this->db->fieldName('lastlogin') . ', ' . $this->db->fieldName('lastlogout') . ', ' . $this->db->fieldName('lastip') . ', ' . $this->db->fieldName('save') . ', ' . $this->db->fieldName('conditions') . ', ' . $this->db->fieldName('skull_type') . ', ' . $this->db->fieldName('skull_time') . ', ' . $this->db->fieldName('loss_experience') . ', ' . $this->db->fieldName('loss_mana') . ', ' . $this->db->fieldName('loss_skills') . ', ' . $this->db->fieldName('loss_items') . ', ' . $this->db->fieldName('loss_containers') . ', ' . $this->db->fieldName('town_id') . ', ' . $this->db->fieldName('balance') . ', ' . $this->db->fieldName('stamina') . ', ' . $this->db->fieldName('online') . ') VALUES (' . $this->db->quote($this->data['name']) . ', ' . $this->data['account_id'] . ', ' . $this->data['group_id'] . ', ' . $this->data['sex'] . ', ' . $this->data['vocation'] . ', ' . $this->data['experience'] . ', ' . $this->data['level'] . ', ' . $this->data['maglevel'] . ', ' . $this->data['health'] . ', ' . $this->data['healthmax'] . ', ' . $this->data['mana'] . ', ' . $this->data['manamax'] . ', ' . $this->data['manaspent'] . ', ' . $this->data['soul'] . ', ' . $this->data['direction'] . ', ' . $this->data['lookbody'] . ', ' . $this->data['lookfeet'] . ', ' . $this->data['lookhead'] . ', ' . $this->data['looklegs'] . ', ' . $this->data['looktype'] . ', ' . $this->data['lookaddons'] . ', ' . $this->data['posx'] . ', ' . $this->data['posy'] . ', ' . $this->data['posz'] . ', ' . $this->data['cap'] . ', ' . $this->data['lastlogin'] . ', ' . $this->data['lastlogout'] . ', ' . $this->data['lastip'] . ', ' . (int) $this->data['save'] . ', ' . $this->db->quote($this->data['conditions']) . ', ' . $this->data['skull_type'] . ', ' . (int) $this->data['skull_time'] . ', ' . $this->data['loss_experience'] . ', ' . $this->data['loss_mana'] . ', ' . $this->data['loss_skills'] . ', ' . $this->data['loss_items'] . ', ' . $this->data['loss_containers'] . ', ' . $this->data['town_id'] . ', ' . $this->data['balance'] . ', ' . $this->data['stamina'] . ', ' . (int) $this->data['online'] . ')');
             // ID of new group
             $this->data['id'] = $this->db->lastInsertId();
         }
@@ -1447,106 +1446,6 @@ class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
     public function setSkull()
     {
         $this->data['skull_type'] = true;
-    }
-
-/**
- * Guild nick.
- * 
- * <p>
- * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded} exception instead of triggering E_USER_WARNING.
- * </p>
- * 
- * @version 0.0.3
- * @return string Guild title.
- * @throws E_OTS_NotLoaded If player is not loaded.
- */
-    public function getGuildNick()
-    {
-        if( !isset($this->data['guildnick']) )
-        {
-            throw new E_OTS_NotLoaded();
-        }
-
-        return $this->data['guildnick'];
-    }
-
-/**
- * Sets guild nick.
- * 
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
- * </p>
- * 
- * @version 0.0.1
- * @param string $guildnick Name.
- */
-    public function setGuildNick($guildnick)
-    {
-        $this->data['guildnick'] = (string) $guildnick;
-    }
-
-/**
- * Assigned guild rank.
- * 
- * <p>
- * Note: Since 0.0.3 version this method throws {@link E_OTS_NotLoaded E_OTS_NotLoaded} exception instead of triggering E_USER_WARNING.
- * </p>
- * 
- * @version 0.1.0
- * @return OTS_GuildRank|null Guild rank (null if not member of any).
- * @throws E_OTS_NotLoaded If player is not loaded.
- * @throws PDOException On PDO operation error.
- */
-    public function getRank()
-    {
-        if( !isset($this->data['rank_id']) )
-        {
-            throw new E_OTS_NotLoaded();
-        }
-
-        if($this->data['rank_id'] == 0)
-        {
-            return null;
-        }
-
-        $guildRank = new OTS_GuildRank();
-        $guildRank->load($this->data['rank_id']);
-        return $guildRank;
-    }
-
-/**
- * Assigns guild rank.
- * 
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
- * </p>
- * 
- * <p>
- * Note: Since 0.2.0+SVN version this method only assigns rank. To clear rank assignment use {@link OTS_Player::unsetRank() unsetRank() method}.
- * </p>
- * 
- * @version 0.2.0+SVN
- * @param OTS_GuildRank Guild rank.
- * @throws E_OTS_NotLoaded If passed <var>$guildRank</var> parameter is not loaded.
- */
-    public function setRank(OTS_GuildRank $guildRank)
-    {
-        $this->data['rank_id'] = $guildRank->getId();
-    }
-
-/**
- * Unassigns guild rank.
- * 
- * <p>
- * This method only updates object state. To save changes in database you need to use {@link OTS_Player::save() save() method} to flush changes to database.
- * </p>
- * 
- * @version 0.2.0+SVN
- * @since 0.2.0+SVN
- */
-    public function unsetRank()
-    {
-        $this->data['rank_id'] = 0;
     }
 
 /**
@@ -2818,9 +2717,6 @@ class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
             case 'skull':
                 return $this->hasSkull();
 
-            case 'guildNick':
-                return $this->getGuildNick();
-
             case 'rank':
                 return $this->getRank();
 
@@ -3014,11 +2910,7 @@ class OTS_Player extends OTS_Row_DAO implements IteratorAggregate, Countable
             case 'skullTime':
                 $this->setSkullTime($value);
                 break;
-
-            case 'guildNick':
-                $this->setGuildNick($value);
-                break;
-
+								
             case 'rank':
                 if( isset($value) )
                 {
