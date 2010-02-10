@@ -525,7 +525,10 @@ class POT
 		if ( !isset(self::$db_cur) || self::$db_cur < 0 )
 			throw new E_OTS_Generic(E_OTS_Generic::DB_INVALID_ID);
 
-        return self::$db_pool[self::$db_cur];
+			if(!isset(self::$db_pool) || !isset(self::$db_pool[self::$db_cur]))
+				return null;
+				
+      return self::$db_pool[self::$db_cur];
     }
 	
 	
