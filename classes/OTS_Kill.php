@@ -61,6 +61,27 @@ class OTS_Kill extends OTS_Row_DAO implements IteratorAggregate, Countable
             $this->environments = $this->db->query('SELECT ' . $this->db->fieldName('name') . ' FROM ' . $this->db->tableName('environment_killers') . ' WHERE ' . $this->db->fieldName('kill_id') . ' = ' . $this->data['id'])->fetchAll(PDO::FETCH_COLUMN);
         }
     }
+		
+/**
+ * Load kill by player id.
+ *
+ * @version 0.2.0b+SVN
+ * @since 0.2.0b+SVN
+ * @param integer $player_id Player ID
+ * @throws PDOException On PDO operation error.
+ */
+ 
+		public function find($player_id)
+		{
+				// finds killer's ID
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('death_id') . ' FROM ' . $this->db->tableName('killers') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . $this->db->quote($player_id) )->fetchColumn();
+
+        // if anything was found
+        if($id !== false)
+        {
+            $this->load($id);
+        }
+		}
 
 /**
  * Checks if object is loaded.

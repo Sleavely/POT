@@ -46,6 +46,27 @@ class OTS_Death extends OTS_Row_DAO implements IteratorAggregate, Countable
         // SELECT query on database
         $this->data = $this->db->query('SELECT ' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('date') . ', ' . $this->db->fieldName('level') . ' FROM ' . $this->db->tableName('player_deaths') . ' WHERE ' . $this->db->fieldName('id') . ' = ' . (int) $id)->fetch();
     }
+		
+/**
+ * Load death by player id.
+ *
+ * @version 0.2.0b+SVN
+ * @since 0.2.0b+SVN
+ * @param integer $player_id Player ID
+ * @throws PDOException On PDO operation error.
+ */
+ 
+		public function find($player_id)
+		{
+				// finds deaths's ID
+        $id = $this->db->query('SELECT ' . $this->db->fieldName('id') . ' FROM ' . $this->db->tableName('player_deaths') . ' WHERE ' . $this->db->fieldName('player_id') . ' = ' . $this->db->quote($player_id) )->fetchColumn();
+
+        // if anything was found
+        if($id !== false)
+        {
+            $this->load($id);
+        }
+		}
 
 /**
  * Checks if object is loaded.
