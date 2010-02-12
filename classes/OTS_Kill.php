@@ -372,7 +372,7 @@ class OTS_Kill extends OTS_Row_DAO implements IteratorAggregate, Countable
             throw new E_OTS_NotLoaded();
         }
 
-        $list = new OTS_Kills_List();
+        $list = new OTS_Player_List();
 
         // foreign table fields identifiers
         $field1 = new OTS_SQLField('kill_id', 'player_killers');
