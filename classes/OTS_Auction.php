@@ -86,7 +86,7 @@ class OTS_Auction extends OTS_Base_DAO
         // inserts new record
         if( empty($this->data) )
         {
-            $this->db->query('INSERT INTO ' . $this->db->tableName('house_auctions') . ' (' . $this->db->fieldName('id') . ', ' . $this->db->fieldName('house_id') . ', ' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('bid') . ', ' . $this->db->fieldName('limit') . ', ' . $this->db->fieldName('endtime') . ') VALUES ('', ' . $this->getId() . ', ' . $this->data['player_id'] . ', ' . (int) $this->data['bid'] . ', ' . $this->data['limit'] . ', ' . $this->data['endtime'] . ')');
+            $this->db->query('INSERT INTO ' . $this->db->tableName('house_auctions') . ' (' . $this->db->fieldName('house_id') . ', ' . $this->db->fieldName('player_id') . ', ' . $this->db->fieldName('bid') . ', ' . $this->db->fieldName('limit') . ', ' . $this->db->fieldName('endtime') . ') VALUES (' . $this->getId() . ', ' . $this->data['player_id'] . ', ' . (int) $this->data['bid'] . ', ' . $this->data['limit'] . ', ' . $this->data['endtime'] . ')');
         }
         // updates previous one
         else
