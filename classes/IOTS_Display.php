@@ -92,7 +92,21 @@ interface IOTS_Display
  * @param OTS_GuildRanks_List $guildRanksList List to be displayed.
  * @return string String representation.
  */
-    public function displayGuildRanksList(OTS_GuildRanks_List $guildRanksList);
+		public function displayGuildRanksList(OTS_GuildRanks_List $guildRanksList);
+	/**
+ * Displays auction.
+ * 
+ * @param OTS_Auction $auction Auction to be displayed.
+ * @return string String representation.
+ */
+    public function displayAuction(OTS_Auction $auction);
+/**
+ * Displays auctions list.
+ * 
+ * @param OTS_Auctions_List $auctionList List to be displayed.
+ * @return string String representation.
+ */
+    public function displayAuctionsList(OTS_Auctions_List $auctionList);
 }
 
 /**#@-*/
