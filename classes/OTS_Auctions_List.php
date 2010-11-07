@@ -58,4 +58,4 @@ class OTS_Auctions_List extends OTS_Base_List
  	}
 }
  
- ?>
+?>
