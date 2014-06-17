@@ -165,7 +165,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
     const ITEM_ATTR_TOPORDER = 43;
 
 /**
- * Temple positions.
+ * Parsed items.
  * 
  * @version 0.0.8
  * @since 0.0.8
