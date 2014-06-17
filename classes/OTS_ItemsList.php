@@ -146,6 +146,10 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
  */
     const ITEM_ATTR_SPEED = 20;
 /**
+ * Minimap color.
+ */
+    const ITEM_ATTR_MINIMAPCOLOR = 33;
+/**
  * Light.
  * 
  * @version 0.0.8
@@ -343,6 +347,7 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
             $lightLevel = null;
             $lightColor = null;
             $topOrder = null;
+            $minimapColor = null;
 
             // reads flags
             $flags = $node->getLong();
@@ -411,6 +416,17 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
                         $topOrder = $node->getChar();
                         break;
 
+                    // Minimap color
+                    case self::ITEM_ATTR_MINIMAPCOLOR:
+                        // checks length
+                        if($length != 2)
+                        {
+                            throw E_OTS_FileLoaderError(E_OTS_FileLoaderError::ERROR_INVALID_FORMAT);
+                        }
+
+                        $minimapColor = $node->getShort();
+                        break;
+
                     // skips unknown attributes
                     default:
                         $node->skip($length);
@@ -448,6 +464,11 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
                 if( isset($topOrder) )
                 {
                     $type->setAttribute('topOrder', $topOrder);
+                }
+
+                if( isset($minimapColor) )
+                {
+                    $type->setAttribute('minimapColor', $minimapColor);
                 }
 
                 switch( $node->getType() )
