@@ -375,6 +375,13 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
     protected $waypoints = array();
 
 /**
+ * Multidimensional array of tiles in order Z, X, Y
+ *
+ * @var array
+ */
+    public $tiles = array();
+
+/**
  * Magic PHP5 method.
  * 
  * <p>
@@ -485,13 +492,47 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
                     $baseY = $node->getShort();
                     $z = $node->getChar();
 
-                    $tile = $node->getChild();
-
-                    // reads houses tiles
-                    while($tile)
+                    $tileNode = $node->getChild();
+                    while($tileNode)
                     {
+                        // Save tiles to $this->tiles array
+                        if( $tileNode->getType() == self::OTBM_NODE_TILE)
+                        {
+                          $tile = array();
+
+                          // reads tile coords
+                          $offsetX = $tileNode->getChar();
+                          $offsetY = $tileNode->getChar();
+                          $coords = new OTS_MapCoords($baseX + $offsetX, $baseY + $offsetY, $z);
+
+                          // Find ground item
+                          if($tileNode->isValid())
+                          {
+                            switch( $tileNode->getChar() )
+                            {
+                              case self::OTBM_ATTR_ITEM :
+                                $itemID = $tileNode->getShort();
+                                $tile['itemid'] = $itemID;
+                                break;
+                            }
+                          }
+
+                          // Find subsequent items on the tile
+                          $item = $tileNode->getChild();
+                          while($item){
+                            if($item->getType() == self::OTBM_NODE_ITEM)
+                            {
+                              if(!isset($tile['children'])) $tile['children'] = array();
+                              $tile['children'][] = $this->parseItem($item);
+                            }
+                            $item = $item->getNext();
+                          }
+                          $this->addTile($tile, $coords->x, $coords->y, $coords->z);
+
+                        }
+                        // reads houses tiles
                         // we dont need other tiles at the moment in POT, feel free to add it's suport on yourself
-                        if( $tile->getType() == self::OTBM_NODE_HOUSETILE)
+                        if( $tileNode->getType() == self::OTBM_NODE_HOUSETILE)
                         {
                             // reads tile coords
                             $offsetX = $tile->getChar();
@@ -499,11 +540,11 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
                             $coords = new OTS_MapCoords($baseX + $offsetX, $baseY + $offsetY, $z);
 
                             // reads house by it's ID
-                            $house = $this->housesList->getHouse( $tile->getLong() );
+                            $house = $this->housesList->getHouse( $tileNode->getLong() );
                             $house->addTile($coords);
                         }
 
-                        $tile = $tile->getNext();
+                        $tileNode = $tileNode->getNext();
                     }
                     break;
 
@@ -571,6 +612,45 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
 
             $node = $node->getNext();
         }
+    }
+
+/**
+ * Parse an OTBM item node recursively
+ *
+ * @param OTS_Buffer $node
+ * @return array Nested array of items and their children
+ */
+    private function parseItem($node){
+      $itemID = $node->getShort();
+      $item = array('itemid' => $itemID);
+
+      $child = $node->getChild();
+      //if there are children
+      while($child)
+      {
+        if($child->getType() == self::OTBM_NODE_ITEM)
+        {
+          if(!isset($item['children'])) $item['children'] = array();
+          $item['children'][] = $this->parseItem($child);
+        }
+        $child = $child->getNext();
+      }
+
+      return $item;
+    }
+
+/**
+ * Helper to add a tile to $this->tiles
+ *
+ * @param array $tile Tile data
+ * @param int $posx
+ * @param int $posy
+ * @param int $posz
+ */
+    private function addTile($tile, $posx, $posy, $posz){
+      if(!isset($this->tiles[$posz])) $this->tiles[$posz] = array();
+      if(!isset($this->tiles[$posz][$posx])) $this->tiles[$posz][$posx] = array();
+      $this->tiles[$posz][$posx][$posy] = $tile;
     }
 
 /**
@@ -650,6 +730,15 @@ class OTS_OTBMFile extends OTS_FileLoader implements IteratorAggregate, Countabl
         return isset($this->towns[$id]);
     }
 
+/**
+ * Returns map houses list
+ *
+ * @return array List of houses
+ */
+    public function getTowns(){
+      return $this->towns;
+    }
+	
 /**
  * Returns town's ID.
  * 
