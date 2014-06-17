@@ -252,16 +252,41 @@ class OTS_ItemsList extends OTS_FileLoader implements IteratorAggregate, Countab
             foreach( $xml->documentElement->getElementsByTagName('item') as $tag)
             {
                 // composes basic item info
-                $item = new OTS_ItemType( $tag->getAttribute('id') );
-                $item->setName( $tag->getAttribute('name') );
-
-                // reads attributes
-                foreach( $tag->getElementsByTagName('attribute') as $attribute)
+                if($tag->getAttribute('id'))
                 {
-                    $item->setAttribute( $attribute->getAttribute('key'), $attribute->getAttribute('value') );
+                  $item = new OTS_ItemType( $tag->getAttribute('id') );
+                  $item->setName( $tag->getAttribute('name') );
+  
+                  // reads attributes
+                  foreach( $tag->getElementsByTagName('attribute') as $attribute)
+                  {
+                      $item->setAttribute( $attribute->getAttribute('key'), $attribute->getAttribute('value') );
+                  }
+  
+                  $this->items[ $item->getId() ] = $item;
                 }
-
-                $this->items[ $item->getId() ] = $item;
+                else if($tag->getAttribute('fromid') && $tag->getAttribute('toid'))
+                {
+                  $from = (int) $tag->getAttribute('fromid');
+                  $to = (int) $tag->getAttribute('toid');
+                  for($current = $from; $current <= $to; $current++)
+                  {
+                    $item = new OTS_ItemType( $current );
+                    $item->setName( $tag->getAttribute('name') );
+    
+                    // reads attributes
+                    foreach( $tag->getElementsByTagName('attribute') as $attribute)
+                    {
+                        $item->setAttribute( $attribute->getAttribute('key'), $attribute->getAttribute('value') );
+                    }
+    
+                    $this->items[ $current ] = $item;
+                  }
+                }
+                else
+                {
+                  throw new Exception('Item tag could not be parsed. Its probably retarded and its parents never loved it.');
+                }
             }
         }
 
